@@ -1,17 +1,15 @@
 #!/bin/bash
 
-##既存ソースの修正 multiの方は既にこの設定があるのでやらない
 # first-spring-security-mybatis3-env.xml
-# jdbcの名前空間、スキーマロケーション
 find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 's|<beans xmlns="http://www.springframework.org/schema/beans"|\
 <beans xmlns="http://www.springframework.org/schema/beans"\
     xmlns:jdbc="http://www.springframework.org/schema/jdbc" |'
 
-# jdbcのスキーマロケーション
+# first-spring-security-mybatis3-env.xml
 find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 's|/spring-beans.xsd|/spring-beans.xsd\
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd|'
 
-# jdbc初期化SQL指定
+# first-spring-security-mybatis3-env.xml
 find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 's|</beans>|\
     <!-- (1) -->\
     <jdbc:initialize-database data-source="dataSource"\
@@ -25,7 +23,6 @@ find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 
 
 
 # spring-security.xml
-# ログインフォームの設定
 find . -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:form-login/>|\
         <!-- (1) -->\
         <sec:form-login login-page="/login.jsp"\
@@ -37,7 +34,7 @@ find . -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:form-login/
             access="permitAll" />\
         <sec:intercept-url pattern="/**" access="isAuthenticated()" />|'
 
-# 認証サービスの設定
+# spring-security.xml
 find . -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:authentication-manager />|\
     <sec:authentication-manager>\
         <!-- com.example.security.domain.service.userdetails.SampleUserDetailsService \

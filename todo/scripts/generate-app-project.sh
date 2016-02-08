@@ -4,7 +4,7 @@
 #${VERSION}=tutorial pj version
 
 
-# mybatis single, mybatis multi, jpa single, jpa multiの型を作成
+# mybatis single, mybatis multi, jpa single, jpa multi
 # mybatis app single
 mvn archetype:generate -B \
  -DarchetypeCatalog=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases \
@@ -46,7 +46,7 @@ mvn archetype:generate -B \
  -Dversion=${VERSION}
 
 
-# チュートリアルで作成するディレクトリを事前にmake app
+# make app
 mkdir -p ./todo-mybatis3/src/main/java/todo/app/todo
 mkdir -p ./todo-mybatis3-multi/todo-mybatis3-multi-web/src/main/java/todo/app/todo
 mkdir -p ./todo-jpa/src/main/java/todo/app/todo
@@ -78,7 +78,7 @@ mkdir -p ./todo-jpa-multi/todo-jpa-multi-web/src/main/webapp/WEB-INF/views/todo/
 
 
 
-# Gitで落としてきた各種完成版ソースをコピー
+# cp sources
 cp -p ./todo/java/TodoForm.java ./todo-mybatis3/src/main/java/todo/app/todo
 cp -p ./todo/java/TodoForm.java ./todo-mybatis3-multi/todo-mybatis3-multi-web/src/main/java/todo/app/todo
 cp -p ./todo/java/TodoForm.java ./todo-jpa/src/main/java/todo/app/todo
@@ -90,7 +90,6 @@ cp -p ./todo/java/TodoController.java ./todo-jpa/src/main/java/todo/app/todo
 cp -p ./todo/java/TodoController.java ./todo-jpa-multi/todo-jpa-multi-web/src/main/java/todo/app/todo
 
 
-# copy domain
 # model
 cp -p ./todo/java/TodoForMybatis.java ./todo-mybatis3/src/main/java/todo/domain/model/Todo.java
 cp -p ./todo/java/TodoForMybatis.java ./todo-mybatis3-multi/todo-mybatis3-multi-domain/src/main/java/todo/domain/model/Todo.java

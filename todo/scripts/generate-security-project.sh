@@ -4,7 +4,7 @@
 #${VERSION}=tutorial pj version
 
 
-# mybatis app singleの方を作成
+# mybatis app single
 mvn archetype:generate -B \
  -DarchetypeCatalog=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
@@ -25,7 +25,7 @@ mvn archetype:generate -B \
  -Dversion=${VERSION}
 
 
-# チュートリアルで作成するディレクトリを事前にmake
+# make app
 mkdir -p ./first-spring-security-mybatis3/src/main/java/com/example/security/domain/model
 mkdir -p ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-domain/src/main/java/com/example/security/domain/model
 
@@ -50,7 +50,7 @@ mkdir -p ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-m
 mkdir -p ./first-spring-security-mybatis3/src/main/webapp/WEB-INF/views/account/
 mkdir -p ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-web/src/main/webapp/WEB-INF/views/account/
 
-# ソースの移動
+# cp security sources
 cp -p ./todo/java/Account.java ./first-spring-security-mybatis3/src/main/java/com/example/security/domain/model
 cp -p ./todo/java/Account.java ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-domain/src/main/java/com/example/security/domain/model
 

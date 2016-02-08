@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# style.cssに追記を行う
+# styles.css
 for i in ` find -type f -name 'styles.css' `; do echo -e ' 
 .strike {
     text-decoration: line-through;

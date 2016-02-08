@@ -4,7 +4,7 @@
 #${VERSION}=tutorial pj version
 
 
-# mybatis single, mybatis multi, jpa single, jpa multiの型を作成
+# mybatis single, mybatis multi, jpa single, jpa multi
 # mybatis app single
 mvn archetype:generate -B \
  -DarchetypeCatalog=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases \
@@ -47,7 +47,7 @@ mvn archetype:generate -B \
 
 
 
-# チュートリアルで作成するディレクトリを事前にmake app
+# make app
 mkdir -p ./todo-api-mybatis3/src/main/java/todo/app/todo
 mkdir -p ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/app/todo
 mkdir -p ./todo-api-jpa/src/main/java/todo/app/todo
@@ -88,8 +88,7 @@ mkdir -p ./todo-api-jpa/src/main/java/todo/api/common/error
 mkdir -p ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/common/error
 
 
-# 前段で作成した各種完成版ソースをコピー
-# copy app(web) もうちょっと賢くやりたいが　-execで検索条件に引っかかったdir直下にコピーとか試したけどうまく動作せず
+# cp sources
 cp -p ./todo/java/TodoForm.java ./todo-api-mybatis3/src/main/java/todo/app/todo
 cp -p ./todo/java/TodoForm.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/app/todo
 cp -p ./todo/java/TodoForm.java ./todo-api-jpa/src/main/java/todo/app/todo
@@ -100,7 +99,6 @@ cp -p ./todo/java/TodoController.java ./todo-api-mybatis3-multi/todo-api-mybatis
 cp -p ./todo/java/TodoController.java ./todo-api-jpa/src/main/java/todo/app/todo
 cp -p ./todo/java/TodoController.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/app/todo
 
-# copy domain
 # model
 cp -p ./todo/java/TodoForMybatis.java ./todo-api-mybatis3/src/main/java/todo/domain/model/Todo.java
 cp -p ./todo/java/TodoForMybatis.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/model/Todo.java
@@ -135,7 +133,7 @@ cp -p ./todo/jsp/list.jsp ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/
 cp -p ./todo/jsp/list.jsp ./todo-api-jpa/src/main/webapp/WEB-INF/views/todo/
 cp -p ./todo/jsp/list.jsp ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/webapp/WEB-INF/views/todo/
 
-# rest
+# rest sources
 cp -p ./todo/java/TodoResource.java ./todo-api-mybatis3/src/main/java/todo/api/todo
 cp -p ./todo/java/TodoResource.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/api/todo
 cp -p ./todo/java/TodoResource.java ./todo-api-jpa/src/main/java/todo/api/todo

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# web.xmlをRestのDispatcherServlet利用に変更
+# web.xml
 find . -type f -name 'web.xml' | xargs sed -i -e 's|<servlet>|\
     <!-- (1) -->\
     <servlet>\
@@ -23,11 +23,11 @@ find . -type f -name 'web.xml' | xargs sed -i -e 's|<servlet>|\
     <servlet>|'
 
 
-# spring-mvc-rest.xmlをspring-mvc.xmlからコピーして作成"
+# spring-mvc-rest.xml
 find . -type f -name "spring-mvc.xml" -print0 | while read -r -d '' file; do cp -i "$file" "${file%%spring-mvc.xml}spring-mvc-rest.xml"; done
 
 
-# spring-mvc-rest.xmlにREST用の設定を追加①"
+# spring-mvc-rest.xml
 find . -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-resolvers>|\
         </mvc:argument-resolvers>\
         <mvc:message-converters register-defaults="false">\
@@ -47,12 +47,12 @@ find . -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-r
         </mvc:message-converters>|'
 
 
-# spring-mvc-rest.xmlにREST用の設定を追加②"
+# spring-mvc-rest.xml
 find . -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|<context:component-scan base-package="todo.app" />|\
     <context:component-scan base-package="todo.api" />|'
 
 
-# spring-security,xmlにCSRF無効化の設定を追加
+# spring-security,xml
 find . -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:http pattern="/resources/\*\*" security="none"/>|\
     <sec:http pattern="/resources/**" security="none" />\
 \
