@@ -88,68 +88,72 @@ mkdir -p ./todo-api-jpa/src/main/java/todo/api/common/error
 mkdir -p ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/common/error
 
 
-# cp sources
-cp -p ./todo/java/TodoForm.java ./todo-api-mybatis3/src/main/java/todo/app/todo
-cp -p ./todo/java/TodoForm.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/app/todo
-cp -p ./todo/java/TodoForm.java ./todo-api-jpa/src/main/java/todo/app/todo
-cp -p ./todo/java/TodoForm.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/app/todo
+# cp common sources
+cp -p ./todo/src/main/java/todo/app/todo/TodoForm.java ./todo-api-mybatis3/src/main/java/todo/app/todo
+cp -p ./todo/src/main/java/todo/app/todo/TodoForm.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/app/todo
+cp -p ./todo/src/main/java/todo/app/todo/TodoForm.java ./todo-api-jpa/src/main/java/todo/app/todo
+cp -p ./todo/src/main/java/todo/app/todo/TodoForm.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/app/todo
 
-cp -p ./todo/java/TodoController.java ./todo-api-mybatis3/src/main/java/todo/app/todo
-cp -p ./todo/java/TodoController.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/app/todo
-cp -p ./todo/java/TodoController.java ./todo-api-jpa/src/main/java/todo/app/todo
-cp -p ./todo/java/TodoController.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/app/todo
+cp -p ./todo/src/main/java/todo/app/todo/TodoController.java ./todo-api-mybatis3/src/main/java/todo/app/todo
+cp -p ./todo/src/main/java/todo/app/todo/TodoController.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/app/todo
+cp -p ./todo/src/main/java/todo/app/todo/TodoController.java ./todo-api-jpa/src/main/java/todo/app/todo
+cp -p ./todo/src/main/java/todo/app/todo/TodoController.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/app/todo
 
 # model
-cp -p ./todo/java/TodoForMybatis.java ./todo-api-mybatis3/src/main/java/todo/domain/model/Todo.java
-cp -p ./todo/java/TodoForMybatis.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/model/Todo.java
-cp -p ./todo/java/TodoForJpa.java ./todo-api-jpa/src/main/java/todo/domain/model/Todo.java
-cp -p ./todo/java/TodoForJpa.java ./todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/model/Todo.java
+# mybatis3
+cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./todo-api-mybatis3/src/main/java/todo/domain/model/
+cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/model/
+# jpa
+cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./todo-api-jpa/src/main/java/todo/domain/model/
+cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/model/
 
 # service for rest
-cp -p ./todo/java/TodoServiceForRest.java ./todo-api-mybatis3/src/main/java/todo/domain/service/todo/TodoService.java
-cp -p ./todo/java/TodoServiceForRest.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/service/todo/TodoService.java
-cp -p ./todo/java/TodoServiceForRest.java ./todo-api-jpa/src/main/java/todo/domain/service/todo/TodoService.java
-cp -p ./todo/java/TodoServiceForRest.java ./todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/service/todo/TodoService.java
+cp -p ./todo/src/main/java/api/todo/domain/service/todo/TodoService.java ./todo-api-mybatis3/src/main/java/todo/domain/service/todo/
+cp -p ./todo/src/main/java/api/todo/domain/service/todo/TodoService.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/service/todo/
+cp -p ./todo/src/main/java/api/todo/domain/service/todo/TodoService.java ./todo-api-jpa/src/main/java/todo/domain/service/todo/
+cp -p ./todo/src/main/java/api/todo/domain/service/todo/TodoService.java ./todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/service/todo/
 
-cp -p ./todo/java/TodoServiceImplForRestMybatis.java ./todo-api-mybatis3/src/main/java/todo/domain/service/todo/TodoServiceImpl.java
-cp -p ./todo/java/TodoServiceImplForRestMybatis.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/service/todo/TodoServiceImpl.java
-cp -p ./todo/java/TodoServiceImplForRestJpa.java ./todo-api-jpa/src/main/java/todo/domain/service/todo/TodoServiceImpl.java
-cp -p ./todo/java/TodoServiceImplForRestJpa.java ./todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/service/todo/TodoServiceImpl.java
+cp -p ./todo/src/main/java/api/mybatis3/todo/domain/service/todo/TodoServiceImpl.java ./todo-api-mybatis3/src/main/java/todo/domain/service/todo/
+cp -p ./todo/src/main/java/api/mybatis3/todo/domain/service/todo/TodoServiceImpl.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/service/todo/
+cp -p ./todo/src/main/java/api/jpa/todo/domain/service/todo/TodoServiceImpl.java ./todo-api-jpa/src/main/java/todo/domain/service/todo/
+cp -p ./todo/src/main/java/api/jpa/todo/domain/service/todo/TodoServiceImpl.java ./todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/service/todo/
 
 
 # repository
-# java
-cp -p ./todo/java/TodoRepositoryForMybatis.java ./todo-api-mybatis3/src/main/java/todo/domain/repository/todo/TodoRepository.java
-cp -p ./todo/java/TodoRepositoryForMybatis.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/repository/todo/TodoRepository.java
-cp -p ./todo/java/TodoRepositoryForJpa.java ./todo-api-jpa/src/main/java/todo/domain/repository/todo/TodoRepository.java
-cp -p ./todo/java/TodoRepositoryForJpa.java ./todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/repository/todo/TodoRepository.java
+# mybatis3
+cp -p ./todo/src/main/java/mybatis3/todo/domain/repository/todo/TodoRepository.java ./todo-api-mybatis3/src/main/java/todo/domain/repository/todo/
+cp -p ./todo/src/main/java/mybatis3/todo/domain/repository/todo/TodoRepository.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/repository/todo/
+# jpa
+cp -p ./todo/src/main/java/jpa/todo/domain/repository/todo/TodoRepository.java ./todo-api-jpa/src/main/java/todo/domain/repository/todo/
+cp -p ./todo/src/main/java/jpa/todo/domain/repository/todo/TodoRepository.java ./todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/repository/todo/
 # xml
-cp -p ./todo/xml/TodoRepository.xml ./todo-api-mybatis3/src/main/resources/todo/domain/repository/todo/
-cp -p ./todo/xml/TodoRepository.xml ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/resources/todo/domain/repository/todo/
+cp -p ./todo/src/main/resources/todo/domain/repository/todo/TodoRepository.xml ./todo-api-mybatis3/src/main/resources/todo/domain/repository/todo/
+cp -p ./todo/src/main/resources/todo/domain/repository/todo/TodoRepository.xml ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/resources/todo/domain/repository/todo/
 
 # webapp
-cp -p ./todo/jsp/list.jsp ./todo-api-mybatis3/src/main/webapp/WEB-INF/views/todo/
-cp -p ./todo/jsp/list.jsp ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/webapp/WEB-INF/views/todo/
-cp -p ./todo/jsp/list.jsp ./todo-api-jpa/src/main/webapp/WEB-INF/views/todo/
-cp -p ./todo/jsp/list.jsp ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/webapp/WEB-INF/views/todo/
+cp -p ./todo/src/main/webapp/WEB-INF/views/todo/list.jsp ./todo-api-mybatis3/src/main/webapp/WEB-INF/views/todo/
+cp -p ./todo/src/main/webapp/WEB-INF/views/todo/list.jsp ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/webapp/WEB-INF/views/todo/
+cp -p ./todo/src/main/webapp/WEB-INF/views/todo/list.jsp ./todo-api-jpa/src/main/webapp/WEB-INF/views/todo/
+cp -p ./todo/src/main/webapp/WEB-INF/views/todo/list.jsp ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/webapp/WEB-INF/views/todo/
+
 
 # rest sources
-cp -p ./todo/java/TodoResource.java ./todo-api-mybatis3/src/main/java/todo/api/todo
-cp -p ./todo/java/TodoResource.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/api/todo
-cp -p ./todo/java/TodoResource.java ./todo-api-jpa/src/main/java/todo/api/todo
-cp -p ./todo/java/TodoResource.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/todo
+cp -p ./todo/src/main/java/api/todo/api/todo/TodoResource.java ./todo-api-mybatis3/src/main/java/todo/api/todo
+cp -p ./todo/src/main/java/api/todo/api/todo/TodoResource.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/api/todo
+cp -p ./todo/src/main/java/api/todo/api/todo/TodoResource.java ./todo-api-jpa/src/main/java/todo/api/todo
+cp -p ./todo/src/main/java/api/todo/api/todo/TodoResource.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/todo
 
-cp -p ./todo/java/TodoRestController.java ./todo-api-mybatis3/src/main/java/todo/api/todo
-cp -p ./todo/java/TodoRestController.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/api/todo
-cp -p ./todo/java/TodoRestController.java ./todo-api-jpa/src/main/java/todo/api/todo
-cp -p ./todo/java/TodoRestController.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/todo
+cp -p ./todo/src/main/java/api/todo/api/todo/TodoRestController.java ./todo-api-mybatis3/src/main/java/todo/api/todo
+cp -p ./todo/src/main/java/api/todo/api/todo/TodoRestController.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/api/todo
+cp -p ./todo/src/main/java/api/todo/api/todo/TodoRestController.java ./todo-api-jpa/src/main/java/todo/api/todo
+cp -p ./todo/src/main/java/api/todo/api/todo/TodoRestController.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/todo
 
-cp -p ./todo/java/ApiError.java ./todo-api-mybatis3/src/main/java/todo/api/common/error
-cp -p ./todo/java/ApiError.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/api/common/error
-cp -p ./todo/java/ApiError.java ./todo-api-jpa/src/main/java/todo/api/common/error
-cp -p ./todo/java/ApiError.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/common/error
+cp -p ./todo/src/main/java/api/todo/api/common/error/ApiError.java ./todo-api-mybatis3/src/main/java/todo/api/common/error
+cp -p ./todo/src/main/java/api/todo/api/common/error/ApiError.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/api/common/error
+cp -p ./todo/src/main/java/api/todo/api/common/error/ApiError.java ./todo-api-jpa/src/main/java/todo/api/common/error
+cp -p ./todo/src/main/java/api/todo/api/common/error/ApiError.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/common/error
 
-cp -p ./todo/java/RestGlobalExceptionHandler.java ./todo-api-mybatis3/src/main/java/todo/api/common/error
-cp -p ./todo/java/RestGlobalExceptionHandler.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/api/common/error
-cp -p ./todo/java/RestGlobalExceptionHandler.java ./todo-api-jpa/src/main/java/todo/api/common/error
-cp -p ./todo/java/RestGlobalExceptionHandler.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/common/error
+cp -p ./todo/src/main/java/api/todo/api/common/error/RestGlobalExceptionHandler.java ./todo-api-mybatis3/src/main/java/todo/api/common/error
+cp -p ./todo/src/main/java/api/todo/api/common/error/RestGlobalExceptionHandler.java ./todo-api-mybatis3-multi/todo-api-mybatis3-multi-web/src/main/java/todo/api/common/error
+cp -p ./todo/src/main/java/api/todo/api/common/error/RestGlobalExceptionHandler.java ./todo-api-jpa/src/main/java/todo/api/common/error
+cp -p ./todo/src/main/java/api/todo/api/common/error/RestGlobalExceptionHandler.java ./todo-api-jpa-multi/todo-api-jpa-multi-web/src/main/java/todo/api/common/error
