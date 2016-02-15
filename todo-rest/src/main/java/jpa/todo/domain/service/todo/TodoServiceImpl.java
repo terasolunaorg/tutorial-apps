@@ -71,9 +71,9 @@ public class TodoServiceImpl implements TodoService {
             messages.add("E002", todoId);
             throw new BusinessException(messages);
         }
-		todo.setFinished(true);
-		todoRepository.save(todo);
-		return todo;
+        todo.setFinished(true);
+        todoRepository.save(todo);
+        return todo;
     }
 
     @Override
