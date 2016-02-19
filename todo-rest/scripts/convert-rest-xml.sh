@@ -57,8 +57,5 @@ find . -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:http patter
     <sec:http pattern="/resources/**" security="none" />\
 \
     <!-- (1) -->\
-    <sec:http pattern="/api/v1/**" auto-config="true"\
-        create-session="stateless">\
-        <sec:headers />\
-        <sec:csrf disabled="true" />\
-    </sec:http>|'
+    <sec:http pattern="/api/v1/**" security="none" />\
+|'
