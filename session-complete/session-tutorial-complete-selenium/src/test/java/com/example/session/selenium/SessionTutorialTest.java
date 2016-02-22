@@ -19,7 +19,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 	WebDriver driver;
  
-	@Value("${selenium.applicationContextUrl}")
+	@Value("${selenium.applicationContextUrl}/loginForm")
 	String baseUrl;
  
 	@Before

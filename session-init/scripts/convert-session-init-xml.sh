@@ -34,12 +34,13 @@ find ./session-tutorial-init -type f -name 'spring-security.xml' | xargs sed -i 
             default-target-url="/goods" always-use-default-target="true"\
             authentication-failure-url="/loginForm?error" login-processing-url="/authenticate" />|'
             
-find ./session-tutorial-init -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:logout/>|<sec:logout logout-url="/logout" logout-success-url="/"\
+find ./session-tutorial-init -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:logout/>|<sec:logout logout-url="/logout" logout-success-url="/loginForm"\
             delete-cookies="JSESSIONID" />|'
 
 find ./session-tutorial-init -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:session-management />|<sec:session-management />\
         <sec:intercept-url pattern="/loginForm" access="permitAll" />\
         <sec:intercept-url pattern="/account/create" access="permitAll" />\
+        <sec:intercept-url pattern="/" access="permitAll" />\
         <sec:intercept-url pattern="/**" access="isAuthenticated()" />|'
         
 find ./session-tutorial-init -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:authentication-manager />|<sec:authentication-manager>\
