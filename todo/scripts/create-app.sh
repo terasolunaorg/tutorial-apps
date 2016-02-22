@@ -4,6 +4,7 @@
 
 echo "create version is ${VERSION}."
 
+# generate app
 bash ./todo/scripts/generate-app-project.sh
 
 bash ./todo/scripts/convert-common-infra.sh

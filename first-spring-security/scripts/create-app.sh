@@ -4,6 +4,7 @@
 
 echo "create version is ${VERSION}."
 
+# generate app
 bash ./first-spring-security/scripts/generate-security-project.sh
 
 bash ./todo/scripts/convert-common-infra.sh
