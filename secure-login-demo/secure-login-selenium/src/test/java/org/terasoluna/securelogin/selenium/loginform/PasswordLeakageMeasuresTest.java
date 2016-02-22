@@ -74,8 +74,7 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 
 		// it's enable to access to top page
 		page = ((PasswordChangeSuccessPage) page).gotoTop();
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				contextName + "/"));
+		assertTrue(webDriverOperations.getCurrentUrl().matches(applicationContextUrl + "(/)?$"));
 
 		page = ((TopPage) page).logout();
 	}

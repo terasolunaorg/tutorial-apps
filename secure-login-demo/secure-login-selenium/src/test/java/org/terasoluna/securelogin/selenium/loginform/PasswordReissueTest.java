@@ -98,8 +98,7 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		page = ((LoginPage) new LoginPage(webDriverOperations,
 				applicationContextUrl).open()).loginSuccess("demo", "Hoge1")
 				.gotoTop();
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				contextName + "/"));
+		assertTrue(webDriverOperations.getCurrentUrl().matches(applicationContextUrl + "(/)?$"));
 
 		page = ((TopPage) page).logout();
 	}
