@@ -1,4 +1,5 @@
 #!/bin/bash
+# create complete project from init project
 
 #${ARCHETYPE_VERSION}=terasoluna-gfw-blank-archetype-version
 #${VERSION}=tutorial pj version
