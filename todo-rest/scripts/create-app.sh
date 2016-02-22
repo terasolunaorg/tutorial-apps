@@ -19,7 +19,7 @@ bash ./todo-rest/scripts/convert-rest-msg.sh
 bash ./todo-rest/scripts/convert-rest-xml.sh
 
 # mv to target-project
-mv ./todo-jpa-api ./target-project
-mv ./todo-mybatis3-api ./target-project
-mv ./todo-jpa-api-multi ./target-project
-mv ./todo-mybatis3-api-multi ./target-project
+mv ./todo-api-jpa ./target-project
+mv ./todo-api-mybatis3 ./target-project
+mv ./todo-api-jpa-multi ./target-project
+mv ./todo-api-mybatis3-multi ./target-project
