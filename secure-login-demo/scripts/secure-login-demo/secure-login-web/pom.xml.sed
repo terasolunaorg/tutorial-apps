@@ -2,6 +2,11 @@
 __END_DEPENDENCIES_LINE__i\
 \
         <dependency>\
+            <groupId>com.h2database</groupId>\
+            <artifactId>h2</artifactId>\
+        </dependency>\
+\
+        <dependency>\
             <groupId>org.projectlombok</groupId>\
             <artifactId>lombok</artifactId>\
             <scope>provided</scope>\
