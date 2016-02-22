@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # styles.css
-for i in ` find -type f -name 'styles.css' `; do echo -e ' 
+for i in ` find ./target-project/session-tutorial-complete -type f -name 'styles.css' `; do echo -e ' 
 .strike {
     text-decoration: line-through;
 }

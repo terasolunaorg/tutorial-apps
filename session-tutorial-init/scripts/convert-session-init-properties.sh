@@ -2,7 +2,7 @@
 
 
 # application-messages.properties
-for i in ` find -type f -name 'application-messages.properties' `; do echo -e '
+for i in ` find ./target-project/session-tutorial-init -type f -name 'application-messages.properties' `; do echo -e '
 
 #error.SessionTutorial.order
 e.st.od.5001=Your cart is empty

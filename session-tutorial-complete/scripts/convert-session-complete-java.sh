@@ -3,14 +3,14 @@
 ######### Cart.java #########
 
 # Cart.java
-find ./session-tutorial-complete -type f -name 'Cart.java' | xargs sed -i -e 's|import org.springframework.security.crypto.codec.Base64;|import org.springframework.context.annotation.Scope;\
+find ./target-project/session-tutorial-complete -type f -name 'Cart.java' | xargs sed -i -e 's|import org.springframework.security.crypto.codec.Base64;|import org.springframework.context.annotation.Scope;\
 import org.springframework.context.annotation.ScopedProxyMode;\
 import org.springframework.security.crypto.codec.Base64;\
 import org.springframework.stereotype.Component;|'
 
 
 # Cart.java
-find ./session-tutorial-complete -type f -name 'Cart.java' | xargs sed -i -e 's|public class Cart implements Serializable {|@Component // (1)\
+find ./target-project/session-tutorial-complete -type f -name 'Cart.java' | xargs sed -i -e 's|public class Cart implements Serializable {|@Component // (1)\
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS) // (2)\
 public class Cart implements Serializable {|'
 
@@ -18,28 +18,28 @@ public class Cart implements Serializable {|'
 ######### GoodsController.java #########
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|import org.springframework.ui.Model;|import org.springframework.ui.Model;\
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|import org.springframework.ui.Model;|import org.springframework.ui.Model;\
 import org.springframework.validation.BindingResult;\
 import org.springframework.validation.annotation.Validated;|'
 
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|import org.springframework.web.bind.annotation.RequestMethod;|import org.springframework.web.bind.annotation.RequestMethod;\
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|import org.springframework.web.bind.annotation.RequestMethod;|import org.springframework.web.bind.annotation.RequestMethod;\
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;\
 import org.terasoluna.gfw.common.message.ResultMessages;|'
 
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|import com.example.session.domain.model.Goods;|import com.example.session.domain.model.Cart;\
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|import com.example.session.domain.model.Goods;|import com.example.session.domain.model.Cart;\
 import com.example.session.domain.model.CartItem;\
 import com.example.session.domain.model.Goods;|'
 
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|GoodsService goodsService;|GoodsService goodsService;\
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|GoodsService goodsService;|GoodsService goodsService;\
 \
     // (1)\
     @Inject\
@@ -48,7 +48,7 @@ find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs se
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|return "/goods/showGoodsDetail";|return "/goods/showGoodsDetail";\
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|return "/goods/showGoodsDetail";|return "/goods/showGoodsDetail";\
     }\
 \
     @RequestMapping(value = "/addToCart", method = RequestMethod.POST)\
@@ -74,18 +74,18 @@ find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs se
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|import org.springframework.data.domain.Page;|import org.springframework.data.domain.Page;\
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|import org.springframework.data.domain.Page;|import org.springframework.data.domain.Page;\
 import org.springframework.data.domain.PageRequest;|'
 
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|// (1)||'
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|// (1)||'
 
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|Cart cart;|Cart cart;\
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|Cart cart;|Cart cart;\
 \
     // (1)\
     @Inject\
@@ -94,13 +94,13 @@ find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs se
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|@RequestMapping(value = "", method = RequestMethod.GET)|// (2)\
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|@RequestMapping(value = "", method = RequestMethod.GET)|// (2)\
     @RequestMapping(value = "", method = RequestMethod.GET)|'
 
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|String showGoods(GoodViewForm form, Pageable pageable, Model model) {|String showGoods(GoodViewForm form, Model model) {\
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|String showGoods(GoodViewForm form, Pageable pageable, Model model) {|String showGoods(GoodViewForm form, Model model) {\
         Pageable pageable = new PageRequest(criteria.getPage(), 3);\
         form.setCategoryId(criteria.getCategoryId());\
         return showGoods(pageable, model);\
@@ -128,11 +128,11 @@ find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs se
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|Page<Goods> page = goodsService.findByCategoryId(form.getCategoryId(),|Page<Goods> page = goodsService.findByCategoryId(|'
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|Page<Goods> page = goodsService.findByCategoryId(form.getCategoryId(),|Page<Goods> page = goodsService.findByCategoryId(|'
 
 
 
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|pageable);|criteria.getCategoryId(), pageable);|'
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|pageable);|criteria.getCategoryId(), pageable);|'
 # GoodsController.java
-find ./session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|cart.add(cartItem); // (2)|cart.add(cartItem);|'
+find ./target-project/session-tutorial-complete -type f -name 'GoodsController.java' | xargs sed -i -e 's|cart.add(cartItem); // (2)|cart.add(cartItem);|'

@@ -3,19 +3,19 @@
 ###################  init  ###################
 
 # include.jsp
-find ./session-tutorial-complete -type f -name 'include.jsp' | xargs sed -i -e 's|<%@ page session="false"|<%@ page session="true"|'
+find ./target-project/session-tutorial-complete -type f -name 'include.jsp' | xargs sed -i -e 's|<%@ page session="false"|<%@ page session="true"|'
     
 ###################  tutorial flow  ###################
 
 
 
 # showGoods.jsp
-find ./session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e 's|<th>Price</th>|<th>Price</th>\
+find ./target-project/session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e 's|<th>Price</th>|<th>Price</th>\
                 <th>Quantity</th>|'
 
 
 # showGoods.jsp
-find ./session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e 's|maxFractionDigits="0" /></td>|maxFractionDigits="0" /></td>\
+find ./target-project/session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e 's|maxFractionDigits="0" /></td>|maxFractionDigits="0" /></td>\
                     <td><form:form method="post"\
                             action="${pageContext.request.contextPath}/goods/addToCart"\
                             modelAttribute="goodAddForm">\
@@ -26,7 +26,7 @@ find ./session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e
 
 
 # showGoods.jsp
-find ./session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e 's|</body>|    <div>\
+find ./target-project/session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e 's|</body>|    <div>\
         <%-- (1) --%>\
         <spring:eval var="cart" expression="@cart" />\
         <form method="get" action="${pageContext.request.contextPath}/cart">\
@@ -57,7 +57,7 @@ find ./session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e
 
 
 # showGoodsDetail.jsp
-find ./session-tutorial-complete -type f -name 'showGoodsDetail.jsp' | xargs sed -i -e 's|<form method="get" action="${pageContext.request.contextPath}/goods">|<form:form method="post"\
+find ./target-project/session-tutorial-complete -type f -name 'showGoodsDetail.jsp' | xargs sed -i -e 's|<form method="get" action="${pageContext.request.contextPath}/goods">|<form:form method="post"\
             action="${pageContext.request.contextPath}/goods/addToCart"\
             modelAttribute="AddToCartForm">\
             Quantity<input type="text" id="quantity" name="quantity"\
@@ -70,7 +70,7 @@ find ./session-tutorial-complete -type f -name 'showGoodsDetail.jsp' | xargs sed
 
 
 # showGoodsDetail.jsp
-find ./session-tutorial-complete -type f -name 'showGoodsDetail.jsp' | xargs sed -i -e 's|</body>|    <div>\
+find ./target-project/session-tutorial-complete -type f -name 'showGoodsDetail.jsp' | xargs sed -i -e 's|</body>|    <div>\
         <spring:eval var="cart" expression="@cart" />\
         <form method="get" action="${pageContext.request.contextPath}/cart">\
             <input type="submit" value="view cart" />\
