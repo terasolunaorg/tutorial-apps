@@ -65,6 +65,9 @@ public class PasswordReissueTest extends FunctionTestSupport {
 				applicationContextUrl)
 				.openWithDescription("secret phrase is shown to screen"
 						+ " and the URL of password reissue page is sent by E-mail");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
+
 
 		// generate information for reissue password and show the secret phrase
 		page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
@@ -130,8 +133,13 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		for (int i = 0; i < n; i++) {
 			page = ((LoginPage) new LoginPage(webDriverOperations,
 					applicationContextUrl)
-					.openWithDescription("secret phrase and URL is generated at random"))
-					.goToCreateReissueInfoPage().makeReissueInfo("demo");
+					.openWithDescription("secret phrase and URL is generated at random"));
+			if(i==0){
+				webDriverOperations.saveScreenCapture("description");
+				webDriverOperations.savePageSource("description");
+			}
+
+			page = ((LoginPage)page).goToCreateReissueInfoPage().makeReissueInfo("demo");
 			webDriverOperations.saveScreenCapture("secret-"+i);
 			webDriverOperations.savePageSource("secret-"+i);
 			String secret = ((CreateReissueInfoSuccessPage) page).getSecret();
@@ -160,6 +168,8 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("the URL is invalidated by series of incorrect password attempts");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
 
 		page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
 				"demo");
@@ -191,6 +201,8 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("the URL is invalidated by passage of time");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
 
 		page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
 				"demo");

@@ -58,6 +58,9 @@ public class AccountLockTest extends FunctionTestSupport {
 				applicationContextUrl)
 				.openWithDescription("an account is locked by series of incorrect password attempts"
 						+ " and unlocked when the certain time passes");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
+
 		for (int i = 0; i < lockingThreshold + 1; i++) {
 			page = ((LoginPage) page).loginFailure("demo", "hoge");
 		}
@@ -88,6 +91,9 @@ public class AccountLockTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("administrator can unlock accounts");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
+
 
 		for (int i = 0; i < lockingThreshold + 1; i++) {
 			page = ((LoginPage) page).loginFailure("demo", "hoge");

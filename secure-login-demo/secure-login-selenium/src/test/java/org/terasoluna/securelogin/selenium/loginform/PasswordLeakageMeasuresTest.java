@@ -55,6 +55,8 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("force user to change password when first login");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
 
 		// confirm that it's redirected to "Change Password" page when first
 		// login
@@ -96,6 +98,9 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("administrator must not reuse password in a short period");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
+
 
 		// login as administrator
 		page = ((LoginPage) page)
@@ -127,6 +132,8 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("show a message to urge users to change their passwords");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
 
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
@@ -160,6 +167,8 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("show the last login time of the user");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
 
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
@@ -185,6 +194,8 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("force administrator to change password if it has been expired");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
 
 		page = ((LoginPage) page).loginSuccessIntercepted("admin", "demo")
 				.changePasswordSuccess("demo", "Bar1", "Bar1").gotoTop()

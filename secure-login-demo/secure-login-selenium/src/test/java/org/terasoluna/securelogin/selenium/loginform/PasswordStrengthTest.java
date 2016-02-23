@@ -50,6 +50,8 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("password strength check(insufficient length)");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
 
 		// password strength check : insufficient length
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
@@ -77,6 +79,8 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 				applicationContextUrl)
 				.openWithDescription("password strength check(characteristic condition is"
 						+ "unsatisfied)");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
 
 		// password strength check : characteristic condition is unsatisfied
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
@@ -102,6 +106,8 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("password strength check(contains username)");
+		webDriverOperations.saveScreenCapture("description");
+		webDriverOperations.savePageSource("description");
 
 		// password strength check : contains username
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
