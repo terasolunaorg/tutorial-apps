@@ -63,11 +63,15 @@ public class AccountLockTest extends FunctionTestSupport {
 		}
 		assertThat(((LoginPage) page).getLoginError(),
 				is("User account is locked"));
+		webDriverOperations.saveScreenCapture("locked");
+		webDriverOperations.savePageSource("locked");
 
 		webDriverOperations.suspend(lockingDurationSeconds, TimeUnit.SECONDS);
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/password?form"));
+		webDriverOperations.saveScreenCapture("lock-duration-passed");
+		webDriverOperations.savePageSource("lock-duration-passed");
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
@@ -88,6 +92,8 @@ public class AccountLockTest extends FunctionTestSupport {
 		for (int i = 0; i < lockingThreshold + 1; i++) {
 			page = ((LoginPage) page).loginFailure("demo", "hoge");
 		}
+		webDriverOperations.saveScreenCapture("locked");
+		webDriverOperations.savePageSource("locked");
 
 		// unlock
 		page = ((LoginPage) page).loginSuccessIntercepted("admin", "demo")
@@ -95,12 +101,17 @@ public class AccountLockTest extends FunctionTestSupport {
 				.goToUnlockPage().unlockSuccess("demo");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"unlock?complete"));
+		webDriverOperations.saveScreenCapture("unlock");
+		webDriverOperations.savePageSource("unlock");
 
 		// confirm the account is successfully unlocked
 		page = ((UnlockSuccessPage) page).gotoTop().logout()
 				.loginSuccessIntercepted("demo", "demo");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/password?form"));
+		webDriverOperations.saveScreenCapture("after-unlock");
+		webDriverOperations.savePageSource("after-unlock");
+		
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
 				.logout();

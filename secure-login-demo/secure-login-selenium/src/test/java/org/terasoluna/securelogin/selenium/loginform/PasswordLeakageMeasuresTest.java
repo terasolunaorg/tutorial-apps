@@ -61,6 +61,8 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/password?form"));
+		webDriverOperations.saveScreenCapture("first-login");
+		webDriverOperations.savePageSource("first-login");
 
 		// it cannot access other pages until change password
 		page = ((PasswordChangePage) page).gotoTopIntercepted();
@@ -71,11 +73,15 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 				"Foo1", "Foo1");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/password?complete"));
-
+		webDriverOperations.saveScreenCapture("change-password");
+		webDriverOperations.savePageSource("change-password");
+		
 		// it's enable to access to top page
 		page = ((PasswordChangeSuccessPage) page).gotoTop();
 		assertTrue(webDriverOperations.getCurrentUrl().matches(applicationContextUrl + "(/)?$"));
-
+		webDriverOperations.saveScreenCapture("show-top");
+		webDriverOperations.savePageSource("show-top");
+		
 		page = ((TopPage) page).logout();
 	}
 
@@ -104,7 +110,9 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 				.changePasswordFailure("Bar2", "Bar1", "Bar1");
 		assertThat(((PasswordChangePage) page).getNewPasswordError(),
 				is("Password matches one of 2 previous passwords."));
-
+		webDriverOperations.saveScreenCapture();
+		webDriverOperations.savePageSource();
+		
 		page = ((PasswordChangePage) page).gotoTop().logout();
 	}
 
@@ -130,7 +138,9 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		page = ((LoginPage) page).loginSuccess("demo", "Foo1");
 		assertThat(((TopPage) page).getExpiredMessage(),
 				is("Your password has expired. Please change."));
-
+		webDriverOperations.saveScreenCapture();
+		webDriverOperations.savePageSource();
+		
 		// the message disappears because of changing the password
 		page = ((TopPage) page).goToAccountInfoPage().goToPasswordChangePage()
 				.changePasswordSuccess("Foo1", "Bar1", "Bar1").gotoTop();
@@ -158,7 +168,9 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		// confirm that the last login time of the user is shown
 		assertTrue(((TopPage) page).getLastLogin().matches(
 				"Last login date is [0-9]{4}-[0-9]{2}-[0-9]{2}.*"));
-
+		webDriverOperations.saveScreenCapture();
+		webDriverOperations.savePageSource();
+		
 		page = ((TopPage) page).logout();
 	}
 
@@ -184,6 +196,9 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		page = ((LoginPage) page).loginSuccessIntercepted("admin", "Bar1");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/password?form"));
+		webDriverOperations.saveScreenCapture();
+		webDriverOperations.savePageSource();
+		
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("Bar1", "Foo1", "Foo1").gotoTop()
 				.logout();

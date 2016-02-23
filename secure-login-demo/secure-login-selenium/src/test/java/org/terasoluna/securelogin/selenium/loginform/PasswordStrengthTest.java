@@ -57,6 +57,8 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		assertThat(((PasswordChangePage) page).getNewPasswordError(),
 				containsString("Password must be at least "
 						+ passwordMinimumLength + " characters in length."));
+		webDriverOperations.saveScreenCapture();
+		webDriverOperations.savePageSource();
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
@@ -82,6 +84,8 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		assertThat(
 				((PasswordChangePage) page).getNewPasswordError(),
 				containsString("Password matches 2 of 4 character rules, but 3 are required."));
+		webDriverOperations.saveScreenCapture();
+		webDriverOperations.savePageSource();
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
@@ -104,6 +108,8 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 				.changePasswordFailure("demo", "demoFoo1", "demoFoo1");
 		assertThat(((PasswordChangePage) page).getNewPasswordError(),
 				containsString("Password contains the user id demo."));
+		webDriverOperations.saveScreenCapture();
+		webDriverOperations.savePageSource();
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
