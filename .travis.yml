@@ -95,11 +95,21 @@ script:
     for FILE in `find ./*/scripts/create-app.sh -maxdepth 1`; do
       echo "execute $FILE"
       bash $FILE
+      buildResult=$?
+      if test ${buildResult} -ne 0 ; then
+        echo "[ERROR] Failed a build."
+        exit ${buildResult}
+      fi
     done
   - echo "==================== Build Tutorial Apps without Tests ===================="
   - |
     for POM in `find ./$TARGET_PROJECT/*/pom.xml -maxdepth 1`; do
       echo "build $POM"
       mvn -U -f $POM install -DskipTests=true
+      buildResult=$?
+      if test ${buildResult} -ne 0 ; then
+        echo "[ERROR] Failed a build."
+        exit ${buildResult}
+      fi
     done
 
