@@ -59,7 +59,7 @@ public class AccountUpdateController {
 
     @RequestMapping(value = "update", params = "form2")
     public String showUpdateForm2(
-            @Validated((Wizard1.class)) AccountUpdateForm form,
+            @Validated(Wizard1.class) AccountUpdateForm form,
             BindingResult result) {
 
         if (result.hasErrors()) {
