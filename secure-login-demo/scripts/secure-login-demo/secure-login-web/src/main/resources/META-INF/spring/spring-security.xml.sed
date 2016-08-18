@@ -18,7 +18,6 @@ __END_SEC_HTTP_DEFINITION_LINE__i\
 # replace form-login
 __FORM_LIGIN_LINE__i\
 		<sec:form-login login-page="/login"\
-			authentication-failure-url="/login?error=true"\
 			login-processing-url="/login" username-parameter="username"\
 			password-parameter="password" />
 __FORM_LIGIN_LINE__d
