@@ -9,7 +9,7 @@
 	<div id="wrapper">
 		<h3>Login with Username and Password</h3>
 		
-		<c:if test="${param.error}">
+		<c:if test="${param.containsKey('error')}">
 			<span id="loginError">
 			<t:messagesPanel messagesType="error"
 				messagesAttributeName="SPRING_SECURITY_LAST_EXCEPTION" />
