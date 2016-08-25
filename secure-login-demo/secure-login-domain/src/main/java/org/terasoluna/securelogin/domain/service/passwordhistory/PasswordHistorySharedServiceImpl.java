@@ -6,7 +6,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.terasoluna.securelogin.domain.model.PasswordHistory;
 import org.terasoluna.securelogin.domain.repository.passwordhistory.PasswordHistoryRepository;
@@ -19,7 +18,6 @@ public class PasswordHistorySharedServiceImpl implements
 	@Inject
 	PasswordHistoryRepository passwordHistoryRepository;
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public int insert(PasswordHistory history) {
 		return passwordHistoryRepository.create(history);
 	}

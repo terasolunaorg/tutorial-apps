@@ -9,8 +9,8 @@ sed -i -e "s/__END_BEAN_DEFINITION_LINE__/${END_BEAN_DEFINITION_LINE}/g" $SED_FI
 END_SEC_HTTP_DEFINITION_LINE=`sed -n '/<\/sec:http>/=' target-project/$TARGET_FILE_NAME`
 sed -i -e "s/__END_SEC_HTTP_DEFINITION_LINE__/${END_SEC_HTTP_DEFINITION_LINE}/g" $SED_FILE_NAME
 
-FORM_LIGIN_LINE=`sed -n '/<sec:form-login/=' target-project/$TARGET_FILE_NAME`
-sed -i -e "s/__FORM_LIGIN_LINE__/${FORM_LIGIN_LINE}/g" $SED_FILE_NAME
+FORM_LOGIN_LINE=`sed -n '/<sec:form-login/=' target-project/$TARGET_FILE_NAME`
+sed -i -e "s/__FORM_LOGIN_LINE__/${FORM_LOGIN_LINE}/g" $SED_FILE_NAME
 
 LOGOUT_LINE=`sed -n '/<sec:logout/=' target-project/$TARGET_FILE_NAME`
 sed -i -e "s/__LOGOUT_LINE__/${LOGOUT_LINE}/g" $SED_FILE_NAME

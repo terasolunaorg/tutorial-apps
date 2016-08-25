@@ -29,3 +29,5 @@ find ./secure-login-demo/ -name "*.sql" | xargs -i cp -pf --parent {} ./target-p
 find ./secure-login-demo/ -name "*.jsp" | xargs -i cp -pf --parent {} ./target-project/
 find ./secure-login-demo/ -name "*.css" | xargs -i cp -pf --parent {} ./target-project/
 find ./secure-login-demo/ -name "*.xml" | xargs -i cp -pf --parent {} ./target-project/
+find ./secure-login-demo/ -name "*.png" | xargs -i cp -pf --parent {} ./target-project/
+find ./secure-login-demo/ -name "*.txt" | xargs -i cp -pf --parent {} ./target-project/

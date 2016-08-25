@@ -1,16 +1,14 @@
 # add dependencies
+__END_CONFIGURATION_LINE__i\
+                    <argLine>-Dhttps.proxyHost=${http.proxyHost} -Dhttps.proxyPort=${http.proxyPort}</argLine>
+
 __END_DEPENDENCIES_LINE__i\
 \
         <dependency>\
             <groupId>org.hamcrest</groupId>\
             <artifactId>hamcrest-library</artifactId>\
+    		<scope>test</scope>\
         </dependency>\
-\
-        <dependency>\
-		    <groupId>org.postgresql</groupId>\
-    		<artifactId>postgresql</artifactId>\
-    		<scope>provided</scope>\
-		</dependency>\
 \
         <dependency>\
             <groupId>org.terasoluna.gfw</groupId>\
@@ -49,3 +47,28 @@ __END_DEPENDENCIES_LINE__i\
             <artifactId>h2</artifactId>\
             <scope>test</scope>\
         </dependency>
+
+__END_PROJECT_LINE__i\
+    <profiles>\
+        <profile>\
+            <id>use_jvm_param</id>\
+            <activation>\
+                <property>\
+                    <name>http.proxyHost</name>\
+                </property>\
+            </activation>\
+        </profile>\
+        <profile>\
+        <id>use_mavenplugin_param</id>\
+        <activation>\
+            <activeByDefault>true</activeByDefault>\
+        </activation>\
+        <properties>\
+            <http.proxyHost>localhost</http.proxyHost>\
+            <http.proxyPort>8080</http.proxyPort>\
+        </properties>\
+        </profile>\
+    </profiles>\
+    <properties>\
+        <project.root.basedir>${project.parent.basedir}</project.root.basedir>\
+    </properties>

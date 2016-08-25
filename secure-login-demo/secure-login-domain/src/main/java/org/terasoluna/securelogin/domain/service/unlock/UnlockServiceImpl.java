@@ -19,8 +19,7 @@ public class UnlockServiceImpl implements UnlockService {
 
 	@Override
 	public void unlock(String username) {
-		authenticationEventSharedService
-				.deleteFailureEventByUsername(username);
+		authenticationEventSharedService.deleteFailureEventByUsername(username);
 	}
 
 }

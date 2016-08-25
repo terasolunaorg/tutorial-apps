@@ -20,7 +20,8 @@ import org.terasoluna.securelogin.domain.model.ReceivedMail;
 import com.icegreen.greenmail.spring.GreenMailBean;
 
 @Service
-public class PasswordReissueMailSharedServiceImpl implements PasswordReissueMailSharedService {
+public class PasswordReissueMailSharedServiceImpl implements
+		PasswordReissueMailSharedService {
 
 	@Inject
 	JavaMailSender mailSender;
@@ -51,7 +52,8 @@ public class PasswordReissueMailSharedServiceImpl implements PasswordReissueMail
 				mail.setFrom(message.getRecipients(Message.RecipientType.TO)[0]
 						.toString());
 				mail.setSubject(message.getSubject());
-				mail.setText(message.getContent().toString().replace("\r\n", ""));
+				mail.setText(message.getContent().toString()
+						.replace("\r\n", ""));
 				mails.add(mail);
 			} catch (MessagingException e) {
 				throw new SystemException(MessageKeys.E_SL_FW_9001, e);

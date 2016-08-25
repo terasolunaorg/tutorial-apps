@@ -9,7 +9,7 @@ import static org.openqa.selenium.By.id;
 public class AccountInfoPage extends AuthenticationRequiredPage {
 	
 	{
-		url = "/account";
+		url = "/accounts";
 	}
 	
 	public AccountInfoPage(WebDriverOperations webDriverOperations,

@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS failed_authentication;
 DROP TABLE IF EXISTS password_history;
 DROP TABLE IF EXISTS failed_password_reissue;
 DROP TABLE IF EXISTS password_reissue_info;
+DROP TABLE IF EXISTS account_image;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS account;
 
@@ -12,6 +13,8 @@ CREATE TABLE account(
 	first_name VARCHAR(128) NOT NULL,
 	last_name VARCHAR(128) NOT NULL,
 	email VARCHAR(128) NOT NULL,
+	url VARCHAR(255) NOT NULL,
+	profile CLOB NOT NULL,
 	CONSTRAINT pk_tbl_account PRIMARY KEY (username)
 );
 
@@ -65,3 +68,21 @@ CREATE TABLE failed_password_reissue(
 );
 
 CREATE INDEX idx_tbl_prfl ON failed_password_reissue (token);
+
+CREATE TABLE temp_file(
+	id CHAR(36),
+	original_name VARCHAR(256),
+	body BINARY NOT NULL,
+	uploaded_date TIMESTAMP NOT NULL,
+	CONSTRAINT pk_tbl_tf PRIMARY KEY (id),
+);
+
+CREATE INDEX idx_tbl_tf ON temp_file (uploaded_date);
+
+CREATE TABLE account_image(
+	username VARCHAR(128),
+	body BINARY NOT NULL,
+	extension CHAR(3),
+	CONSTRAINT pk_tbl_ui PRIMARY KEY (username),
+	CONSTRAINT fk_tbl_ui FOREIGN KEY (username) REFERENCES account(username)
+);

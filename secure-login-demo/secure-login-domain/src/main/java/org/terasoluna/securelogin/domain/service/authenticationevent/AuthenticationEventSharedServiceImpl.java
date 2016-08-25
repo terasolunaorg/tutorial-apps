@@ -21,13 +21,13 @@ public class AuthenticationEventSharedServiceImpl implements
 
 	@Inject
 	ClassicDateFactory dateFactory;
-	
+
 	@Inject
 	FailedAuthenticationRepository failedAuthenticationRepository;
 
 	@Inject
 	SuccessfulAuthenticationRepository successAuthenticationRepository;
-	
+
 	@Inject
 	AccountSharedService accountSharedService;
 
@@ -40,8 +40,8 @@ public class AuthenticationEventSharedServiceImpl implements
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<FailedAuthentication> findLatestFailureEvents(
-			String username, int count) {
+	public List<FailedAuthentication> findLatestFailureEvents(String username,
+			int count) {
 		return failedAuthenticationRepository.findLatest(username, count);
 	}
 
@@ -50,21 +50,21 @@ public class AuthenticationEventSharedServiceImpl implements
 	public void authenticationSuccess(String username) {
 		SuccessfulAuthentication successEvent = new SuccessfulAuthentication();
 		successEvent.setUsername(username);
-		successEvent.setAuthenticationTimestamp(dateFactory.newTimestamp().toLocalDateTime());
+		successEvent.setAuthenticationTimestamp(dateFactory.newTimestamp()
+				.toLocalDateTime());
 
-	    successAuthenticationRepository.create(successEvent);
+		successAuthenticationRepository.create(successEvent);
 		deleteFailureEventByUsername(username);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public void authenticationFailure(String username) {
-		if(accountSharedService.exists(username)){
+		if (accountSharedService.exists(username)) {
 			FailedAuthentication failureEvents = new FailedAuthentication();
 			failureEvents.setUsername(username);
 			failureEvents.setAuthenticationTimestamp(dateFactory.newTimestamp()
 					.toLocalDateTime());
-		
+
 			failedAuthenticationRepository.create(failureEvents);
 		}
 	}

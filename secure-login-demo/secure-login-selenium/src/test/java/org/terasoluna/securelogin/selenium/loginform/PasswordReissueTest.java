@@ -65,39 +65,28 @@ public class PasswordReissueTest extends FunctionTestSupport {
 				applicationContextUrl)
 				.openWithDescription("secret phrase is shown to screen"
 						+ " and the URL of password reissue page is sent by E-mail");
-		webDriverOperations.saveScreenCapture("description");
-		webDriverOperations.savePageSource("description");
-
 
 		// generate information for reissue password and show the secret phrase
 		page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
 				"demo");
 		assertTrue(!((CreateReissueInfoSuccessPage) page).getSecret().isEmpty());
-		webDriverOperations.saveScreenCapture("secret");
-		webDriverOperations.savePageSource("secret");
 		String secret = ((CreateReissueInfoSuccessPage) page).getSecret();
 
 		// confirm that the URL for reissue password has sent by E-mail
 		page = new ReceivedMailPage(webDriverOperations, applicationContextUrl).open();
 		String mailText = ((ReceivedMailPage)page).getLatestMailText();
 		assertTrue(mailText.indexOf("http") >= 0);
-		webDriverOperations.saveScreenCapture("mail");
-		webDriverOperations.savePageSource("mail");
 		String url = mailText.substring(mailText.indexOf("http"));
 
 		// access "password reissue" page
 		page = new PasswordReissuePage(webDriverOperations,
 				applicationContextUrl, url).open();
-		webDriverOperations.saveScreenCapture("reissue-form");
-		webDriverOperations.savePageSource("reissue-form");
 
 		// reissue password
 		page = ((PasswordReissuePage) page).reissueSuccess(secret, "Hoge1",
 				"Hoge1");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/resetpassword?complete"));
-		webDriverOperations.saveScreenCapture("reissue-complete");
-		webDriverOperations.savePageSource("reissue-complete");
 
 		// after reissue password, the URL has been invalidated
 		page = new PasswordReissuePage(webDriverOperations,
@@ -109,7 +98,8 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		page = ((LoginPage) new LoginPage(webDriverOperations,
 				applicationContextUrl).open()).loginSuccess("demo", "Hoge1")
 				.gotoTop();
-		assertTrue(webDriverOperations.getCurrentUrl().matches(applicationContextUrl + "(/)?$"));
+		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
+				contextName + "/"));
 
 		page = ((TopPage) page).logout();
 	}
@@ -133,19 +123,10 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		for (int i = 0; i < n; i++) {
 			page = ((LoginPage) new LoginPage(webDriverOperations,
 					applicationContextUrl)
-					.openWithDescription("secret phrase and URL is generated at random"));
-			if(i==0){
-				webDriverOperations.saveScreenCapture("description");
-				webDriverOperations.savePageSource("description");
-			}
-
-			page = ((LoginPage)page).goToCreateReissueInfoPage().makeReissueInfo("demo");
-			webDriverOperations.saveScreenCapture("secret-"+i);
-			webDriverOperations.savePageSource("secret-"+i);
+					.openWithDescription("secret phrase and URL is generated at random"))
+					.goToCreateReissueInfoPage().makeReissueInfo("demo");
 			String secret = ((CreateReissueInfoSuccessPage) page).getSecret();
 			page = new ReceivedMailPage(webDriverOperations, applicationContextUrl).open();
-			webDriverOperations.saveScreenCapture("mail-"+i);
-			webDriverOperations.savePageSource("mail-"+i);
 			String mailText = ((ReceivedMailPage)page).getLatestMailText();
 			String url = mailText.substring(mailText.indexOf("http"));
 			// confirm that the URL is different from any other one
@@ -168,8 +149,6 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("the URL is invalidated by series of incorrect password attempts");
-		webDriverOperations.saveScreenCapture("description");
-		webDriverOperations.savePageSource("description");
 
 		page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
 				"demo");
@@ -187,8 +166,6 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		}
 		assertThat(webDriverOperations.getTitle(),
 				is("Business Error!"));
-		webDriverOperations.saveScreenCapture("invalidated");
-		webDriverOperations.savePageSource("invalidated");
 	}
 
 	/**
@@ -201,8 +178,6 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("the URL is invalidated by passage of time");
-		webDriverOperations.saveScreenCapture("description");
-		webDriverOperations.savePageSource("description");
 
 		page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
 				"demo");
@@ -217,7 +192,5 @@ public class PasswordReissueTest extends FunctionTestSupport {
 				applicationContextUrl, url).open();
 		assertThat(webDriverOperations.getTitle(),
 				anyOf(is("Resource Not Found Error!"), is("Business Error!")));
-		webDriverOperations.saveScreenCapture("expired");
-		webDriverOperations.savePageSource("expired");
 	}
 }

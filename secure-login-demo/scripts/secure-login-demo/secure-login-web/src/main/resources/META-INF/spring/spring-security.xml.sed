@@ -10,17 +10,18 @@ __END_BEAN_DEFINITION_LINE__i\
 __END_SEC_HTTP_DEFINITION_LINE__i\
 \
 		<sec:intercept-url pattern="/login" access="permitAll" />\
+		<sec:intercept-url pattern="/accounts/create" access="permitAll" />\
 		<sec:intercept-url pattern="/reissue/**" access="permitAll" />\
 		<sec:intercept-url pattern="/api/receivedmail" access="permitAll" />\
 		<sec:intercept-url pattern="/unlock/**" access="hasRole('ADMIN')" />\
 		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
 
 # replace form-login
-__FORM_LIGIN_LINE__i\
+__FORM_LOGIN_LINE__i\
 		<sec:form-login login-page="/login"\
 			login-processing-url="/login" username-parameter="username"\
 			password-parameter="password" />
-__FORM_LIGIN_LINE__d
+__FORM_LOGIN_LINE__d
 
 # replace logout
 __LOGOUT_LINE__i\
