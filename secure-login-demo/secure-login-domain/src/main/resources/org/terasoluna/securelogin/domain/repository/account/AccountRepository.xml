@@ -11,6 +11,8 @@
 		<result property="firstName" column="first_name" />
 		<result property="lastName" column="last_name" />
 		<result property="email" column="email" />
+		<result property="url" column="url" />
+		<result property="profile" column="profile" />
 		<collection property="roles" ofType="Role">
 			<result property="role" column="role" />
 		</collection>
@@ -24,6 +26,8 @@
 			a.first_name,
 			a.last_name,
 			a.email,
+			a.url,
+			a.profile,
 			r.role
 		FROM
 			account a
@@ -44,5 +48,73 @@
 			username = #{username}
 	]]>
 	</update>
+
+	<insert id="create" parameterType="Account">
+    <![CDATA[
+        INSERT INTO account (
+            username,
+            password,
+            first_name,
+            last_name,
+            email,
+            url,
+            profile
+        ) VALUES (
+	        #{username},
+	        #{password},
+	        #{firstName},
+            #{lastName},
+            #{email},
+            #{url},
+            #{profile}
+        )
+    ]]>
+	</insert>
+
+	<insert id="createRoles" parameterType="Account">
+    	INSERT INTO role (
+    		username,
+    		role
+    	) VALUES
+    	<foreach collection="roles" item="elem" separator=",">
+    	(
+    		#{username},
+    		#{elem.roleValue}
+    	)
+    	</foreach>
+	</insert>
+
+	<resultMap id="AccountImageResultMap" type="AccountImage">
+		<id property="username" column="username" />
+		<id property="body" column="body" />
+		<id property="extension" column="extension" />
+	</resultMap>
+
+	<select id="findImage" resultMap="AccountImageResultMap">
+    <![CDATA[
+        SELECT
+        	username,
+            body,
+            extension
+        FROM
+            account_image
+        WHERE
+            username = #{username}
+    ]]>
+	</select>
+
+	<insert id="createImage" parameterType="AccountImage">
+    <![CDATA[
+        INSERT INTO account_image (
+            username,
+            body,
+            extension
+        ) VALUES (
+	        #{username},
+	        #{body},
+	        #{extension}
+        )
+    ]]>
+	</insert>
 
 </mapper>

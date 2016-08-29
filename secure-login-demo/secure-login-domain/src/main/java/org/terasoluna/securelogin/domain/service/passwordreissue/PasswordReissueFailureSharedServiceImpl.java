@@ -17,7 +17,7 @@ public class PasswordReissueFailureSharedServiceImpl implements
 
 	@Inject
 	ClassicDateFactory dateFactory;
-	
+
 	@Inject
 	FailedPasswordReissueRepository failedPasswordReissueRepository;
 

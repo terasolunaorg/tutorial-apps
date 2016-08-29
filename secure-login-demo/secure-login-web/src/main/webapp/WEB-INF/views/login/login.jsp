@@ -32,6 +32,10 @@
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
+					<td><a id="create" href="${f:h(pageContext.request.contextPath)}/accounts/create?form">Create new account</a></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
 					<td><a id="forgotten" href="${f:h(pageContext.request.contextPath)}/reissue/create?form">I've forgotten my password</a></td>
 				</tr>
 			</table>

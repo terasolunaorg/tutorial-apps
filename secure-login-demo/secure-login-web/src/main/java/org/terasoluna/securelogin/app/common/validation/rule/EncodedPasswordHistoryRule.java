@@ -11,7 +11,7 @@ public class EncodedPasswordHistoryRule extends HistoryRule {
 	public EncodedPasswordHistoryRule(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
 	}
-	
+
 	@Override
 	protected boolean matches(final String clearText,
 			final PasswordData.Reference reference) {

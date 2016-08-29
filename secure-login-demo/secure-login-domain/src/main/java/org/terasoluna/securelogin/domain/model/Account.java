@@ -18,6 +18,10 @@ public class Account implements Serializable {
 	private String lastName;
 
 	private String email;
+	
+	private String url;
+	
+	private String profile;
 
 	private List<Role> roles;
 

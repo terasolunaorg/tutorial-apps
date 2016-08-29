@@ -12,4 +12,7 @@ sed -i -e "s/__END_NAMESPACE_LINE__/${END_NAMESPACE_LINE}/g" $SED_FILE_NAME
 SCHEMALOCATION_LINE=`sed -n '/spring-beans.xsd/=' target-project/$TARGET_FILE_NAME`
 sed -i -e "s/__SCHEMALOCATION_LINE__/${SCHEMALOCATION_LINE}/g" $SED_FILE_NAME
 
+EXCEPTIONCODE_LINE=`sed -n '/InvalidTransactionTokenException/=' target-project/$TARGET_FILE_NAME`
+sed -i -e "s/__EXCEPTIONCODE_LINE__/${EXCEPTIONCODE_LINE}/g" $SED_FILE_NAME
+
 sed -i -f $SED_FILE_NAME target-project/$TARGET_FILE_NAME

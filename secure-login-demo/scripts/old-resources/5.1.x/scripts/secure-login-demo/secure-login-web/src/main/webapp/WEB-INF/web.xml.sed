@@ -1,0 +1,41 @@
+# add definitions
+__END_WEB_APP_DEFINITION_LINE__i\
+\
+    <servlet>\
+        <servlet-name>H2Console</servlet-name>\
+        <servlet-class>org.h2.server.web.WebServlet</servlet-class>\
+        <init-param>\
+            <param-name>-webAllowOthers</param-name>\
+            <param-value>true</param-value>\
+        </init-param>\
+        <load-on-startup>2</load-on-startup>\
+    </servlet>\
+\
+    <servlet-mapping>\
+        <servlet-name>H2Console</servlet-name>\
+        <url-pattern>/admin/h2/*</url-pattern>\
+    </servlet-mapping>\
+\
+    <listener>\
+        <listener-class>org.h2.server.web.DbStarter</listener-class>\
+    </listener>\
+\
+    <context-param>\
+        <param-name>db.url</param-name>\
+        <param-value>jdbc:h2:mem:secure-login-test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:logback-ddl.sql'</param-value>\
+    </context-param>\
+\
+    <context-param>\
+        <param-name>db.user</param-name>\
+        <param-value>sa</param-value>\
+    </context-param>\
+\
+    <context-param>\
+        <param-name>db.password</param-name>\
+        <param-value></param-value>\
+    </context-param>\
+\
+    <context-param>\
+        <param-name>db.tcpServer</param-name>\
+        <param-value>-tcpAllowOthers -tcpPort 9202</param-value>\
+    </context-param>

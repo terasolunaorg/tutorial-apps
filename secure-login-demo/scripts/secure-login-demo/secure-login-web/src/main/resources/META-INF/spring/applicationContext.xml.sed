@@ -1,5 +1,9 @@
 # add bean definitions
 __END_BEAN_DEFINITION_LINE__i\
+	<bean id="inputValidationFilter" class="org.terasoluna.securelogin.app.common.filter.InputValidationFilter">\
+		<constructor-arg index="0" value="${app.security.prohibitedChars}"/>\
+		<constructor-arg index="1" value="${app.security.prohibitedCharsForFileName}"/>\
+	</bean>\
 \
 	<bean id="lengthRule" class="org.passay.LengthRule">\
 		<property name="minimumLength" value="${security.passwordMinimumLength}" />\
@@ -80,12 +84,26 @@ __END_BEAN_DEFINITION_LINE__i\
 \
 	<bean id="expiredReissueInfoCleaner"\
 		class="org.terasoluna.securelogin.domain.common.scheduled.UnnecessaryReissueInfoCleaner" />\
-\
+	<bean id="expiredReissueInfoCleanTrigger" class="org.springframework.scheduling.support.PeriodicTrigger">\
+		<constructor-arg name="period" value="${security.reissueInfoCleanupSeconds}" />\
+		<constructor-arg name="timeUnit" value="SECONDS" />\
+	</bean>\
 	<task:scheduler id="reissueInfoCleanupTaskScheduler" />\
 \
 	<task:scheduled-tasks scheduler="reissueInfoCleanupTaskScheduler">\
 		<task:scheduled ref="expiredReissueInfoCleaner" method="cleanup"\
-			fixed-delay="${security.reissueInfoCleanupSeconds}" />\
+			trigger="expiredReissueInfoCleanTrigger" />\
+	</task:scheduled-tasks>\
+\
+	<bean id="tempFileCleaner"\
+		class="org.terasoluna.securelogin.domain.common.scheduled.TempFileCleaner" />\
+	<bean id="tempFileCleanTrigger" class="org.springframework.scheduling.support.PeriodicTrigger">\
+		<constructor-arg name="period" value="${security.tempFileCleanupSeconds}" />\
+		<constructor-arg name="timeUnit" value="SECONDS" />\
+	</bean>\
+	<task:scheduler id="tempFileTaskScheduler" />\
+	<task:scheduled-tasks scheduler="tempFileTaskScheduler">\
+		<task:scheduled ref="tempFileCleaner" method="cleanup" trigger="tempFileCleanTrigger" />\
 	</task:scheduled-tasks>
 
 # add namespace
@@ -98,8 +116,13 @@ __SCHEMALOCATION_LINE__i\
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd\
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 
+# add exception code
+__EXCEPTIONCODE_LINE__i\
+				<entry key="MultipartException" value="e.sl.fw.6001" />
+
 # replace message kays
 s/e.xx.fw.5001/e.sl.fw.5001/g
 s/e.xx.fw.7001/e.sl.fw.7001/g
 s/e.xx.fw.8001/e.sl.fw.8001/g
 s/e.xx.fw.9001/e.sl.fw.9001/g
+s/e.xx.fw.9002/e.sl.fw.9002/g

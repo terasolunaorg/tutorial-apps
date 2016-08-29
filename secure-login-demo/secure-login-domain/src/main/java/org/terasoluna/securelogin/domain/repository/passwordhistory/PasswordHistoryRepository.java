@@ -12,6 +12,6 @@ public interface PasswordHistoryRepository {
 	List<PasswordHistory> findByUseFrom(@Param("username") String username,
 			@Param("useFrom") LocalDateTime useFrom);
 
-	List<PasswordHistory> findLatest(
-			@Param("username") String username, @Param("limit") int limit);
+	List<PasswordHistory> findLatest(@Param("username") String username,
+			@Param("limit") int limit);
 }

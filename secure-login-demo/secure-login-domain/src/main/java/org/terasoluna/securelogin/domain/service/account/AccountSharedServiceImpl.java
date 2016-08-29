@@ -1,17 +1,23 @@
 package org.terasoluna.securelogin.domain.service.account;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
+import org.passay.CharacterRule;
+import org.passay.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.terasoluna.gfw.common.date.DefaultClassicDateFactory;
+import org.terasoluna.gfw.common.exception.BusinessException;
 import org.terasoluna.gfw.common.exception.ResourceNotFoundException;
 import org.terasoluna.gfw.common.message.ResultMessages;
 import org.terasoluna.securelogin.domain.common.message.MessageKeys;
@@ -19,8 +25,11 @@ import org.terasoluna.securelogin.domain.model.Account;
 import org.terasoluna.securelogin.domain.model.FailedAuthentication;
 import org.terasoluna.securelogin.domain.model.SuccessfulAuthentication;
 import org.terasoluna.securelogin.domain.model.PasswordHistory;
+import org.terasoluna.securelogin.domain.model.TempFile;
+import org.terasoluna.securelogin.domain.model.AccountImage;
 import org.terasoluna.securelogin.domain.repository.account.AccountRepository;
 import org.terasoluna.securelogin.domain.service.authenticationevent.AuthenticationEventSharedService;
+import org.terasoluna.securelogin.domain.service.fileupload.FileUploadSharedService;
 import org.terasoluna.securelogin.domain.service.passwordhistory.PasswordHistorySharedService;
 
 @Service
@@ -37,10 +46,19 @@ public class AccountSharedServiceImpl implements AccountSharedService {
 	AccountRepository accountRepository;
 
 	@Inject
+	FileUploadSharedService fileUploadSharedService;
+
+	@Inject
 	PasswordEncoder passwordEncoder;
 
 	@Inject
 	DefaultClassicDateFactory dateFactory;
+
+	@Inject
+	PasswordGenerator passwordGenerator;
+
+	@Resource(name = "passwordGenerationRules")
+	List<CharacterRule> passwordGenerationRules;
 
 	@Value("${security.lockingDurationSeconds}")
 	int lockingDurationSeconds;
@@ -70,11 +88,11 @@ public class AccountSharedServiceImpl implements AccountSharedService {
 
 		if (account == null) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public boolean isLocked(String username) {
@@ -163,5 +181,33 @@ public class AccountSharedServiceImpl implements AccountSharedService {
 	@Override
 	@CacheEvict(value = { "isInitialPassword", "isCurrentPasswordExpired" }, key = "#username")
 	public void clearPasswordValidationCache(String username) {
+	}
+
+	@Override
+	public String create(Account account, String imageId) {
+		if (exists(account.getUsername())) {
+			throw new BusinessException(ResultMessages.error().add(
+					MessageKeys.E_SL_AC_5001));
+		}
+		String rawPassword = passwordGenerator.generatePassword(10,
+				passwordGenerationRules);
+		account.setPassword(passwordEncoder.encode(rawPassword));
+		accountRepository.create(account);
+		accountRepository.createRoles(account);
+		TempFile tempFile = fileUploadSharedService.findTempFile(imageId);
+		InputStream image = tempFile.getBody();
+		AccountImage accountImage = new AccountImage();
+		accountImage.setUsername(account.getUsername());
+		accountImage.setBody(image);
+		accountImage.setExtension(StringUtils.getFilenameExtension(tempFile
+				.getOriginalName()));
+		accountRepository.createImage(accountImage);
+		fileUploadSharedService.deleteTempFile(imageId);
+		return rawPassword;
+	}
+
+	@Override
+	public AccountImage getImage(String username) {
+		return accountRepository.findImage(username);
 	}
 }

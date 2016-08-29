@@ -50,8 +50,6 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("password strength check(insufficient length)");
-		webDriverOperations.saveScreenCapture("description");
-		webDriverOperations.savePageSource("description");
 
 		// password strength check : insufficient length
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
@@ -59,8 +57,6 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		assertThat(((PasswordChangePage) page).getNewPasswordError(),
 				containsString("Password must be at least "
 						+ passwordMinimumLength + " characters in length."));
-		webDriverOperations.saveScreenCapture();
-		webDriverOperations.savePageSource();
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
@@ -79,8 +75,6 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 				applicationContextUrl)
 				.openWithDescription("password strength check(characteristic condition is"
 						+ "unsatisfied)");
-		webDriverOperations.saveScreenCapture("description");
-		webDriverOperations.savePageSource("description");
 
 		// password strength check : characteristic condition is unsatisfied
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
@@ -88,8 +82,6 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		assertThat(
 				((PasswordChangePage) page).getNewPasswordError(),
 				containsString("Password matches 2 of 4 character rules, but 3 are required."));
-		webDriverOperations.saveScreenCapture();
-		webDriverOperations.savePageSource();
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
@@ -106,16 +98,12 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		AbstractPageObject page = new LoginPage(webDriverOperations,
 				applicationContextUrl)
 				.openWithDescription("password strength check(contains username)");
-		webDriverOperations.saveScreenCapture("description");
-		webDriverOperations.savePageSource("description");
 
 		// password strength check : contains username
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
 				.changePasswordFailure("demo", "demoFoo1", "demoFoo1");
 		assertThat(((PasswordChangePage) page).getNewPasswordError(),
 				containsString("Password contains the user id demo."));
-		webDriverOperations.saveScreenCapture();
-		webDriverOperations.savePageSource();
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
