@@ -98,6 +98,9 @@ install:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - export CARGO_DAEMON_WEBAPP_VERSION=1.4.19
+  - mvn dependency:copy -Dartifact=org.codehaus.cargo:cargo-daemon-webapp:${CARGO_DAEMON_WEBAPP_VERSION}:war -DoutputDirectory=./ -Dorg.codehaus.cargo.cargo-maven2-plugin.version=${CARGO_DAEMON_WEBAPP_VERSION} -Dcargo.daemon.url=http://localhost:8080
+  - java -jar ./target/cargo-daemon-webapp-${CARGO_DAEMON_WEBAPP_VERSION}.war &
 
 script: 
   - echo "==================== Generate Tutorial Apps ===================="
@@ -137,7 +140,7 @@ script:
   - |
     for WEBAPPOM in `find ./$TARGET_PROJECT/*/*-web/pom.xml -maxdepth 1`;do
       echo "Run $WEBAPPOM"
-      mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:run -f $WEBAPPOM
+      mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:daemon-start -f $WEBAPPOM
       -Dcargo.maven.containerId=tomcat8x
       -Dcargo.maven.containerUrl=http://archive.apache.org/dist/tomcat/tomcat-8/v${TOMCAT8_VERSION}/bin/apache-tomcat-${TOMCAT8_VERSION}.zip
       buildResult=$?
