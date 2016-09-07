@@ -12,6 +12,7 @@ env:
   - VERSION=1.0.0-SNAPSHOT ARCHETYPE_VERSION=5.1.2-SNAPSHOT GFW_BRANCH=5.1.x ARCHETYPE_BRANCH=5.1.x TARGET_PROJECT=target-project
   - VERSION=1.0.0-SNAPSHOT ARCHETYPE_VERSION=5.1.1.RELEASE GFW_BRANCH=5.1.1.RELEASE ARCHETYPE_BRANCH=5.1.1.RELEASE TARGET_PROJECT=target-project
   - VERSION=1.0.0-SNAPSHOT ARCHETYPE_VERSION=5.1.0.RELEASE GFW_BRANCH=5.1.0.RELEASE ARCHETYPE_BRANCH=5.1.0.RELEASE TARGET_PROJECT=target-project
+  - TOMCAT8_VERSION="8.0.29"
 
 install:
   - echo "==================== install terasoluna-gfw ===================="
@@ -94,12 +95,27 @@ install:
   - rm -rf terasolunaorg/terasoluna-gfw-web-blank
   - popd
 
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
 script: 
   - echo "==================== Generate Tutorial Apps ===================="
   - |
     for FILE in `find ./*/scripts/create-app.sh -maxdepth 1`; do
       echo "execute $FILE"
       bash $FILE
+      buildResult=$?
+      if test ${buildResult} -ne 0 ; then
+        echo "[ERROR] Failed a build."
+        exit ${buildResult}
+      fi
+    done
+  - echo "==================== Make war files ===================="
+  - |
+    for POM in `find ./$TARGET_PROJECT/*/pom.xml -maxdepth 1`; do
+      "make $POM warfile"
+      mvn -U -f $POM package -DskipTest=true
       buildResult=$?
       if test ${buildResult} -ne 0 ; then
         echo "[ERROR] Failed a build."
@@ -117,4 +133,24 @@ script:
         exit ${buildResult}
       fi
     done
-
+  - echo "==================== Run AP And Test Tutorial Apps (e2e test) ===================="
+  - |
+    for WEBAPPOM in `find ./$TARGET_PROJECT/*/*-web/pom.xml -maxdepth 1`;do
+      echo "Run $WEBAPPOM"
+      mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:run -f $WEBAPPOM
+      -Dcargo.maven.containerId=tomcat8x
+      -Dcargo.maven.containerUrl=http://archive.apache.org/dist/tomcat/tomcat-8/v${TOMCAT8_VERSION}/bin/apache-tomcat-${TOMCAT8_VERSION}.zip
+      buildResult=$?
+      if test ${buildResult} -ne 0 ; then
+        echo "[ERROR] Failed a build."
+        exit ${buildResult}
+      fi
+      SELENIUMPOM="${WEBAPPOM%-web/pom.xml}-selenium/pom.xml"
+      echo "Test $SELENIUMPOM"
+      mvn test -f $SELENIUMPOM
+      buildResult=$?
+      if test ${buildResult} -ne 0 ; then
+        echo "[ERROR] Failed a build."
+        exit ${buildResult}
+      fi
+    done
