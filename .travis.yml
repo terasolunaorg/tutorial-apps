@@ -114,8 +114,8 @@ script:
   - echo "==================== Make war files ===================="
   - |
     for POM in `find ./$TARGET_PROJECT/*/pom.xml -maxdepth 1`; do
-      "make $POM warfile"
-      mvn -U -f $POM package -DskipTest=true
+      echo"make $POM warfile"
+      mvn -U -f $POM package -DskipTests=true
       buildResult=$?
       if test ${buildResult} -ne 0 ; then
         echo "[ERROR] Failed a build."
