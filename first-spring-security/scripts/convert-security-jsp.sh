@@ -7,6 +7,7 @@ find . -type f -name 'include.jsp' | xargs sed -i -e 's|<%@ page session="false"
 # home.jsp
 # account変数
 find . -type f -name 'home.jsp' | xargs sed -i -e 's|</head>|</head>\n\n<!-- (1) -->\n<sec:authentication property="principal.account" var="account" />|'
+find . -type f -name 'home.jsp' | xargs sed -i -e 's|<h1 id="title">Hello world!</h1>|<h1 id="title">Hello world!</h1>\n\n<!-- (1) -->\n<sec:authentication property="principal.account" var="account" />|'
 
 # home.jsp
 find . -type f -name 'home.jsp' | xargs sed -i -e 's|<p>The time on the server is ${serverTime}.</p>|\
