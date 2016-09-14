@@ -14,3 +14,5 @@ bash ./todo/scripts/convert-common-css.sh
 bash ./first-spring-security/scripts/convert-security-jsp.sh
 
 bash ./first-spring-security/scripts/convert-security-xml.sh
+
+bash ./first-spring-security/scripts/convert-security-test.sh

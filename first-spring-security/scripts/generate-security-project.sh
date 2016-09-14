@@ -49,6 +49,9 @@ mkdir -p ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-m
 mkdir -p ./first-spring-security-mybatis3/src/main/webapp/WEB-INF/views/account/
 mkdir -p ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-web/src/main/webapp/WEB-INF/views/account/
 
+mkdir -p ./first-spring-security-mybatis3/src/test/resources/META-INF/spring
+mkdir -p ./first-spring-security-mybatis3/src/test/java/com/example/security/selenium
+
 # create dir for complete app
 mkdir target-project
 
@@ -89,3 +92,12 @@ cp -p ./first-spring-security/src/main/webapp/WEB-INF/login.jsp ./target-project
 
 cp -p ./first-spring-security/src/main/webapp/WEB-INF/views/account/view.jsp ./target-project/first-spring-security-mybatis3/src/main/webapp/WEB-INF/views/account/
 cp -p ./first-spring-security/src/main/webapp/WEB-INF/views/account/view.jsp ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-web/src/main/webapp/WEB-INF/views/account/
+
+cp -p ./first-spring-security/src/test/java/com/example/security/selenium/FirstSpringSecurityTest.java ./target-project/first-spring-security-mybatis3/src/test/java/com/example/security/selenium/
+cp -p ./first-spring-security/src/test/java/com/example/security/FunctionTestSupport.java ./target-project/first-spring-security-mybatis3/src/test/java/com/example/security/
+
+cp -p ./first-spring-security/src/test/resources/META-INF/spring/selenium.properties ./target-project/first-spring-security-mybatis3/src/test/resources/META-INF/spring/
+cp -p ./first-spring-security/src/test/resources/META-INF/spring/seleniumContext.xml ./target-project/first-spring-security-mybatis3/src/test/resources/META-INF/spring/
+
+cp -p ./first-spring-security/src/test/java/com/example/security/selenium/FirstSpringSecurityTest.java ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/selenium/
+cp -p ./first-spring-security/src/test/java/com/example/security/FunctionTestSupport.java ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/
