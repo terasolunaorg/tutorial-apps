@@ -52,6 +52,8 @@ mkdir -p ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-m
 mkdir -p ./first-spring-security-mybatis3/src/test/resources/META-INF/spring
 mkdir -p ./first-spring-security-mybatis3/src/test/java/com/example/security/selenium
 
+mkdir -p ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/selenium/
+
 # create dir for complete app
 mkdir target-project
 

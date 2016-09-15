@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #selenium.properties
 find . -type f -name 'selenium.properties' | xargs sed -i -e 's|selenium.applicationContextUrl=${selenium.serverUrl}/${selenium.contextName}|selenium.applicationContextUrl=${selenium.serverUrl}/${selenium.contextName}\nselenium.evidenceBaseDirectory=./evidence-${selenium.contextName}|'
 
