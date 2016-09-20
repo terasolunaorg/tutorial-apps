@@ -28,6 +28,6 @@ cp -p ./todo/src/test/java/mybatis3-multi/todo/selenium/todo/TodoTest.java ./tar
 
 # modify pom
 # jpa
-find ./target-project/todo-jpa/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
+find ./target-project/todo-jpa/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>2.46.0</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
 # mybatis3
-find ./target-project/todo-mybatis3/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
+find ./target-project/todo-mybatis3/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>2.46.0</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
