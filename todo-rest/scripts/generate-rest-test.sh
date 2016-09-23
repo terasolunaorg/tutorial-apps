@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #${ARCHETYPE_VERSION}=terasoluna-gfw-blank-archetype-version
-#${VERSION}=tutorial pj version
 
 # make app test
 # jpa
@@ -98,16 +97,16 @@ find ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/pom.xml | x
 find ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>com.restfuse</groupId>\n            <artifactId>com.eclipsesource.restfuse</artifactId>\n            <version>${restfuse.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
 find ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/pom.xml | xargs sed -i -e 's|</dependencies>|</dependencies>\n\n    <properties>\n        <restfuse.version>1.2.0</restfuse.version>\n    </properties>|'
 
-VERSION="${ARCHETYPE_VERSION:0:3}"
-# VERSION 1.0.x or 5.0.x or 5.1.x
-if test ${VERSION} = 1.0 ||  ${VERSION} = 5.0 || ${VERSION} = 5.1 ; then
+VER="${ARCHETYPE_VERSION:0:3}"
+# VER 1.0.x or 5.0.x or 5.1.x
+if test ${VER} = 1.0 ||  ${VER} = 5.0 || ${VER} = 5.1 ; then
 # jpa
 find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>com.restfuse</groupId>\n            <artifactId>com.eclipsesource.restfuse</artifactId>\n            <version>${restfuse.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
 find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</properties>|    <restfuse.version>1.2.0</restfuse.version>\n    </properties>|'
 # mybatis3
 find ./target-project/todo-api-mybatis3/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>com.restfuse</groupId>\n            <artifactId>com.eclipsesource.restfuse</artifactId>\n            <version>${restfuse.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
 find ./target-project/todo-api-mybatis3/pom.xml | xargs sed -i -e 's|</properties>|    <restfuse.version>1.2.0</restfuse.version>\n    </properties>|'
-# VERSION 5.2.x or laster
+# VER 5.2.x or laster
 else
 # jpa
 find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>com.restfuse</groupId>\n            <artifactId>com.eclipsesource.restfuse</artifactId>\n            <version>${restfuse.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
