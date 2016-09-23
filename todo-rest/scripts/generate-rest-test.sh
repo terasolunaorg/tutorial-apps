@@ -99,7 +99,7 @@ find ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/p
 
 VER="${ARCHETYPE_VERSION:0:3}"
 # VER 1.0.x or 5.0.x or 5.1.x
-if test ${VER} = 1.0 ||  ${VER} = 5.0 || ${VER} = 5.1 ; then
+if test ${VER} = 1.0 ||  test ${VER} = 5.0 || test ${VER} = 5.1 ; then
 # jpa
 find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>com.restfuse</groupId>\n            <artifactId>com.eclipsesource.restfuse</artifactId>\n            <version>${restfuse.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
 find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</properties>|    <restfuse.version>1.2.0</restfuse.version>\n    </properties>|'
