@@ -103,10 +103,10 @@ VERSION = ${ARCHETYPE_VERSION:0:3}
 if test ${VERSION} = 1.0 ||  ${VERSION} = 5.0 || ${VERSION} = 5.1 ; then
 # jpa
 find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>com.restfuse</groupId>\n            <artifactId>com.eclipsesource.restfuse</artifactId>\n            <version>${restfuse.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
-find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</dependencies>|</dependencies>\n\n    <properties>\n        <restfuse.version>1.2.0</restfuse.version>\n    </properties>|'
+find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</properties>|    <restfuse.version>1.2.0</restfuse.version>\n    </properties>|'
 # mybatis3
 find ./target-project/todo-api-mybatis3/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>com.restfuse</groupId>\n            <artifactId>com.eclipsesource.restfuse</artifactId>\n            <version>${restfuse.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
-find ./target-project/todo-api-mybatis3/pom.xml | xargs sed -i -e 's|</dependencies>|</dependencies>\n\n    <properties>\n        <restfuse.version>1.2.0</restfuse.version>\n    </properties>|'
+find ./target-project/todo-api-mybatis3/pom.xml | xargs sed -i -e 's|</properties>|    <restfuse.version>1.2.0</restfuse.version>\n    </properties>|'
 # VERSION 5.2.x or laster
 else
 # jpa
