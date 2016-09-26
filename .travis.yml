@@ -116,6 +116,7 @@ script:
     done
   - echo "==================== Make war files ===================="
   - |
+  - sed -i -e "s|database.url=jdbc:h2:mem:secure-login|database.url=jdbc:h2:tcp://localhost:9202/mem:secure-login|g" ./target-project/secure-login-demo/secure-login-env/src/main/resources/META=INF/spring/secure-login-infra.properties
     for POM in `find ./$TARGET_PROJECT/*/pom.xml -maxdepth 1`; do
       echo "make $POM warfile"
       mvn -U -f $POM package -DskipTests=true
