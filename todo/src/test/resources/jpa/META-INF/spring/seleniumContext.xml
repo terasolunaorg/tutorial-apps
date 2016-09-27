@@ -11,6 +11,6 @@
         location="classpath*:META-INF/spring/*.properties" />
 
     <bean id="webDriver" class="org.openqa.selenium.firefox.FirefoxDriver"
-        scope="prototype" />
+        scope="singleton" />
 
 </beans>
