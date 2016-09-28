@@ -30,14 +30,14 @@ public class TodoTest {
 	}
 
 	@Value("${selenium.todoListUrl}")
-	String applicationContextUrl;
+	String todoListUrl;
 
 	@Value("${selenium.contextName}")
 	String contextName;
 
 	@Before
 	public void testBefore() {
-		webDriver.get(applicationContextUrl);
+		webDriver.get(todoListUrl);
 	}
 
 	/**
