@@ -1,5 +1,6 @@
 package todo.selenium.todo;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -46,8 +47,8 @@ public class TodoTest {
 	@Test
 	public void testList() throws IOException {
 
-		assertThat(webDriver.findElement(By.xpath("/html/body")).getText()
-				.contains("Todo List"), is(true));
+		assertThat(webDriver.findElement(By.xpath("/html/body")).getText(),
+				is(containsString("Todo List")));
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class TodoTest {
 						By.xpath("//div[@class='alert alert-success']/ul/li"))
 						.getText(), is("Created successfully!"));
 
-		assertThat(todoList_ul_li.getText().contains("todoThings1"), is(true));
+		assertThat(todoList_ul_li.getText(), is(containsString("todoThings1")));
 		todoList_ul_li.findElement(
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/delete']/button")).click();
