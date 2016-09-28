@@ -32,7 +32,6 @@ cp -p ./todo-rest/src/test/java/jpa/todo/restfuse/todo/GetOneTest.java ./target-
 cp -p ./todo-rest/src/test/java/jpa/todo/restfuse/todo/PutErr405Test.java ./target-project/todo-api-jpa/src/test/java/todo/restfuse/todo
 cp -p ./todo-rest/src/test/java/jpa/todo/restfuse/todo/PutErr409Test.java ./target-project/todo-api-jpa/src/test/java/todo/restfuse/todo
 cp -p ./todo-rest/src/test/java/jpa/todo/restfuse/todo/PutTest.java ./target-project/todo-api-jpa/src/test/java/todo/restfuse/todo
-cp -p ./todo-rest/src/test/java/jpa/todo/restfuse/todo/common/AllTests.java ./target-project/todo-api-jpa/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/jpa/todo/restfuse/todo/common/ErrDetails.java ./target-project/todo-api-jpa/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/jpa/todo/restfuse/todo/common/ErrInfo.java ./target-project/todo-api-jpa/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/jpa/todo/restfuse/todo/common/Todo.java ./target-project/todo-api-jpa/src/test/java/todo/restfuse/todo/common
@@ -49,7 +48,6 @@ cp -p ./todo-rest/src/test/java/jpa-multi/todo/restfuse/todo/GetOneTest.java ./t
 cp -p ./todo-rest/src/test/java/jpa-multi/todo/restfuse/todo/PutErr405Test.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test/java/todo/restfuse/todo
 cp -p ./todo-rest/src/test/java/jpa-multi/todo/restfuse/todo/PutErr409Test.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test/java/todo/restfuse/todo
 cp -p ./todo-rest/src/test/java/jpa-multi/todo/restfuse/todo/PutTest.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test/java/todo/restfuse/todo
-cp -p ./todo-rest/src/test/java/jpa-multi/todo/restfuse/todo/common/AllTests.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/jpa-multi/todo/restfuse/todo/common/ErrDetails.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/jpa-multi/todo/restfuse/todo/common/ErrInfo.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/jpa-multi/todo/restfuse/todo/common/Todo.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test/java/todo/restfuse/todo/common
@@ -66,7 +64,6 @@ cp -p ./todo-rest/src/test/java/mybatis3/todo/restfuse/todo/GetOneTest.java ./ta
 cp -p ./todo-rest/src/test/java/mybatis3/todo/restfuse/todo/PutErr405Test.java ./target-project/todo-api-mybatis3/src/test/java/todo/restfuse/todo
 cp -p ./todo-rest/src/test/java/mybatis3/todo/restfuse/todo/PutErr409Test.java ./target-project/todo-api-mybatis3/src/test/java/todo/restfuse/todo
 cp -p ./todo-rest/src/test/java/mybatis3/todo/restfuse/todo/PutTest.java ./target-project/todo-api-mybatis3/src/test/java/todo/restfuse/todo
-cp -p ./todo-rest/src/test/java/mybatis3/todo/restfuse/todo/common/AllTests.java ./target-project/todo-api-mybatis3/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/mybatis3/todo/restfuse/todo/common/ErrDetails.java ./target-project/todo-api-mybatis3/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/mybatis3/todo/restfuse/todo/common/ErrInfo.java ./target-project/todo-api-mybatis3/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/mybatis3/todo/restfuse/todo/common/Todo.java ./target-project/todo-api-mybatis3/src/test/java/todo/restfuse/todo/common
@@ -83,7 +80,6 @@ cp -p ./todo-rest/src/test/java/mybatis3-multi/todo/restfuse/todo/GetOneTest.jav
 cp -p ./todo-rest/src/test/java/mybatis3-multi/todo/restfuse/todo/PutErr405Test.java ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo/restfuse/todo/
 cp -p ./todo-rest/src/test/java/mybatis3-multi/todo/restfuse/todo/PutErr409Test.java ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo/restfuse/todo/
 cp -p ./todo-rest/src/test/java/mybatis3-multi/todo/restfuse/todo/PutTest.java ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo/restfuse/todo/
-cp -p ./todo-rest/src/test/java/mybatis3-multi/todo/restfuse/todo/common/AllTests.java ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/mybatis3-multi/todo/restfuse/todo/common/ErrDetails.java ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/mybatis3-multi/todo/restfuse/todo/common/ErrInfo.java ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo/restfuse/todo/common
 cp -p ./todo-rest/src/test/java/mybatis3-multi/todo/restfuse/todo/common/Todo.java ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo/restfuse/todo/common
