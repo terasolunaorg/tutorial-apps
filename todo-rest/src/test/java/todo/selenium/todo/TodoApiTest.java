@@ -10,23 +10,28 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
 public class TodoApiTest {
+
+	@Value("${selenium.todoApiUrl}")
+	String todoApiUrl;
 
 	@Before
 	public void setUp() throws Exception {
 
 		// Get all existing todo resources
-		List<String> todoIds = given()
-				.when()
-				.get("http://localhost:8080/todo-api-jpa/api/v1/todos")
-				.then().extract().jsonPath().getList("todoId");
+		List<String> todoIds = given().when().get(todoApiUrl).then().extract()
+				.jsonPath().getList("todoId");
 
 		// Delete all existing todos
 		for (String todoId : todoIds) {
-			given().when()
-					.delete("http://localhost:8080/todo-api-jpa/api/v1/todos/{todoId}",
-							todoId);
+			given().when().delete(todoApiUrl + "/{todoId}", todoId);
 		}
 	}
 
@@ -40,7 +45,7 @@ public class TodoApiTest {
 		given().body(jsonBody)
 				.contentType(ContentType.JSON)
 				.when()
-				.post("http://localhost:8080/todo-api-jpa/api/v1/todos")
+				.post(todoApiUrl)
 				.then()
 				.statusCode(400)
 				.body("code", equalTo("E400"))
@@ -59,11 +64,8 @@ public class TodoApiTest {
 		jsonBody.put("todoTitle", "Hello World!");
 
 		// posting request
-		given().body(jsonBody)
-				.contentType(ContentType.JSON)
-				.when()
-				.post("http://localhost:8080/todo-api-jpa/api/v1/todos")
-				.then().statusCode(201)
+		given().body(jsonBody).contentType(ContentType.JSON).when()
+				.post(todoApiUrl).then().statusCode(201)
 				.body("todoTitle", equalTo("Hello World!"))
 				.body("finished", equalTo(false));
 	}
@@ -75,26 +77,20 @@ public class TodoApiTest {
 		jsonBody.put("todoTitle", "Hello World!");
 
 		// posting request
-		String todoId = given()
-				.body(jsonBody)
-				.contentType(ContentType.JSON)
-				.when()
-				.post("http://localhost:8080/todo-api-jpa/api/v1/todos")
-				.then().extract().jsonPath().get("todoId");
+		String todoId = given().body(jsonBody).contentType(ContentType.JSON)
+				.when().post(todoApiUrl).then().extract().jsonPath()
+				.get("todoId");
 
 		// deleting request
-		given().when()
-				.delete("http://localhost:8080/todo-api-jpa/api/v1/todos/{todoId}",
-						todoId).then().statusCode(204);
+		given().when().delete(todoApiUrl + "/{todoId}", todoId).then()
+				.statusCode(204);
 	}
 
 	@Test
 	public void testGetAll() throws Exception {
 
 		// getting request
-		given().when()
-				.get("http://localhost:8080/todo-api-jpa/api/v1/todos")
-				.then().statusCode(200);
+		given().when().get(todoApiUrl).then().statusCode(200);
 	}
 
 	@Test
@@ -104,17 +100,13 @@ public class TodoApiTest {
 		jsonBody.put("todoTitle", "Hello World!");
 
 		// posting request
-		String todoId = given()
-				.body(jsonBody)
-				.contentType(ContentType.JSON)
-				.when()
-				.post("http://localhost:8080/todo-api-jpa/api/v1/todos")
-				.then().extract().jsonPath().get("todoId");
+		String todoId = given().body(jsonBody).contentType(ContentType.JSON)
+				.when().post(todoApiUrl).then().extract().jsonPath()
+				.get("todoId");
 
 		// getting request
 		given().when()
-				.get("http://localhost:8080/todo-api-jpa/api/v1/todos/{todoId}Nonexist",
-						todoId)
+				.get(todoApiUrl + "/{todoId}Nonexist", todoId)
 				.then()
 				.statusCode(404)
 				.body("code", equalTo("E404"))
@@ -130,18 +122,13 @@ public class TodoApiTest {
 		jsonBody.put("todoTitle", "Hello World!");
 
 		// posting request
-		String todoId = given()
-				.body(jsonBody)
-				.contentType(ContentType.JSON)
-				.when()
-				.post("http://localhost:8080/todo-api-jpa/api/v1/todos")
-				.then().extract().jsonPath().get("todoId");
+		String todoId = given().body(jsonBody).contentType(ContentType.JSON)
+				.when().post(todoApiUrl).then().extract().jsonPath()
+				.get("todoId");
 
 		// getting request
-		given().when()
-				.get("http://localhost:8080/todo-api-jpa/api/v1/todos/{todoId}",
-						todoId).then().statusCode(200)
-				.body("todoId", equalTo(todoId));
+		given().when().get(todoApiUrl + "/{todoId}", todoId).then()
+				.statusCode(200).body("todoId", equalTo(todoId));
 	}
 
 	@Test
@@ -154,7 +141,7 @@ public class TodoApiTest {
 		given().body(jsonBody)
 				.contentType(ContentType.JSON)
 				.when()
-				.put("http://localhost:8080/todo-api-jpa/api/v1/todos")
+				.put(todoApiUrl)
 				.then()
 				.statusCode(405)
 				.body("code", equalTo("E999"))
@@ -169,26 +156,19 @@ public class TodoApiTest {
 		jsonBody.put("todoTitle", "Hello World!");
 
 		// posting request
-		String todoId = given()
-				.body(jsonBody)
-				.contentType(ContentType.JSON)
-				.when()
-				.post("http://localhost:8080/todo-api-jpa/api/v1/todos")
-				.then().extract().jsonPath().get("todoId");
+		String todoId = given().body(jsonBody).contentType(ContentType.JSON)
+				.when().post(todoApiUrl).then().extract().jsonPath()
+				.get("todoId");
 
 		// putting request
-		given().body(jsonBody)
-				.contentType(ContentType.JSON)
-				.when()
-				.put("http://localhost:8080/todo-api-jpa/api/v1/todos/{todoId}",
-						todoId);
+		given().body(jsonBody).contentType(ContentType.JSON).when()
+				.put(todoApiUrl + "/{todoId}", todoId);
 
 		// putting request again
 		given().body(jsonBody)
 				.contentType(ContentType.JSON)
 				.when()
-				.put("http://localhost:8080/todo-api-jpa/api/v1/todos/{todoId}",
-						todoId)
+				.put(todoApiUrl + "/{todoId}", todoId)
 				.then()
 				.statusCode(409)
 				.body("code", equalTo("E002"))
@@ -204,19 +184,13 @@ public class TodoApiTest {
 		jsonBody.put("todoTitle", "Hello World!");
 
 		// posting request
-		String todoId = given()
-				.body(jsonBody)
-				.contentType(ContentType.JSON)
-				.when()
-				.post("http://localhost:8080/todo-api-jpa/api/v1/todos")
-				.then().extract().jsonPath().get("todoId");
+		String todoId = given().body(jsonBody).contentType(ContentType.JSON)
+				.when().post(todoApiUrl).then().extract().jsonPath()
+				.get("todoId");
 
 		// putting request
-		given().body(jsonBody)
-				.contentType(ContentType.JSON)
-				.when()
-				.put("http://localhost:8080/todo-api-jpa/api/v1/todos/{todoId}",
-						todoId).then().statusCode(200)
+		given().body(jsonBody).contentType(ContentType.JSON).when()
+				.put(todoApiUrl + "/{todoId}", todoId).then().statusCode(200)
 				.body("finished", equalTo(true));
 	}
 }
