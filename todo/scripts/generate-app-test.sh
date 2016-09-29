@@ -11,6 +11,9 @@ mkdir -p ./target-project/todo-mybatis3/src/test/java/todo/selenium/todo
 mkdir -p ./target-project/todo-mybatis3/src/test/resources/META-INF/spring
 # mybatis3-multi
 mkdir -p ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium/todo
+# map
+mkdir -p ./target-project/todo/src/test/java/todo/selenium/todo
+mkdir -p ./target-project/todo/src/test/resources/META-INF/spring
 
 # cp test sources
 # jpa
@@ -25,6 +28,10 @@ cp -p ./todo/src/test/resources/mybatis3/META-INF/spring/selenium.properties ./t
 cp -p ./todo/src/test/resources/mybatis3/META-INF/spring/seleniumContext.xml ./target-project/todo-mybatis3/src/test/resources/META-INF/spring
 # mybatis3-multi
 cp -p ./todo/src/test/java/todo/selenium/todo/TodoTest.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium/todo
+# map
+cp -p ./todo/src/test/java/todo/selenium/todo/TodoTest.java ./target-project/todo/src/test/java/todo/selenium/todo
+cp -p ./todo/src/test/resources/map/META-INF/spring/selenium.properties ./target-project/todo/src/test/resources/META-INF/spring
+cp -p ./todo/src/test/resources/map/META-INF/spring/seleniumContext.xml ./target-project/todo/src/test/resources/META-INF/spring
 
 VER="${ARCHETYPE_VERSION:0:3}"
 
@@ -37,6 +44,9 @@ find ./target-project/todo-jpa/pom.xml | xargs sed -i -e 's|</properties>|    <s
 # mybatis3
 find ./target-project/todo-mybatis3/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>${selenium.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
 find ./target-project/todo-mybatis3/pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\n    </properties>|'
+# map
+find ./target-project/todo/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>${selenium.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
+find ./target-project/todo/pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\n    </properties>|'
 fi
 
 # modify selenium.properties
