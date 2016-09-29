@@ -52,7 +52,7 @@ mvn archetype:generate -B \
  -DarchetypeArtifactId=terasoluna-gfw-web-blank-archetype \
  -DarchetypeVersion=${ARCHETYPE_VERSION} \
  -DgroupId=todo \
- -DartifactId=todo \
+ -DartifactId=todo-map \
  -Dversion=${VERSION}
 
 
@@ -61,7 +61,7 @@ mkdir -p ./todo-mybatis3/src/main/java/todo/app/todo
 mkdir -p ./todo-mybatis3-multi/todo-mybatis3-multi-web/src/main/java/todo/app/todo
 mkdir -p ./todo-jpa/src/main/java/todo/app/todo
 mkdir -p ./todo-jpa-multi/todo-jpa-multi-web/src/main/java/todo/app/todo
-mkdir -p ./todo/src/main/java/todo/app/todo
+mkdir -p ./todo-map/src/main/java/todo/app/todo
 
 
 # repository
@@ -69,7 +69,7 @@ mkdir -p ./todo-mybatis3/src/main/java/todo/domain/repository/todo
 mkdir -p ./todo-mybatis3-multi/todo-mybatis3-multi-domain/src/main/java/todo/domain/repository/todo
 mkdir -p ./todo-jpa/src/main/java/todo/domain/repository/todo
 mkdir -p ./todo-jpa-multi/todo-jpa-multi-domain/src/main/java/todo/domain/repository/todo
-mkdir -p ./todo/src/main/java/todo/domain/repository/todo
+mkdir -p ./todo-map/src/main/java/todo/domain/repository/todo
 
 # repository for xml
 mkdir -p ./todo-mybatis3/src/main/resources/todo/domain/repository/todo
@@ -80,14 +80,14 @@ mkdir -p ./todo-mybatis3/src/main/java/todo/domain/service/todo
 mkdir -p ./todo-mybatis3-multi/todo-mybatis3-multi-domain/src/main/java/todo/domain/service/todo
 mkdir -p ./todo-jpa/src/main/java/todo/domain/service/todo
 mkdir -p ./todo-jpa-multi/todo-jpa-multi-domain/src/main/java/todo/domain/service/todo
-mkdir -p ./todo/src/main/java/todo/domain/service/todo
+mkdir -p ./todo-map/src/main/java/todo/domain/service/todo
 
 # app
 mkdir -p ./todo-mybatis3/src/main/webapp/WEB-INF/views/todo/
 mkdir -p ./todo-mybatis3-multi/todo-mybatis3-multi-web/src/main/webapp/WEB-INF/views/todo/
 mkdir -p ./todo-jpa/src/main/webapp/WEB-INF/views/todo/
 mkdir -p ./todo-jpa-multi/todo-jpa-multi-web/src/main/webapp/WEB-INF/views/todo/
-mkdir -p ./todo/src/main/webapp/WEB-INF/views/todo/
+mkdir -p ./todo-map/src/main/webapp/WEB-INF/views/todo/
 
 # create dir for complete app
 mkdir target-project
@@ -97,7 +97,8 @@ mv ./todo-jpa ./target-project
 mv ./todo-mybatis3 ./target-project
 mv ./todo-jpa-multi ./target-project
 mv ./todo-mybatis3-multi ./target-project
-mv ./todo ./target-project
+mv ./todo-map ./target-project
+mv ./target-project/todo-map ./target-project/todo
 
 # cp common sources
 cp -p ./todo/src/main/java/todo/app/todo/TodoForm.java ./target-project/todo-mybatis3/src/main/java/todo/app/todo
