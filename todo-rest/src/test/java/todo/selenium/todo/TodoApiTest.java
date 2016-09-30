@@ -19,12 +19,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
 public class TodoApiTest {
 
-	@Value("${selenium.todoApiUrl}")
+	@Value("${selenium.applicationContextUrl}")
+	String applicationContextUrl;
+
 	String todoApiUrl;
 
 	@Before
 	public void setUp() throws Exception {
 
+		todoApiUrl = applicationContextUrl + "/api/v1/todos";
 		// Get all existing todo resources
 		List<String> todoIds = given().when().get(todoApiUrl).then().extract()
 				.jsonPath().getList("todoId");
