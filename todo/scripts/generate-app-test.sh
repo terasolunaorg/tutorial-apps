@@ -49,12 +49,6 @@ find ./target-project/todo/pom.xml | xargs sed -i -e 's|</dependencies>|    <dep
 find ./target-project/todo/pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\n    </properties>|'
 fi
 
-# modify selenium.properties
-# mybatis3-multi
-echo "selenium.todoListUrl=\${selenium.applicationContextUrl}/todo/list" >> ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/resources/META-INF/spring/selenium.properties
-# jpa-multi
-echo "selenium.todoListUrl=\${selenium.applicationContextUrl}/todo/list" >> ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/resources/META-INF/spring/selenium.properties
-
 # modify seleniumContext.xml
 # mybatis3-multi
 find ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/resources/META-INF/spring/seleniumContext.xml | xargs sed -i -e 's|prototype|singleton|'

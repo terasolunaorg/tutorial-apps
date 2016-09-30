@@ -1,6 +1,5 @@
 package todo.selenium.todo;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -30,15 +29,15 @@ public class TodoTest {
 		TodoTest.webDriver = webDriver;
 	}
 
-	@Value("${selenium.todoListUrl}")
-	String todoListUrl;
+	@Value("${selenium.applicationContextUrl}")
+	String applicationContextUrl;
 
 	@Value("${selenium.contextName}")
 	String contextName;
 
 	@Before
 	public void testBefore() {
-		webDriver.get(todoListUrl);
+		TodoTest.webDriver.get(applicationContextUrl + "/todo/list");
 	}
 
 	/**
@@ -47,8 +46,8 @@ public class TodoTest {
 	@Test
 	public void testList() throws IOException {
 
-		assertThat(webDriver.findElement(By.xpath("/html/body")).getText(),
-				is(containsString("Todo List")));
+		assertThat(webDriver.findElement(By.xpath("/html/body")).getText()
+				.contains("Todo List"), is(true));
 	}
 
 	/**
@@ -62,15 +61,15 @@ public class TodoTest {
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/create']/button")).click();
 
-		WebElement todoListUlLi = webDriver.findElement(By
+		WebElement todoList_ul_li = webDriver.findElement(By
 				.xpath("//div[@id='todoList']/ul/li"));
 		assertThat(
 				webDriver.findElement(
 						By.xpath("//div[@class='alert alert-success']/ul/li"))
 						.getText(), is("Created successfully!"));
 
-		assertThat(todoListUlLi.getText(), is(containsString("todoThings1")));
-		todoListUlLi.findElement(
+		assertThat(todoList_ul_li.getText().contains("todoThings1"), is(true));
+		todoList_ul_li.findElement(
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/delete']/button")).click();
 	}
@@ -89,17 +88,17 @@ public class TodoTest {
 				By.xpath("//div[@id='todoList']/ul/li/form[@action='/"
 						+ contextName + "/todo/finish']/button")).click();
 
-		WebElement todoListUlLi = webDriver.findElement(By
+		WebElement todoList_ul_li = webDriver.findElement(By
 				.xpath("//div[@id='todoList']/ul/li"));
 		assertThat(
 				webDriver.findElement(
 						By.xpath("//div[@class='alert alert-success']/ul/li"))
 						.getText(), is("Finished successfully!"));
 		assertThat(
-				todoListUlLi.findElement(By.xpath("//span[@class='strike']"))
+				todoList_ul_li.findElement(By.xpath("//span[@class='strike']"))
 						.getText(), is("todoThings1"));
 
-		todoListUlLi.findElement(
+		todoList_ul_li.findElement(
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/delete']/button")).click();
 	}
