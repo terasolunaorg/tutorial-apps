@@ -48,9 +48,3 @@ find ./target-project/todo-mybatis3/pom.xml | xargs sed -i -e 's|</properties>| 
 find ./target-project/todo/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>${selenium.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
 find ./target-project/todo/pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\n    </properties>|'
 fi
-
-# modify seleniumContext.xml
-# mybatis3-multi
-find ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/resources/META-INF/spring/seleniumContext.xml | xargs sed -i -e 's|prototype|singleton|'
-# jpa-multi
-find ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/resources/META-INF/spring/seleniumContext.xml | xargs sed -i -e 's|prototype|singleton|'

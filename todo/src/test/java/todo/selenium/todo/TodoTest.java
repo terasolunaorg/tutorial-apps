@@ -1,11 +1,10 @@
 package todo.selenium.todo;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
-
-import javax.inject.Inject;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,19 +14,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
-public class TodoTest {
+public class TodoTest extends ApplicationObjectSupport {
 
 	static WebDriver webDriver;
-
-	@Inject
-	public void setWebDriver(WebDriver webDriver) {
-		TodoTest.webDriver = webDriver;
-	}
 
 	@Value("${selenium.applicationContextUrl}")
 	String applicationContextUrl;
@@ -37,6 +33,11 @@ public class TodoTest {
 
 	@Before
 	public void testBefore() {
+
+		if (TodoTest.webDriver == null) {
+			ApplicationContext context = this.getApplicationContext();
+			TodoTest.webDriver = (WebDriver) context.getBean("webDriver");
+		}
 		TodoTest.webDriver.get(applicationContextUrl + "/todo/list");
 	}
 
@@ -46,8 +47,8 @@ public class TodoTest {
 	@Test
 	public void testList() throws IOException {
 
-		assertThat(webDriver.findElement(By.xpath("/html/body")).getText()
-				.contains("Todo List"), is(true));
+		assertThat(webDriver.findElement(By.xpath("/html/body")).getText(),
+				is(containsString("Todo List")));
 	}
 
 	/**
@@ -61,15 +62,15 @@ public class TodoTest {
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/create']/button")).click();
 
-		WebElement todoList_ul_li = webDriver.findElement(By
+		WebElement todoListUlLi = webDriver.findElement(By
 				.xpath("//div[@id='todoList']/ul/li"));
 		assertThat(
 				webDriver.findElement(
 						By.xpath("//div[@class='alert alert-success']/ul/li"))
 						.getText(), is("Created successfully!"));
 
-		assertThat(todoList_ul_li.getText().contains("todoThings1"), is(true));
-		todoList_ul_li.findElement(
+		assertThat(todoListUlLi.getText(), is(containsString("todoThings1")));
+		todoListUlLi.findElement(
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/delete']/button")).click();
 	}
@@ -88,17 +89,17 @@ public class TodoTest {
 				By.xpath("//div[@id='todoList']/ul/li/form[@action='/"
 						+ contextName + "/todo/finish']/button")).click();
 
-		WebElement todoList_ul_li = webDriver.findElement(By
+		WebElement todoListUlLi = webDriver.findElement(By
 				.xpath("//div[@id='todoList']/ul/li"));
 		assertThat(
 				webDriver.findElement(
 						By.xpath("//div[@class='alert alert-success']/ul/li"))
 						.getText(), is("Finished successfully!"));
-		assertThat(
-				todoList_ul_li.findElement(By.xpath("//span[@class='strike']"))
-						.getText(), is("todoThings1"));
+		assertThat(todoListUlLi
+				.findElement(By.xpath("//span[@class='strike']")).getText(),
+				is("todoThings1"));
 
-		todoList_ul_li.findElement(
+		todoListUlLi.findElement(
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/delete']/button")).click();
 	}
