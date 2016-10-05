@@ -115,6 +115,7 @@ script:
       fi
     done
   - echo "==================== Build Tutorial Apps without Tests ===================="
+  - sed -i -e 's|level value="debug"|level value="info"|' ./target-project/secure-login-demo/secure-login-env/src/main/resources/logback.xml
   - |
     for POM in `find ./$TARGET_PROJECT/secure-login-demo/pom.xml -maxdepth 1`; do
       echo "build $POM"
