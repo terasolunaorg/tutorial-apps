@@ -62,15 +62,15 @@ public class TodoTest extends ApplicationObjectSupport {
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/create']/button")).click();
 
-		WebElement todoListUlLi = webDriver.findElement(By
+		WebElement todoElement = webDriver.findElement(By
 				.xpath("//div[@id='todoList']/ul/li"));
 		assertThat(
 				webDriver.findElement(
 						By.xpath("//div[@class='alert alert-success']/ul/li"))
 						.getText(), is("Created successfully!"));
 
-		assertThat(todoListUlLi.getText(), is(containsString("todoThings1")));
-		todoListUlLi.findElement(
+		assertThat(todoElement.getText(), is(containsString("todoThings1")));
+		todoElement.findElement(
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/delete']/button")).click();
 	}
@@ -89,17 +89,17 @@ public class TodoTest extends ApplicationObjectSupport {
 				By.xpath("//div[@id='todoList']/ul/li/form[@action='/"
 						+ contextName + "/todo/finish']/button")).click();
 
-		WebElement todoListUlLi = webDriver.findElement(By
+		WebElement todoElement = webDriver.findElement(By
 				.xpath("//div[@id='todoList']/ul/li"));
 		assertThat(
 				webDriver.findElement(
 						By.xpath("//div[@class='alert alert-success']/ul/li"))
 						.getText(), is("Finished successfully!"));
-		assertThat(todoListUlLi
+		assertThat(todoElement
 				.findElement(By.xpath("//span[@class='strike']")).getText(),
 				is("todoThings1"));
 
-		todoListUlLi.findElement(
+		todoElement.findElement(
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/delete']/button")).click();
 	}
