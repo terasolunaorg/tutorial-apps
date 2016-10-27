@@ -6,39 +6,32 @@ import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ApplicationObjectSupport;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
-public class TodoTest extends ApplicationObjectSupport {
+import todo.selenium.FunctionTestSupport;
+public class TodoTest extends FunctionTestSupport {
 
-	static WebDriver webDriver;
-
-	@Value("${selenium.applicationContextUrl}")
-	String applicationContextUrl;
+	private static WebDriver webDriver;
 
 	@Value("${selenium.contextName}")
 	String contextName;
+	
+	public TodoTest(){
+		super.disableDefaultWebDriver();
+	}
 
 	@Before
 	public void testBefore() {
-
-		if (TodoTest.webDriver == null) {
-			ApplicationContext context = this.getApplicationContext();
-			TodoTest.webDriver = (WebDriver) context.getBean("webDriver");
-		}
-		TodoTest.webDriver.get(applicationContextUrl + "/todo/list");
+		if (webDriver == null) {
+            webDriver = webDriverCreator
+                    .createLocaleSpecifiedDriver("");
+        }
+        super.setCurrentWebDriver(webDriver);
 	}
 
 	/**
@@ -189,11 +182,4 @@ public class TodoTest extends ApplicationObjectSupport {
 
 	}
 
-	/**
-	 * Quits the driver, closing every associated window.
-	 */
-	@AfterClass
-	public static void tearDown() {
-		webDriver.quit();
-	}
 }
