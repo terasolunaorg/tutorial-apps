@@ -4,7 +4,7 @@
 #${VERSION}=tutorial pj version
 
 
-# mybatis single, mybatis multi, jpa single, jpa multi
+# single without any DB configuration, mybatis single, mybatis multi, jpa single, jpa multi
 # mybatis app single
 mvn archetype:generate -B \
  -DarchetypeCatalog=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases \
@@ -45,7 +45,7 @@ mvn archetype:generate -B \
  -DartifactId=todo-api-jpa-multi \
  -Dversion=${VERSION}
 
-# map single
+# single without any DB configuration
 mvn archetype:generate -B \
  -DarchetypeCatalog=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
@@ -130,7 +130,7 @@ cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./target-project
 # jpa
 cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-api-jpa/src/main/java/todo/domain/model/
 cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/model/
-# map
+# single without any DB configuration
 cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./target-project/todo-api/src/main/java/todo/domain/model/
 # repository
 # mybatis3
@@ -142,7 +142,7 @@ cp -p ./todo/src/main/java/jpa/todo/domain/repository/todo/TodoRepository.java .
 # xml
 cp -p ./todo/src/main/resources/todo/domain/repository/todo/TodoRepository.xml ./target-project/todo-api-mybatis3/src/main/resources/todo/domain/repository/todo/
 cp -p ./todo/src/main/resources/todo/domain/repository/todo/TodoRepository.xml ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/resources/todo/domain/repository/todo/
-# map
+# single without any DB configuration
 cp -p ./todo/src/main/java/mybatis3/todo/domain/repository/todo/TodoRepository.java ./target-project/todo-api/src/main/java/todo/domain/repository/todo/
 cp -p ./todo/src/main/java/todo/domain/repository/todo/TodoRepositoryImpl.java ./target-project/todo-api/src/main/java/todo/domain/repository/todo/
 

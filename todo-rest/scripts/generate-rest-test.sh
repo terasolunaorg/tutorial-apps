@@ -15,7 +15,7 @@ mkdir -p ./target-project/todo-api-mybatis3/src/test/resources/META-INF/spring
 # mybatis3-multi
 mkdir -p ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo/selenium/todo
 
-# map
+# single without any DB configuration
 mkdir -p ./target-project/todo-api/src/test/java/todo/selenium/todo
 mkdir -p ./target-project/todo-api/src/test/resources/META-INF/spring
 
@@ -36,7 +36,7 @@ cp -p ./todo-rest/src/test/resources/mybatis3/META-INF/spring/seleniumContext.xm
 # mybatis3-multi
 cp -p ./todo-rest/src/test/java/todo/selenium/todo/TodoApiTest.java ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo/selenium/todo/
 
-# map
+# single without any DB configuration
 cp -p ./todo-rest/src/test/java/todo/selenium/todo/TodoApiTest.java ./target-project/todo-api-mybatis3/src/test/java/todo/selenium/todo
 cp -p ./todo-rest/src/test/resources/map/META-INF/spring/selenium.properties ./target-project/todo-api/src/test/resources/META-INF/spring
 cp -p ./todo-rest/src/test/resources/map/META-INF/spring/seleniumContext.xml ./target-project/todo-api/src/test/resources/META-INF/spring
@@ -58,7 +58,7 @@ find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</properties>|  
 find ./target-project/todo-api-mybatis3/pom.xml | xargs sed -i -e 's|<dependencies>|<dependencies>\n    <dependency>\n            <groupId>io.rest-assured</groupId>\n            <artifactId>rest-assured</artifactId>\n            <version>${rest-assured.version}</version>\n            <scope>test</scope>\n        </dependency>|'
 find ./target-project/todo-api-mybatis3/pom.xml | xargs sed -i -e 's|</properties>|    <rest-assured.version>3.0.1</rest-assured.version>\n    </properties>|'
 
-# map
+# single without any DB configuration
 find ./target-project/todo-api/pom.xml | xargs sed -i -e 's|<dependencies>|<dependencies>\n    <dependency>\n            <groupId>io.rest-assured</groupId>\n            <artifactId>rest-assured</artifactId>\n            <version>${rest-assured.version}</version>\n            <scope>test</scope>\n        </dependency>|'
 find ./target-project/todo-api/pom.xml | xargs sed -i -e 's|</properties>|    <rest-assured.version>3.0.1</rest-assured.version>\n    </properties>|'
 
