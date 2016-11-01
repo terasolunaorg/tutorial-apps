@@ -71,6 +71,23 @@ find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</properties>|  
 find ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/pom.xml | xargs sed -i -e 's|<dependencies>|<dependencies>\n        <dependency>\n            <groupId>com.jayway.restassured</groupId>\n            <artifactId>rest-assured</artifactId>\n            <version>${com.jayway.restassured.version}</version>\n            <scope>test</scope>\n        </dependency>|'
 find ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/pom.xml | xargs sed -i -e 's|</dependencies>|</dependencies>\n\n    <properties>\n        <com.jayway.restassured.version>2.7.0</com.jayway.restassured.version>\n    </properties>|'
 
+
+VER="${ARCHETYPE_VERSION:0:3}"
+
+# modify pom
+# VER 1.0.x or 5.0.x or 5.1.x
+if test ${VER} = 1.0 ||  test ${VER} = 5.0 || test ${VER} = 5.1 ; then
+# single without any DB configuration
+find ./target-project/todo-api/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>${selenium.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
+find ./target-project/todo-api/pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\n    </properties>|'
+# mybatis3
+find ./target-project/todo-api-mybatis3/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>${selenium.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
+find ./target-project/todo-api-mybatis3/pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\n    </properties>|'
+# jpa
+find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>${selenium.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
+find ./target-project/todo-api-jpa/pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\n    </properties>|'
+fi
+
 # modify selenium.properties
 # single without any DB configuration
 find ./target-project/todo-api/src/test/resources/META-INF/spring/selenium.properties | xargs sed -i -e 's|selenium.contextName=|selenium.contextName=todo-api|'
