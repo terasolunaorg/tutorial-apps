@@ -104,15 +104,18 @@ public class TodoApiTest extends RestTestSupport{
 				.when().post("").then().extract().jsonPath()
 				.get("todoId");
 
+		// request path
+		String nonexistId = todoId + "Nonexist";
+
 		// getting request
 		RestAssured.given().when()
-				.get("/{todoId}Nonexist", todoId)
+				.get("/{nonexistId}", nonexistId)
 				.then()
 				.statusCode(404)
 				.body("code", equalTo("E404"))
 				.body("message",
 						equalTo("[E404] The requested Todo is not found. (id="
-								+ todoId + "Nonexist)"));
+								+ nonexistId + ")"));
 	}
 
 	@Test
