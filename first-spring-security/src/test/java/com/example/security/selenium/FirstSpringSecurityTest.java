@@ -74,7 +74,7 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     public void testLogin() {
 
         // デフォルトログイン
-        defaultLogin();
+        driver.findElement(By.name("submit")).click();
 
         // Home画面を確認
         {
@@ -102,7 +102,7 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     public void testLogout() {
 
         // ログイン
-        defaultLogin();
+        driver.findElement(By.name("submit")).click();
 
         // Home画面でログアウトボタン押下
         {
@@ -134,7 +134,7 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     public void testViewAccount() {
 
         // ログイン
-        defaultLogin();
+        driver.findElement(By.name("submit")).click();
 
         // アカウント確認画面へのリンク押下
         {
@@ -195,15 +195,6 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         driver.close();
         driver.quit();
-    }
-
-    /**
-     * ログインする
-     */
-    public void defaultLogin() {
-
-        // ログイン
-        driver.findElement(By.name("submit")).click();
     }
 
 }
