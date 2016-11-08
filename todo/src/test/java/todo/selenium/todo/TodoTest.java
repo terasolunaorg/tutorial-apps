@@ -40,7 +40,7 @@ public class TodoTest extends FunctionTestSupport {
 	@Test
 	public void testList() throws IOException {
 
-		assertThat(webDriver.findElement(By.xpath("/html/body")).getText(),
+		assertThat(webDriverOperations.getText(By.xpath("/html/body")),
 				is(containsString("Todo List")));
 	}
 
@@ -50,17 +50,15 @@ public class TodoTest extends FunctionTestSupport {
 	@Test
 	public void testCreate() throws IOException {
 
-		webDriver.findElement(By.id("todoTitle")).sendKeys("todoThings1");
-		webDriver.findElement(
-				By.xpath("//form[@action='/" + contextName
-						+ "/todo/create']/button")).click();
+		webDriverOperations.overrideText(By.id("todoTitle"), "todoThings1");
+		webDriverOperations.click(By.xpath("//form[@action='/" + contextName
+				+ "/todo/create']/button"));
 
 		WebElement todoElement = webDriver.findElement(By
 				.xpath("//div[@id='todoList']/ul/li"));
-		assertThat(
-				webDriver.findElement(
-						By.xpath("//div[@class='alert alert-success']/ul/li"))
-						.getText(), is("Created successfully!"));
+		assertThat(webDriverOperations.getText(By
+				.xpath("//div[@class='alert alert-success']/ul/li")),
+				is("Created successfully!"));
 
 		assertThat(todoElement.getText(), is(containsString("todoThings1")));
 		todoElement.findElement(
@@ -74,23 +72,20 @@ public class TodoTest extends FunctionTestSupport {
 	@Test
 	public void testFinish() throws IOException {
 
-		webDriver.findElement(By.id("todoTitle")).sendKeys("todoThings1");
-		webDriver.findElement(
-				By.xpath("//form[@action='/" + contextName
-						+ "/todo/create']/button")).click();
-		webDriver.findElement(
-				By.xpath("//div[@id='todoList']/ul/li/form[@action='/"
-						+ contextName + "/todo/finish']/button")).click();
+		webDriverOperations.overrideText(By.id("todoTitle"), "todoThings1");
+		webDriverOperations.click(By.xpath("//form[@action='/" + contextName
+				+ "/todo/create']/button"));
+		webDriverOperations.click(By
+				.xpath("//div[@id='todoList']/ul/li/form[@action='/"
+						+ contextName + "/todo/finish']/button"));
 
 		WebElement todoElement = webDriver.findElement(By
 				.xpath("//div[@id='todoList']/ul/li"));
-		assertThat(
-				webDriver.findElement(
-						By.xpath("//div[@class='alert alert-success']/ul/li"))
-						.getText(), is("Finished successfully!"));
-		assertThat(todoElement
-				.findElement(By.xpath("//span[@class='strike']")).getText(),
-				is("todoThings1"));
+		assertThat(webDriverOperations.getText(By
+				.xpath("//div[@class='alert alert-success']/ul/li")),
+				is("Finished successfully!"));
+		assertThat(todoElement.findElement(By.xpath("//span[@class='strike']"))
+				.getText(), is("todoThings1"));
 
 		todoElement.findElement(
 				By.xpath("//form[@action='/" + contextName
@@ -103,21 +98,19 @@ public class TodoTest extends FunctionTestSupport {
 	@Test
 	public void testDelete() throws IOException {
 
-		webDriver.findElement(By.id("todoTitle")).sendKeys("todoThings1");
-		webDriver.findElement(
-				By.xpath("//form[@action='/" + contextName
-						+ "/todo/create']/button")).click();
-		webDriver.findElement(
-				By.xpath("//div[@id='todoList']/ul/li/form[@action='/"
-						+ contextName + "/todo/delete']/button")).click();
+		webDriverOperations.overrideText(By.id("todoTitle"), "todoThings1");
+		webDriverOperations.click(By.xpath("//form[@action='/" + contextName
+				+ "/todo/create']/button"));
+		webDriverOperations.click(By
+				.xpath("//div[@id='todoList']/ul/li/form[@action='/"
+						+ contextName + "/todo/delete']/button"));
 
-		assertThat(
-				webDriver.findElement(
-						By.xpath("//div[@class='alert alert-success']/ul/li"))
-						.getText(), is("Deleted successfully!"));
+		assertThat(webDriverOperations.getText(By
+				.xpath("//div[@class='alert alert-success']/ul/li")),
+				is("Deleted successfully!"));
 
-		assertThat(webDriver.findElement(By.xpath("//div[@id='todoList']/ul"))
-				.getText(), is(""));
+		assertThat(webDriverOperations.getText(By
+				.xpath("//div[@id='todoList']/ul")), is(""));
 	}
 
 	/**
@@ -126,13 +119,11 @@ public class TodoTest extends FunctionTestSupport {
 	@Test
 	public void testCreateEmpty() throws IOException {
 
-		webDriver.findElement(
-				By.xpath("//form[@action='/" + contextName
-						+ "/todo/create']/button")).click();
+		webDriverOperations.click(By.xpath("//form[@action='/" + contextName
+				+ "/todo/create']/button"));
 
-		assertThat(
-				webDriver.findElement(
-						By.xpath("//span[@id='todoTitle.errors']")).getText(),
+		assertThat(webDriverOperations.getText(By
+				.xpath("//span[@id='todoTitle.errors']")),
 				is("size must be between 1 and 30"));
 	}
 
@@ -142,15 +133,13 @@ public class TodoTest extends FunctionTestSupport {
 	@Test
 	public void testCreateOverSize() throws IOException {
 
-		webDriver.findElement(By.id("todoTitle")).sendKeys(
+		webDriverOperations.overrideText(By.id("todoTitle"),
 				"0123456789012345678901234567890");
-		webDriver.findElement(
-				By.xpath("//form[@action='/" + contextName
-						+ "/todo/create']/button")).click();
+		webDriverOperations.click(By.xpath("//form[@action='/" + contextName
+				+ "/todo/create']/button"));
 
-		assertThat(
-				webDriver.findElement(
-						By.xpath("//span[@id='todoTitle.errors']")).getText(),
+		assertThat(webDriverOperations.getText(By
+				.xpath("//span[@id='todoTitle.errors']")),
 				is("size must be between 1 and 30"));
 	}
 
@@ -162,22 +151,20 @@ public class TodoTest extends FunctionTestSupport {
 	public void testUnfinishedSize() throws IOException {
 
 		for (int i = 0; i < 6; i++) {
-			webDriver.findElement(By.id("todoTitle")).sendKeys(
+			webDriverOperations.overrideText(By.id("todoTitle"),
 					Integer.toString(i));
-			webDriver.findElement(
-					By.xpath("//form[@action='/" + contextName
-							+ "/todo/create']/button")).click();
+			webDriverOperations.click(By.xpath("//form[@action='/"
+					+ contextName + "/todo/create']/button"));
 		}
 
-		assertThat(
-				webDriver.findElement(
-						By.xpath("//div[@id='todoForm']/div/ul/li")).getText(),
+		assertThat(webDriverOperations.getText(By
+				.xpath("//div[@id='todoForm']/div/ul/li")),
 				is("[E001] The count of un-finished Todo must not be over 5."));
 
 		for (int i = 0; i < 5; i++) {
-			webDriver.findElement(
-					By.xpath("//div[@id='todoList']/ul/li/form[@action='/"
-							+ contextName + "/todo/delete']/button")).click();
+			webDriverOperations.click(By
+					.xpath("//div[@id='todoList']/ul/li/form[@action='/"
+							+ contextName + "/todo/delete']/button"));
 		}
 
 	}
