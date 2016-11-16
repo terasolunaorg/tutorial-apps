@@ -4,6 +4,9 @@
 
 echo "create version is ${VERSION}."
 
+# settings of target tutorial
+export TARGET_TUTORIAL=todo
+
 # generate app
 bash ./todo/scripts/generate-app-project.sh
 
