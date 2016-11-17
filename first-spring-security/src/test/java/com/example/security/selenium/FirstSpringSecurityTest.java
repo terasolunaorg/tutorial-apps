@@ -1,43 +1,33 @@
-package com.example.security.selenium;
+package com.example.security.selenium.security;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
 
-import com.example.security.FunctionTestSupport;
+import com.example.security.selenium.FunctionTestSupport;
 
-@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
 public class FirstSpringSecurityTest extends FunctionTestSupport {
 
-    WebDriver driver;
+    private static WebDriver driver;
 
-    @Value("${selenium.applicationContextUrl}/")
-    String baseUrl;
-
-    @Value("${selenium.contextName}")
-    String contextName;
+    public FirstSpringSecurityTest() {
+        super.disableDefaultWebDriver();
+    }
 
     @Before
     public void setUp() {
 
         if (driver == null) {
-            driver = createDefaultLocaleDriver();
+            driver = webDriverCreator.createLocaleSpecifiedDriver("");
         }
-
-        // ログイン画面を表示
-        {
-            driver.get(baseUrl);
-        }
+        super.setCurrentWebDriver(driver);
 
     }
 
@@ -51,13 +41,10 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // 初期値を確認
         {
-            assertThat(
-                    driver.findElement(By.id("username")).getAttribute("value"),
-                    is("demo"));
-            assertThat(
-                    driver.findElement(By.id("password")).getAttribute("value"),
-                    is("demo"));
-            saveScreenCapture(driver, "testLoginForm");
+        	assertThat(webDriverOperations.getInputFieldValue(By.id("username")),
+            		is("demo"));
+            assertThat(webDriverOperations.getInputFieldValue(By.id("password")),
+            		is("demo"));
 
         }
 
@@ -74,21 +61,18 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     public void testLogin() {
 
         // デフォルトログイン
-        driver.findElement(By.name("submit")).click();
+        webDriverOperations.click(By.name("submit"));
 
         // Home画面を確認
         {
-            assertThat(driver.findElement(By.tagName("h1")).getText(),
+            assertThat(webDriverOperations.getText(By.tagName("h1")),
                     is("Hello world!"));
 
             List<WebElement> cheese = driver.findElements(By.tagName("p"));
             assertThat(cheese.get(1).getText(), is("Welcome Taro Yamada !!"));
             assertThat(
-                    driver.findElement(
-                            By.xpath("//a[@href='/" + contextName
-                                    + "/account']")).getText(),
-                    is("view account"));
-            saveScreenCapture(driver, "testLogin");
+                    webDriverOperations.getText(By.xpath("//a[@href='/"
+                            + contextName + "/account']")), is("view account"));
         }
 
     }
@@ -102,23 +86,19 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     public void testLogout() {
 
         // ログイン
-        driver.findElement(By.name("submit")).click();
+        webDriverOperations.click(By.name("submit"));
 
         // Home画面でログアウトボタン押下
         {
-            saveScreenCapture(driver, "testLogout");
-            driver.findElement(By.tagName("button")).click();
+            webDriverOperations.click(By.tagName("button"));
         }
 
         // ログイン画面の確認
         {
-            assertThat(
-                    driver.findElement(By.id("username")).getAttribute("value"),
-                    is("demo"));
-            assertThat(
-                    driver.findElement(By.id("password")).getAttribute("value"),
-                    is("demo"));
-            saveScreenCapture(driver, "testLogout");
+        	assertThat(webDriverOperations.getInputFieldValue(By.id("username")),
+            		is("demo"));
+            assertThat(webDriverOperations.getInputFieldValue(By.id("password")),
+            		is("demo"));
         }
 
     }
@@ -134,14 +114,12 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     public void testViewAccount() {
 
         // ログイン
-        driver.findElement(By.name("submit")).click();
+        webDriverOperations.click(By.name("submit"));
 
         // アカウント確認画面へのリンク押下
         {
-            saveScreenCapture(driver, "testViewAccount");
-            driver.findElement(
-                    By.xpath("//a[@href='/" + contextName + "/account']"))
-                    .click();
+            webDriverOperations.click(By.xpath("//a[@href='/" + contextName
+                    + "/account']"));
         }
 
         // アカウント確認画面の確認
@@ -153,7 +131,6 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
             assertThat(cheese.get(0).getText(), is("demo"));
             assertThat(cheese.get(1).getText(), is("Taro"));
             assertThat(cheese.get(2).getText(), is("Yamada"));
-            saveScreenCapture(driver, "testViewAccount");
         }
 
     }
@@ -168,33 +145,20 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // 登録されていないユーザでログイン
         {
-            driver.findElement(By.id("username")).clear();
-            driver.findElement(By.id("username")).sendKeys("aaa");
-            saveScreenCapture(driver, "testInvalidUserLogin");
-            driver.findElement(By.name("submit")).click();
+            webDriverOperations.overrideText(By.id("username"), "aaa");
+            webDriverOperations.click(By.name("submit"));
 
         }
 
         // エラーメッセージの確認・ログイン画面の確認
         {
-            assertThat(driver.findElement(By.tagName("li")).getText(),
+            assertThat(webDriverOperations.getText(By.tagName("li")),
                     is("Bad credentials"));
 
-            assertThat(
-                    driver.findElement(By.id("username")).getAttribute("value"),
-                    is("demo"));
-            assertThat(
-                    driver.findElement(By.id("password")).getAttribute("value"),
-                    is("demo"));
-            saveScreenCapture(driver, "testInvalidUserLogin");
+            assertThat(webDriverOperations.getInputFieldValue(By.id("username")),
+            		is("demo"));
+            assertThat(webDriverOperations.getInputFieldValue(By.id("password")),
+            		is("demo"));
         }
     }
-
-    @After
-    public void tearDown() {
-
-        driver.close();
-        driver.quit();
-    }
-
 }
