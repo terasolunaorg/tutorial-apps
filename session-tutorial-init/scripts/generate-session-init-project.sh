@@ -3,11 +3,18 @@
 #${ARCHETYPE_VERSION}=terasoluna-gfw-blank-archetype-version
 #${VERSION}=tutorial pj version
 
+# settings of maven archetype catalog
+if test `echo ${ARCHETYPE_VERSION} | tail -c8 ` = "RELEASE"; then
+ ARCHETYPE_CATALOG=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases
+else
+ ARCHETYPE_CATALOG=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-snapshots
+fi
+
 cd target-project
 
 # mybatis app multi
 mvn archetype:generate -B \
- -DarchetypeCatalog=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases \
+ -DarchetypeCatalog=${ARCHETYPE_CATALOG} \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
  -DarchetypeArtifactId=terasoluna-gfw-multi-web-blank-mybatis3-archetype \
  -DarchetypeVersion=${ARCHETYPE_VERSION} \
