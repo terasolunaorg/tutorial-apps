@@ -38,6 +38,8 @@ mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-web/src/ma
 mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/goods
 mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/login
 
+mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/session
+
 # cp security sources
 cp -p ./session-tutorial-init/session-tutorial-init-domain/src/main/java/com/example/session/domain/model/Account.java ./target-project/session-tutorial-init/session-tutorial-init-domain/src/main/java/com/example/session/domain/model/
 cp -p ./session-tutorial-init/session-tutorial-init-domain/src/main/java/com/example/session/domain/model/Cart.java ./target-project/session-tutorial-init/session-tutorial-init-domain/src/main/java/com/example/session/domain/model/
@@ -81,5 +83,14 @@ cp -p ./session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/
 cp -p ./session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/goods/showGoodsDetail.jsp ./target-project/session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/goods/
 cp -p ./session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/login/loginForm.jsp ./target-project/session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/login/
 
-cp -p ./session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/FunctionTestSupport.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/
-cp -p ./session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/SessionTutorialTest.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/
+
+cp -p ./session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/SessionTutorialTest.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/session
+cp -p ./common-test/resources/META-INF/spring/selenium.properties ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/resources/META-INF/spring
+cp -p ./common-test/resources/META-INF/spring/seleniumContext.xml ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/resources/META-INF/spring
+cp -p ./common-test/java/selenium/FirefoxDriverFactoryBean.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/FunctionTestSupport.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/PageSource.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/ScreenCapture.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/WebDriverCreator.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/WebDriverInputFieldAccessor.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/WebDriverOperations.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium
