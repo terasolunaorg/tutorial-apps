@@ -1,37 +1,41 @@
-package com.example.session.selenium;
+package com.example.session.selenium.session;
  
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
- 
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
+
  
-import com.example.session.FunctionTestSupport;
+import com.example.session.selenium.FunctionTestSupport;
  
-@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
+
 public class SessionTutorialTest extends FunctionTestSupport {
  
-	WebDriver driver;
+	private static WebDriver driver;
  
 	@Value("${selenium.applicationContextUrl}/loginForm")
 	String baseUrl;
  
+	public SessionTutorialTest (){
+		super.disableDefaultWebDriver();
+	}
+
 	@Before
 	public void setUp() {
  
 		if (driver == null) {
-			driver = createDefaultLocaleDriver();
+			driver = webDriverCreator.createLocaleSpecifiedDriver("");
 		}
+		super.setCurrentWebDriver(driver);
  
 		// ログイン画面を表示
 		{
-			driver.get(baseUrl);
+			webDriverOperations.displayPage(baseUrl);
 		}
  
 	}
@@ -44,13 +48,13 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		// 初期値を確認
 		{
-			assertThat(driver.findElement(By.id("Kokoro")).getText(),
+			assertThat(webDriverOperations.getText(By.id("Kokoro")),
 					is("Kokoro"));
-			assertThat(driver.findElement(By.id("〔Ame ni mo Makezu〕"))
-					.getText(), is("〔Ame ni mo Makezu〕"));
-			assertThat(driver.findElement(By.id("Run, Melos!")).getText(),
+			assertThat(webDriverOperations.getText(By.id("〔Ame ni mo Makezu〕")),
+					is("〔Ame ni mo Makezu〕"));
+			assertThat(webDriverOperations.getText(By.id("Run, Melos!")),
 					is("Run, Melos!"));
-			assertThat(driver.findElement(By.id("userName")).getText(),
+			assertThat(webDriverOperations.getText(By.id("userName")),
 					is("xxx"));
  
 		}
@@ -61,107 +65,107 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		// アカウント作成画面に遷移
 		{
-			driver.findElement(By.id("createAccount")).click();
+			webDriverOperations.click(By.id("createAccount"));
 		}
  
 		// フォームに値を入れてconfirmボタンをクリック
 		{
-			driver.findElement(By.id("name")).sendKeys("test");
-			driver.findElement(By.id("email")).sendKeys("test@xxx.co.jp");
-			driver.findElement(By.id("password")).sendKeys("password");
-			driver.findElement(By.id("confirmPassword")).sendKeys("password");
-			driver.findElement(By.id("birthday")).sendKeys("2016-01-01");
-			driver.findElement(By.id("zip")).sendKeys("1234567");
-			driver.findElement(By.id("address")).sendKeys("Nagoya");
-			driver.findElement(By.id("confirm")).click();
+			webDriverOperations.overrideText(By.id("name"),"test");
+			webDriverOperations.overrideText(By.id("email"),"test@xxx.co.jp");
+			webDriverOperations.overrideText(By.id("password"),"password");
+			webDriverOperations.overrideText(By.id("confirmPassword"),"password");
+			webDriverOperations.overrideText(By.id("birthday"),"2016-01-01");
+			webDriverOperations.overrideText(By.id("zip"),"1234567");
+			webDriverOperations.overrideText(By.id("address"),"Nagoya");
+			webDriverOperations.click(By.id("confirm"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
-			assertThat(driver.findElement(By.id("email")).getText(),
+			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
+			assertThat(webDriverOperations.getText(By.id("email")),
 					is("test@xxx.co.jp"));
-			assertThat(driver.findElement(By.id("birthday")).getText(),
+			assertThat(webDriverOperations.getText(By.id("birthday")),
 					is("2016-01-01"));
-			assertThat(driver.findElement(By.id("zip")).getText(),
+			assertThat(webDriverOperations.getText(By.id("zip")),
 					is("1234567"));
-			assertThat(driver.findElement(By.id("address")).getText(),
+			assertThat(webDriverOperations.getText(By.id("address")),
 					is("Nagoya"));
 		}
  
 		// backボタンをクリック
 		{
-			driver.findElement(By.id("back")).click();
+			webDriverOperations.click(By.id("back"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
+			assertThat(webDriverOperations.getInputFieldValue(By.id("name")),
 					is("test"));
 			assertThat(
-					driver.findElement(By.id("email")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("email")),
 					is("test@xxx.co.jp"));
 			assertThat(
-					driver.findElement(By.id("password")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("password")),
 					is(""));
-			assertThat(driver.findElement(By.id("confirmPassword"))
-					.getAttribute("value"), is(""));
+			assertThat(webDriverOperations.getInputFieldValue(By.id("confirmPassword")),
+					is(""));
 			assertThat(
-					driver.findElement(By.id("birthday")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("birthday")),
 					is("2016-01-01"));
-			assertThat(driver.findElement(By.id("zip")).getAttribute("value"),
+			assertThat(webDriverOperations.getInputFieldValue(By.id("zip")),
 					is("1234567"));
 			assertThat(
-					driver.findElement(By.id("address")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("address")),
 					is("Nagoya"));
 		}
  
 		// confirmボタンをクリック
 		{
-			driver.findElement(By.id("password")).sendKeys("password");
-			driver.findElement(By.id("confirmPassword")).sendKeys("password");
-			driver.findElement(By.id("confirm")).click();
+			webDriverOperations.overrideText(By.id("password"),"password");
+			webDriverOperations.overrideText(By.id("confirmPassword"),"password");
+			webDriverOperations.click(By.id("confirm"));
 		}
  
 		// createボタンをクリック
 		{
-			driver.findElement(By.id("create")).click();
+			webDriverOperations.click(By.id("create"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
-			assertThat(driver.findElement(By.id("email")).getText(),
+			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
+			assertThat(webDriverOperations.getText(By.id("email")),
 					is("test@xxx.co.jp"));
-			assertThat(driver.findElement(By.id("birthday")).getText(),
+			assertThat(webDriverOperations.getText(By.id("birthday")),
 					is("2016-01-01"));
-			assertThat(driver.findElement(By.id("zip")).getText(),
+			assertThat(webDriverOperations.getText(By.id("zip")),
 					is("1234567"));
-			assertThat(driver.findElement(By.id("address")).getText(),
+			assertThat(webDriverOperations.getText(By.id("address")),
 					is("Nagoya"));
 		}
  
 		// Login pageボタンをクリック
 		{
-			driver.findElement(By.id("home")).click();
+			webDriverOperations.click(By.id("home"));
 		}
  
 		// ログイン
 		{
-			driver.findElement(By.id("email")).sendKeys("test@xxx.co.jp");
-			driver.findElement(By.id("password")).sendKeys("password");
-			driver.findElement(By.id("login")).click();
+			webDriverOperations.overrideText(By.id("email"),"test@xxx.co.jp");
+			webDriverOperations.overrideText(By.id("password"),"password");
+			webDriverOperations.click(By.id("login"));
 		}
  
 		// 初期値を確認
 		{
-			assertThat(driver.findElement(By.id("Kokoro")).getText(),
+			assertThat(webDriverOperations.getText(By.id("Kokoro")),
 					is("Kokoro"));
-			assertThat(driver.findElement(By.id("〔Ame ni mo Makezu〕"))
-					.getText(), is("〔Ame ni mo Makezu〕"));
-			assertThat(driver.findElement(By.id("Run, Melos!")).getText(),
+			assertThat(webDriverOperations.getText(By.id("〔Ame ni mo Makezu〕"))
+					, is("〔Ame ni mo Makezu〕"));
+			assertThat(webDriverOperations.getText(By.id("Run, Melos!")),
 					is("Run, Melos!"));
-			assertThat(driver.findElement(By.id("userName")).getText(),
+			assertThat(webDriverOperations.getText(By.id("userName")),
 					is("test"));
  
 		}
@@ -175,55 +179,54 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		// アイテム名をクリック
 		{
-			driver.findElement(By.id("Kokoro")).click();
+			webDriverOperations.click(By.id("Kokoro"));
 		}
  
 		// 表示を確認
 		{
-			assertThat(driver.findElement(By.id("name")).getText(),
+			assertThat(webDriverOperations.getText(By.id("name")),
 					is("Kokoro"));
-			assertThat(driver.findElement(By.id("price")).getText(),
-					is("¥ 900"));
-			assertThat(driver.findElement(By.id("description")).getText(),
+			assertThat(webDriverOperations.getText(By.id("price")),
+					is("¥900"));
+			assertThat(webDriverOperations.getText(By.id("description")),
 					is("Souseki Natsume wrote this book"));
 		}
  
 		// homeボタンをクリック
 		{
-			driver.findElement(By.id("home")).click();
+			webDriverOperations.click(By.id("home"));
 		}
  
 		// カテゴリを更新
 		{
-			new Select(driver.findElement(By.id("categoryId")))
-					.selectByVisibleText("music");
-			driver.findElement(By.id("update")).click();
+			webDriverOperations.select(By.id("categoryId"),"music");
+			webDriverOperations.click(By.id("update"));
 		}
  
 		// 表示を確認
 		{
 			assertThat(
-					driver.findElement(
+					webDriverOperations.getText(
 							By.id("Symphony No. 5 in C minor (Fate)"))
-							.getText(), is("Symphony No. 5 in C minor (Fate)"));
-			assertThat(driver.findElement(By.id("Eine kleine Nachtmusik"))
-					.getText(), is("Eine kleine Nachtmusik"));
-			assertThat(driver.findElement(By.id("Swan Lake")).getText(),
+							, is("Symphony No. 5 in C minor (Fate)"));
+			assertThat(webDriverOperations.getText(By.id("Eine kleine Nachtmusik"))
+					, is("Eine kleine Nachtmusik"));
+			assertThat(webDriverOperations.getText(By.id("Swan Lake")),
 					is("Swan Lake"));
 		}
  
 		// アイテム名をクリック
 		{
-			driver.findElement(By.id("Swan Lake")).click();
+			webDriverOperations.click(By.id("Swan Lake"));
 		}
  
 		// 表示を確認
 		{
-			assertThat(driver.findElement(By.id("name")).getText(),
+			assertThat(webDriverOperations.getText(By.id("name")),
 					is("Swan Lake"));
-			assertThat(driver.findElement(By.id("price")).getText(),
-					is("¥ 900"));
-			assertThat(driver.findElement(By.id("description")).getText(),
+			assertThat(webDriverOperations.getText(By.id("price")),
+					is("¥900"));
+			assertThat(webDriverOperations.getText(By.id("description")),
 					is("Tchaikovsky composed this music"));
 		}
  
@@ -237,213 +240,211 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		// Account Updateボタンをクリック
 		{
-			driver.findElement(By.id("updateAccount")).click();
+			webDriverOperations.click(By.id("updateAccount"));
 		}
  
 		// デフォルト値を確認
 		{
-			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
+			assertThat(webDriverOperations.getInputFieldValue(By.id("name")),
 					is("xxx"));
 			assertThat(
-					driver.findElement(By.id("email")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("email")),
 					is("a@b.com"));
 			assertThat(
-					driver.findElement(By.id("birthday")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("birthday")),
 					is("2015-08-01"));
-			assertThat(driver.findElement(By.id("zip")).getAttribute("value"),
+			assertThat(webDriverOperations.getInputFieldValue(By.id("zip")),
 					is("1111111"));
 			assertThat(
-					driver.findElement(By.id("address")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("address")),
 					is("Tokyo"));
 		}
  
 		// nextボタンをクリック
 		{
-			driver.findElement(By.id("name")).clear();
-			driver.findElement(By.id("name")).sendKeys("test");
-			driver.findElement(By.id("address")).clear();
-			driver.findElement(By.id("address")).sendKeys("Osaka");
-			driver.findElement(By.id("next")).click();
+			webDriverOperations.clearText(By.id("name"));
+			webDriverOperations.overrideText(By.id("name"),("test"));
+			webDriverOperations.clearText(By.id("address"));
+			webDriverOperations.overrideText(By.id("address"),"Osaka");
+			webDriverOperations.click(By.id("next"));
 		}
  
 		// デフォルト値を確認
 		{
 			assertThat(
-					driver.findElement(By.id("cardNumber")).getAttribute(
-							"value"), is("1111111111111111"));
-			assertThat(driver.findElement(By.id("cardExpirationDate"))
-					.getAttribute("value"), is("2015-08"));
-			assertThat(driver.findElement(By.id("cardSecurityCode"))
-					.getAttribute("value"), is("111"));
+					webDriverOperations.getInputFieldValue(By.id("cardNumber")),
+					is("1111111111111111"));
+			assertThat(webDriverOperations.getInputFieldValue(By.id("cardExpirationDate")),
+					is("2015-08"));
+			assertThat(webDriverOperations.getInputFieldValue(By.id("cardSecurityCode")),
+					is("111"));
 		}
  
 		// backボタンをクリック
 		{
-			driver.findElement(By.id("back")).click();
+			webDriverOperations.click(By.id("back"));
 		}
  
 		// 入力した値が残っていることを確認
 		{
-			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
+			assertThat(webDriverOperations.getInputFieldValue(By.id("name")),
 					is("test"));
 			assertThat(
-					driver.findElement(By.id("email")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("email")),
 					is("a@b.com"));
 			assertThat(
-					driver.findElement(By.id("birthday")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("birthday")),
 					is("2015-08-01"));
-			assertThat(driver.findElement(By.id("zip")).getAttribute("value"),
+			assertThat(webDriverOperations.getInputFieldValue(By.id("zip")),
 					is("1111111"));
 			assertThat(
-					driver.findElement(By.id("address")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("address")),
 					is("Osaka"));
 		}
  
 		// nextボタンをクリック
 		{
-			driver.findElement(By.id("next")).click();
+			webDriverOperations.click(By.id("next"));
 		}
  
 		// confirmボタンをクリック
 		{
-			driver.findElement(By.id("cardNumber")).clear();
-			driver.findElement(By.id("cardNumber"))
-					.sendKeys("1234567890123456");
-			driver.findElement(By.id("confirm")).click();
+			webDriverOperations.clearText(By.id("cardNumber"));
+			webDriverOperations.overrideText(By.id("cardNumber"),"1234567890123456");
+			webDriverOperations.click(By.id("confirm"));
 		}
  
 		// 入力値を確認
 		{
-			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
-			assertThat(driver.findElement(By.id("email")).getText(),
+			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
+			assertThat(webDriverOperations.getText(By.id("email")),
 					is("a@b.com"));
-			assertThat(driver.findElement(By.id("birthday")).getText(),
+			assertThat(webDriverOperations.getText(By.id("birthday")),
 					is("2015-08-01"));
-			assertThat(driver.findElement(By.id("zip")).getText(),
+			assertThat(webDriverOperations.getText(By.id("zip")),
 					is("1111111"));
-			assertThat(driver.findElement(By.id("address")).getText(),
+			assertThat(webDriverOperations.getText(By.id("address")),
 					is("Osaka"));
-			assertThat(driver.findElement(By.id("cardNumber")).getText(),
+			assertThat(webDriverOperations.getText(By.id("cardNumber")),
 					is("****-****-****-3456"));
-			assertThat(driver.findElement(By.id("cardExpirationDate"))
-					.getText(), is("2015-08"));
-			assertThat(driver.findElement(By.id("cardSecurityCode")).getText(),
+			assertThat(webDriverOperations.getText(By.id("cardExpirationDate"))
+					, is("2015-08"));
+			assertThat(webDriverOperations.getText(By.id("cardSecurityCode")),
 					is("111"));
 		}
  
 		// backボタンをクリック
 		{
-			driver.findElement(By.id("back")).click();
+			webDriverOperations.click(By.id("back"));
 		}
  
 		// 入力した値が残っていることを確認
 		{
 			assertThat(
-					driver.findElement(By.id("cardNumber")).getAttribute(
-							"value"), is("1234567890123456"));
-			assertThat(driver.findElement(By.id("cardExpirationDate"))
-					.getAttribute("value"), is("2015-08"));
-			assertThat(driver.findElement(By.id("cardSecurityCode"))
-					.getAttribute("value"), is("111"));
+					webDriverOperations.getInputFieldValue(By.id("cardNumber")),
+					is("1234567890123456"));
+			assertThat(webDriverOperations.getInputFieldValue(By.id("cardExpirationDate")),
+					is("2015-08"));
+			assertThat(webDriverOperations.getInputFieldValue(By.id("cardSecurityCode")),
+					is("111"));
 		}
  
 		// confirmボタンをクリック
 		{
-			driver.findElement(By.id("confirm")).click();
+			webDriverOperations.click(By.id("confirm"));
 		}
  
 		// updateボタンをクリック
 		{
-			driver.findElement(By.id("update")).click();
+			webDriverOperations.click(By.id("update"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
-			assertThat(driver.findElement(By.id("email")).getText(),
+			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
+			assertThat(webDriverOperations.getText(By.id("email")),
 					is("a@b.com"));
-			assertThat(driver.findElement(By.id("birthday")).getText(),
+			assertThat(webDriverOperations.getText(By.id("birthday")),
 					is("2015-08-01"));
-			assertThat(driver.findElement(By.id("zip")).getText(),
+			assertThat(webDriverOperations.getText(By.id("zip")),
 					is("1111111"));
-			assertThat(driver.findElement(By.id("address")).getText(),
+			assertThat(webDriverOperations.getText(By.id("address")),
 					is("Osaka"));
-			assertThat(driver.findElement(By.id("cardNumber")).getText(),
+			assertThat(webDriverOperations.getText(By.id("cardNumber")),
 					is("****-****-****-3456"));
-			assertThat(driver.findElement(By.id("cardExpirationDate"))
-					.getText(), is("2015-08"));
-			assertThat(driver.findElement(By.id("cardSecurityCode")).getText(),
+			assertThat(webDriverOperations.getText(By.id("cardExpirationDate"))
+					, is("2015-08"));
+			assertThat(webDriverOperations.getText(By.id("cardSecurityCode")),
 					is("111"));
 		}
  
 		// homeボタンをクリック
 		{
-			driver.findElement(By.id("home")).click();
+			webDriverOperations.click(By.id("home"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("userName")).getText(),
+			assertThat(webDriverOperations.getText(By.id("userName")),
 					is("test"));
 		}
  
 		// Account Updateボタンをクリック
 		{
-			driver.findElement(By.id("updateAccount")).click();
+			webDriverOperations.click(By.id("updateAccount"));
 		}
  
 		// nextボタンをクリック
 		{
-			driver.findElement(By.id("name")).clear();
-			driver.findElement(By.id("name")).sendKeys("aaaaaa");
-			driver.findElement(By.id("address")).clear();
-			driver.findElement(By.id("address")).sendKeys("Nagoya");
-			driver.findElement(By.id("next")).click();
+			webDriverOperations.clearText(By.id("name"));
+			webDriverOperations.overrideText(By.id("name"),"aaaaaa");
+			webDriverOperations.clearText(By.id("address"));
+			webDriverOperations.overrideText(By.id("address"),"Nagoya");
+			webDriverOperations.click(By.id("next"));
 		}
  
 		// homeボタンをクリック
 		{
-			driver.findElement(By.id("home")).click();
+			webDriverOperations.click(By.id("home"));
 		}
  
 		// Account Updateボタンをクリック
 		{
-			driver.findElement(By.id("updateAccount")).click();
+			webDriverOperations.click(By.id("updateAccount"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
+			assertThat(webDriverOperations.getInputFieldValue(By.id("name")),
 					is("test"));
 			assertThat(
-					driver.findElement(By.id("email")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("email")),
 					is("a@b.com"));
 			assertThat(
-					driver.findElement(By.id("birthday")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("birthday")),
 					is("2015-08-01"));
-			assertThat(driver.findElement(By.id("zip")).getAttribute("value"),
+			assertThat(webDriverOperations.getInputFieldValue(By.id("zip")),
 					is("1111111"));
 			assertThat(
-					driver.findElement(By.id("address")).getAttribute("value"),
+					webDriverOperations.getInputFieldValue(By.id("address")),
 					is("Osaka"));
 		}
  
 		// 更新された値をもとの値に更新しなおす
 		{
-			driver.findElement(By.id("name")).clear();
-			driver.findElement(By.id("name")).sendKeys("xxx");
-			driver.findElement(By.id("address")).clear();
-			driver.findElement(By.id("address")).sendKeys("Tokyo");
-			driver.findElement(By.id("next")).click();
+			webDriverOperations.clearText(By.id("name"));
+			webDriverOperations.overrideText(By.id("name"),"xxx");
+			webDriverOperations.clearText(By.id("address"));
+			webDriverOperations.overrideText(By.id("address"),"Tokyo");
+			webDriverOperations.click(By.id("next"));
  
-			driver.findElement(By.id("cardNumber")).clear();
-			driver.findElement(By.id("cardNumber"))
-					.sendKeys("1111111111111111");
-			driver.findElement(By.id("confirm")).click();
+			webDriverOperations.clearText(By.id("cardNumber"));
+			webDriverOperations.overrideText(By.id("cardNumber"),"1111111111111111");
+			webDriverOperations.click(By.id("confirm"));
  
-			driver.findElement(By.id("update")).click();
+			webDriverOperations.click(By.id("update"));
  
-			driver.findElement(By.id("home")).click();
+			webDriverOperations.click(By.id("home"));
 		}
 	}
  
@@ -455,74 +456,74 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		// addCartボタンをクリック
 		{
-			driver.findElement(By.id("quantity0")).clear();
-			driver.findElement(By.id("quantity0")).sendKeys("2");
-			driver.findElement(By.id("add0")).click();
+			webDriverOperations.clearText(By.id("quantity0"));
+			webDriverOperations.overrideText(By.id("quantity0"),"2");
+			webDriverOperations.click(By.id("add0"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("itemName0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
-			assertThat(driver.findElement(By.id("itemPrice0")).getText(),
-					is("¥ 900"));
-			assertThat(driver.findElement(By.id("itemQuantity0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice0")),
+					is("¥900"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity0")),
 					is("2"));
-			assertThat(driver.findElement(By.id("totalPrice")).getText(),
-					is("¥ 1,800"));
+			assertThat(webDriverOperations.getText(By.id("totalPrice")),
+					is("¥1,800"));
 		}
  
 		// addCartボタンをクリック
 		{
-			driver.findElement(By.id("quantity1")).clear();
-			driver.findElement(By.id("quantity1")).sendKeys("1");
-			driver.findElement(By.id("add1")).click();
+			webDriverOperations.clearText(By.id("quantity1"));
+			webDriverOperations.overrideText(By.id("quantity1"),"1");
+			webDriverOperations.click(By.id("add1"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("itemName0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
-			assertThat(driver.findElement(By.id("itemPrice0")).getText(),
-					is("¥ 900"));
-			assertThat(driver.findElement(By.id("itemQuantity0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice0")),
+					is("¥900"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity0")),
 					is("2"));
-			assertThat(driver.findElement(By.id("itemName1")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName1")),
 					is("〔Ame ni mo Makezu〕"));
-			assertThat(driver.findElement(By.id("itemPrice1")).getText(),
-					is("¥ 800"));
-			assertThat(driver.findElement(By.id("itemQuantity1")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice1")),
+					is("¥800"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity1")),
 					is("1"));
-			assertThat(driver.findElement(By.id("totalPrice")).getText(),
-					is("¥ 2,600"));
+			assertThat(webDriverOperations.getText(By.id("totalPrice")),
+					is("¥2,600"));
 		}
  
 		// Account Updateボタンをクリック
 		{
-			driver.findElement(By.id("updateAccount")).click();
+			webDriverOperations.click(By.id("updateAccount"));
 		}
  
 		// homeボタンをクリック
 		{
-			driver.findElement(By.id("home")).click();
+			webDriverOperations.click(By.id("home"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("itemName0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
-			assertThat(driver.findElement(By.id("itemPrice0")).getText(),
-					is("¥ 900"));
-			assertThat(driver.findElement(By.id("itemQuantity0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice0")),
+					is("¥900"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity0")),
 					is("2"));
-			assertThat(driver.findElement(By.id("itemName1")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName1")),
 					is("〔Ame ni mo Makezu〕"));
-			assertThat(driver.findElement(By.id("itemPrice1")).getText(),
-					is("¥ 800"));
-			assertThat(driver.findElement(By.id("itemQuantity1")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice1")),
+					is("¥800"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity1")),
 					is("1"));
-			assertThat(driver.findElement(By.id("totalPrice")).getText(),
-					is("¥ 2,600"));
+			assertThat(webDriverOperations.getText(By.id("totalPrice")),
+					is("¥2,600"));
 		}
 	}
  
@@ -534,50 +535,50 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		// addCartボタンをクリック
 		{
-			driver.findElement(By.id("quantity0")).clear();
-			driver.findElement(By.id("quantity0")).sendKeys("2");
-			driver.findElement(By.id("add0")).click();
+			webDriverOperations.clearText(By.id("quantity0"));
+			webDriverOperations.overrideText(By.id("quantity0"),"2");
+			webDriverOperations.click(By.id("add0"));
 		}
  
 		// addCartボタンをクリック
 		{
-			driver.findElement(By.id("quantity1")).clear();
-			driver.findElement(By.id("quantity1")).sendKeys("1");
-			driver.findElement(By.id("add1")).click();
+			webDriverOperations.clearText(By.id("quantity1"));
+			webDriverOperations.overrideText(By.id("quantity1"),"1");
+			webDriverOperations.click(By.id("add1"));
 		}
  
 		// viewCartボタンをクリック
 		{
-			driver.findElement(By.id("viewCart")).click();
+			webDriverOperations.click(By.id("viewCart"));
 		}
  
 		// 2つめのアイテムにチェックを入れてremoveボタンをクリック
 		{
-			driver.findElement(By.id("removedItemsIds1")).click();
-			driver.findElement(By.id("remove")).click();
+			webDriverOperations.click(By.id("removedItemsIds1"));
+			webDriverOperations.click(By.id("remove"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("itemName0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
-			assertThat(driver.findElement(By.id("itemPrice0")).getText(),
-					is("¥ 900"));
-			assertThat(driver.findElement(By.id("itemQuantity0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice0")),
+					is("¥900"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity0")),
 					is("2"));
-			assertThat(driver.findElement(By.id("totalPrice")).getText(),
-					is("¥ 1,800"));
+			assertThat(webDriverOperations.getText(By.id("totalPrice")),
+					is("¥1,800"));
 		}
  
 		// 削除チェックをせずにremoveボタンをクリック
 		{
-			driver.findElement(By.id("remove")).click();
+			webDriverOperations.click(By.id("remove"));
 		}
  
 		// エラーメッセージを確認
 		{
-			assertThat(driver.findElement(By.id("removedItemsIds.errors"))
-					.getText(), is("may not be empty"));
+			assertThat(webDriverOperations.getText(By.id("removedItemsIds.errors"))
+					, is("may not be empty"));
 		}
 	}
  
@@ -589,82 +590,82 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		// addCartボタンをクリック
 		{
-			driver.findElement(By.id("quantity0")).clear();
-			driver.findElement(By.id("quantity0")).sendKeys("2");
-			driver.findElement(By.id("add0")).click();
+			webDriverOperations.clearText(By.id("quantity0"));
+			webDriverOperations.overrideText(By.id("quantity0"),"2");
+			webDriverOperations.click(By.id("add0"));
 		}
  
 		// addCartボタンをクリック
 		{
-			driver.findElement(By.id("quantity1")).clear();
-			driver.findElement(By.id("quantity1")).sendKeys("1");
-			driver.findElement(By.id("add1")).click();
+			webDriverOperations.clearText(By.id("quantity1"));
+			webDriverOperations.overrideText(By.id("quantity1"),"1");
+			webDriverOperations.click(By.id("add1"));
 		}
  
 		// viewCartボタンをクリック
 		{
-			driver.findElement(By.id("viewCart")).click();
+			webDriverOperations.click(By.id("viewCart"));
 		}
  
 		// confirm your orderボタンをクリック
 		{
-			driver.findElement(By.id("confirm")).click();
+			webDriverOperations.click(By.id("confirm"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("itemName0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
-			assertThat(driver.findElement(By.id("itemPrice0")).getText(),
-					is("¥ 900"));
-			assertThat(driver.findElement(By.id("itemQuantity0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice0")),
+					is("¥900"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity0")),
 					is("2"));
-			assertThat(driver.findElement(By.id("itemName1")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName1")),
 					is("〔Ame ni mo Makezu〕"));
-			assertThat(driver.findElement(By.id("itemPrice1")).getText(),
-					is("¥ 800"));
-			assertThat(driver.findElement(By.id("itemQuantity1")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice1")),
+					is("¥800"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity1")),
 					is("1"));
-			assertThat(driver.findElement(By.id("totalPrice")).getText(),
-					is("¥ 2,600"));
+			assertThat(webDriverOperations.getText(By.id("totalPrice")),
+					is("¥2,600"));
  
-			assertThat(driver.findElement(By.id("email")).getText(),
+			assertThat(webDriverOperations.getText(By.id("email")),
 					is("a@b.com"));
  
 		}
  
 		// confirm your orderボタンをクリック
 		{
-			driver.findElement(By.id("order")).click();
+			webDriverOperations.click(By.id("order"));
 		}
  
 		// 更新値を確認
 		{
-			assertThat(driver.findElement(By.id("orderNumber")).getText()
+			assertThat(webDriverOperations.getText(By.id("orderNumber"))
 					.length(), is(36));
  
-			assertThat(driver.findElement(By.id("itemName0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
-			assertThat(driver.findElement(By.id("itemPrice0")).getText(),
-					is("¥ 900"));
-			assertThat(driver.findElement(By.id("itemQuantity0")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice0")),
+					is("¥900"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity0")),
 					is("2"));
-			assertThat(driver.findElement(By.id("itemName1")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemName1")),
 					is("〔Ame ni mo Makezu〕"));
-			assertThat(driver.findElement(By.id("itemPrice1")).getText(),
-					is("¥ 800"));
-			assertThat(driver.findElement(By.id("itemQuantity1")).getText(),
+			assertThat(webDriverOperations.getText(By.id("itemPrice1")),
+					is("¥800"));
+			assertThat(webDriverOperations.getText(By.id("itemQuantity1")),
 					is("1"));
-			assertThat(driver.findElement(By.id("totalPrice")).getText(),
-					is("¥ 2,600"));
+			assertThat(webDriverOperations.getText(By.id("totalPrice")),
+					is("¥2,600"));
 		}
  
 	}
  
 	private void defaultLogin() {
-		driver.findElement(By.id("email")).sendKeys("a@b.com");
-		driver.findElement(By.id("password")).sendKeys("demo");
-		driver.findElement(By.id("login")).click();
+		webDriverOperations.overrideText(By.id("email"),"a@b.com");
+		webDriverOperations.overrideText(By.id("password"),"demo");
+		webDriverOperations.click(By.id("login"));
 	}
  
 	@After
@@ -672,9 +673,9 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		// logoutボタンをクリック
 		{
-			driver.findElement(By.id("logout")).click();
+			webDriverOperations.click(By.id("logout"));
 		}
-		driver.quit();
+
 	}
  
 }

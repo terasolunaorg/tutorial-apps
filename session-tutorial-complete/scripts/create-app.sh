@@ -17,3 +17,5 @@ bash ./session-tutorial-complete/scripts/convert-session-complete-properties.sh
 bash ./session-tutorial-complete/scripts/convert-session-complete-xml.sh
 
 bash ./session-tutorial-complete/scripts/convert-session-complete-java.sh
+
+bash ./session-tutorial-complete/scripts/convert-session-complete-test.sh

@@ -41,6 +41,8 @@ mkdir -p ./target-project/session-tutorial-complete/session-tutorial-complete-we
 mkdir -p ./target-project/session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/WEB-INF/views/goods
 mkdir -p ./target-project/session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/WEB-INF/views/login
 
+mkdir -p ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium/session
+
 ###################  tutorial flow  ###################
 
 mkdir -p ./target-project/session-tutorial-complete/session-tutorial-complete-web/src/main/java/com/example/session/app/account
@@ -116,5 +118,14 @@ cp -p ./session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/
 cp -p ./session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/WEB-INF/views/order/confirm.jsp ./target-project/session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/WEB-INF/views/order
 cp -p ./session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/WEB-INF/views/order/finish.jsp ./target-project/session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/WEB-INF/views/order
 
-cp -p ./session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/FunctionTestSupport.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/
-cp -p ./session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium/SessionTutorialTest.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium/
+cp -p ./session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium/SessionTutorialTest.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium/session
+cp -p ./common-test/resources/META-INF/spring/selenium.properties ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/resources/META-INF/spring
+cp -p ./common-test/resources/META-INF/spring/seleniumContext.xml ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/resources/META-INF/spring
+cp -p ./common-test/java/selenium/FirefoxDriverFactoryBean.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/FunctionTestSupport.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/PageSource.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/ScreenCapture.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/WebDriverCreator.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/WebDriverInputFieldAccessor.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium
+cp -p ./common-test/java/selenium/WebDriverOperations.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium
+
