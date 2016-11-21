@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # first-spring-security-mybatis3-env.xml
+if test ${ARCHETYPE_VERSION:0:5} = "5.1.0" -o ${ARCHETYPE_VERSION:0:5} = "5.1.1" -o ${ARCHETYPE_VERSION:0:5} = "5.2.0";then
 find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 's|<beans xmlns="http://www.springframework.org/schema/beans"|\
 <beans xmlns="http://www.springframework.org/schema/beans"\
     xmlns:jdbc="http://www.springframework.org/schema/jdbc" |'
 
-# first-spring-security-mybatis3-env.xml
 find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 's|/spring-beans.xsd|/spring-beans.xsd\
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd|'
+fi
 
 # first-spring-security-mybatis3-env.xml
 find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 's|</beans>|\
