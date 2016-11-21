@@ -9,9 +9,7 @@ find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 
 
 find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 's|/spring-beans.xsd|/spring-beans.xsd\
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd|'
-esac
 
-# first-spring-security-mybatis3-env.xml
 find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 's|</beans>|\
     <!-- (1) -->\
     <jdbc:initialize-database data-source="dataSource"\
@@ -22,7 +20,7 @@ find . -type f -name 'first-spring-security-mybatis3-env.xml' | xargs sed -i -e 
         <jdbc:script location="classpath:/database/${database}-dataload.sql" />\
     </jdbc:initialize-database>\
 </beans>|'
-
+esac
 
 # spring-security.xml
 find . -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:form-login/>|\
