@@ -15,8 +15,8 @@ import org.springframework.context.support.ApplicationObjectSupport;
 public class WebDriverCreator extends ApplicationObjectSupport {
 
     /**
-     * デフォルトのWebDriver(Beanファイルに定義されているWebDriver)を作成する。
-     * @return デフォルトのWebDriver
+     * Create a default WebDriver (WebDriver defined in the bean file).
+     * @return Default WebDriver
      */
     public WebDriver createDefaultWebDriver() {
         WebDriver webDriver = getApplicationContext().getBean(WebDriver.class);
@@ -24,14 +24,14 @@ public class WebDriverCreator extends ApplicationObjectSupport {
     }
 
     /**
-     * 任意のロケールを有効にした、WebDriverを作成する。
+     * Create a WebDriver with any locale enabled.
      * <p>
-     * FireFox,Chromeのみをサポート<br>
-     * 引数 に"en" を指定すると、英語ロケールで起動する。<br>
-     * 引数に "" を指定した場合、ロケールなしで起動する。
+     * Supports FireFox and Chrome only<br>
+     * If you specify "en" as an argument, it starts in the English locale.<br>
+     * If "" is specified as an argument, it starts without a locale.
      * </p>
      * @param localeStr
-     * @return WebDriver 動作対象のブラウザ
+     * @return WebDriver Operation target browser
      */
     public WebDriver createLocaleSpecifiedDriver(String localeStr) {
 
@@ -44,13 +44,13 @@ public class WebDriverCreator extends ApplicationObjectSupport {
             } else if ("firefox".equals(activeProfile)) {
                 break;
             } else if ("ie".equals(activeProfile)) {
-                throw new UnsupportedOperationException("InternetExplorerを使用してロケール指定のブラウザ起動はできません。");
+                throw new UnsupportedOperationException("It is not possible to start locale specified browser using InternetExplorer.");
             } else if ("phantomJs".equals(activeProfile)) {
-                throw new UnsupportedOperationException("PhantomJSを使用してロケール指定のブラウザ起動はできません。");
+                throw new UnsupportedOperationException("It is not possible to launch locale specified browser using PhantomJS.");
             }
         }
 
-        // デフォルトのブラウザはFirefoxとする
+        // The default browser is Firefox
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("intl.accept_languages", localeStr);
         profile.setPreference("brouser.startup.homepage_override.mstone",
@@ -60,19 +60,19 @@ public class WebDriverCreator extends ApplicationObjectSupport {
     }
 
     /**
-     * ダウンロード機能を有効にしたWebDirverを起動する。
+     * Start WebDriver with download function enabled.
      * <p>
-     * FireFoxのみをサポート<br>
+     * Supports FireFox only<br>
      * </p>
-     * @param downloadTempDirectory ダウンロード用の一時保存ディレクトリ
-     * @return ダウンロード機能を有効にしたWebDirverインスタンス
+     * @param downloadTempDirectory : Temporary storage directory for download
+     * @return WebDriver instance with download function enabled
      */
     public WebDriver createDownloadableWebDriver(String downloadTempDirectory) {
         for (String activeProfile : getApplicationContext().getEnvironment()
                 .getActiveProfiles()) {
             if ("chrome".equals(activeProfile) || "ie".equals(activeProfile)
                     || "phantomJs".equals(activeProfile)) {
-                throw new UnsupportedOperationException("FireFox以外のブラウザでダウンロード機能を使用するテストを実行することはできません。");
+                throw new UnsupportedOperationException("It is not possible to run tests using the download function on browsers other than FireFox.");
             }
         }
         FirefoxProfile profile = new FirefoxProfile();

@@ -9,15 +9,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 /**
- * WebDriverを使って入力フィールドにアクセスするためのクラス。
+ * This class is for accessing input fields using WebDriver.
  * <p>
- * 標準的な方法でアクセスする方法と、JavaScriptを使ってアクセスする方法の２つを提供している。
+ * It provides two methods of accessing in a standard way and accessing using JavaScript.
  * </p>
  */
 public enum WebDriverInputFieldAccessor {
 
     /**
-     * Seleniumの標準的な方法で入力フィールドにアクセスするオブジェクト。
+     * An object that accesses input fields in Selenium's standard way.
      */
     STANDARD {
         /**
@@ -40,9 +40,9 @@ public enum WebDriverInputFieldAccessor {
     },
 
     /**
-     * JavaScriptを使って入力フィールドにアクセスするオブジェクト。
+     * An object that accesses input fields using JavaScript.
      * <p>
-     * 入力フィールドへのアクセスを高速化する事を目的としたオブジェクトである。
+     * It is an object aimed at speeding up the access to the input field.
      * </p>
      */
     JAVASCRIPT {
@@ -77,20 +77,20 @@ public enum WebDriverInputFieldAccessor {
     };
 
     /**
-     * 指定した要素(テキスト項目)に値を追加する。
-     * @param by 要素(テキスト項目)を探すための識別子
+     * Add a value to the specified element (text item).
+     * @param by : An identifier for searching for an element (text item)
      */
     public abstract void appendValue(By by, String value, WebDriver webDriver);
 
     /**
-     * 指定した要素(テキスト項目)の値を上書きする。
-     * @param by 要素(テキスト項目)を探すための識別子
+     * Overwrite the value of the specified element (text item).
+     * @param by : An identifier for searching for an element (text item)
      */
     public abstract void overrideValue(By by, String value, WebDriver webDriver);
 
     /**
-     * 指定した入力フィールドに設定されている値を取得する。
-     * @param by 要素を探すための識別子
+     * Get the value set in the specified input field.
+     * @param by : An identifier for searching for an element (text item)
      */
     public String getValue(By by, WebDriver webDriver) {
         return webDriver.findElement(by).getAttribute("value");

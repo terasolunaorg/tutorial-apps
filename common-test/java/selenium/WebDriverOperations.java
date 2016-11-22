@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * ブラウザ操作(WebDriverに対するロジック)を提供するクラス。
+ * This Class providing browser operation (logic for WebDriver).
  */
 public class WebDriverOperations {
 
@@ -46,17 +46,17 @@ public class WebDriverOperations {
     }
 
     /**
-     * 指定したURLのページを表示する。
-     * @param url ページを表示するためのURL
+     * Display the page with the specified URL.
+     * @param url : URL for displaying the page
      */
     public void displayPage(String url) {
         webDriver.get(url);
     }
 
     /**
-     * 要素を見つけるまでの待機処理のデフォルトのタイムアウト値を設定する。
-     * @param defaultTimeoutSecondsForImplicitlyWait 要素を見つけるまでの待機処理のデフォルトのタイムアウト値(秒)
-     * @return WebDriverOperationsインスタンス
+     * Set the default timeout value of standby processing until finding an element.
+     * @param defaultTimeoutSecondsForImplicitlyWait : Default timeout value (seconds) for wait processing until finding an element
+     * @return WebDriverOperations instance
      */
     public WebDriverOperations setDefaultTimeoutForImplicitlyWait(
             int defaultTimeoutSecondsForImplicitlyWait) {
@@ -66,7 +66,7 @@ public class WebDriverOperations {
     }
 
     /**
-     * 要素を見つけるまでの待機処理のタイムアウト値をデフォルト値に設定する。
+     * Set the timeout value of standby processing to the default value.
      */
     public void setDefaultTimeoutForImplicitlyWait() {
         setTimeoutForImplicitlyWait(defaultTimeoutSecondsForImplicitlyWait,
@@ -74,7 +74,7 @@ public class WebDriverOperations {
     }
 
     /**
-     * 要素を見つけるまでの待機処理のタイムアウト値を設定する。
+     * Set the timeout value of standby processing.
      */
     public void setTimeoutForImplicitlyWait(int timeoutSeconds,
             boolean applyOffset) {
@@ -90,9 +90,9 @@ public class WebDriverOperations {
     }
 
     /**
-     * WebDriverを返却する。
+     * Return WebDriver.
      * <p>
-     * 固有の操作を行いたい場合は、このメソッドで取得したWebDriverを使用してブラウザの操作を行ってください。
+     * If you want to perform unique operations, please use the WebDriver obtained by this method to operate the browser.
      * </p>
      * @return WebDriver
      */
@@ -101,16 +101,16 @@ public class WebDriverOperations {
     }
 
     /**
-     * 指定した要素(ボタンやリンクなど)をクリックする。
-     * @param by 要素(ボタンやリンクなど)を探すための識別子
+     * Click the specified element (button, link, etc.).
+     * @param by : Identifier for finding elements (buttons, links, etc.)
      */
     public void click(By by) {
         webDriver.findElement(by).click();
     }
 
     /**
-     * 指定した要素(ボタンやリンクなど)を強制的にクリックする。
-     * @param by 要素(ボタンやリンクなど)を探すための識別子
+     * Forcibly click on the specified element (button, link, etc.).
+     * @param by : Identifier for finding elements (buttons, links, etc.)
      */
     public void forceClick(By by) {
         getJavascriptExecutor().executeScript("arguments[0].click();",
@@ -118,46 +118,46 @@ public class WebDriverOperations {
     }
 
     /**
-     * 指定した要素(テキスト項目)に入力されている値をクリアする。
-     * @param by 要素(テキスト項目)を探すための識別子
+     * Clear the value entered in the specified element (text item).
+     * @param by : identifier for searching for an element (text item)
      */
     public void clearText(By by) {
         webDriver.findElement(by).clear();
     }
 
     /**
-     * 指定した要素(テキストフィールド)に値を追加する。
-     * @param by 要素(テキストフィールド)を探すための識別子
+     * Add a value to the specified element (text field).
+     * @param by : Identifier for looking up an element (text field)
      */
     public void appendText(By by, String value) {
         webDriverInputFieldAccessor.appendValue(by, value, webDriver);
     }
 
     /**
-     * 指定した要素(テキストフィールド)の値を上書きする。
-     * @param by 要素(テキストフィールド)を探すための識別子
+     * Overwrite the value of the specified element (text field).
+     * @param by : Identifier for looking up an element (text field)
      */
     public void overrideText(By by, String value) {
         webDriverInputFieldAccessor.overrideValue(by, value, webDriver);
     }
 
     /**
-     * 指定した要素(テキストエリア)に値を追加する。
+     * Add a value to the specified element (text area).
      * <p>
-     * 使用頻度が低いため、高速モード(JavaScript)モードは対応していない。
+     * Because it is not used frequently, it does not support high-speed mode (JavaScript) mode.
      * </p>
-     * @param by 要素(テキストエリア)を探すための識別子
+     * @param by : Identifier for looking up an element (text area)
      */
     public void appendTextArea(By by, String value) {
         webDriver.findElement(by).sendKeys(value);
     }
 
     /**
-     * 指定した要素(テキストエリア)の値を上書きする。
+     * Overwrite the value of the specified element (text area).
      * <p>
-     * 使用頻度が低いため、高速モード(JavaScript)モードは対応していない。
+     * Because it is not used frequently, it does not support high-speed mode (JavaScript) mode.
      * </p>
-     * @param by 要素(テキストエリア)を探すための識別子
+     * @param by : Identifier for looking up an element (text area)
      */
     public void overrideTextArea(By by, String value) {
         WebElement element = webDriver.findElement(by);
@@ -166,8 +166,8 @@ public class WebDriverOperations {
     }
 
     /**
-     * 指定した要素(ファイル参照)に、指定したファイルを設定する。
-     * @param by 要素(ファイル参照)を探すための識別子
+     * Set the specified file to the specified element (see file).
+     * @param by : Identifier for finding elements (file reference)
      */
     public void referUploadFile(By by, File file) {
         WebElement element = webDriver.findElement(by);
@@ -175,31 +175,31 @@ public class WebDriverOperations {
     }
 
     /**
-     * 指定した要素(セレクト)を選択する。
-     * @param by 要素(テキスト項目)を探すための識別子
+     * Select the specified element (select).
+     * @param by : Identifier for searching for an element (text item)
      */
     public void select(By by, String value) {
         new Select(webDriver.findElement(by)).selectByVisibleText(value);
     }
 
     /**
-     * 指定した要素に設定されているテキスト(表示値)を取得する。
-     * @param by 要素を探すための識別子
+     * Get the text (display value) set for the specified element.
+     * @param by : Identifier for searching for elements
      */
     public String getText(By by) {
         return webDriver.findElement(by).getText();
     }
 
     /**
-     * 指定した入力フィールドに設定されている値を取得する。
-     * @param by 要素を探すための識別子
+     * Get the value set in the specified input field.
+     * @param by : Identifier for searching for elements
      */
     public String getInputFieldValue(By by) {
         return webDriverInputFieldAccessor.getValue(by, webDriver);
     }
 
     /**
-     * X-Trackを取得する。
+     * Get X-Track.
      * @return X-Track
      */
     public String getXTrack() {
@@ -207,17 +207,17 @@ public class WebDriverOperations {
     }
 
     /**
-     * X-Trackの識別オブジェクトを取得する。
-     * @return X-Trackの識別オブジェクト
+     * Get the identification object of X-Track.
+     * @return identification object of X-Track.
      */
     public By getIdOfXTrack() {
         return By.id("xTrack");
     }
 
     /**
-     * 指定した要素が存在するかチェックする。
-     * @param by 要素を探すための識別子
-     * @return 指定した要素が存在する場合にtrueを返却する。
+     * Check whether the specified element exists.
+     * @param by : Identifier for searching for elements
+     * @return Returns true if the specified element exists.
      */
     public boolean exists(By by) {
         waitForDisplayed(By.tagName("body"));
@@ -234,16 +234,16 @@ public class WebDriverOperations {
     }
 
     /**
-     * 指定した要素(ボタンやリンクなど)が表示されるのを待つ。
-     * @param by 要素(ボタンやリンクなど)を探すための識別子
+     * Wait for the specified element (button, link, etc.) to be displayed.
+     * @param by : Identifier for finding elements (buttons, links, etc.)
      */
     public void waitForDisplayed(By by) {
         webDriver.findElement(by);
     }
 
     /**
-     * 指定された表示条件に一致するまで待つ。
-     * @param expectedCondition 表示条件
+     * Wait until it matches the specified display condition.
+     * @param expectedCondition : Display condition
      */
     public void waitForDisplayed(ExpectedCondition<?> expectedCondition) {
         WebDriverWait wait = new WebDriverWait(getWebDriver(), defaultTimeoutSecondsForImplicitlyWait
@@ -252,9 +252,9 @@ public class WebDriverOperations {
     }
 
     /**
-     * 指定した時間だけ処理を停止する。
-     * @param waitTime 停止する時間
-     * @param timeUnit 時間の単位
+     * Stop processing for the specified time.
+     * @param waitTime : Time to stop
+     * @param timeUnit : Unit of time
      */
     public void suspend(long waitTime, TimeUnit timeUnit) {
         try {
@@ -265,37 +265,37 @@ public class WebDriverOperations {
     }
 
     /**
-     * Cookieを取得する。
+     * Get cookies.
      * <p>
-     * 指定したCookie名に対応するCookieを取得する。
+     * Gets a cookie corresponding to the specified cookie name.
      * </p>
-     * @param cookieName Cookie名
-     * @return 指定したCookie名に対応するCookie
+     * @param cookieName : cookie name.
+     * @return A cookie corresponding to the specified cookie name
      */
     public Cookie getCookie(String cookieName) {
         return webDriver.manage().getCookieNamed(cookieName);
     }
 
     /**
-     * Cookieを削除する。
+     * Delete the cookie.
      * <p>
-     * 指定したCookie名に対応するCookieを削除する。
+     * Delete the cookie corresponding to the specified cookie name.
      * </p>
-     * @param cookieName Cookie名
+     * @param cookieName : cookie name.
      */
     public void deleteCookie(String cookieName) {
         webDriver.manage().deleteCookieNamed(cookieName);
     }
 
     /**
-     * JavascriptExecutor を取得する。
+     * Get JavascriptExecutor.
      */
     public JavascriptExecutor getJavascriptExecutor() {
         return (JavascriptExecutor) webDriver;
     }
 
     /**
-     * タイトルを取得する。
+     * Get the title.
      */
     public String getTitle() {
         waitForDisplayed(By.tagName("title"));
@@ -303,7 +303,7 @@ public class WebDriverOperations {
     }
 
     /**
-     * アドレスバーの値を取得する。
+     * Get the value of the address bar.
      */
     public String getCurrentUrl() {
         waitForDisplayed(By.tagName("body"));
@@ -311,50 +311,50 @@ public class WebDriverOperations {
     }
 
     /**
-     * スクリーンキャプチャをエビデンスとして保存する。
+     * Save the screen capture as evidence.
      */
     public void saveScreenCapture() {
         screenCapture.save(webDriver);
     }
 
     /**
-     * スクリーンキャプチャをエビデンスとして保存する。
+     * Save the screen capture as evidence.
      * <p>
-     * 保存するファイル名の一部に、subTitleで指定した値が設定されます。
+     * The value specified by subTitle is set as part of the filename to be saved.
      * </p>
-     * @param subTitle サブタイトル
+     * @param subTitle : subtitle
      */
     public void saveScreenCapture(String subTitle) {
         screenCapture.save(webDriver, subTitle);
     }
 
     /**
-     * HTMLのソースをエビデンスとして保存する。
+     * Save HTML source as evidence.
      */
     public void savePageSource() {
         pageSource.save(webDriver);
     }
 
     /**
-     * HTMLのソースをエビデンスとして保存する。
+     * Save HTML source as evidence.
      * <p>
-     * 保存するファイル名の一部に、subTitleで指定した値が設定されます。
+     * The value specified by subTitle is set as part of the filename to be saved.
      * </p>
-     * @param subTitle サブタイトル
+     * @param subTitle subtitle
      */
     public void savePageSource(String subTitle) {
         pageSource.save(webDriver, subTitle);
     }
 
     /**
-     * ブラウザの「戻る」を実施。
+     * Perform "return" of browser.
      */
     public void back() {
         webDriver.navigate().back();
     }
 
     /**
-     * APサーバのJVMのバージョン情報を取得。
+     * Get version information of JVM of AP server.
      */
     public String getJvmVersionOfApServer() {
         String[] version = getText(By.id("jvmVersion")).split("\\.");
@@ -362,7 +362,7 @@ public class WebDriverOperations {
     }
     
     /**
-     * APサーバのJVMのバージョンが1.7以降であるかを判定する
+     * It is judged whether the version of the JVM of the AP server is 1.7 or later
      */
     public boolean isJvm7OrLater(){
     	String[] version = getJvmVersionOfApServer().split("\\.");
@@ -370,7 +370,7 @@ public class WebDriverOperations {
     }
     
     /**
-     * APサーバのJVMのバージョンが1.8以降であるかを判定する
+     * It is judged whether the version of the JVM of the AP server is 1.8 or later
      */
     public boolean isJvm8OrLater(){
     	String[] version = getJvmVersionOfApServer().split("\\.");

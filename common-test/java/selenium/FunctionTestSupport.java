@@ -141,9 +141,9 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
     }
 
     /**
-     * デフォルトのWebDriverを無効化する。
+     * Disable the default WebDriver.
      * <p>
-     * このメソッドを呼び出した場合、デフォルトのWebDriverによって操作されるブラウザは立ち上がらない。
+     * When this method is called, the browser operated by the default WebDriver will not start up.
      * </p>
      */
     protected void disableDefaultWebDriver() {
@@ -151,12 +151,12 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
     }
 
     /**
-     * デフォルトのWebDriverを有効化する。
+     * Activate the default WebDriver.
      * <p>
-     * このメソッドを呼び出した場合、デフォルトのWebDriverによって操作されるブラウザが立ち上がる。
+     * When this method is called, a browser operated by the default WebDriver is launched.
      * </p>
      * <p>
-     * この動作が、デフォルトの動作となる。
+     * This operation is the default operation.
      * </p>
      */
     protected void enableDefaultWebDriver() {
@@ -164,7 +164,7 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
     }
 
     /**
-     * 現在使用されているブラウザ(WebDirver)をquitする。 <br>
+     * Quit the currently used browser (WebDriver). <br>
      */
     protected final void quitCurrentWebDriver() {
         quitWebDriver(webDriver);
@@ -172,13 +172,13 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
     }
 
     /**
-     * ブラウザ(WebDriver)を新たに起動する。
+     * Launch a new browser (WebDriver).
      * <p>
-     * このメソッドを呼び出すことで、ブラウザが新たに起動し、起動したブラウザを操作するためのWebDriverOperationsインスタンスが返却される。
+     * By calling this method, the browser is newly activated, and a WebDriverOperations instance for operating the activated browser is returned.
      * </p>
      * <p>
-     * このメソッドを使って取得したWebDriverを明示的にquitする場合は、 {@link #quitWebDriver(WebDriverOperations)}を使用すること。 <br>
-     * 明示的にquitしない場合は、該当クラスのテストケースが全て終了した際に、quitされる。
+     * Use {@link # quitWebDriver (WebDriverOperations)} if you explicitly quit the WebDriver obtained using this method. <br>
+     * If you do not quit explicitly, it will be quit when all the test cases of the corresponding class have finished.
      * </p>
      * @return
      */
@@ -189,19 +189,19 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
     }
 
     /**
-     * 指定されたブラウザ(WebDriverOperationsに関連付られているWebDirver)をquitする。
+     * Quit the specified browser (WebDirver associated with WebDriverOperations).
      * <p>
-     * {@link #newWebDriverOperations()}を使って起動したブラウザ(WebDriverOperationsに関連付られているWebDirver)をquitする場合は、このメソッドを呼び出すこと。
+     * Call this method if you want to quit the browser (WebDirver associated with WebDriverOperations) that was launched using {@link # new WebDriverOperations ()}.
      * </p>
-     * @param webDriverOperations quitするWebDriverと関連付られているWebDriverOperationsインスタンス
+     * @param webDriverOperations : WebDriverOperations instance associated with the WebDriver to quit
      */
     protected final void quitWebDriver(WebDriverOperations webDriverOperations) {
         quitWebDriver(webDriverOperations.getWebDriver());
     }
 
     /**
-     * 指定したWebDriverをデフォルトで使用するWebDriverに設定する。
-     * @param webDriver デフォルトで使用するWebDriver
+     * Set the specified WebDriver as WebDriver to be used by default.
+     * @param webDriver : WebDriver to be used by default
      */
     protected final void setCurrentWebDriver(WebDriver newWebDriver) {
 
@@ -217,39 +217,39 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
     }
 
     /**
-     * テストが成功した時の処理を行うためのメソッド。
+     * A method for performing processing when the test succeeds.
      * <p>
-     * 必要に応じてオーバーライドしてください。
+     * Please override as necessary.
      * </p>
      */
     protected void onSucceeded() {
     }
 
     /**
-     * テストが失敗した時の処理を行うためのメソッド。
+     * A method for performing processing when the test fails.
      * <p>
-     * 必要に応じてオーバーライドしてください。
+     * Please override as necessary.
      * </p>
-     * @param e テストが失敗した時に発生した例外
+     * @param e : Exception that occurred when the test failed
      */
     protected void onFailed(Throwable e) {
     }
 
     /**
-     * テストが終了した時の処理を行うためのメソッド。
+     * A method for performing processing when the test is finished.
      * <p>
-     * 必要に応じてオーバーライドしてください。
+     * Please override as necessary.
      * </p>
      */
     protected void onFinished() {
     }
 
     /**
-     * パッケージに割り振られているルートのURLを返却する。
+     * Return the URL of the route allocated to the package.
      * <p>
-     * 機能毎のトップページを表示するためのURLが返却される。
+     * The URL for displaying the top page for each function is returned.
      * </p>
-     * @return パッケージに割り振られているルートのURL
+     * @return URL of the route allocated to the package
      */
     protected String getPackageRootUrl() {
         return applicationContextUrl + "/" + simplePackageName + "/";
