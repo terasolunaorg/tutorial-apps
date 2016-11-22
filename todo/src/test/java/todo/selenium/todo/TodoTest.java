@@ -9,20 +9,17 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Value;
 
 import todo.selenium.FunctionTestSupport;
 public class TodoTest extends FunctionTestSupport {
 
-	private static WebDriver webDriver;
-
 	@Value("${selenium.contextName}")
 	String contextName;
 	
 	public TodoTest(){
-		super.disableDefaultWebDriver();
+
 	}
 
 	@Before

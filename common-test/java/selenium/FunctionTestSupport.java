@@ -32,7 +32,7 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(FunctionTestSupport.class);
 
-    private static WebDriver webDriver;
+    protected static WebDriver webDriver;
 
     private static final Set<WebDriver> webDrivers = new HashSet<WebDriver>();
 
