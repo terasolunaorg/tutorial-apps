@@ -18,6 +18,7 @@ package todo.selenium;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -27,49 +28,20 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.ApplicationObjectSupport;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+public class FunctionTestSupport extends ApplicationObjectSupport {
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
-public abstract class FunctionTestSupport extends ApplicationObjectSupport {
-
-    private static final Logger LOGGER = LoggerFactory
+    private static final Logger classLogger = LoggerFactory
             .getLogger(FunctionTestSupport.class);
 
-    protected static WebDriver webDriver;
+    protected static WebDriver driver;
 
     private static final Set<WebDriver> webDrivers = new HashSet<WebDriver>();
-
-    @Rule
-    public final TestName testName = new TestName();
-
-    @Rule
-    public final TestWatcher testWatcherForFailed = new TestWatcher() {
-        @Override
-        public void succeeded(Description description) {
-            onSucceeded();
-            saveSucceededEvidence();
-        }
-
-        @Override
-        public void failed(Throwable e, Description description) {
-            onFailed(e);
-            saveFailedEvidence();
-        }
-
-        @Override
-        public void finished(Description description) {
-            onFinished();
-        }
-    };
 
     @Value("${selenium.serverUrl}")
     protected String serverUrl;
@@ -86,24 +58,42 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
     protected WebDriverOperations webDriverOperations;
 
     @Inject
-    private ScreenCapture screenCapture;
+    protected ScreenCapture screenCapture;
 
     @Inject
-    private PageSource pageSource;
+    protected PageSource pageSource;
 
-    @Inject
-    protected WebDriverCreator webDriverCreator;
+    
+    @Rule
+    public TestName testName = new TestName();
 
-    private boolean useDefaultWebDriver = true;
+    @Rule
+    public TestWatcher testWatcher = new TestWatcher() {
+        @Override
+        protected void succeeded(Description description) {
+            onSucceeded();
+            succeededEvidence();
+        }
+
+        @Override
+        protected void failed(Throwable e, Description description) {
+            onFailed(e);
+            failedEvidence();
+        }
+
+        @Override
+        protected void finished(Description description) {
+            onFinished();
+        }
+    };
+
+    private boolean useSetupDefaultWebDriver = true;
 
     private String simplePackageName;
-    
-    protected File evidenceSavingDirectory;
 
-    private WebDriverInputFieldAccessor webDriverInputFieldAccessor = WebDriverInputFieldAccessor.JAVASCRIPT;
+    protected WebDriverInputFieldAccessor inputFieldAccessor = WebDriverInputFieldAccessor.JAVASCRIPT;
 
-    @Value("${selenium.timeoutForImplicitlyWait.offsetSeconds:0}")
-    private int offsetSecondsOfTimeoutForImplicitlyWait;
+    protected long defaultTimeoutSecForImplicitlyWait = 5;
 
     protected FunctionTestSupport() {
         this.simplePackageName = this.getClass().getPackage().getName()
@@ -113,8 +103,14 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
     @Value("${selenium.webDriverInputFieldAccessor:JAVASCRIPT}")
     public void setWebDriverInputFieldAccessor(
             String webDriverInputFieldAccessor) {
-        this.webDriverInputFieldAccessor = WebDriverInputFieldAccessor
+        this.inputFieldAccessor = WebDriverInputFieldAccessor
                 .valueOf(webDriverInputFieldAccessor.toUpperCase());
+    }
+
+    @AfterClass
+    public final static void tearDownWebDrivers() {
+        quitWebDrivers();
+        driver = null;
     }
 
     @Before
@@ -122,160 +118,79 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
 
         String testCaseName = testName.getMethodName().replaceAll("^test", "");
 
-        evidenceSavingDirectory = new File(String.format("%s/%s/%s",
+        File evidenceSavingDirectory = new File(String.format("%s/%s/%s",
                 evidenceBaseDirectory, simplePackageName, testCaseName));
 
-        LOGGER.debug("evidenceSavingDirectory is "
+        logger.debug("evidenceSavingDirectory is "
                 + evidenceSavingDirectory.getAbsolutePath());
 
         screenCapture.setUp(evidenceSavingDirectory);
         pageSource.setUp(evidenceSavingDirectory);
-
     }
 
     @Before
     public final void setUpDefaultWebDriver() {
-        if (!useDefaultWebDriver) {
+        if (!useSetupDefaultWebDriver) {
             return;
         }
-        if (webDriver == null) {
-            webDriver = newDefaultWebDriver();
+        bootDefaultWebDriver();
+    }
+
+    @Before
+    public final void setUpDBLog() {
+    }
+    
+    protected void bindWebDriver(WebDriver webDriver) {
+        webDrivers.add(webDriver);
+    }
+
+    protected void unbindWebDriver(WebDriver webDriver) {
+        webDrivers.remove(webDriver);
+    }
+
+    protected void bootDefaultWebDriver() {
+        if (driver == null) {
+            driver = newWebDriver();
         }
-        this.webDriverOperations = new WebDriverOperations(webDriver, webDriverInputFieldAccessor, screenCapture, pageSource, offsetSecondsOfTimeoutForImplicitlyWait);
-
-        webDriverOperations.displayPage(getPackageRootUrl());
+        driver.manage().timeouts().implicitlyWait(
+                defaultTimeoutSecForImplicitlyWait, TimeUnit.SECONDS);
+        driver.get(getPackageRootUrl());
+        
+        this.webDriverOperations = new WebDriverOperations(driver);
+        this.webDriverOperations
+                .setDefaultTimeoutForImplicitlyWait(defaultTimeoutSecForImplicitlyWait);
     }
 
-    @AfterClass
-    public final static void tearDownWebDrivers() {
-        quitWebDrivers();
-        webDriver = null;
-    }
-
-    /**
-     * Disable the default WebDriver.
-     * <p>
-     * When this method is called, the browser operated by the default WebDriver will not start up.
-     * </p>
-     */
-    protected void disableDefaultWebDriver() {
-        this.useDefaultWebDriver = false;
-    }
-
-    /**
-     * Activate the default WebDriver.
-     * <p>
-     * When this method is called, a browser operated by the default WebDriver is launched.
-     * </p>
-     * <p>
-     * This operation is the default operation.
-     * </p>
-     */
-    protected void enableDefaultWebDriver() {
-        this.useDefaultWebDriver = true;
-    }
-
-    /**
-     * Quit the currently used browser (WebDriver). <br>
-     */
-    protected final void quitCurrentWebDriver() {
-        quitWebDriver(webDriver);
-        webDriver = null;
-    }
-
-    /**
-     * Launch a new browser (WebDriver).
-     * <p>
-     * By calling this method, the browser is newly activated, and a WebDriverOperations instance for operating the activated browser is returned.
-     * </p>
-     * <p>
-     * Use {@link # quitWebDriver (WebDriverOperations)} if you explicitly quit the WebDriver obtained using this method. <br>
-     * If you do not quit explicitly, it will be quit when all the test cases of the corresponding class have finished.
-     * </p>
-     * @return
-     */
-    protected final WebDriverOperations newWebDriverOperations() {
-        WebDriverOperations webDriverOperations = new WebDriverOperations(newDefaultWebDriver(), webDriverInputFieldAccessor, screenCapture, pageSource, offsetSecondsOfTimeoutForImplicitlyWait);
-        webDriverOperations.displayPage(getPackageRootUrl());
-        return webDriverOperations;
-    }
-
-    /**
-     * Quit the specified browser (WebDirver associated with WebDriverOperations).
-     * <p>
-     * Call this method if you want to quit the browser (WebDirver associated with WebDriverOperations) that was launched using {@link # new WebDriverOperations ()}.
-     * </p>
-     * @param webDriverOperations : WebDriverOperations instance associated with the WebDriver to quit
-     */
-    protected final void quitWebDriver(WebDriverOperations webDriverOperations) {
-        quitWebDriver(webDriverOperations.getWebDriver());
-    }
-
-    /**
-     * Set the specified WebDriver as WebDriver to be used by default.
-     * @param webDriver : WebDriver to be used by default
-     */
-    protected final void setCurrentWebDriver(WebDriver newWebDriver) {
-
-        if (webDriver == null || webDriver != newWebDriver) {
-
-            webDriver = newWebDriver;
-            webDrivers.add(webDriver);
-
-        }
-        this.webDriverOperations = new WebDriverOperations(webDriver, webDriverInputFieldAccessor, screenCapture, pageSource, offsetSecondsOfTimeoutForImplicitlyWait);
-
-        webDriverOperations.displayPage(getPackageRootUrl());
-    }
-
-    /**
-     * A method for performing processing when the test succeeds.
-     * <p>
-     * Please override as necessary.
-     * </p>
-     */
-    protected void onSucceeded() {
-    }
-
-    /**
-     * A method for performing processing when the test fails.
-     * <p>
-     * Please override as necessary.
-     * </p>
-     * @param e : Exception that occurred when the test failed
-     */
-    protected void onFailed(Throwable e) {
-    }
-
-    /**
-     * A method for performing processing when the test is finished.
-     * <p>
-     * Please override as necessary.
-     * </p>
-     */
-    protected void onFinished() {
-    }
-
-    /**
-     * Return the URL of the route allocated to the package.
-     * <p>
-     * The URL for displaying the top page for each function is returned.
-     * </p>
-     * @return URL of the route allocated to the package
-     */
-    protected String getPackageRootUrl() {
-        return applicationContextUrl + "/" + simplePackageName + "/";
-    }
-
-    private WebDriver newDefaultWebDriver() {
-        WebDriver webDriver = webDriverCreator.createDefaultWebDriver();
+    private WebDriver newWebDriver() {
+        WebDriver webDriver = getApplicationContext().getBean(WebDriver.class);
         webDrivers.add(webDriver);
         return webDriver;
     }
 
-    private final void quitWebDriver(WebDriver webDriver) {
-        webDrivers.remove(webDriver);
-        webDriver.quit();
+    protected void quitDefaultWebDriver() {
+        if (driver != null) {
+            try {
+                driver.quit();
+            } finally {
+                driver = null;
+            }
+        }
+    }
+
+    protected WebDriver getDefaultWebDriver() {
+        return driver;
+    }
+
+    protected String getPackageRootUrl() {
+        return applicationContextUrl + "/" + simplePackageName + "/";
+    }
+
+    protected void disableSetupDefaultWebDriver() {
+        this.useSetupDefaultWebDriver = false;
+    }
+
+    protected void enableSetupDefaultWebDriver() {
+        this.useSetupDefaultWebDriver = true;
     }
 
     private static void quitWebDrivers() {
@@ -283,41 +198,51 @@ public abstract class FunctionTestSupport extends ApplicationObjectSupport {
             try {
                 webDriver.quit();
             } catch (Throwable t) {
-                LOGGER.error("failed quit.", t);
+                classLogger.error("failed quit.", t);
             }
         }
         webDrivers.clear();
     }
 
-    protected void saveSucceededEvidence() {
+    private void succeededEvidence() {
         String subTitle = "succeeded";
         for (WebDriver webDriver : webDrivers) {
             try {
                 screenCapture.save(webDriver, subTitle);
             } catch (Throwable t) {
-                LOGGER.error("failed screen capture.", t);
+                logger.error("failed screen capture.", t);
             }
             try {
                 pageSource.save(webDriver, subTitle);
             } catch (Throwable t) {
-                LOGGER.error("failed screen PageSource.", t);
+                logger.error("failed screen PageSource.", t);
             }
         }
     }
 
-    protected void saveFailedEvidence() {
+    private void failedEvidence() {
         String subTitle = "failed";
         for (WebDriver webDriver : webDrivers) {
             try {
                 screenCapture.saveForced(webDriver, subTitle);
             } catch (Throwable t) {
-                LOGGER.error("failed screen capture.", t);
+                logger.error("failed screen capture.", t);
             }
             try {
                 pageSource.saveForced(webDriver, subTitle);
             } catch (Throwable t) {
-                LOGGER.error("failed screen PageSource.", t);
+                logger.error("failed screen PageSource.", t);
             }
         }
     }
+
+    protected void onSucceeded() {
+    }
+
+    protected void onFailed(Throwable e) {
+    }
+
+    protected void onFinished() {
+    }
+
 }
