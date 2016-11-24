@@ -1,7 +1,15 @@
 #!/bin/bash
 
+# settings target project
+target[0]=./target-project/todo-api
+target[1]=./target-project/todo-api-mybatis3
+target[2]=./target-project/todo-api-mybatis3-multi
+target[3]=./target-project/todo-api-jpa
+target[4]=./target-project/todo-api-jpa-multi
+
 # web.xml
-find . -type f -name 'web.xml' | xargs sed -i -e 's|<servlet>|\
+for i in "${target[*]}";do
+find $i -type f -name 'web.xml' | xargs sed -i -e 's|<servlet>|\
     <!-- (1) -->\
     <servlet>\
         <servlet-name>restApiServlet</servlet-name>\
@@ -21,14 +29,16 @@ find . -type f -name 'web.xml' | xargs sed -i -e 's|<servlet>|\
     </servlet-mapping>\
 \
     <servlet>|'
-
-
-# spring-mvc-rest.xml
-find . -type f -name "spring-mvc.xml" -print0 | while read -r -d '' file; do cp -i "$file" "${file%%spring-mvc.xml}spring-mvc-rest.xml"; done
-
+done
 
 # spring-mvc-rest.xml
-find . -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-resolvers>|\
+for i in "${target[*]}";do
+find $i -type f -name "spring-mvc.xml" -print0 | while read -r -d '' file; do cp -i "$file" "${file%%spring-mvc.xml}spring-mvc-rest.xml"; done
+done
+
+# spring-mvc-rest.xml
+for i in "${target[*]}";do
+find $i -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-resolvers>|\
         </mvc:argument-resolvers>\
         <mvc:message-converters register-defaults="false">\
             <!-- (1) -->\
@@ -45,17 +55,20 @@ find . -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-r
                 </property>\
             </bean>\
         </mvc:message-converters>|'
-
+done
 
 # spring-mvc-rest.xml
-find . -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|<context:component-scan base-package="todo.app" />|\
+for i in "${target[*]}";do
+find $i -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|<context:component-scan base-package="todo.app" />|\
     <context:component-scan base-package="todo.api" />|'
-
+done
 
 # spring-security,xml
-find . -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:http pattern="/resources/\*\*" security="none"/>|\
+for i in "${target[*]}";do
+find $i -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:http pattern="/resources/\*\*" security="none"/>|\
     <sec:http pattern="/resources/**" security="none" />\
 \
     <!-- (1) -->\
     <sec:http pattern="/api/v1/**" security="none" />\
 |'
+done

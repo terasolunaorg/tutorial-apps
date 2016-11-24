@@ -7,6 +7,12 @@ target[1]=./target-project/todo-mybatis3-multi
 target[2]=./target-project/todo-jpa
 target[3]=./target-project/todo-jpa-multi
 fi
+if test ${TARGET_TUTORIAL} = "todo-rest"; then
+target[0]=./target-project/todo-api-mybatis3
+target[1]=./target-project/todo-api-mybatis3-multi
+target[2]=./target-project/todo-api-jpa
+target[3]=./target-project/todo-api-jpa-multi
+fi
 
 # -infra.properties
 for i in "${target[*]}";do

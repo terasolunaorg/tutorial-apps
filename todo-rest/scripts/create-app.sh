@@ -4,6 +4,9 @@
 
 echo "create version is ${VERSION}."
 
+# settings of target tutorial
+export TARGET_TUTORIAL=todo-rest
+
 # generate app
 bash ./todo-rest/scripts/generate-rest-project.sh
 
