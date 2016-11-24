@@ -20,58 +20,28 @@ mkdir -p ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/t
 cp -p ./todo/src/test/java/todo/selenium/todo/TodoTest.java ./target-project/todo/src/test/java/todo/selenium/todo
 cp -p ./common-test/resources/META-INF/spring/selenium.properties ./target-project/todo/src/test/resources/META-INF/spring
 cp -p ./common-test/resources/META-INF/spring/seleniumContext.xml ./target-project/todo/src/test/resources/META-INF/spring
-cp -p ./common-test/java/selenium/FirefoxDriverFactoryBean.java ./target-project/todo/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/FunctionTestSupport.java ./target-project/todo/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/PageSource.java ./target-project/todo/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/ScreenCapture.java ./target-project/todo/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverCreator.java ./target-project/todo/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverInputFieldAccessor.java ./target-project/todo/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverOperations.java ./target-project/todo/src/test/java/todo/selenium
+cp -p -r ./common-test/java/selenium ./target-project/todo/src/test/java/todo
 
 # mybatis3
 cp -p ./todo/src/test/java/todo/selenium/todo/TodoTest.java ./target-project/todo-mybatis3/src/test/java/todo/selenium/todo
 cp -p ./common-test/resources/META-INF/spring/selenium.properties ./target-project/todo-mybatis3/src/test/resources/META-INF/spring
 cp -p ./common-test/resources/META-INF/spring/seleniumContext.xml ./target-project/todo-mybatis3/src/test/resources/META-INF/spring
-cp -p ./common-test/java/selenium/FirefoxDriverFactoryBean.java ./target-project/todo-mybatis3/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/FunctionTestSupport.java ./target-project/todo-mybatis3/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/PageSource.java ./target-project/todo-mybatis3/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/ScreenCapture.java ./target-project/todo-mybatis3/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverCreator.java ./target-project/todo-mybatis3/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverInputFieldAccessor.java ./target-project/todo-mybatis3/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverOperations.java ./target-project/todo-mybatis3/src/test/java/todo/selenium
+cp -p -r ./common-test/java/selenium ./target-project/todo-mybatis3/src/test/java/todo
 # mybatis3-multi
 cp -p ./todo/src/test/java/todo/selenium/todo/TodoTest.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium/todo
 cp -p ./common-test/resources/META-INF/spring/selenium.properties ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/resources/META-INF/spring
 cp -p ./common-test/resources/META-INF/spring/seleniumContext.xml ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/resources/META-INF/spring
-cp -p ./common-test/java/selenium/FirefoxDriverFactoryBean.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/FunctionTestSupport.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/PageSource.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/ScreenCapture.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverCreator.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverInputFieldAccessor.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverOperations.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium
+cp -p -r ./common-test/java/selenium ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo
 # jpa
 cp -p ./todo/src/test/java/todo/selenium/todo/TodoTest.java ./target-project/todo-jpa/src/test/java/todo/selenium/todo
 cp -p ./common-test/resources/META-INF/spring/selenium.properties ./target-project/todo-jpa/src/test/resources/META-INF/spring
 cp -p ./common-test/resources/META-INF/spring/seleniumContext.xml ./target-project/todo-jpa/src/test/resources/META-INF/spring
-cp -p ./common-test/java/selenium/FirefoxDriverFactoryBean.java ./target-project/todo-jpa/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/FunctionTestSupport.java ./target-project/todo-jpa/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/PageSource.java ./target-project/todo-jpa/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/ScreenCapture.java ./target-project/todo-jpa/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverCreator.java ./target-project/todo-jpa/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverInputFieldAccessor.java ./target-project/todo-jpa/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverOperations.java ./target-project/todo-jpa/src/test/java/todo/selenium
+cp -p -r ./common-test/java/selenium ./target-project/todo-jpa/src/test/java/todo
 # jpa-multi
 cp -p ./todo/src/test/java/todo/selenium/todo/TodoTest.java ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo/selenium/todo
 cp -p ./common-test/resources/META-INF/spring/selenium.properties ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/resources/META-INF/spring
 cp -p ./common-test/resources/META-INF/spring/seleniumContext.xml ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/resources/META-INF/spring
-cp -p ./common-test/java/selenium/FirefoxDriverFactoryBean.java ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/FunctionTestSupport.java ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/PageSource.java ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/ScreenCapture.java ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverCreator.java ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverInputFieldAccessor.java ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo/selenium
-cp -p ./common-test/java/selenium/WebDriverOperations.java ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo/selenium
+cp -p -r ./common-test/java/selenium ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo
 
 VER="${ARCHETYPE_VERSION:0:3}"
 
