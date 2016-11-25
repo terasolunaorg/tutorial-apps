@@ -4,59 +4,43 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.example.session.selenium.FunctionTestSupport;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
 public class SessionTutorialTest extends FunctionTestSupport {
 
-	private static WebDriver driver;
 
 	@Value("${selenium.applicationContextUrl}/loginForm")
 	String baseUrl;
-
-	public SessionTutorialTest (){
-		super.disableDefaultWebDriver();
-	}
-	
-	@Before
-	public void setUp() {
-
-		if (driver == null) {
-			driver = webDriverCreator.createLocaleSpecifiedDriver("");
-		}
-		super.setCurrentWebDriver(driver);
-		
-		// display login page
-		{
-			webDriverOperations.displayPage(baseUrl);
-		}
-
-	}
 
 	@Test
 	public void testInitialLogin() {
 
 		// login
 		{
-			webDriverOperations.overrideText(By.id("email"),"a@b.com");
-			webDriverOperations.overrideText(By.id("password"),"demo");
-			webDriverOperations.click(By.id("login"));
+			driver.findElement(By.id("email")).sendKeys("a@b.com");
+			driver.findElement(By.id("password")).sendKeys("demo");
+			driver.findElement(By.id("login")).click();
 		}
 
 		// check initial value
 		{
-			assertThat(webDriverOperations.getText(By.id("Kokoro")),
+			assertThat(driver.findElement(By.id("Kokoro")).getText(),
 					is("Kokoro"));
-			assertThat(webDriverOperations.getText(By.id("〔Ame ni mo Makezu〕")),
-					is("〔Ame ni mo Makezu〕"));
-			assertThat(webDriverOperations.getText(By.id("Run, Melos!")),
+			assertThat(driver.findElement(By.id("〔Ame ni mo Makezu〕"))
+					.getText(), is("〔Ame ni mo Makezu〕"));
+			assertThat(driver.findElement(By.id("Run, Melos!")).getText(),
 					is("Run, Melos!"));
-			assertThat(webDriverOperations.getText(By.id("userName")),
+			assertThat(driver.findElement(By.id("userName")).getText(),
 					is("xxx"));
 
 		}
@@ -67,107 +51,107 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
 		// move createAccount page
 		{
-			webDriverOperations.click(By.id("createAccount"));
+			driver.findElement(By.id("createAccount")).click();
 		}
 
 		// input the form value and click confirm button
 		{
-			webDriverOperations.overrideText(By.id("name"),"test");
-			webDriverOperations.overrideText(By.id("email"),"test@xxx.co.jp");
-			webDriverOperations.overrideText(By.id("password"),"password");
-			webDriverOperations.overrideText(By.id("confirmPassword"),"password");
-			webDriverOperations.overrideText(By.id("birthday"),"2016-01-01");
-			webDriverOperations.overrideText(By.id("zip"),"1234567");
-			webDriverOperations.overrideText(By.id("address"),"Nagoya");
-			webDriverOperations.click(By.id("confirm"));
+			driver.findElement(By.id("name")).sendKeys("test");
+			driver.findElement(By.id("email")).sendKeys("test@xxx.co.jp");
+			driver.findElement(By.id("password")).sendKeys("password");
+			driver.findElement(By.id("confirmPassword")).sendKeys("password");
+			driver.findElement(By.id("birthday")).sendKeys("2016-01-01");
+			driver.findElement(By.id("zip")).sendKeys("1234567");
+			driver.findElement(By.id("address")).sendKeys("Nagoya");
+			driver.findElement(By.id("confirm")).click();
 		}
 
 		// check the update value
 		{
-			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
-			assertThat(webDriverOperations.getText(By.id("email")),
+			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
+			assertThat(driver.findElement(By.id("email")).getText(),
 					is("test@xxx.co.jp"));
-			assertThat(webDriverOperations.getText(By.id("birthday")),
+			assertThat(driver.findElement(By.id("birthday")).getText(),
 					is("2016-01-01"));
-			assertThat(webDriverOperations.getText(By.id("zip")),
+			assertThat(driver.findElement(By.id("zip")).getText(),
 					is("1234567"));
-			assertThat(webDriverOperations.getText(By.id("address")),
+			assertThat(driver.findElement(By.id("address")).getText(),
 					is("Nagoya"));
 		}
 
 		// click back button
 		{
-			webDriverOperations.click(By.id("back"));
+			driver.findElement(By.id("back")).click();
 		}
 
 		// check that the entered value remains
 		{
-			assertThat(webDriverOperations.getInputFieldValue(By.id("name")),
+			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
 					is("test"));
 			assertThat(
-					webDriverOperations.getInputFieldValue(By.id("email")),
+					driver.findElement(By.id("email")).getAttribute("value"),
 					is("test@xxx.co.jp"));
 			assertThat(
-					webDriverOperations.getInputFieldValue(By.id("password")),
+					driver.findElement(By.id("password")).getAttribute("value"),
 					is(""));
-			assertThat(webDriverOperations.getInputFieldValue(By.id("confirmPassword")),
-					is(""));
+			assertThat(driver.findElement(By.id("confirmPassword"))
+					.getAttribute("value"), is(""));
 			assertThat(
-					webDriverOperations.getInputFieldValue(By.id("birthday")),
+					driver.findElement(By.id("birthday")).getAttribute("value"),
 					is("2016-01-01"));
-			assertThat(webDriverOperations.getInputFieldValue(By.id("zip")),
+			assertThat(driver.findElement(By.id("zip")).getAttribute("value"),
 					is("1234567"));
 			assertThat(
-					webDriverOperations.getInputFieldValue(By.id("address")),
+					driver.findElement(By.id("address")).getAttribute("value"),
 					is("Nagoya"));
 		}
 
 		// click confirm button
 		{
-			webDriverOperations.overrideText(By.id("password"),"password");
-			webDriverOperations.overrideText(By.id("confirmPassword"),"password");
-			webDriverOperations.click(By.id("confirm"));
+			driver.findElement(By.id("password")).sendKeys("password");
+			driver.findElement(By.id("confirmPassword")).sendKeys("password");
+			driver.findElement(By.id("confirm")).click();
 		}
 
 		// click create button
 		{
-			webDriverOperations.click(By.id("create"));
+			driver.findElement(By.id("create")).click();
 		}
 
 		// check update value
 		{
-			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
-			assertThat(webDriverOperations.getText(By.id("email")),
+			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
+			assertThat(driver.findElement(By.id("email")).getText(),
 					is("test@xxx.co.jp"));
-			assertThat(webDriverOperations.getText(By.id("birthday")),
+			assertThat(driver.findElement(By.id("birthday")).getText(),
 					is("2016-01-01"));
-			assertThat(webDriverOperations.getText(By.id("zip")),
+			assertThat(driver.findElement(By.id("zip")).getText(),
 					is("1234567"));
-			assertThat(webDriverOperations.getText(By.id("address")),
+			assertThat(driver.findElement(By.id("address")).getText(),
 					is("Nagoya"));
 		}
 
 		// click Login page button
 		{
-			webDriverOperations.click(By.id("home"));
+			driver.findElement(By.id("home")).click();
 		}
 
 		// login
 		{
-			webDriverOperations.overrideText(By.id("email"),"test@xxx.co.jp");
-			webDriverOperations.overrideText(By.id("password"),"password");
-			webDriverOperations.click(By.id("login"));
+			driver.findElement(By.id("email")).sendKeys("test@xxx.co.jp");
+			driver.findElement(By.id("password")).sendKeys("password");
+			driver.findElement(By.id("login")).click();
 		}
 
 		// check initial value
 		{
-			assertThat(webDriverOperations.getText(By.id("Kokoro")),
+			assertThat(driver.findElement(By.id("Kokoro")).getText(),
 					is("Kokoro"));
-			assertThat(webDriverOperations.getText(By.id("〔Ame ni mo Makezu〕")),
-					is("〔Ame ni mo Makezu〕"));
-			assertThat(webDriverOperations.getText(By.id("Run, Melos!")),
+			assertThat(driver.findElement(By.id("〔Ame ni mo Makezu〕"))
+					.getText(), is("〔Ame ni mo Makezu〕"));
+			assertThat(driver.findElement(By.id("Run, Melos!")).getText(),
 					is("Run, Melos!"));
-			assertThat(webDriverOperations.getText(By.id("userName")),
+			assertThat(driver.findElement(By.id("userName")).getText(),
 					is("test"));
 
 		}
@@ -181,52 +165,52 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
 		// click the item name
 		{
-			webDriverOperations.click(By.id("Kokoro"));
+			driver.findElement(By.id("Kokoro")).click();
 		}
 
 		// check the display
 		{
-			assertThat(webDriverOperations.getText(By.id("name")),
+			assertThat(driver.findElement(By.id("name")).getText(),
 					is("Kokoro"));
-			assertThat(webDriverOperations.getText(By.id("price")),
-					is("¥900"));
-			assertThat(webDriverOperations.getText(By.id("description")),
+			assertThat(driver.findElement(By.id("price"))
+					.getText(), is("¥ 900"));
+			assertThat(driver.findElement(By.id("description")).getText(),
 					is("Souseki Natsume wrote this book"));
 		}
 
 		// click home button
 		{
-			webDriverOperations.click(By.id("home"));
+			driver.findElement(By.id("home")).click();
 		}
 
 		// update the category
 		{
-			webDriverOperations.select(By.id("categoryId"),"music");
-			webDriverOperations.click(By.id("update"));
+			new Select(driver.findElement(By.id("categoryId"))).selectByVisibleText("music");
+			driver.findElement(By.id("update")).click();
 		}
 
 		// display
 		{
-			assertThat(webDriverOperations.getText(By.id("Symphony No. 5 in C minor (Fate)")),
+			assertThat(driver.findElement(By.id("Symphony No. 5 in C minor (Fate)")).getText(),
 					is("Symphony No. 5 in C minor (Fate)"));
-			assertThat(webDriverOperations.getText(By.id("Eine kleine Nachtmusik")),
-					is("Eine kleine Nachtmusik"));
-			assertThat(webDriverOperations.getText(By.id("Swan Lake")),
+			assertThat(driver.findElement(By.id("Eine kleine Nachtmusik"))
+					.getText(), is("Eine kleine Nachtmusik"));
+			assertThat(driver.findElement(By.id("Swan Lake")).getText(),
 					is("Swan Lake"));
 		}
 
 		// click the item name
 		{
-			webDriverOperations.click(By.id("Swan Lake"));
+			driver.findElement(By.id("Swan Lake")).click();
 		}
 
 		// check the display
 		{
-			assertThat(webDriverOperations.getText(By.id("name")),
+			assertThat(driver.findElement(By.id("name")).getText(),
 					is("Swan Lake"));
-			assertThat(webDriverOperations.getText(By.id("price")),
-					is("¥900"));
-			assertThat(webDriverOperations.getText(By.id("description")),
+			assertThat(driver.findElement(By.id("price"))
+					.getText(), is("¥ 900"));
+			assertThat(driver.findElement(By.id("description")).getText(),
 					is("Tchaikovsky composed this music"));
 		}
 
@@ -237,7 +221,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
 		// click logout button
 		{
-			webDriverOperations.click(By.id("logout"));
+			driver.findElement(By.id("logout")).click();
 		}
 
 	}
