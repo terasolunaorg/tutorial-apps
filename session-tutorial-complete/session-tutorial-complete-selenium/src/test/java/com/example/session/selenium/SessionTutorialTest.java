@@ -33,7 +33,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 		}
 		super.setCurrentWebDriver(driver);
  
-		// ログイン画面を表示
+		// show login page
 		{
 			webDriverOperations.displayPage(baseUrl);
 		}
@@ -43,10 +43,10 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testInitialLogin() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// 初期値を確認
+		// check initial value
 		{
 			assertThat(webDriverOperations.getText(By.id("Kokoro")),
 					is("Kokoro"));
@@ -63,12 +63,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testCreateAccount() {
  
-		// アカウント作成画面に遷移
+		// move creatAccount page
 		{
 			webDriverOperations.click(By.id("createAccount"));
 		}
  
-		// フォームに値を入れてconfirmボタンをクリック
+		// input the form value and click confirm button
 		{
 			webDriverOperations.overrideText(By.id("name"),"test");
 			webDriverOperations.overrideText(By.id("email"),"test@xxx.co.jp");
@@ -80,7 +80,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			webDriverOperations.click(By.id("confirm"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
 			assertThat(webDriverOperations.getText(By.id("email")),
@@ -93,12 +93,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Nagoya"));
 		}
  
-		// backボタンをクリック
+		// click back button
 		{
 			webDriverOperations.click(By.id("back"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getInputFieldValue(By.id("name")),
 					is("test"));
@@ -120,19 +120,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Nagoya"));
 		}
  
-		// confirmボタンをクリック
+		// click confirm button
 		{
 			webDriverOperations.overrideText(By.id("password"),"password");
 			webDriverOperations.overrideText(By.id("confirmPassword"),"password");
 			webDriverOperations.click(By.id("confirm"));
 		}
  
-		// createボタンをクリック
+		// click create button
 		{
 			webDriverOperations.click(By.id("create"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
 			assertThat(webDriverOperations.getText(By.id("email")),
@@ -145,19 +145,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Nagoya"));
 		}
  
-		// Login pageボタンをクリック
+		// click Login page button
 		{
 			webDriverOperations.click(By.id("home"));
 		}
  
-		// ログイン
+		// login
 		{
 			webDriverOperations.overrideText(By.id("email"),"test@xxx.co.jp");
 			webDriverOperations.overrideText(By.id("password"),"password");
 			webDriverOperations.click(By.id("login"));
 		}
  
-		// 初期値を確認
+		// check initial value
 		{
 			assertThat(webDriverOperations.getText(By.id("Kokoro")),
 					is("Kokoro"));
@@ -174,15 +174,15 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testShowGoods() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// アイテム名をクリック
+		// click the item name
 		{
 			webDriverOperations.click(By.id("Kokoro"));
 		}
  
-		// 表示を確認
+		// check the display page
 		{
 			assertThat(webDriverOperations.getText(By.id("name")),
 					is("Kokoro"));
@@ -192,18 +192,18 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Souseki Natsume wrote this book"));
 		}
  
-		// homeボタンをクリック
+		// click the home button
 		{
 			webDriverOperations.click(By.id("home"));
 		}
  
-		// カテゴリを更新
+		// update category
 		{
 			webDriverOperations.select(By.id("categoryId"),"music");
 			webDriverOperations.click(By.id("update"));
 		}
  
-		// 表示を確認
+		// check the display page
 		{
 			assertThat(
 					webDriverOperations.getText(
@@ -215,12 +215,11 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Swan Lake"));
 		}
  
-		// アイテム名をクリック
+		// click the item name
 		{
 			webDriverOperations.click(By.id("Swan Lake"));
 		}
- 
-		// 表示を確認
+		// check page
 		{
 			assertThat(webDriverOperations.getText(By.id("name")),
 					is("Swan Lake"));
@@ -235,15 +234,15 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testChangeAcountInfo() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// Account Updateボタンをクリック
+ 		// click Account Update button
 		{
 			webDriverOperations.click(By.id("updateAccount"));
 		}
  
-		// デフォルト値を確認
+		// check the form default page
 		{
 			assertThat(webDriverOperations.getInputFieldValue(By.id("name")),
 					is("xxx"));
@@ -260,7 +259,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Tokyo"));
 		}
  
-		// nextボタンをクリック
+		// click the next button
 		{
 			webDriverOperations.clearText(By.id("name"));
 			webDriverOperations.overrideText(By.id("name"),("test"));
@@ -269,7 +268,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			webDriverOperations.click(By.id("next"));
 		}
  
-		// デフォルト値を確認
+		// check initial value
 		{
 			assertThat(
 					webDriverOperations.getInputFieldValue(By.id("cardNumber")),
@@ -280,12 +279,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("111"));
 		}
  
-		// backボタンをクリック
+		// click the buck button
 		{
 			webDriverOperations.click(By.id("back"));
 		}
  
-		// 入力した値が残っていることを確認
+		// check that the entered value remains
 		{
 			assertThat(webDriverOperations.getInputFieldValue(By.id("name")),
 					is("test"));
@@ -302,19 +301,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Osaka"));
 		}
  
-		// nextボタンをクリック
+		// click the next button
 		{
 			webDriverOperations.click(By.id("next"));
 		}
  
-		// confirmボタンをクリック
+		// click the confirm button
 		{
 			webDriverOperations.clearText(By.id("cardNumber"));
 			webDriverOperations.overrideText(By.id("cardNumber"),"1234567890123456");
 			webDriverOperations.click(By.id("confirm"));
 		}
  
-		// 入力値を確認
+		// check the input value
 		{
 			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
 			assertThat(webDriverOperations.getText(By.id("email")),
@@ -333,12 +332,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("111"));
 		}
  
-		// backボタンをクリック
+		// click the buck button
 		{
 			webDriverOperations.click(By.id("back"));
 		}
  
-		// 入力した値が残っていることを確認
+		// check that the entered value remains
 		{
 			assertThat(
 					webDriverOperations.getInputFieldValue(By.id("cardNumber")),
@@ -349,17 +348,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("111"));
 		}
  
-		// confirmボタンをクリック
+		// click the confirm button
 		{
 			webDriverOperations.click(By.id("confirm"));
 		}
  
-		// updateボタンをクリック
+		// click the update button
 		{
 			webDriverOperations.click(By.id("update"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("name")), is("test"));
 			assertThat(webDriverOperations.getText(By.id("email")),
@@ -378,23 +377,23 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("111"));
 		}
  
-		// homeボタンをクリック
+		// click the home button
 		{
 			webDriverOperations.click(By.id("home"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("userName")),
 					is("test"));
 		}
  
-		// Account Updateボタンをクリック
+		// click the Account Update button
 		{
 			webDriverOperations.click(By.id("updateAccount"));
 		}
  
-		// nextボタンをクリック
+		// click the next button
 		{
 			webDriverOperations.clearText(By.id("name"));
 			webDriverOperations.overrideText(By.id("name"),"aaaaaa");
@@ -403,17 +402,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			webDriverOperations.click(By.id("next"));
 		}
  
-		// homeボタンをクリック
+		// click the home button
 		{
 			webDriverOperations.click(By.id("home"));
 		}
  
-		// Account Updateボタンをクリック
+		// click the Account Update button
 		{
 			webDriverOperations.click(By.id("updateAccount"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getInputFieldValue(By.id("name")),
 					is("test"));
@@ -430,7 +429,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Osaka"));
 		}
  
-		// 更新された値をもとの値に更新しなおす
+		// Re-update the updated value to its original value
 		{
 			webDriverOperations.clearText(By.id("name"));
 			webDriverOperations.overrideText(By.id("name"),"xxx");
@@ -451,17 +450,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testAddCartItem() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			webDriverOperations.clearText(By.id("quantity0"));
 			webDriverOperations.overrideText(By.id("quantity0"),"2");
 			webDriverOperations.click(By.id("add0"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
@@ -473,14 +472,14 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("¥1,800"));
 		}
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			webDriverOperations.clearText(By.id("quantity1"));
 			webDriverOperations.overrideText(By.id("quantity1"),"1");
 			webDriverOperations.click(By.id("add1"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
@@ -498,17 +497,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("¥2,600"));
 		}
  
-		// Account Updateボタンをクリック
+		// click the Account Update button
 		{
 			webDriverOperations.click(By.id("updateAccount"));
 		}
  
-		// homeボタンをクリック
+		// click the home button
 		{
 			webDriverOperations.click(By.id("home"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
@@ -530,35 +529,35 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testDeleteCartItem() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			webDriverOperations.clearText(By.id("quantity0"));
 			webDriverOperations.overrideText(By.id("quantity0"),"2");
 			webDriverOperations.click(By.id("add0"));
 		}
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			webDriverOperations.clearText(By.id("quantity1"));
 			webDriverOperations.overrideText(By.id("quantity1"),"1");
 			webDriverOperations.click(By.id("add1"));
 		}
  
-		// viewCartボタンをクリック
+		// click the viewCart button
 		{
 			webDriverOperations.click(By.id("viewCart"));
 		}
  
-		// 2つめのアイテムにチェックを入れてremoveボタンをクリック
+		// check the second item and click the remove button
 		{
 			webDriverOperations.click(By.id("removedItemsIds1"));
 			webDriverOperations.click(By.id("remove"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
@@ -570,12 +569,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("¥1,800"));
 		}
  
-		// 削除チェックをせずにremoveボタンをクリック
+		// Click the remove button without checking deletion
 		{
 			webDriverOperations.click(By.id("remove"));
 		}
  
-		// エラーメッセージを確認
+		// check error message
 		{
 			assertThat(webDriverOperations.getText(By.id("removedItemsIds.errors"))
 					, is("may not be empty"));
@@ -585,34 +584,34 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testOrderCartItem() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			webDriverOperations.clearText(By.id("quantity0"));
 			webDriverOperations.overrideText(By.id("quantity0"),"2");
 			webDriverOperations.click(By.id("add0"));
 		}
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			webDriverOperations.clearText(By.id("quantity1"));
 			webDriverOperations.overrideText(By.id("quantity1"),"1");
 			webDriverOperations.click(By.id("add1"));
 		}
  
-		// viewCartボタンをクリック
+		// click the viewCart button
 		{
 			webDriverOperations.click(By.id("viewCart"));
 		}
  
-		// confirm your orderボタンをクリック
+		// click confirm your order button
 		{
 			webDriverOperations.click(By.id("confirm"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("itemName0")),
 					is("Kokoro"));
@@ -634,12 +633,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		}
  
-		// confirm your orderボタンをクリック
+		// click confirm your order button
 		{
 			webDriverOperations.click(By.id("order"));
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(webDriverOperations.getText(By.id("orderNumber"))
 					.length(), is(36));
@@ -671,7 +670,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@After
 	public void tearDown() {
  
-		// logoutボタンをクリック
+		// click logout button
 		{
 			webDriverOperations.click(By.id("logout"));
 		}
