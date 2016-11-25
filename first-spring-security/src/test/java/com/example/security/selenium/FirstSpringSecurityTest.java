@@ -5,31 +5,18 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.example.security.selenium.FunctionTestSupport;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
 public class FirstSpringSecurityTest extends FunctionTestSupport {
-
-    private static WebDriver driver;
-
-    public FirstSpringSecurityTest() {
-        super.disableDefaultWebDriver();
-    }
-
-    @Before
-    public void setUp() {
-
-        if (driver == null) {
-            driver = webDriverCreator.createLocaleSpecifiedDriver("");
-        }
-        super.setCurrentWebDriver(driver);
-
-    }
 
     /**
      * ログイン画面の表示テスト<br>
@@ -41,9 +28,9 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // 初期値を確認
         {
-        	assertThat(webDriverOperations.getInputFieldValue(By.id("username")),
+        	assertThat(driver.findElement(By.id("username")).getAttribute("value"),
             		is("demo"));
-            assertThat(webDriverOperations.getInputFieldValue(By.id("password")),
+            assertThat(driver.findElement(By.id("password")).getAttribute("value"),
             		is("demo"));
 
         }
@@ -61,18 +48,18 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     public void testLogin() {
 
         // デフォルトログイン
-        webDriverOperations.click(By.name("submit"));
+        driver.findElement(By.name("submit")).click();
 
         // Home画面を確認
         {
-            assertThat(webDriverOperations.getText(By.tagName("h1")),
+            assertThat(driver.findElement(By.tagName("h1")).getText(),
                     is("Hello world!"));
 
             List<WebElement> cheese = driver.findElements(By.tagName("p"));
             assertThat(cheese.get(1).getText(), is("Welcome Taro Yamada !!"));
             assertThat(
-                    webDriverOperations.getText(By.xpath("//a[@href='/"
-                            + contextName + "/account']")), is("view account"));
+            		driver.findElement(By.xpath("//a[@href='/"
+                            + contextName + "/account']")).getText(), is("view account"));
         }
 
     }
@@ -86,18 +73,18 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     public void testLogout() {
 
         // ログイン
-        webDriverOperations.click(By.name("submit"));
+        driver.findElement(By.name("submit")).click();
 
         // Home画面でログアウトボタン押下
         {
-            webDriverOperations.click(By.tagName("button"));
+        	driver.findElement(By.tagName("button")).click();
         }
 
         // ログイン画面の確認
         {
-        	assertThat(webDriverOperations.getInputFieldValue(By.id("username")),
+        	assertThat(driver.findElement(By.id("username")).getAttribute("value"),
             		is("demo"));
-            assertThat(webDriverOperations.getInputFieldValue(By.id("password")),
+            assertThat(driver.findElement(By.id("password")).getAttribute("value"),
             		is("demo"));
         }
 
@@ -114,12 +101,12 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     public void testViewAccount() {
 
         // ログイン
-        webDriverOperations.click(By.name("submit"));
+        driver.findElement(By.name("submit")).click();
 
         // アカウント確認画面へのリンク押下
         {
-            webDriverOperations.click(By.xpath("//a[@href='/" + contextName
-                    + "/account']"));
+        	driver.findElement(By.xpath("//a[@href='/" + contextName
+                    + "/account']")).click();;
         }
 
         // アカウント確認画面の確認
@@ -145,19 +132,20 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // 登録されていないユーザでログイン
         {
-            webDriverOperations.overrideText(By.id("username"), "aaa");
-            webDriverOperations.click(By.name("submit"));
+            driver.findElement(By.id("username")).clear(); 
+            driver.findElement(By.id("username")).sendKeys("aaa"); 
+            driver.findElement(By.name("submit")).click();
 
         }
 
         // エラーメッセージの確認・ログイン画面の確認
         {
-            assertThat(webDriverOperations.getText(By.tagName("li")),
+            assertThat(driver.findElement(By.tagName("li")).getText(),
                     is("Bad credentials"));
 
-            assertThat(webDriverOperations.getInputFieldValue(By.id("username")),
+            assertThat(driver.findElement(By.id("username")).getAttribute("value"),
             		is("demo"));
-            assertThat(webDriverOperations.getInputFieldValue(By.id("password")),
+            assertThat(driver.findElement(By.id("password")).getAttribute("value"),
             		is("demo"));
         }
     }
