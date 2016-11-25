@@ -19,14 +19,14 @@ import com.example.security.selenium.FunctionTestSupport;
 public class FirstSpringSecurityTest extends FunctionTestSupport {
 
     /**
-     * ログイン画面の表示テスト<br>
-     * <li>プロジェクトのルートにアクセスし、ログイン画面に遷移すること。 <li>ログイン画面のusernameの初期値がdemoであること <li>
-     * ログイン画面のpasswordの初期値がdemoであること
+     * Test of login screen<br>
+     * <li>Access the root of the project and transition to the login screen. <li>The initial value of username on the login screen is "demo".<li>
+     * The initial value of password on the login screen is "demo".
      */
     @Test
     public void testLoginForm() {
 
-        // 初期値を確認
+        // check initial value
         {
         	assertThat(driver.findElement(By.id("username")).getAttribute("value"),
             		is("demo"));
@@ -38,19 +38,19 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     }
 
     /**
-     * Home画面の表示テスト<br>
-     * ログイン画面を表示した後に、デフォルトのユーザでログインする。<br>
-     * <li>ログイン画面に"Hello World!"が表示されていること <li>
-     * ログイン画面に"Welcome Taro Yamada !!"が表示されていること <li>
-     * ログイン画面に"view account"のリンクが表示されていること
+     * Test of home screen<br>
+     * After login screen is displayed, login as the default user.<br>
+     * <li>"Hello World!" Is displayed on the login screen.<li>
+     * "Welcome Taro Yamada !!" is displayed on the login screen.<li>
+     * The "view account" link is displayed on the login screen.
      */
     @Test
     public void testLogin() {
 
-        // デフォルトログイン
+        // login
         driver.findElement(By.name("submit")).click();
 
-        // Home画面を確認
+        // check home screen
         {
             assertThat(driver.findElement(By.tagName("h1")).getText(),
                     is("Hello world!"));
@@ -65,22 +65,22 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     }
 
     /**
-     * ログアウト処理のテスト デフォルトのユーザでログイン後、Home画面でログアウトボタンを押下する。 <li>
-     * ログアウトボタン押下後にログイン画面に戻ること <li>ログイン画面のusernameの初期値がdemoであること <li>
-     * ログイン画面のpasswordの初期値がdemoであること
+     * Testlogout process.After logging in as the default user, press the logout button on the Home screen. <li>
+     * Return to the login screen after pressing the logout button. <li>The initial value of username on the login screen is "demo". <li>
+     * The initial value of password on the login screen is "demo".
      */
     @Test
     public void testLogout() {
 
-        // ログイン
+        // login
         driver.findElement(By.name("submit")).click();
 
-        // Home画面でログアウトボタン押下
+        // click logout button
         {
         	driver.findElement(By.tagName("button")).click();
         }
 
-        // ログイン画面の確認
+        // check login screen
         {
         	assertThat(driver.findElement(By.id("username")).getAttribute("value"),
             		is("demo"));
@@ -91,27 +91,27 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     }
 
     /**
-     * アカウント確認画面のテスト<br>
-     * ログイン後、アカウント画面へのリンクを押下する。<br>
-     * <li>Usernameが"demo"であること <li>First nameが"Taro"であること <li>Last
-     * nameが"Yamada"であること
+     * Test account information screen<br>
+     * After logging in, click "view account" button.<br>
+     * <li>Username is "demo".<li>First name is "Taro". <li>
+     * Last name is "Yamada".
      * 
      */
     @Test
     public void testViewAccount() {
 
-        // ログイン
+        // login
         driver.findElement(By.name("submit")).click();
 
-        // アカウント確認画面へのリンク押下
+        // click "view account" button.
         {
         	driver.findElement(By.xpath("//a[@href='/" + contextName
                     + "/account']")).click();;
         }
 
-        // アカウント確認画面の確認
+        // check account information
         {
-            // テーブルの取得
+            // get table
             List<WebElement> cheese = driver.findElements(By
                     .xpath("//table/tbody/tr/td"));
 
@@ -123,14 +123,14 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
     }
 
     /**
-     * 登録外ユーザでの認証テスト
-     * ログイン画面を表示し、登録されていないユーザ名を入力してログインボタンを押下する。
-     * <li>ログイン画面にエラーメッセージ"Bad credentials"が出力されること
+     * Authentication test with non-registered users
+     * Display the login screen, enter the user name that is not registered, and click the login button.
+     * <li>The error message "Bad credentials" is output on the login screen.
      */
     @Test
     public void testInvalidUserLogin() {
 
-        // 登録されていないユーザでログイン
+        // login as an unregistered user
         {
             driver.findElement(By.id("username")).clear(); 
             driver.findElement(By.id("username")).sendKeys("aaa"); 
@@ -138,7 +138,7 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         }
 
-        // エラーメッセージの確認・ログイン画面の確認
+        // check error message and check login screen
         {
             assertThat(driver.findElement(By.tagName("li")).getText(),
                     is("Bad credentials"));
