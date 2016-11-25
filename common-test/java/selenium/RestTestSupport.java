@@ -6,6 +6,7 @@ package todo.selenium;
 import static com.jayway.restassured.config.LogConfig.logConfig;
 import static com.jayway.restassured.config.RestAssuredConfig.config;
 
+import java.io.File;
 import java.io.PrintStream;
 import java.io.StringWriter;
 
@@ -32,11 +33,18 @@ public abstract class RestTestSupport extends FunctionTestSupport {
 
     protected RestTestSupport() {
     	super();
-    	disableDefaultWebDriver();
+    	disableSetupDefaultWebDriver();
     }
 
     @Before
     public final void setUpRestEvidence() {
+    	
+        String testCaseName = testName.getMethodName().replaceAll("^test", "");
+
+        String simplePackageName = this.getClass().getPackage().getName()
+                .replaceAll(".*\\.", "");
+        File evidenceSavingDirectory = new File(String.format("%s/%s/%s",
+                evidenceBaseDirectory, simplePackageName, testCaseName));
         restLog.setUp(evidenceSavingDirectory);
 	}
 
@@ -51,8 +59,7 @@ public abstract class RestTestSupport extends FunctionTestSupport {
 	}
 
 	@Override
-	protected void saveSucceededEvidence() {
-    	super.saveSucceededEvidence();
+	protected void onSucceeded() {
         String subTitle = "succeeded";
         try {
         	restLog.save(writer, subTitle);
@@ -62,8 +69,7 @@ public abstract class RestTestSupport extends FunctionTestSupport {
     }
 
 	@Override
-    protected void saveFailedEvidence() {
-    	super.saveFailedEvidence();
+    protected void onFailed(Throwable e) {
     	String subTitle = "failed";
         try {
         	restLog.saveForced(writer, subTitle);
