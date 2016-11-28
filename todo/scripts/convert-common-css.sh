@@ -1,7 +1,16 @@
 #!/bin/bash
 
+# settings target project
+if test ${TARGET_TUTORIAL} = "todo"; then
+target[0]=./target-project/todo
+target[1]=./target-project/todo-mybatis3
+target[2]=./target-project/todo-mybatis3-multi
+target[3]=./target-project/todo-jpa
+target[4]=./target-project/todo-jpa-multi
+fi
+
 # styles.css
-for i in ` find -type f -name 'styles.css' `; do echo -e ' 
+for i in ` find ${target[*]} -type f -name 'styles.css' `; do echo -e ' 
 .strike {
     text-decoration: line-through;
 }
