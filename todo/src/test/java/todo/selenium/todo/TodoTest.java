@@ -23,10 +23,17 @@ public class TodoTest extends FunctionTestSupport {
 	@Value("${selenium.contextName}")
 	String contextName;
 	
+	private String simplePackageName;
+	
 	public TodoTest(){
-
+		this.simplePackageName = this.getClass().getPackage().getName()
+				.replaceAll(".*\\.", "");
 	}
 
+	@Override
+	protected String getPackageRootUrl() {
+		return applicationContextUrl + "/" + simplePackageName + "/list";
+	}
 
 	/**
 	 * Asserts that the content of the application entry page is "Todo List".

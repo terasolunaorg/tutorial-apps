@@ -65,11 +65,3 @@ find ./target-project/todo-mybatis3/src/test/resources/META-INF/spring/selenium.
 find ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/resources/META-INF/spring/selenium.properties | xargs sed -i -e 's|selenium.contextName=|selenium.contextName=todo-mybatis3-multi-web|'
 find ./target-project/todo-jpa/src/test/resources/META-INF/spring/selenium.properties | xargs sed -i -e 's|selenium.contextName=|selenium.contextName=todo-jpa|'
 find ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/resources/META-INF/spring/selenium.properties | xargs sed -i -e 's|selenium.contextName=|selenium.contextName=todo-jpa-multi-web|'
-
-# modify java
-# modify default page
-find ./target-project/todo/src/test/java/todo/selenium/FunctionTestSupport.java | xargs sed -i -e 's|driver.get(getPackageRootUrl());|driver.get(getPackageRootUrl() + "list");|'
-find ./target-project/todo-mybatis3/src/test/java/todo/selenium/FunctionTestSupport.java | xargs sed -i -e 's|driver.get(getPackageRootUrl());|driver.get(getPackageRootUrl() + "list");|'
-find ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-selenium/src/test/java/todo/selenium/FunctionTestSupport.java | xargs sed -i -e 's|driver.get(getPackageRootUrl());|driver.get(getPackageRootUrl() + "list");|'
-find ./target-project/todo-jpa/src/test/java/todo/selenium/FunctionTestSupport.java | xargs sed -i -e 's|driver.get(getPackageRootUrl());|driver.get(getPackageRootUrl() + "list");|'
-find ./target-project/todo-jpa-multi/todo-jpa-multi-selenium/src/test/java/todo/selenium/FunctionTestSupport.java | xargs sed -i -e 's|driver.get(getPackageRootUrl());|driver.get(getPackageRootUrl() + "list");|'
