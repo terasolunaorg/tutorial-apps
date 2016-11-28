@@ -23,16 +23,13 @@ public class TodoTest extends FunctionTestSupport {
 	@Value("${selenium.contextName}")
 	String contextName;
 	
-	private String simplePackageName;
-	
 	public TodoTest(){
-		this.simplePackageName = this.getClass().getPackage().getName()
-				.replaceAll(".*\\.", "");
+
 	}
 
 	@Override
 	protected String getPackageRootUrl() {
-		return applicationContextUrl + "/" + simplePackageName + "/list";
+		return super.getPackageRootUrl() + "list";
 	}
 
 	/**
