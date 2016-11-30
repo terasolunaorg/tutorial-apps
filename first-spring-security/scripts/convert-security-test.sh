@@ -12,8 +12,10 @@ find ./target-project/first-spring-security-mybatis3-multi/first-spring-security
 find ./target-project/first-spring-security-mybatis3 -name "*.java" -o -name "*.xml"| xargs sed -i -e 's|todo.selenium|com.example.security.selenium|'
 find ./target-project/first-spring-security-mybatis3-multi -name "*.java" -o -name "*.xml"| xargs sed -i -e 's|todo.selenium|com.example.security.selenium|'
 
+VER="${ARCHETYPE_VERSION:0:5}"
+
 #pom.xml
-if test ${ARCHETYPE_VERSION:0:3} = 5.1 ; then
-    find ./target-project/first-spring-security-mybatis3/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <version>${selenium.version}</version>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
-    find ./target-project/first-spring-security-mybatis3/pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\n    </properties>|'
-fi
+case "${VER}" in
+"1.0.0" | "1.0.1" | "1.0.2" | "1.0.3" | "1.0.4" | "1.0.5" | "5.0.0" | "5.0.1" | "5.0.2" | "5.1.0" | "5.1.1" ) 
+    find ./target-project/first-spring-security-mybatis3/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\n            <groupId>org.seleniumhq.selenium</groupId>\n            <artifactId>selenium-java</artifactId>\n            <scope>test</scope>\n        </dependency>\n    </dependencies>|'
+esac
