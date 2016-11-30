@@ -20,6 +20,6 @@ e.st.ac.5001=Your operation is illegal
 ' >>$i ; done
 
 # ValidationMessages.properties
-for i in ` find -type f -name 'ValidationMessages.properties' `; do echo -e '
+for i in ` find ./target-project/session-tutorial-complete -type f -name 'ValidationMessages.properties' `; do echo -e '
 session.app.validation.Confirm.message= password must be same
 ' >>$i ; done

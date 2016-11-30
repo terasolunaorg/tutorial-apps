@@ -1,48 +1,34 @@
-package com.example.session.selenium;
+package com.example.session.selenium.session;
  
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
- 
+
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.example.session.selenium.FunctionTestSupport;
  
-import com.example.session.FunctionTestSupport;
- 
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
 public class SessionTutorialTest extends FunctionTestSupport {
- 
-	WebDriver driver;
+
  
 	@Value("${selenium.applicationContextUrl}/loginForm")
 	String baseUrl;
  
-	@Before
-	public void setUp() {
- 
-		if (driver == null) {
-			driver = createDefaultLocaleDriver();
-		}
- 
-		// ログイン画面を表示
-		{
-			driver.get(baseUrl);
-		}
- 
-	}
- 
 	@Test
 	public void testInitialLogin() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// 初期値を確認
+		// check initial value
 		{
 			assertThat(driver.findElement(By.id("Kokoro")).getText(),
 					is("Kokoro"));
@@ -59,12 +45,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testCreateAccount() {
  
-		// アカウント作成画面に遷移
+		// move creatAccount page
 		{
 			driver.findElement(By.id("createAccount")).click();
 		}
  
-		// フォームに値を入れてconfirmボタンをクリック
+		// input the form value and click confirm button
 		{
 			driver.findElement(By.id("name")).sendKeys("test");
 			driver.findElement(By.id("email")).sendKeys("test@xxx.co.jp");
@@ -76,7 +62,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			driver.findElement(By.id("confirm")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
 			assertThat(driver.findElement(By.id("email")).getText(),
@@ -89,12 +75,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Nagoya"));
 		}
  
-		// backボタンをクリック
+		// click back button
 		{
 			driver.findElement(By.id("back")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
 					is("test"));
@@ -116,19 +102,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Nagoya"));
 		}
  
-		// confirmボタンをクリック
+		// click confirm button
 		{
 			driver.findElement(By.id("password")).sendKeys("password");
 			driver.findElement(By.id("confirmPassword")).sendKeys("password");
 			driver.findElement(By.id("confirm")).click();
 		}
  
-		// createボタンをクリック
+		// click create button
 		{
 			driver.findElement(By.id("create")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
 			assertThat(driver.findElement(By.id("email")).getText(),
@@ -141,19 +127,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Nagoya"));
 		}
  
-		// Login pageボタンをクリック
+		// click Login page button
 		{
 			driver.findElement(By.id("home")).click();
 		}
  
-		// ログイン
+		// login
 		{
 			driver.findElement(By.id("email")).sendKeys("test@xxx.co.jp");
 			driver.findElement(By.id("password")).sendKeys("password");
 			driver.findElement(By.id("login")).click();
 		}
  
-		// 初期値を確認
+		// check initial value
 		{
 			assertThat(driver.findElement(By.id("Kokoro")).getText(),
 					is("Kokoro"));
@@ -170,15 +156,15 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testShowGoods() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// アイテム名をクリック
+		// click the item name
 		{
 			driver.findElement(By.id("Kokoro")).click();
 		}
  
-		// 表示を確認
+		// check the display page
 		{
 			assertThat(driver.findElement(By.id("name")).getText(),
 					is("Kokoro"));
@@ -188,19 +174,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Souseki Natsume wrote this book"));
 		}
  
-		// homeボタンをクリック
+		// click the home button
 		{
 			driver.findElement(By.id("home")).click();
 		}
  
-		// カテゴリを更新
+		// update category
 		{
 			new Select(driver.findElement(By.id("categoryId")))
 					.selectByVisibleText("music");
 			driver.findElement(By.id("update")).click();
 		}
  
-		// 表示を確認
+		// check the display page
 		{
 			assertThat(
 					driver.findElement(
@@ -212,12 +198,11 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Swan Lake"));
 		}
  
-		// アイテム名をクリック
+		// click the item name
 		{
 			driver.findElement(By.id("Swan Lake")).click();
 		}
- 
-		// 表示を確認
+		// check page
 		{
 			assertThat(driver.findElement(By.id("name")).getText(),
 					is("Swan Lake"));
@@ -232,15 +217,15 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testChangeAcountInfo() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// Account Updateボタンをクリック
+ 		// click Account Update button
 		{
 			driver.findElement(By.id("updateAccount")).click();
 		}
  
-		// デフォルト値を確認
+		// check the form default page
 		{
 			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
 					is("xxx"));
@@ -257,7 +242,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Tokyo"));
 		}
  
-		// nextボタンをクリック
+		// click the next button
 		{
 			driver.findElement(By.id("name")).clear();
 			driver.findElement(By.id("name")).sendKeys("test");
@@ -266,7 +251,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			driver.findElement(By.id("next")).click();
 		}
  
-		// デフォルト値を確認
+		// check initial value
 		{
 			assertThat(
 					driver.findElement(By.id("cardNumber")).getAttribute(
@@ -277,12 +262,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					.getAttribute("value"), is("111"));
 		}
  
-		// backボタンをクリック
+		// click the buck button
 		{
 			driver.findElement(By.id("back")).click();
 		}
  
-		// 入力した値が残っていることを確認
+		// check that the entered value remains
 		{
 			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
 					is("test"));
@@ -299,12 +284,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Osaka"));
 		}
  
-		// nextボタンをクリック
+		// click the next button
 		{
 			driver.findElement(By.id("next")).click();
 		}
  
-		// confirmボタンをクリック
+		// click the confirm button
 		{
 			driver.findElement(By.id("cardNumber")).clear();
 			driver.findElement(By.id("cardNumber"))
@@ -312,7 +297,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			driver.findElement(By.id("confirm")).click();
 		}
  
-		// 入力値を確認
+		// check the input value
 		{
 			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
 			assertThat(driver.findElement(By.id("email")).getText(),
@@ -331,12 +316,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("111"));
 		}
  
-		// backボタンをクリック
+		// click the buck button
 		{
 			driver.findElement(By.id("back")).click();
 		}
  
-		// 入力した値が残っていることを確認
+		// check that the entered value remains
 		{
 			assertThat(
 					driver.findElement(By.id("cardNumber")).getAttribute(
@@ -347,17 +332,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					.getAttribute("value"), is("111"));
 		}
  
-		// confirmボタンをクリック
+		// click the confirm button
 		{
 			driver.findElement(By.id("confirm")).click();
 		}
  
-		// updateボタンをクリック
+		// click the update button
 		{
 			driver.findElement(By.id("update")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("name")).getText(), is("test"));
 			assertThat(driver.findElement(By.id("email")).getText(),
@@ -376,23 +361,23 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("111"));
 		}
  
-		// homeボタンをクリック
+		// click the home button
 		{
 			driver.findElement(By.id("home")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("userName")).getText(),
 					is("test"));
 		}
  
-		// Account Updateボタンをクリック
+		// click the Account Update button
 		{
 			driver.findElement(By.id("updateAccount")).click();
 		}
  
-		// nextボタンをクリック
+		// click the next button
 		{
 			driver.findElement(By.id("name")).clear();
 			driver.findElement(By.id("name")).sendKeys("aaaaaa");
@@ -401,17 +386,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			driver.findElement(By.id("next")).click();
 		}
  
-		// homeボタンをクリック
+		// click the home button
 		{
 			driver.findElement(By.id("home")).click();
 		}
  
-		// Account Updateボタンをクリック
+		// click the Account Update button
 		{
 			driver.findElement(By.id("updateAccount")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
 					is("test"));
@@ -428,7 +413,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Osaka"));
 		}
  
-		// 更新された値をもとの値に更新しなおす
+		// Re-update the updated value to its original value
 		{
 			driver.findElement(By.id("name")).clear();
 			driver.findElement(By.id("name")).sendKeys("xxx");
@@ -450,17 +435,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testAddCartItem() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			driver.findElement(By.id("quantity0")).clear();
 			driver.findElement(By.id("quantity0")).sendKeys("2");
 			driver.findElement(By.id("add0")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("itemName0")).getText(),
 					is("Kokoro"));
@@ -472,14 +457,14 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("¥ 1,800"));
 		}
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			driver.findElement(By.id("quantity1")).clear();
 			driver.findElement(By.id("quantity1")).sendKeys("1");
 			driver.findElement(By.id("add1")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("itemName0")).getText(),
 					is("Kokoro"));
@@ -497,17 +482,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("¥ 2,600"));
 		}
  
-		// Account Updateボタンをクリック
+		// click the Account Update button
 		{
 			driver.findElement(By.id("updateAccount")).click();
 		}
  
-		// homeボタンをクリック
+		// click the home button
 		{
 			driver.findElement(By.id("home")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("itemName0")).getText(),
 					is("Kokoro"));
@@ -529,35 +514,35 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testDeleteCartItem() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			driver.findElement(By.id("quantity0")).clear();
 			driver.findElement(By.id("quantity0")).sendKeys("2");
 			driver.findElement(By.id("add0")).click();
 		}
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			driver.findElement(By.id("quantity1")).clear();
 			driver.findElement(By.id("quantity1")).sendKeys("1");
 			driver.findElement(By.id("add1")).click();
 		}
  
-		// viewCartボタンをクリック
+		// click the viewCart button
 		{
 			driver.findElement(By.id("viewCart")).click();
 		}
  
-		// 2つめのアイテムにチェックを入れてremoveボタンをクリック
+		// check the second item and click the remove button
 		{
 			driver.findElement(By.id("removedItemsIds1")).click();
 			driver.findElement(By.id("remove")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("itemName0")).getText(),
 					is("Kokoro"));
@@ -569,12 +554,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("¥ 1,800"));
 		}
  
-		// 削除チェックをせずにremoveボタンをクリック
+		// Click the remove button without checking deletion
 		{
 			driver.findElement(By.id("remove")).click();
 		}
  
-		// エラーメッセージを確認
+		// check error message
 		{
 			assertThat(driver.findElement(By.id("removedItemsIds.errors"))
 					.getText(), is("may not be empty"));
@@ -584,34 +569,34 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@Test
 	public void testOrderCartItem() {
  
-		// ログイン
+		// login
 		defaultLogin();
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			driver.findElement(By.id("quantity0")).clear();
 			driver.findElement(By.id("quantity0")).sendKeys("2");
 			driver.findElement(By.id("add0")).click();
 		}
  
-		// addCartボタンをクリック
+		// click the addCart button
 		{
 			driver.findElement(By.id("quantity1")).clear();
 			driver.findElement(By.id("quantity1")).sendKeys("1");
 			driver.findElement(By.id("add1")).click();
 		}
  
-		// viewCartボタンをクリック
+		// click the viewCart button
 		{
 			driver.findElement(By.id("viewCart")).click();
 		}
  
-		// confirm your orderボタンをクリック
+		// click confirm your order button
 		{
 			driver.findElement(By.id("confirm")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("itemName0")).getText(),
 					is("Kokoro"));
@@ -633,12 +618,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
  
 		}
  
-		// confirm your orderボタンをクリック
+		// click confirm your order button
 		{
 			driver.findElement(By.id("order")).click();
 		}
  
-		// 更新値を確認
+		// check update value
 		{
 			assertThat(driver.findElement(By.id("orderNumber")).getText()
 					.length(), is(36));
@@ -670,11 +655,11 @@ public class SessionTutorialTest extends FunctionTestSupport {
 	@After
 	public void tearDown() {
  
-		// logoutボタンをクリック
+		// click logout button
 		{
 			driver.findElement(By.id("logout")).click();
 		}
-		driver.quit();
+
 	}
  
 }

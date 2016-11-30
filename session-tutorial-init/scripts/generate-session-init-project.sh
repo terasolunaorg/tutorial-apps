@@ -3,11 +3,18 @@
 #${ARCHETYPE_VERSION}=terasoluna-gfw-blank-archetype-version
 #${VERSION}=tutorial pj version
 
+# settings of maven archetype catalog
+if test `echo ${ARCHETYPE_VERSION} | tail -c8 ` = "RELEASE"; then
+ ARCHETYPE_CATALOG=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases
+else
+ ARCHETYPE_CATALOG=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-snapshots
+fi
+
 cd target-project
 
 # mybatis app multi
 mvn archetype:generate -B \
- -DarchetypeCatalog=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases \
+ -DarchetypeCatalog=${ARCHETYPE_CATALOG} \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
  -DarchetypeArtifactId=terasoluna-gfw-multi-web-blank-mybatis3-archetype \
  -DarchetypeVersion=${ARCHETYPE_VERSION} \
@@ -37,6 +44,8 @@ mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-web/src/ma
 mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/account
 mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/goods
 mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/login
+
+mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/session
 
 # cp security sources
 cp -p ./session-tutorial-init/session-tutorial-init-domain/src/main/java/com/example/session/domain/model/Account.java ./target-project/session-tutorial-init/session-tutorial-init-domain/src/main/java/com/example/session/domain/model/
@@ -81,5 +90,7 @@ cp -p ./session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/
 cp -p ./session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/goods/showGoodsDetail.jsp ./target-project/session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/goods/
 cp -p ./session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/login/loginForm.jsp ./target-project/session-tutorial-init/session-tutorial-init-web/src/main/webapp/WEB-INF/views/login/
 
-cp -p ./session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/FunctionTestSupport.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/
-cp -p ./session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/SessionTutorialTest.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/
+
+cp -p ./session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/SessionTutorialTest.java ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session/selenium/session
+cp -p -r ./common-test/resources/META-INF/spring ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/resources/META-INF
+cp -p -r ./common-test/java/selenium ./target-project/session-tutorial-init/session-tutorial-init-selenium/src/test/java/com/example/session

@@ -15,3 +15,5 @@ bash ./session-tutorial-init/scripts/convert-session-init-jsp.sh
 bash ./session-tutorial-init/scripts/convert-session-init-properties.sh
 
 bash ./session-tutorial-init/scripts/convert-session-init-xml.sh
+
+bash ./session-tutorial-init/scripts/convert-session-init-test.sh
