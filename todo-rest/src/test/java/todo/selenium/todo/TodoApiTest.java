@@ -19,7 +19,7 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
+@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContextRest.xml" })
 public class TodoApiTest extends RestTestSupport{
 
 	@Value("${selenium.applicationContextUrl}")
