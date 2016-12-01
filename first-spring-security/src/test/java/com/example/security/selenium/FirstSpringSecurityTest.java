@@ -28,9 +28,9 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // check initial value
         {
-        	assertThat(driver.findElement(By.id("username")).getAttribute("value"),
+        	assertThat(inputFieldAccessor.getValue(By.id("username"),driver),
             		is("demo"));
-            assertThat(driver.findElement(By.id("password")).getAttribute("value"),
+            assertThat(inputFieldAccessor.getValue(By.id("password"),driver),
             		is("demo"));
 
         }
@@ -82,9 +82,9 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // check login screen
         {
-        	assertThat(driver.findElement(By.id("username")).getAttribute("value"),
+        	assertThat(inputFieldAccessor.getValue(By.id("username"),driver),
             		is("demo"));
-            assertThat(driver.findElement(By.id("password")).getAttribute("value"),
+            assertThat(inputFieldAccessor.getValue(By.id("password"),driver),
             		is("demo"));
         }
 
@@ -132,8 +132,7 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // login as an unregistered user
         {
-            driver.findElement(By.id("username")).clear(); 
-            driver.findElement(By.id("username")).sendKeys("aaa"); 
+            inputFieldAccessor.overrideValue(By.id("username"), "aaa", driver);
             driver.findElement(By.name("submit")).click();
 
         }
@@ -143,9 +142,9 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
             assertThat(driver.findElement(By.tagName("li")).getText(),
                     is("Bad credentials"));
 
-            assertThat(driver.findElement(By.id("username")).getAttribute("value"),
+            assertThat(inputFieldAccessor.getValue(By.id("username"),driver),
             		is("demo"));
-            assertThat(driver.findElement(By.id("password")).getAttribute("value"),
+            assertThat(inputFieldAccessor.getValue(By.id("password"),driver),
             		is("demo"));
         }
     }
