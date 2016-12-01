@@ -27,8 +27,8 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
 		// login
 		{
-			driver.findElement(By.id("email")).sendKeys("a@b.com");
-			driver.findElement(By.id("password")).sendKeys("demo");
+			inputFieldAccessor.overrideValue(By.id("email"),"a@b.com",driver);
+			inputFieldAccessor.overrideValue(By.id("password"),"demo",driver);
 			driver.findElement(By.id("login")).click();
 		}
 
@@ -56,13 +56,13 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
 		// input the form value and click confirm button
 		{
-			driver.findElement(By.id("name")).sendKeys("test");
-			driver.findElement(By.id("email")).sendKeys("test@xxx.co.jp");
-			driver.findElement(By.id("password")).sendKeys("password");
-			driver.findElement(By.id("confirmPassword")).sendKeys("password");
-			driver.findElement(By.id("birthday")).sendKeys("2016-01-01");
-			driver.findElement(By.id("zip")).sendKeys("1234567");
-			driver.findElement(By.id("address")).sendKeys("Nagoya");
+			inputFieldAccessor.overrideValue(By.id("name"),"test",driver);
+			inputFieldAccessor.overrideValue(By.id("email"),"test@xxx.co.jp",driver);
+			inputFieldAccessor.overrideValue(By.id("password"),"password",driver);
+			inputFieldAccessor.overrideValue(By.id("confirmPassword"),"password",driver);
+			inputFieldAccessor.overrideValue(By.id("birthday"),"2016-01-01",driver);
+			inputFieldAccessor.overrideValue(By.id("zip"),"1234567",driver);
+			inputFieldAccessor.overrideValue(By.id("address"),"Nagoya",driver);
 			driver.findElement(By.id("confirm")).click();
 		}
 
@@ -86,30 +86,30 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
 		// check that the entered value remains
 		{
-			assertThat(driver.findElement(By.id("name")).getAttribute("value"),
+			assertThat(inputFieldAccessor.getValue(By.id("name"),driver),
 					is("test"));
 			assertThat(
-					driver.findElement(By.id("email")).getAttribute("value"),
+					inputFieldAccessor.getValue(By.id("email"),driver),
 					is("test@xxx.co.jp"));
 			assertThat(
-					driver.findElement(By.id("password")).getAttribute("value"),
+					inputFieldAccessor.getValue(By.id("password"),driver),
 					is(""));
-			assertThat(driver.findElement(By.id("confirmPassword"))
-					.getAttribute("value"), is(""));
+			assertThat(inputFieldAccessor.getValue(By.id("confirmPassword"),driver),
+					is(""));
 			assertThat(
-					driver.findElement(By.id("birthday")).getAttribute("value"),
+					inputFieldAccessor.getValue(By.id("birthday"),driver),
 					is("2016-01-01"));
-			assertThat(driver.findElement(By.id("zip")).getAttribute("value"),
+			assertThat(inputFieldAccessor.getValue(By.id("zip"),driver),
 					is("1234567"));
 			assertThat(
-					driver.findElement(By.id("address")).getAttribute("value"),
+					inputFieldAccessor.getValue(By.id("address"),driver),
 					is("Nagoya"));
 		}
 
 		// click confirm button
 		{
-			driver.findElement(By.id("password")).sendKeys("password");
-			driver.findElement(By.id("confirmPassword")).sendKeys("password");
+			inputFieldAccessor.overrideValue(By.id("password"),"password",driver);
+			inputFieldAccessor.overrideValue(By.id("confirmPassword"),"password",driver);
 			driver.findElement(By.id("confirm")).click();
 		}
 
@@ -138,8 +138,8 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
 		// login
 		{
-			driver.findElement(By.id("email")).sendKeys("test@xxx.co.jp");
-			driver.findElement(By.id("password")).sendKeys("password");
+			inputFieldAccessor.overrideValue(By.id("email"),"test@xxx.co.jp",driver);
+			inputFieldAccessor.overrideValue(By.id("password"),"password",driver);
 			driver.findElement(By.id("login")).click();
 		}
 
