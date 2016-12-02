@@ -13,6 +13,10 @@ target[1]=./target-project/todo-api-mybatis3-multi
 target[2]=./target-project/todo-api-jpa
 target[3]=./target-project/todo-api-jpa-multi
 fi
+if test ${TARGET_TUTORIAL} = "first-spring-security"; then
+target[0]=./target-project/first-spring-security-mybatis3
+target[1]=./target-project/first-spring-security-mybatis3-multi
+fi
 
 # -infra.properties
 for i in "${target[*]}";do

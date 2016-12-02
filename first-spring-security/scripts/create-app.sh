@@ -2,6 +2,9 @@
 # create ${VERSION} First-spring-security Tutorial App
 # Please add a condition to change processing if version-diff of the script is occured.
 
+# settings of target tutorial
+export TARGET_TUTORIAL=first-spring-security
+
 echo "create version is ${VERSION}."
 
 # generate app
@@ -14,3 +17,5 @@ bash ./todo/scripts/convert-common-css.sh
 bash ./first-spring-security/scripts/convert-security-jsp.sh
 
 bash ./first-spring-security/scripts/convert-security-xml.sh
+
+bash ./first-spring-security/scripts/convert-security-test.sh

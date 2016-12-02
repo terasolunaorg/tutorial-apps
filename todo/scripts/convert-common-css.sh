@@ -15,6 +15,10 @@ target[2]=./target-project/todo-api-mybatis3-multi
 target[3]=./target-project/todo-api-jpa
 target[4]=./target-project/todo-api-jpa-multi
 fi
+if test ${TARGET_TUTORIAL} = "first-spring-security"; then
+target[0]=./target-project/first-spring-security-mybatis3
+target[1]=./target-project/first-spring-security-mybatis3-multi
+fi
 
 # styles.css
 for i in ` find ${target[*]} -type f -name 'styles.css' `; do echo -e ' 
