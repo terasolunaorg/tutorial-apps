@@ -150,7 +150,11 @@ script:
         echo "[ERROR] Failed a build."
         exit ${buildResult}
       fi
-      SELENIUMPOM="${WEBAPPOM%-web/pom.xml}-selenium/pom.xml"
+      if test `echo $WEBAPPOM|grep multi`||test `echo $WEBAPPOM|grep session`||test `echo $WEBAPPOM|grep secure`;then
+        SELENIUMPOM="${WEBAPPOM%-web/pom.xml}-selenium/pom.xml"
+      else
+        SELENIUMPOM=$WEBAPPOM
+      fi
       echo "Test $SELENIUMPOM"
       mvn test -f $SELENIUMPOM -Droot-level=warn
       buildResult=$?
