@@ -22,28 +22,28 @@ mkdir -p ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/tes
 # cp test sources
 # single without any DB configuration
 cp -p -r ./todo-rest/src/test ./target-project/todo-api/src
-cp -p -r ./common-test/resources/META-INF/spring ./target-project/todo-api/src/test/resources/META-INF
+cp -p -r ./common-test/resources ./target-project/todo-api/src/test
 cp -p -r ./common-test/java/selenium ./target-project/todo-api/src/test/java/todo
 
 
 # mybatis3
 cp -p -r ./todo-rest/src/test ./target-project/todo-api-mybatis3/src
-cp -p -r ./common-test/resources/META-INF/spring ./target-project/todo-api-mybatis3/src/test/resources/META-INF
+cp -p -r ./common-test/resources ./target-project/todo-api-mybatis3/src/test
 cp -p -r ./common-test/java/selenium ./target-project/todo-api-mybatis3/src/test/java/todo
 
 # mybatis3-multi
 cp -p -r ./todo-rest/src/test ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src
-cp -p -r ./common-test/resources/META-INF/spring ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/resources/META-INF
+cp -p -r ./common-test/resources ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test
 cp -p -r ./common-test/java/selenium ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-selenium/src/test/java/todo
 
 # jpa
 cp -p -r ./todo-rest/src/test ./target-project/todo-api-jpa/src
-cp -p -r ./common-test/resources/META-INF/spring ./target-project/todo-api-jpa/src/test/resources/META-INF
+cp -p -r ./common-test/resources ./target-project/todo-api-jpa/src/test
 cp -p -r ./common-test/java/selenium ./target-project/todo-api-jpa/src/test/java/todo
 
 # jpa-multi
 cp -p -r ./todo-rest/src/test ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src
-cp -p -r ./common-test/resources/META-INF/spring ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test/resources/META-INF
+cp -p -r ./common-test/resources ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test
 cp -p -r ./common-test/java/selenium ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-selenium/src/test/java/todo
 
 # modify pom
