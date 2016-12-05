@@ -115,8 +115,6 @@ script:
       fi
     done
   - echo "==================== Build Tutorial Apps without Tests ===================="
-  - sed -i -e 's|level value="debug"|level value="info"|' ./target-project/secure-login-demo/secure-login-env/src/main/resources/logback.xml
-  - cat ./target-project/secure-login-demo/secure-login-env/src/main/resources/logback.xml
   - |
     for POM in `find ./$TARGET_PROJECT/secure-login-demo/pom.xml -maxdepth 1`; do
       echo "build $POM"
@@ -139,7 +137,7 @@ script:
       fi
       SELENIUMPOM="${WEBAPPOM%-web/pom.xml}-selenium/pom.xml"
       echo "Test $SELENIUMPOM"
-      mvn test -f $SELENIUMPOM
+      mvn test -f $SELENIUMPOM -Droot-level=warn
       buildResult=$?
       if test ${buildResult} -ne 0 ; then
         echo "[ERROR] Failed a build."
