@@ -105,7 +105,7 @@ before_script:
 script: 
   - echo "==================== Generate Tutorial Apps ===================="
   - |
-    for FILE in `find ./secure-login-demo/scripts/create-app.sh -maxdepth 1`; do
+    for FILE in `find ./*/scripts/create-app.sh -maxdepth 1`; do 
       echo "execute $FILE"
       bash $FILE
       buildResult=$?
@@ -116,7 +116,7 @@ script:
     done
   - echo "==================== Build Tutorial Apps without Tests ===================="
   - |
-    for POM in `find ./$TARGET_PROJECT/secure-login-demo/pom.xml -maxdepth 1`; do
+    for POM in `find ./$TARGET_PROJECT/*/pom.xml -maxdepth 1`; do
       echo "build $POM"
       mvn -U -f $POM install -DskipTests=true
       buildResult=$?
@@ -127,7 +127,22 @@ script:
     done
   - echo "==================== Run AP And Test Tutorial Apps (e2e test) ===================="
   - |
-    for WEBAPPOM in `find ./$TARGET_PROJECT/secure-login-demo/secure-login-web/pom.xml -maxdepth 1`;do
+    TESTTARGET[0]=$TARGET_PROJECT/first-spring-security-mybatis3
+    TESTTARGET[1]=$TARGET_PROJECT/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-web
+    TESTTARGET[2]=$TARGET_PROJECT/secure-login-demo/secure-login-web
+    TESTTARGET[3]=$TARGET_PROJECT/session-tutorial-complete/session-tutorial-complete-web
+    TESTTARGET[4]=$TARGET_PROJECT/session-tutorial-init/session-tutorial-init-web
+    TESTTARGET[5]=$TARGET_PROJECT/todo
+    TESTTARGET[6]=$TARGET_PROJECT/todo-mybatis3
+    TESTTARGET[7]=$TARGET_PROJECT/todo-mybatis3-multi/todo-mybatis3-multi-web
+    TESTTARGET[8]=$TARGET_PROJECT/todo-jpa
+    TESTTARGET[9]=$TARGET_PROJECT/todo-jpa-multi/todo-jpa-multi-web
+    TESTTARGET[10]=$TARGET_PROJECT/todo-api
+    TESTTARGET[11]=$TARGET_PROJECT/todo-api-mybatis3
+    TESTTARGET[12]=$TARGET_PROJECT/todo-api-mybatis3-multi/todo-api-mybatis3-multi-web
+    TESTTARGET[13]=$TARGET_PROJECT/todo-api-jpa
+    TESTTARGET[14]=$TARGET_PROJECT/todo-api-jpa-multi/todo-api-jpa-multi-web
+    for WEBAPPOM in `find  ${TESTTARGET[*]} -maxdepth 1 -name pom.xml`;do
       echo "Run $WEBAPPOM"
       mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:daemon-start -f $WEBAPPOM
       buildResult=$?
