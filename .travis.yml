@@ -116,6 +116,19 @@ script:
   - echo "==================== Build Tutorial Apps without Tests ===================="
   - |
     for POM in `find ./$TARGET_PROJECT/*/pom.xml -maxdepth 1`; do
+    if test `echo $POM|grep multi`||test `echo $POM|grep session`||test `echo $POM|grep secure`;then
+      PROJECTNAME=`echo $POM | cut -d "/" -f 3 `
+      if test `echo $PROJECTNAME|grep secure`;then
+        PROJECTNAME=${PROJECTNAME%%-demo}
+      fi
+      echo "build $POM"
+      mvn -U -f $POM -am -pl ${PROJECTNAME}-web install
+      buildResult=$?
+      if test ${buildResult} -ne 0 ; then
+        echo "[ERROR] Failed a build."
+        exit ${buildResult}
+      fi
+    else
       echo "build $POM"
       mvn -U -f $POM install -DskipTests=true
       buildResult=$?
@@ -123,6 +136,7 @@ script:
         echo "[ERROR] Failed a build."
         exit ${buildResult}
       fi
+    fi
     done
   - echo "==================== Run AP And Test Tutorial Apps (e2e test) ===================="
   - |
