@@ -113,68 +113,24 @@ script:
         exit ${buildResult}
       fi
     done
-  - echo "==================== Build Tutorial Apps without Tests ===================="
+  - echo "==================== Build Tutorial Apps and execute Tests ===================="
   - |
     for POM in `find ./$TARGET_PROJECT/*/pom.xml -maxdepth 1`; do
-    if test `echo $POM|grep multi`||test `echo $POM|grep session`||test `echo $POM|grep secure`;then
-      PROJECTNAME=`echo $POM | cut -d "/" -f 3 `
-      if test `echo $PROJECTNAME|grep secure`;then
-        PROJECTNAME=${PROJECTNAME%%-demo}
-      fi
-      echo "build $POM"
-      mvn -U -f $POM -am -pl ${PROJECTNAME}-web install
-      buildResult=$?
-      if test ${buildResult} -ne 0 ; then
-        echo "[ERROR] Failed a build."
-        exit ${buildResult}
-      fi
-    else
-      echo "build $POM"
-      mvn -U -f $POM install -DskipTests=true
-      buildResult=$?
-      if test ${buildResult} -ne 0 ; then
-        echo "[ERROR] Failed a build."
-        exit ${buildResult}
-      fi
-    fi
-    done
-  - echo "==================== Run AP And Test Tutorial Apps (e2e test) ===================="
-  - |
-    TESTTARGET[0]=$TARGET_PROJECT/first-spring-security-mybatis3
-    TESTTARGET[1]=$TARGET_PROJECT/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-web
-    TESTTARGET[2]=$TARGET_PROJECT/secure-login-demo/secure-login-web
-    TESTTARGET[3]=$TARGET_PROJECT/session-tutorial-complete/session-tutorial-complete-web
-    TESTTARGET[4]=$TARGET_PROJECT/session-tutorial-init/session-tutorial-init-web
-    TESTTARGET[5]=$TARGET_PROJECT/todo
-    TESTTARGET[6]=$TARGET_PROJECT/todo-mybatis3
-    TESTTARGET[7]=$TARGET_PROJECT/todo-mybatis3-multi/todo-mybatis3-multi-web
-    TESTTARGET[8]=$TARGET_PROJECT/todo-jpa
-    TESTTARGET[9]=$TARGET_PROJECT/todo-jpa-multi/todo-jpa-multi-web
-    TESTTARGET[10]=$TARGET_PROJECT/todo-api
-    TESTTARGET[11]=$TARGET_PROJECT/todo-api-mybatis3
-    TESTTARGET[12]=$TARGET_PROJECT/todo-api-mybatis3-multi/todo-api-mybatis3-multi-web
-    TESTTARGET[13]=$TARGET_PROJECT/todo-api-jpa
-    TESTTARGET[14]=$TARGET_PROJECT/todo-api-jpa-multi/todo-api-jpa-multi-web
-    for WEBAPPOM in `find  ${TESTTARGET[*]} -maxdepth 1 -name pom.xml`;do
-      echo "Run $WEBAPPOM"
-      mvn org.codehaus.cargo:cargo-maven2-plugin:daemon-start -f $WEBAPPOM
-      buildResult=$?
-      if test ${buildResult} -ne 0 ; then
-        echo "[ERROR] Failed a build."
-        exit ${buildResult}
-      fi
-      if test `echo $WEBAPPOM|grep multi`||test `echo $WEBAPPOM|grep session`||test `echo $WEBAPPOM|grep secure`;then
-        SELENIUMPOM="${WEBAPPOM%-web/pom.xml}-selenium/pom.xml"
+      if test `echo $POM|grep multi`||test `echo $POM|grep session`||test `echo $POM|grep secure`;then
+        echo "execute ./mvn-multiproject-build"
+        bash ./mvn-multiproject-build.sh $POM
+        buildResult=$?
+        if test ${buildResult} -ne 0 ; then
+          echo "[ERROR] Failed a build."
+          exit ${buildResult}
+        fi
       else
-        SELENIUMPOM=$WEBAPPOM
+        echo "execute ./mvn-singleproject-build"
+        bash ./mvn-singleproject-build.sh $POM
+        buildResult=$?
+        if test ${buildResult} -ne 0 ; then
+          echo "[ERROR] Failed a build."
+          exit ${buildResult}
+        fi
       fi
-      echo "Test $SELENIUMPOM"
-      mvn test -f $SELENIUMPOM
-      buildResult=$?
-      if test ${buildResult} -ne 0 ; then
-        echo "[ERROR] Failed a build."
-        exit ${buildResult}
-      fi
-      echo "Stop $WEBAPPOM"
-      mvn verify org.codehaus.cargo:cargo-maven2-plugin:daemon-stop -f $WEBAPPOM -DskipTests=true
     done
