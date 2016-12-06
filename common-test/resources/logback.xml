@@ -9,7 +9,7 @@
     </encoder>
   </appender>
 
-  <root level="${root-level:-DEBUG}">
+  <root level="${root-level:-WARN}">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

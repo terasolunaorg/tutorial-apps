@@ -155,7 +155,7 @@ script:
         SELENIUMPOM=$WEBAPPOM
       fi
       echo "Test $SELENIUMPOM"
-      mvn test -f $SELENIUMPOM -Droot-level=warn
+      mvn test -f $SELENIUMPOM
       buildResult=$?
       if test ${buildResult} -ne 0 ; then
         echo "[ERROR] Failed a build."
