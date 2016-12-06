@@ -143,7 +143,7 @@ script:
     TESTTARGET[14]=$TARGET_PROJECT/todo-api-jpa-multi/todo-api-jpa-multi-web
     for WEBAPPOM in `find  ${TESTTARGET[*]} -maxdepth 1 -name pom.xml`;do
       echo "Run $WEBAPPOM"
-      mvn clean verify org.codehaus.cargo:cargo-maven2-plugin:daemon-start -f $WEBAPPOM -DskipTests=true
+      mvn org.codehaus.cargo:cargo-maven2-plugin:daemon-start -f $WEBAPPOM -DskipTests=true
       buildResult=$?
       if test ${buildResult} -ne 0 ; then
         echo "[ERROR] Failed a build."
