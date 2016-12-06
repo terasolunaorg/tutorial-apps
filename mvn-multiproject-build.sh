@@ -2,9 +2,18 @@
 # Build and test a single project
 
 # $1 : root pom
+# $2 : loglevel
 
 # settings of POM
 export POM=$1
+
+# settings of LOGLEVEL
+if test $# == 2;then
+  if test $2 != "";then
+    LOGLEVELOPTION=-"Droot-level=$2"
+    echo "$LOGLEVELOPTION"
+  fi
+fi
 
 # settings of PROJECTNAME
 PROJECTNAME=`echo $POM | cut -d "/" -f 3 `
@@ -32,7 +41,7 @@ fi
 
 # test
 echo "Test $POM"
-mvn test -f $POM -pl ${PROJECTNAME}-selenium
+mvn test -f $POM -pl ${PROJECTNAME}-selenium $LOGLEVELOPTION
 buildResult=$?
 if test ${buildResult} -ne 0 ; then
   echo "[ERROR] Failed a build."
