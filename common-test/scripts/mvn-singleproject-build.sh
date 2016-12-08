@@ -15,38 +15,35 @@ if test $# == 2;then
   fi
 fi
 
+# Definition of function
+# Check the build result and exit the script if it ends abnormally
+buildResultCheck(){
+  if test ${buildResult} -ne 0 ; then
+    echo "[ERROR] Failed a build."
+    exit ${buildResult}
+  fi
+}
+
 # build
 echo "build $POM"
 mvn -U -f $POM install -DskipTests=true
 buildResult=$?
-if test ${buildResult} -ne 0 ; then
-  echo "[ERROR] Failed a build."
-  exit ${buildResult}
-fi
+buildResultCheck
 
 # run
 echo "Run $POM"
 mvn cargo:daemon-start -f $POM
 buildResult=$?
-if test ${buildResult} -ne 0 ; then
-  echo "[ERROR] Failed a build."
-  exit ${buildResult}
-fi
+buildResultCheck
 
 # test
 echo "Test $POM"
 mvn test -f $POM $TESTOPTION
 buildResult=$?
-if test ${buildResult} -ne 0 ; then
-  echo "[ERROR] Failed a build."
-  exit ${buildResult}
-fi
+buildResultCheck
 
 # stop
 echo "Stop $POM"
 mvn cargo:daemon-stop -f $POM -Dmaven.test.skip=true
 buildResult=$?
-if test ${buildResult} -ne 0 ; then
-  echo "[ERROR] Failed a build."
-  exit ${buildResult}
-fi
+buildResultCheck
