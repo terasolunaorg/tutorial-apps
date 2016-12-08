@@ -44,7 +44,7 @@ fi
 
 # stop
 echo "Stop $POM"
-mvn verify cargo:daemon-stop -f $POM -DskipTests=true
+mvn cargo:daemon-stop -f $POM -DskipTests=true
 buildResult=$?
 if test ${buildResult} -ne 0 ; then
   echo "[ERROR] Failed a build."
