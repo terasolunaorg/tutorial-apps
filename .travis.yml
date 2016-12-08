@@ -118,7 +118,7 @@ script:
     for POM in `find ./$TARGET_PROJECT/*/pom.xml -maxdepth 1`; do
       if test `echo $POM|grep multi`||test `echo $POM|grep session`||test `echo $POM|grep secure`;then
         echo "execute ./mvn-multiproject-build"
-        bash ./mvn-multiproject-build.sh $POM
+        bash ./common-test/scripts/mvn-multiproject-build.sh $POM
         buildResult=$?
         if test ${buildResult} -ne 0 ; then
           echo "[ERROR] Failed a build."
@@ -126,7 +126,7 @@ script:
         fi
       else
         echo "execute ./mvn-singleproject-build"
-        bash ./mvn-singleproject-build.sh $POM
+        bash ./common-test/scripts/mvn-singleproject-build.sh $POM
         buildResult=$?
         if test ${buildResult} -ne 0 ; then
           echo "[ERROR] Failed a build."
