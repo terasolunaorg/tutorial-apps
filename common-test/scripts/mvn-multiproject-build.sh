@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build and test a single project
+# Build and test a multi project
 
 # $1 : root pom
 # $2 : loglevel
