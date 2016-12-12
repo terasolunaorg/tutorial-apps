@@ -18,32 +18,28 @@ fi
 # Definition of function
 # Check the build result and exit the script if it ends abnormally
 buildResultCheck(){
-  if test ${buildResult} -ne 0 ; then
+  if test $1 -ne 0 ; then
     echo "[ERROR] Failed a build."
-    exit ${buildResult}
+    exit $1
   fi
 }
 
 # build
 echo "build $POM"
 mvn -U -f $POM install -DskipTests=true
-buildResult=$?
-buildResultCheck
+buildResultCheck $?
 
 # run
 echo "Run $POM"
 mvn cargo:daemon-start -f $POM
-buildResult=$?
-buildResultCheck
+buildResultCheck $?
 
 # test
 echo "Test $POM"
 mvn test -f $POM $TESTOPTION
-buildResult=$?
-buildResultCheck
+buildResultCheck $?
 
 # stop
 echo "Stop $POM"
 mvn cargo:daemon-stop -f $POM -Dmaven.test.skip=true
-buildResult=$?
-buildResultCheck
+buildResultCheck $?
