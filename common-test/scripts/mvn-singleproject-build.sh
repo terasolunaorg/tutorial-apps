@@ -41,5 +41,5 @@ buildResultCheck $?
 
 # stop
 echo "Stop $POM"
-mvn cargo:daemon-stop -f $POM -Dmaven.test.skip=true
+mvn cargo:daemon-stop -f $POM
 buildResultCheck $?
