@@ -173,7 +173,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			assertThat(driver.findElement(By.id("name")).getText(),
 					is("Kokoro"));
 			assertThat(driver.findElement(By.id("price"))
-					.getText(), is("¥ 900"));
+					.getText(), is("¥900"));
 			assertThat(driver.findElement(By.id("description")).getText(),
 					is("Souseki Natsume wrote this book"));
 		}
@@ -209,7 +209,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			assertThat(driver.findElement(By.id("name")).getText(),
 					is("Swan Lake"));
 			assertThat(driver.findElement(By.id("price"))
-					.getText(), is("¥ 900"));
+					.getText(), is("¥900"));
 			assertThat(driver.findElement(By.id("description")).getText(),
 					is("Tchaikovsky composed this music"));
 		}

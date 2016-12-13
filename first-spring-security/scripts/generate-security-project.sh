@@ -105,8 +105,8 @@ cp -p ./first-spring-security/src/main/webapp/WEB-INF/views/account/view.jsp ./t
 cp -p ./first-spring-security/src/test/java/com/example/security/selenium/FirstSpringSecurityTest.java ./target-project/first-spring-security-mybatis3/src/test/java/com/example/security/selenium/security/
 cp -p -r ./common-test/java/selenium ./target-project/first-spring-security-mybatis3/src/test/java/com/example/security/
 
-cp -p -r ./common-test/resources/META-INF/spring ./target-project/first-spring-security-mybatis3/src/test/resources/META-INF/
+cp -p -r ./common-test/resources ./target-project/first-spring-security-mybatis3/src/test
 
 cp -p ./first-spring-security/src/test/java/com/example/security/selenium/FirstSpringSecurityTest.java ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/selenium/security/
 cp -f -p -r ./common-test/java/selenium ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/
-cp -f -p -r ./common-test/resources/META-INF/spring ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/resources/META-INF/
+cp -f -p -r ./common-test/resources ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test

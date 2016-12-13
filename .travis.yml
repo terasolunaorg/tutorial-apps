@@ -94,10 +94,17 @@ install:
   - rm -rf terasolunaorg/terasoluna-gfw-web-blank
   - popd
 
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - export CARGO_DAEMON_WEBAPP_VERSION=1.4.17
+  - mvn dependency:copy -Dartifact=org.codehaus.cargo:cargo-daemon-webapp:${CARGO_DAEMON_WEBAPP_VERSION}:war -DoutputDirectory=./
+  - java -jar ./cargo-daemon-webapp-${CARGO_DAEMON_WEBAPP_VERSION}.war &
+
 script: 
   - echo "==================== Generate Tutorial Apps ===================="
   - |
-    for FILE in `find ./*/scripts/create-app.sh -maxdepth 1`; do
+    for FILE in `find ./*/scripts/create-app.sh -maxdepth 1`; do 
       echo "execute $FILE"
       bash $FILE
       buildResult=$?
@@ -106,15 +113,24 @@ script:
         exit ${buildResult}
       fi
     done
-  - echo "==================== Build Tutorial Apps without Tests ===================="
+  - echo "==================== Build Tutorial Apps and execute Tests ===================="
   - |
     for POM in `find ./$TARGET_PROJECT/*/pom.xml -maxdepth 1`; do
-      echo "build $POM"
-      mvn -U -f $POM install -DskipTests=true
-      buildResult=$?
-      if test ${buildResult} -ne 0 ; then
-        echo "[ERROR] Failed a build."
-        exit ${buildResult}
+      if test `echo $POM|grep multi`||test `echo $POM|grep session`||test `echo $POM|grep secure`;then
+        echo "execute ./mvn-multiproject-build"
+        bash ./common-test/scripts/mvn-multiproject-build.sh $POM
+        buildResult=$?
+        if test ${buildResult} -ne 0 ; then
+          echo "[ERROR] Failed a build."
+          exit ${buildResult}
+        fi
+      else
+        echo "execute ./mvn-singleproject-build"
+        bash ./common-test/scripts/mvn-singleproject-build.sh $POM
+        buildResult=$?
+        if test ${buildResult} -ne 0 ; then
+          echo "[ERROR] Failed a build."
+          exit ${buildResult}
+        fi
       fi
     done
-

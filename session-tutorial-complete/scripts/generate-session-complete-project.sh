@@ -126,6 +126,6 @@ cp -p ./session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/
 cp -p ./session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/WEB-INF/views/order/finish.jsp ./target-project/session-tutorial-complete/session-tutorial-complete-web/src/main/webapp/WEB-INF/views/order
 
 cp -p ./session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium/SessionTutorialTest.java ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session/selenium/session
-cp -p  -r ./common-test/resources/META-INF/spring ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/resources/META-INF
+cp -p  -r ./common-test/resources ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test
 cp -p  -r ./common-test/java/selenium ./target-project/session-tutorial-complete/session-tutorial-complete-selenium/src/test/java/com/example/session
 

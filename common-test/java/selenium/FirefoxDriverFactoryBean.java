@@ -12,6 +12,7 @@ public class FirefoxDriverFactoryBean implements FactoryBean<FirefoxDriver> {
         profile.setPreference("brouser.startup.homepage_override.mstone",
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
+        profile.setPreference("intl.accept_languages", "en-us,en");
         return new FirefoxDriver(profile);
     }
 
