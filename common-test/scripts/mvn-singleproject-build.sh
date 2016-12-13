@@ -26,7 +26,7 @@ buildResultCheck(){
 
 # build
 echo "build $POM"
-mvn -U -f $POM install -DskipTests=true
+mvn -U -f $POM install -Dmaven.test.skip=true
 buildResultCheck $?
 
 # run
