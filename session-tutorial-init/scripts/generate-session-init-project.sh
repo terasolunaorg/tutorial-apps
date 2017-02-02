@@ -3,26 +3,17 @@
 #${ARCHETYPE_VERSION}=terasoluna-gfw-blank-archetype-version
 #${VERSION}=tutorial pj version
 
-# settings of maven archetype catalog
-if test `echo ${ARCHETYPE_VERSION} | tail -c8 ` = "RELEASE"; then
- ARCHETYPE_CATALOG=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases
-else
- ARCHETYPE_CATALOG=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-snapshots
-fi
-
-cd target-project
-
-# mybatis app multi
-mvn archetype:generate -B \
- -DarchetypeCatalog=${ARCHETYPE_CATALOG} \
- -DarchetypeGroupId=org.terasoluna.gfw.blank \
- -DarchetypeArtifactId=terasoluna-gfw-multi-web-blank-mybatis3-archetype \
- -DarchetypeVersion=${ARCHETYPE_VERSION} \
- -DgroupId=com.example.session \
- -DartifactId=session-tutorial-init \
- -Dversion=${VERSION}
-
-cd ..
+# generate session tutorial init apps
+case "${ARCHETYPE_VERSION:0:5}" in
+  5.2* | 5.1* | 5.0* )
+    bash ./session-tutorial-init/scripts/generate-project-from-nexus.sh;;
+  * )
+    if test `echo ${ARCHETYPE_VERSION} | tail -c8 ` = "RELEASE"; then
+      bash ./session-tutorial-init/scripts/generate-project-from-maven-central.sh
+    else
+      bash ./session-tutorial-init/scripts/generate-project-from-nexus.sh
+    fi;;
+esac
 
 # make app
 mkdir -p ./target-project/session-tutorial-init/session-tutorial-init-domain/src/main/java/com/example/session/domain/repository/account

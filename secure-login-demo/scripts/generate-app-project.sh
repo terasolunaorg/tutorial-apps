@@ -6,14 +6,16 @@
 mkdir target-project
 
 # mybatis app multi
-mvn archetype:generate -B \
- -DarchetypeCatalog=http://repo.terasoluna.org/nexus/content/repositories/terasoluna-gfw-releases \
- -DarchetypeGroupId=org.terasoluna.gfw.blank \
- -DarchetypeArtifactId=terasoluna-gfw-multi-web-blank-mybatis3-archetype \
- -DarchetypeVersion=${ARCHETYPE_VERSION} \
- -DgroupId=org.terasoluna.securelogin \
- -DartifactId=secure-login \
- -Dversion=${VERSION}
+case "${ARCHETYPE_VERSION:0:5}" in
+  5.2* | 5.0* )
+    bash ./secure-login-demo/scripts/generate-project-from-nexus.sh;;
+  * )
+    if test `echo ${ARCHETYPE_VERSION} | tail -c8 ` = "RELEASE"; then
+      bash ./secure-login-demo/scripts/generate-project-from-maven-central.sh
+    else
+      bash ./secure-login-demo/scripts/generate-project-from-nexus.sh
+    fi;;
+esac
 
 mv secure-login target-project/secure-login-demo
 
