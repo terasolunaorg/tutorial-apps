@@ -129,8 +129,14 @@ cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./target-project
 cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./target-project/todo-mybatis3/src/main/java/todo/domain/model/
 cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./target-project/todo-mybatis3-multi/todo-mybatis3-multi-domain/src/main/java/todo/domain/model/
 # jpa
-cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-jpa/src/main/java/todo/domain/model/
-cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-jpa-multi/todo-jpa-multi-domain/src/main/java/todo/domain/model/
+case "${ARCHETYPE_VERSION:0:5}" in
+  5.2* | 5.1* | 5.0* )
+    cp -p ./todo/scripts/old-resources/5.2.x/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-jpa/src/main/java/todo/domain/model/
+    cp -p ./todo/scripts/old-resources/5.2.x/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-jpa-multi/todo-jpa-multi-domain/src/main/java/todo/domain/model/;;
+  * )
+    cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-jpa/src/main/java/todo/domain/model/
+    cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-jpa-multi/todo-jpa-multi-domain/src/main/java/todo/domain/model/;;
+esac
 
 # service
 # TodoService

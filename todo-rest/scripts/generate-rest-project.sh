@@ -136,8 +136,14 @@ cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./target-project
 cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./target-project/todo-api-mybatis3/src/main/java/todo/domain/model/
 cp -p ./todo/src/main/java/mybatis3/todo/domain/model/Todo.java ./target-project/todo-api-mybatis3-multi/todo-api-mybatis3-multi-domain/src/main/java/todo/domain/model/
 # jpa
-cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-api-jpa/src/main/java/todo/domain/model/
-cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/model/
+case "${ARCHETYPE_VERSION:0:5}" in
+  5.2* | 5.1* | 5.0* )
+    cp -p ./todo/scripts/old-resources/5.2.x/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-api-jpa/src/main/java/todo/domain/model/
+    cp -p ./todo/scripts/old-resources/5.2.x/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/model/ ;;
+  * )
+    cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-api-jpa/src/main/java/todo/domain/model/
+    cp -p ./todo/src/main/java/jpa/todo/domain/model/Todo.java ./target-project/todo-api-jpa-multi/todo-api-jpa-multi-domain/src/main/java/todo/domain/model/ ;;
+esac
 # repository
 # single without any DB configuration
 cp -p ./todo/src/main/java/mybatis3/todo/domain/repository/todo/TodoRepository.java ./target-project/todo-api/src/main/java/todo/domain/repository/todo/
