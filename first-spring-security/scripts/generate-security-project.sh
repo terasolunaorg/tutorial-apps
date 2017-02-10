@@ -112,4 +112,5 @@ cp -f -p -r ./common-test/java/selenium ./target-project/first-spring-security-m
 cp -f -p -r ./common-test/resources ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test
 
 # delete test sources
+# When changing the spring-security setting in the tutorial, it is not correct as a test case because you can not access the welcome page displayed in the blank project only after login.
 rm -rf ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/selenium/welcome/
