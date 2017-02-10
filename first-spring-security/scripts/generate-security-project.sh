@@ -30,6 +30,9 @@ mvn archetype:generate -B \
  -DartifactId=first-spring-security-mybatis3-multi \
  -Dversion=${VERSION}
 
+# delete test sources
+# When changing the spring-security setting in the tutorial, it is not correct as a test case because you can not access the welcome page displayed in the blank project only after login.
+rm -rf ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/selenium/welcome/
 
 # make app
 mkdir -p ./first-spring-security-mybatis3/src/main/java/com/example/security/domain/model
@@ -110,7 +113,3 @@ cp -p -r ./common-test/resources ./target-project/first-spring-security-mybatis3
 cp -p ./first-spring-security/src/test/java/com/example/security/selenium/FirstSpringSecurityTest.java ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/selenium/security/
 cp -f -p -r ./common-test/java/selenium ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/
 cp -f -p -r ./common-test/resources ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test
-
-# delete test sources
-# When changing the spring-security setting in the tutorial, it is not correct as a test case because you can not access the welcome page displayed in the blank project only after login.
-rm -rf ./target-project/first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/selenium/welcome/
