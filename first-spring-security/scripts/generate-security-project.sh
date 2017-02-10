@@ -30,8 +30,7 @@ mvn archetype:generate -B \
  -DartifactId=first-spring-security-mybatis3-multi \
  -Dversion=${VERSION}
 
-# delete test sources
-# When changing the spring-security setting in the tutorial, it is not correct as a test case because you can not access the welcome page displayed in the blank project only after login.
+# delete unuse (or conflict) test sources in blank project
 rm -rf ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/selenium/welcome/
 
 # make app
