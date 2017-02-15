@@ -30,6 +30,8 @@ mvn archetype:generate -B \
  -DartifactId=first-spring-security-mybatis3-multi \
  -Dversion=${VERSION}
 
+# delete unuse (or conflict) test sources in blank project
+rm -rf ./first-spring-security-mybatis3-multi/first-spring-security-mybatis3-multi-selenium/src/test/java/com/example/security/selenium/welcome/
 
 # make app
 mkdir -p ./first-spring-security-mybatis3/src/main/java/com/example/security/domain/model
