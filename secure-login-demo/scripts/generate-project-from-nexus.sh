@@ -16,7 +16,7 @@ else
 fi
 
 # mybatis app multi
-mvn archetype:generate -B \
+mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate -B \
  -DarchetypeCatalog=${ARCHETYPE_CATALOG} \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
  -DarchetypeArtifactId=terasoluna-gfw-multi-web-blank-mybatis3-archetype \
