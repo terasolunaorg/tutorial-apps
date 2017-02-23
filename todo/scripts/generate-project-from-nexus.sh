@@ -21,7 +21,7 @@ mkdir tmp
 cd ./tmp
 
 # single without any DB configuration
-mvn archetype:generate -B \
+mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate -B \
  -DarchetypeCatalog=${ARCHETYPE_CATALOG} \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
  -DarchetypeArtifactId=terasoluna-gfw-web-blank-archetype \
@@ -32,7 +32,7 @@ mvn archetype:generate -B \
 cd ..
 
 # mybatis app single
-mvn archetype:generate -B \
+mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate -B \
  -DarchetypeCatalog=${ARCHETYPE_CATALOG} \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
  -DarchetypeArtifactId=terasoluna-gfw-web-blank-mybatis3-archetype \
@@ -42,7 +42,7 @@ mvn archetype:generate -B \
  -Dversion=${VERSION}
 
 # mybatis app multi
-mvn archetype:generate -B \
+mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate -B \
  -DarchetypeCatalog=${ARCHETYPE_CATALOG} \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
  -DarchetypeArtifactId=terasoluna-gfw-multi-web-blank-mybatis3-archetype \
@@ -52,7 +52,7 @@ mvn archetype:generate -B \
  -Dversion=${VERSION}
 
 # jpa app single
-mvn archetype:generate -B \
+mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate -B \
  -DarchetypeCatalog=${ARCHETYPE_CATALOG} \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
  -DarchetypeArtifactId=terasoluna-gfw-web-blank-jpa-archetype \
@@ -62,7 +62,7 @@ mvn archetype:generate -B \
  -Dversion=${VERSION}
 
 # jpa multi single
-mvn archetype:generate -B \
+mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate -B \
  -DarchetypeCatalog=${ARCHETYPE_CATALOG} \
  -DarchetypeGroupId=org.terasoluna.gfw.blank \
  -DarchetypeArtifactId=terasoluna-gfw-multi-web-blank-jpa-archetype \
