@@ -1,9 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>example</groupId>
-    <artifactId>header</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <groupId>org.terasoluna.app</groupId>
+    <artifactId>tutorial-apps</artifactId>
+    <version>5.3.0-SNAPSHOT</version>
+    <name>TERASOLUNA Server Framework for Java (5.x) - Tutorial Applications</name>
+    <description>Tutorial Applications using TERASOLUNA Server Framework for Java (5.x)</description>
+    <url>http://terasoluna.org</url>
+    <inceptionYear>2013</inceptionYear>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+    <organization>
+        <name>terasoluna.org</name>
+        <url>http://terasoluna.org</url>
+    </organization>
 
     <build>
         <plugins>
@@ -17,7 +32,7 @@
                         <include>**/*.java</include>
                     </includes>
                     <excludes>
-                        <exclude>secure-login-demo/secure-login-domain/src/main/java/org/terasoluna/securelogin/infra/mybatis/typehandler/BlobInputStreamTypeHandler.java</exclude>
+                        <exclude>**/BlobInputStreamTypeHandler.java</exclude>
                     </excludes>
                     <encoding>${encoding}</encoding>
                     <headerDefinitions>
@@ -27,15 +42,9 @@
             </plugin>
         </plugins>
     </build>
-    <dependencyManagement>
-        <dependencies>
-
-        </dependencies>
-    </dependencyManagement>
     <properties>
         <com.google.code.maven-license-plugin.version>1.4.0</com.google.code.maven-license-plugin.version>
-        <project.root.basedir>${project.basedir}</project.root.basedir>
+        <project.basedir>${project.basedir}</project.basedir>
         <encoding>UTF-8</encoding>
-        <java-version>1.8</java-version>
     </properties>
 </project>
