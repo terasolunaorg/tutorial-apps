@@ -104,6 +104,7 @@ before_script:
 script: 
   - echo "==================== Generate Tutorial Apps ===================="
   - |
+    rm -f pom.xml
     for FILE in `find ./*/scripts/create-app.sh -maxdepth 1`; do 
       echo "execute $FILE"
       bash $FILE
