@@ -1,23 +1,23 @@
 #!/bin/bash
+# Convert jsp resource(s) on blank project.
+# Parameters:
+#   $1 : (Optional) Target project path to convert.
 
-target[0]=./target-project/first-spring-security-mybatis3
-target[1]=./target-project/first-spring-security-mybatis3-multi
+TARGET_DIR=$1
+if test -n $TARGET_DIR; then
+  pushd "$TARGET_DIR"
+fi
 
 # include.jsp
-for i in "${target[*]}";do
-find $i -type f -name 'include.jsp' | xargs sed -i -e 's|<%@ page session="false"|<%@ page session="true"|'
-done
+find ./ -type f -name 'include.jsp' | xargs sed -i -e 's|<%@ page session="false"|<%@ page session="true"|'
 
 # home.jsp
 # account変数
-for i in "${target[*]}";do
-find $i -type f -name 'home.jsp' | xargs sed -i -e 's|</head>|</head>\n\n<!-- (1) -->\n<sec:authentication property="principal.account" var="account" />|'
-find $i -type f -name 'home.jsp' | xargs sed -i -e 's|<h1 id="title">Hello world!</h1>|<h1 id="title">Hello world!</h1>\n\n<!-- (1) -->\n<sec:authentication property="principal.account" var="account" />|'
-done
+find ./ -type f -name 'home.jsp' | xargs sed -i -e 's|</head>|</head>\n\n<!-- (1) -->\n<sec:authentication property="principal.account" var="account" />|'
+find ./ -type f -name 'home.jsp' | xargs sed -i -e 's|<h1 id="title">Hello world!</h1>|<h1 id="title">Hello world!</h1>\n\n<!-- (1) -->\n<sec:authentication property="principal.account" var="account" />|'
 
 # home.jsp
-for i in "${target[*]}";do
-find $i -type f -name 'home.jsp' | xargs sed -i -e 's|<p>The time on the server is ${serverTime}.</p>|\
+find ./ -type f -name 'home.jsp' | xargs sed -i -e 's|<p>The time on the server is ${serverTime}.</p>|\
     <p>The time on the server is ${serverTime}.</p>\
 \
     <p>Welcome ${f:h(account.firstName)} ${f:h(account.lastName)} !!</p>\
@@ -31,4 +31,7 @@ find $i -type f -name 'home.jsp' | xargs sed -i -e 's|<p>The time on the server 
     <ul>\
         <li><a href="${pageContext.request.contextPath}/account">view account</a></li>\
     </ul>|'
-done
+
+if test -n $TARGET_DIR; then
+  popd
+fi

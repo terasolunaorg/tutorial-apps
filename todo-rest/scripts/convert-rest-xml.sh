@@ -1,15 +1,15 @@
 #!/bin/bash
+# Convert xml resource(s) on blank project.
+# Parameters:
+#   $1 : (Optional) Target project path to convert.
 
-# settings target project
-target[0]=./target-project/todo-api
-target[1]=./target-project/todo-api-mybatis3
-target[2]=./target-project/todo-api-mybatis3-multi
-target[3]=./target-project/todo-api-jpa
-target[4]=./target-project/todo-api-jpa-multi
+TARGET_DIR=$1
+if test -n $TARGET_DIR; then
+  pushd "$TARGET_DIR"
+fi
 
 # web.xml
-for i in "${target[*]}";do
-find $i -type f -name 'web.xml' | xargs sed -i -e 's|<servlet>|\
+find ./ -type f -name 'web.xml' | xargs sed -i -e 's|<servlet>|\
     <!-- (1) -->\
     <servlet>\
         <servlet-name>restApiServlet</servlet-name>\
@@ -29,16 +29,12 @@ find $i -type f -name 'web.xml' | xargs sed -i -e 's|<servlet>|\
     </servlet-mapping>\
 \
     <servlet>|'
-done
 
 # spring-mvc-rest.xml
-for i in "${target[*]}";do
-find $i -type f -name "spring-mvc.xml" -print0 | while read -r -d '' file; do cp -i "$file" "${file%%spring-mvc.xml}spring-mvc-rest.xml"; done
-done
+find ./ -type f -name "spring-mvc.xml" -print0 | while read -r -d '' file; do cp -i "$file" "${file%%spring-mvc.xml}spring-mvc-rest.xml"; done
 
 # spring-mvc-rest.xml
-for i in "${target[*]}";do
-find $i -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-resolvers>|\
+find ./ -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-resolvers>|\
         </mvc:argument-resolvers>\
         <mvc:message-converters register-defaults="false">\
             <!-- (1) -->\
@@ -55,20 +51,19 @@ find $i -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-
                 </property>\
             </bean>\
         </mvc:message-converters>|'
-done
 
 # spring-mvc-rest.xml
-for i in "${target[*]}";do
-find $i -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|<context:component-scan base-package="todo.app" />|\
+find ./ -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|<context:component-scan base-package="todo.app" />|\
     <context:component-scan base-package="todo.api" />|'
-done
 
 # spring-security,xml
-for i in "${target[*]}";do
-find $i -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:http pattern="/resources/\*\*" security="none"/>|\
+find ./ -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:http pattern="/resources/\*\*" security="none"/>|\
     <sec:http pattern="/resources/**" security="none" />\
 \
     <!-- (1) -->\
     <sec:http pattern="/api/v1/**" security="none" />\
 |'
-done
+
+if test -n $TARGET_DIR; then
+  popd
+fi

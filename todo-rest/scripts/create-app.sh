@@ -1,21 +1,35 @@
 #!/bin/bash
-# create ${VERSION} TODO-rest Tutorial App
-# Please add a condition to change processing if version-diff of the script is occured.
+# Create Todo(REST) tutorial completed app.
+# Required variables:
+#   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
+#   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
+#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'todo'.
+#   ${ARTIFACT_ID}=Artifact ID of tutorial project.
+#   ${VERSION}=Version of tutorial project.
 
 echo "create version is ${VERSION}."
 
-# settings of target tutorial
-export TARGET_TUTORIAL=todo-rest
+SCRIPT_DIR=`dirname "$0"`
+TARGET_DIR=${SCRIPT_DIR}/../target-project
 
-# generate app
-bash ./todo-rest/scripts/generate-rest-project.sh
+# create dir for work
+mkdir "$TARGET_DIR"
+pushd "$TARGET_DIR"
 
-bash ./todo/scripts/convert-common-infra.sh
+bash ../../common/scripts/generate-project.sh
 
-bash ./todo/scripts/convert-common-css.sh
+bash ../scripts/copy-sources.sh
 
-bash ./todo-rest/scripts/convert-rest-msg.sh
+bash ../scripts/convert-rest-test.sh `pwd`
 
-bash ./todo-rest/scripts/convert-rest-xml.sh
+bash ../../common/scripts/convert-common-infra.sh `pwd`
 
-bash ./todo-rest/scripts/generate-rest-test.sh
+bash ../../common/scripts/convert-common-css.sh `pwd`
+
+bash ../../todo/scripts/convert-todo-css.sh `pwd`
+
+bash ../scripts/convert-rest-msg.sh `pwd`
+
+bash ../scripts/convert-rest-xml.sh `pwd`
+
+popd

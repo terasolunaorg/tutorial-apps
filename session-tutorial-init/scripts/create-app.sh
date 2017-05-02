@@ -1,19 +1,33 @@
 #!/bin/bash
-# create ${VERSION} session tutorial init App
-# Please add a condition to change processing if version-diff of the script is occured.
+# Create Session tutorial initial app.
+# Required variables:
+#   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
+#   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
+#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'todo'.
+#   ${ARTIFACT_ID}=Artifact ID of tutorial project.
+#   ${VERSION}=Version of tutorial project.
 
 echo "create version is ${VERSION}."
 
-mkdir -p target-project
+SCRIPT_DIR=`dirname "$0"`
+TARGET_DIR=${SCRIPT_DIR}/../target-project
 
-bash ./session-tutorial-init/scripts/generate-session-init-project.sh
+# create dir for work
+mkdir "$TARGET_DIR"
+pushd "$TARGET_DIR"
 
-bash ./session-tutorial-init/scripts/convert-session-init-css.sh
+bash ../../common/scripts/generate-project.sh
 
-bash ./session-tutorial-init/scripts/convert-session-init-jsp.sh
+bash ../scripts/copy-sources.sh
 
-bash ./session-tutorial-init/scripts/convert-session-init-properties.sh
+bash ../scripts/convert-session-init-css.sh `pwd`
 
-bash ./session-tutorial-init/scripts/convert-session-init-xml.sh
+bash ../scripts/convert-session-init-jsp.sh `pwd`
 
-bash ./session-tutorial-init/scripts/convert-session-init-test.sh
+bash ../scripts/convert-session-init-properties.sh `pwd`
+
+bash ../scripts/convert-session-init-xml.sh `pwd`
+
+bash ../scripts/convert-session-init-test.sh `pwd`
+
+popd
