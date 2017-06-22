@@ -38,6 +38,7 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - mvn dependency:copy -Dartifact=org.codehaus.cargo:cargo-daemon-webapp:${CARGO_DAEMON_WEBAPP_VERSION}:war -DoutputDirectory=./
   - java -jar ./cargo-daemon-webapp-${CARGO_DAEMON_WEBAPP_VERSION}.war &
+  - bash ./common/scripts/change-maven-settings.sh
 
 script: 
   - echo "==================== Generate Tutorial App ===================="

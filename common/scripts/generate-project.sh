@@ -7,10 +7,24 @@
 #   ${ARTIFACT_ID}=Artifact ID of tutorial project.
 #   ${VERSION}=Version of tutorial project.
 
-mvn archetype:generate -B \
- -DarchetypeGroupId=org.terasoluna.gfw.blank \
- -DarchetypeArtifactId=${ARCHETYPE_ARTIFACT_ID} \
- -DarchetypeVersion=${ARCHETYPE_VERSION} \
- -DgroupId=${GROUP_ID} \
- -DartifactId=${ARTIFACT_ID} \
- -Dversion=${VERSION}
+if test `echo ${ARCHETYPE_VERSION} | tail -c8 ` = "RELEASE"; then
+  mvn archetype:generate -B \
+   -DarchetypeGroupId=org.terasoluna.gfw.blank \
+   -DarchetypeArtifactId=${ARCHETYPE_ARTIFACT_ID} \
+   -DarchetypeVersion=${ARCHETYPE_VERSION} \
+   -DgroupId=${GROUP_ID} \
+   -DartifactId=${ARTIFACT_ID} \
+   -Dversion=${VERSION}
+else
+  SCRIPT_DIR=`dirname "$0"`
+
+  mvn archetype:generate -B \
+   -DarchetypeGroupId=org.terasoluna.gfw.blank \
+   -DarchetypeArtifactId=${ARCHETYPE_ARTIFACT_ID} \
+   -DarchetypeVersion=${ARCHETYPE_VERSION} \
+   -DgroupId=${GROUP_ID} \
+   -DartifactId=${ARTIFACT_ID} \
+   -Dversion=${VERSION} \
+   --settings="${SCRIPT_DIR}/settings.xml" \
+   -P archetype
+fi
