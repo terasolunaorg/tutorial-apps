@@ -1,28 +1,44 @@
 #!/bin/bash
-# create ${VERSION} Secure Login App
-# Please add a condition to change processing if version-diff of the script is occured.
+# Create Secure Login tutorial completed app.
+# Required variables:
+#   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
+#   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
+#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'org.terasoluna.securelogin'.
+#   ${ARTIFACT_ID}=Artifact ID of tutorial project. This project's ARTIFACT_ID must be set 'secure-login'.
+#   ${VERSION}=Version of tutorial project.
+#   ${HOST_IP}=IP address for access to this web application. Defaults to 'localhost'.
+#   ${APSRV_WEB_PORT}=Port number for access to this web application. Defaults to '8080'.
+#   ${APSRV_H2DB_PORT}=Port number for access to H2DB. Defaults to '9212'.
 
 echo "create version is ${VERSION}."
 
-if [[ "$ARCHETYPE_VERSION" =~ ^5\.1\..*$ ]]; then
-    rm -r ./secure-login-demo/scripts/secure-login-demo
-    rm -r ./secure-login-demo/secure-login-domain
-    rm -r ./secure-login-demo/secure-login-env
-    rm -r ./secure-login-demo/secure-login-initdb
-    rm -r ./secure-login-demo/secure-login-selenium
-    rm -r ./secure-login-demo/secure-login-web
-    cp -r ./secure-login-demo/scripts/old-resources/5.1.x/scripts/secure-login-demo ./secure-login-demo/scripts/
-    cp -r ./secure-login-demo/scripts/old-resources/5.1.x/secure-login-domain ./secure-login-demo/
-    cp -r ./secure-login-demo/scripts/old-resources/5.1.x/secure-login-env ./secure-login-demo/
-    cp -r ./secure-login-demo/scripts/old-resources/5.1.x/secure-login-initdb ./secure-login-demo/
-    cp -r ./secure-login-demo/scripts/old-resources/5.1.x/secure-login-selenium ./secure-login-demo/
-    cp -r ./secure-login-demo/scripts/old-resources/5.1.x/secure-login-web ./secure-login-demo/
-    cp ./secure-login-demo/scripts/old-resources/5.1.x/scripts/generate-app-project.sh ./secure-login-demo/scripts/
-    cp ./secure-login-demo/scripts/old-resources/5.1.x/scripts/convert-settings.sh ./secure-login-demo/scripts/
+SCRIPT_DIR=`dirname "$0"`
+TARGET_DIR=${SCRIPT_DIR}/../target-project
+
+# create dir for work
+mkdir "$TARGET_DIR"
+pushd "$TARGET_DIR"
+
+if test -z $HOST_IP; then
+  export HOST_IP=localhost
 fi
 
-rm -r ./secure-login-demo/scripts/old-resources
+if test -z $APSRV_WEB_PORT; then
+  export APSRV_WEB_PORT=8080
+fi
 
-bash ./secure-login-demo/scripts/generate-app-project.sh
+if test -z $APSRV_H2DB_PORT; then
+  export APSRV_H2DB_PORT=9212
+fi
 
-bash ./secure-login-demo/scripts/convert-settings.sh
+bash ../../common/scripts/generate-project.sh
+
+bash ../scripts/copy-sources.sh
+
+bash ../scripts/convert-secure-login-xml.sh `pwd`
+
+bash ../scripts/convert-secure-login-infra.sh `pwd`
+
+bash ../scripts/convert-secure-login-test.sh `pwd`
+
+popd

@@ -1,21 +1,33 @@
 #!/bin/bash
-# create ${VERSION} First-spring-security Tutorial App
-# Please add a condition to change processing if version-diff of the script is occured.
-
-# settings of target tutorial
-export TARGET_TUTORIAL=first-spring-security
+# Create Spring Security tutorial completed app.
+# Required variables:
+#   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
+#   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
+#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'com.example.security'.
+#   ${ARTIFACT_ID}=Artifact ID of tutorial project.
+#   ${VERSION}=Version of tutorial project.
 
 echo "create version is ${VERSION}."
 
-# generate app
-bash ./first-spring-security/scripts/generate-security-project.sh
+SCRIPT_DIR=`dirname "$0"`
+TARGET_DIR=${SCRIPT_DIR}/../target-project
 
-bash ./todo/scripts/convert-common-infra.sh
+# create dir for work
+mkdir "$TARGET_DIR"
+pushd "$TARGET_DIR"
 
-bash ./todo/scripts/convert-common-css.sh
+bash ../../common/scripts/generate-project.sh
 
-bash ./first-spring-security/scripts/convert-security-jsp.sh
+bash ../scripts/copy-sources.sh
 
-bash ./first-spring-security/scripts/convert-security-xml.sh
+bash ../../common/scripts/convert-common-infra.sh `pwd`
 
-bash ./first-spring-security/scripts/convert-security-test.sh
+bash ../../common/scripts/convert-common-css.sh `pwd`
+
+bash ../scripts/convert-security-jsp.sh `pwd`
+
+bash ../scripts/convert-security-xml.sh `pwd`
+
+bash ../scripts/convert-security-test.sh `pwd`
+
+popd

@@ -1,17 +1,31 @@
 #!/bin/bash
-# create ${VERSION} TODO-Tutorial App
-# Please add a condition to change processing if version-diff of the script is occured.
+# Create Todo tutorial completed app.
+# Required variables:
+#   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
+#   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
+#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'todo'.
+#   ${ARTIFACT_ID}=Artifact ID of tutorial project.
+#   ${VERSION}=Version of tutorial project.
 
 echo "create version is ${VERSION}."
 
-# settings of target tutorial
-export TARGET_TUTORIAL=todo
+SCRIPT_DIR=`dirname "$0"`
+TARGET_DIR=${SCRIPT_DIR}/../target-project
 
-# generate app
-bash ./todo/scripts/generate-app-project.sh
+# create dir for work
+mkdir "$TARGET_DIR"
+pushd "$TARGET_DIR"
 
-bash ./todo/scripts/convert-common-infra.sh
+bash ../../common/scripts/generate-project.sh
 
-bash ./todo/scripts/convert-common-css.sh
+bash ../scripts/copy-sources.sh
 
-bash ./todo/scripts/generate-app-test.sh
+bash ../scripts/convert-todo-test.sh `pwd`
+
+bash ../../common/scripts/convert-common-infra.sh `pwd`
+
+bash ../../common/scripts/convert-common-css.sh `pwd`
+
+bash ../scripts/convert-todo-css.sh `pwd`
+
+popd

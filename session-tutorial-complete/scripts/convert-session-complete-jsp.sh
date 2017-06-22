@@ -1,21 +1,29 @@
 #!/bin/bash
+# Convert jsp resource(s) on initial session tutorial app.
+# Parameters:
+#   $1 : (Optional) Target project path to convert.
+
+TARGET_DIR=$1
+if test -n $TARGET_DIR; then
+  pushd "$TARGET_DIR"
+fi
 
 ###################  init  ###################
 
 # include.jsp
-find ./target-project/session-tutorial-complete -type f -name 'include.jsp' | xargs sed -i -e 's|<%@ page session="false"|<%@ page session="true"|'
+find ./ -type f -name 'include.jsp' | xargs sed -i -e 's|<%@ page session="false"|<%@ page session="true"|'
     
 ###################  tutorial flow  ###################
 
 
 
 # showGoods.jsp
-find ./target-project/session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e 's|<th>Price</th>|<th>Price</th>\
+find ./ -type f -name 'showGoods.jsp' | xargs sed -i -e 's|<th>Price</th>|<th>Price</th>\
                 <th>Quantity</th>|'
 
 
 # showGoods.jsp
-find ./target-project/session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e 's|maxFractionDigits="0" /></td>|maxFractionDigits="0" /></td>\
+find ./ -type f -name 'showGoods.jsp' | xargs sed -i -e 's|maxFractionDigits="0" /></td>|maxFractionDigits="0" /></td>\
                     <td><form:form method="post"\
                             action="${pageContext.request.contextPath}/goods/addToCart"\
                             modelAttribute="goodAddForm">\
@@ -26,7 +34,7 @@ find ./target-project/session-tutorial-complete -type f -name 'showGoods.jsp' | 
 
 
 # showGoods.jsp
-find ./target-project/session-tutorial-complete -type f -name 'showGoods.jsp' | xargs sed -i -e 's|</body>|    <div>\
+find ./ -type f -name 'showGoods.jsp' | xargs sed -i -e 's|</body>|    <div>\
         <%-- (1) --%>\
         <spring:eval var="cart" expression="@cart" />\
         <form method="get" action="${pageContext.request.contextPath}/cart">\
@@ -57,7 +65,7 @@ find ./target-project/session-tutorial-complete -type f -name 'showGoods.jsp' | 
 
 
 # showGoodsDetail.jsp
-find ./target-project/session-tutorial-complete -type f -name 'showGoodsDetail.jsp' | xargs sed -i -e 's|<form method="get" action="${pageContext.request.contextPath}/goods">|<form:form method="post"\
+find ./ -type f -name 'showGoodsDetail.jsp' | xargs sed -i -e 's|<form method="get" action="${pageContext.request.contextPath}/goods">|<form:form method="post"\
             action="${pageContext.request.contextPath}/goods/addToCart"\
             modelAttribute="AddToCartForm">\
             Quantity<input type="text" id="quantity" name="quantity"\
@@ -70,7 +78,7 @@ find ./target-project/session-tutorial-complete -type f -name 'showGoodsDetail.j
 
 
 # showGoodsDetail.jsp
-find ./target-project/session-tutorial-complete -type f -name 'showGoodsDetail.jsp' | xargs sed -i -e 's|</body>|    <div>\
+find ./ -type f -name 'showGoodsDetail.jsp' | xargs sed -i -e 's|</body>|    <div>\
         <spring:eval var="cart" expression="@cart" />\
         <form method="get" action="${pageContext.request.contextPath}/cart">\
             <input type="submit" value="view cart" />\
@@ -97,3 +105,6 @@ find ./target-project/session-tutorial-complete -type f -name 'showGoodsDetail.j
     </div>\
 </body>|'
 
+if test -n $TARGET_DIR; then
+  popd
+fi
