@@ -55,6 +55,7 @@ public class TodoTest extends FunctionTestSupport {
 
 		assertThat(driver.findElement(By.xpath("/html/body")).getText(),
 				is(containsString("Todo List")));
+		screenCapture.save(driver);
 	}
 
 	/**
@@ -74,6 +75,7 @@ public class TodoTest extends FunctionTestSupport {
 				is("Created successfully!"));
 
 		assertThat(todoElement.getText(), is(containsString("todoThings1")));
+		screenCapture.save(driver);
 		todoElement.findElement(
 				By.xpath("//form[@action='/" + contextName
 						+ "/todo/delete']/button")).click();
@@ -99,6 +101,7 @@ public class TodoTest extends FunctionTestSupport {
 				is("Finished successfully!"));
 		assertThat(todoElement.findElement(By.xpath("//span[@class='strike']"))
 				.getText(), is("todoThings1"));
+		screenCapture.save(driver);
 
 		todoElement.findElement(
 				By.xpath("//form[@action='/" + contextName
@@ -114,6 +117,7 @@ public class TodoTest extends FunctionTestSupport {
 		inputFieldAccessor.overrideValue(By.id("todoTitle"), "todoThings1",driver);
 		driver.findElement(By.xpath("//form[@action='/" + contextName
 				+ "/todo/create']/button")).click();;
+		screenCapture.save(driver);
 		driver.findElement(By
 				.xpath("//div[@id='todoList']/ul/li/form[@action='/"
 						+ contextName + "/todo/delete']/button")).click();
@@ -124,6 +128,7 @@ public class TodoTest extends FunctionTestSupport {
 
 		assertThat(driver.findElement(By
 				.xpath("//div[@id='todoList']/ul")).getText(), is(""));
+		screenCapture.save(driver);
 	}
 
 	/**
@@ -138,6 +143,7 @@ public class TodoTest extends FunctionTestSupport {
 		assertThat(driver.findElement(By
 				.xpath("//span[@id='todoTitle.errors']")).getText(),
 				is("size must be between 1 and 30"));
+		screenCapture.save(driver);
 	}
 
 	/**
@@ -154,6 +160,7 @@ public class TodoTest extends FunctionTestSupport {
 		assertThat(driver.findElement(By
 				.xpath("//span[@id='todoTitle.errors']")).getText(),
 				is("size must be between 1 and 30"));
+		screenCapture.save(driver);
 	}
 
 	/**
@@ -173,6 +180,7 @@ public class TodoTest extends FunctionTestSupport {
 		assertThat(driver.findElement(By
 				.xpath("//div[@id='todoForm']/div/ul/li")).getText(),
 				is("[E001] The count of un-finished Todo must not be over 5."));
+		screenCapture.save(driver);
 
 		for (int i = 0; i < 5; i++) {
 			driver.findElement(By

@@ -76,6 +76,7 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.png", "test user");
 		assertThat(webDriverOperations.getTitle(),
 				is("Invalid Character Error!"));
+        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -98,6 +99,7 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo;.png", "test user");
 		assertThat(webDriverOperations.getTitle(),
 				is("Invalid Character Error!"));
+        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -118,6 +120,7 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.png", "test user");
 		assertThat(((AccountCreatePage) page).getUsernameError(),
 				containsString("Control characters are not allowed."));
+        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -138,6 +141,7 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.txt", "test user");
 		assertThat(((AccountCreatePage) page).getImageError(),
 				containsString("The file extension is not allowed."));
+        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -159,6 +163,7 @@ public class InputValidationTest extends FunctionTestSupport {
 						"test user");
 		assertThat(((AccountCreatePage) page).getImageError(),
 				containsString("The file name is not allowed."));
+        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -179,6 +184,7 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.png", "test user");
 		assertThat(((AccountCreatePage) page).getUrlError(),
 				containsString("This domain is not allowed."));
+        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -199,5 +205,6 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.png", "test user");
 		assertThat(((AccountCreatePage) page).getEmailError(),
 				containsString("This domain is not allowed."));
+        webDriverOperations.saveScreenCapture();
 	}
 }

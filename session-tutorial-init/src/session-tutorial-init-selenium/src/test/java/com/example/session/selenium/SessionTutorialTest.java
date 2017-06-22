@@ -57,7 +57,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Run, Melos!"));
 			assertThat(driver.findElement(By.id("userName")).getText(),
 					is("xxx"));
-
+    		screenCapture.save(driver);
 		}
 	}
 
@@ -92,6 +92,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("1234567"));
 			assertThat(driver.findElement(By.id("address")).getText(),
 					is("Nagoya"));
+    		screenCapture.save(driver);
 		}
 
 		// click back button
@@ -119,6 +120,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 			assertThat(
 					inputFieldAccessor.getValue(By.id("address"),driver),
 					is("Nagoya"));
+    		screenCapture.save(driver);
 		}
 
 		// click confirm button
@@ -144,6 +146,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("1234567"));
 			assertThat(driver.findElement(By.id("address")).getText(),
 					is("Nagoya"));
+    		screenCapture.save(driver);
 		}
 
 		// click Login page button
@@ -168,7 +171,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					is("Run, Melos!"));
 			assertThat(driver.findElement(By.id("userName")).getText(),
 					is("test"));
-
+    		screenCapture.save(driver);
 		}
 	}
 
@@ -191,6 +194,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					.getText(), is("¥900"));
 			assertThat(driver.findElement(By.id("description")).getText(),
 					is("Souseki Natsume wrote this book"));
+    		screenCapture.save(driver);
 		}
 
 		// click home button
@@ -212,6 +216,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					.getText(), is("Eine kleine Nachtmusik"));
 			assertThat(driver.findElement(By.id("Swan Lake")).getText(),
 					is("Swan Lake"));
+    		screenCapture.save(driver);
 		}
 
 		// click the item name
@@ -227,6 +232,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
 					.getText(), is("¥900"));
 			assertThat(driver.findElement(By.id("description")).getText(),
 					is("Tchaikovsky composed this music"));
+    		screenCapture.save(driver);
 		}
 
 	}
