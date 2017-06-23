@@ -24,13 +24,14 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptException;
-import org.terasoluna.securelogin.selenium.FunctionTestSupport;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.terasoluna.securelogin.selenium.DBLogFunctionTestSupport;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 import org.terasoluna.securelogin.selenium.loginform.page.login.LoginPage;
 import org.terasoluna.securelogin.selenium.loginform.page.passwordchange.PasswordChangePage;
@@ -41,8 +42,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
+public class PasswordLeakageMeasuresTest extends DBLogFunctionTestSupport {
 
 	@Value("${security.passwordLifeTimeSeconds}")
 	int passwordLifeTimeSeconds;
@@ -76,25 +78,21 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/password?form"));
-        webDriverOperations.saveScreenCapture();
 
 		// it cannot access other pages until change password
 		page = ((PasswordChangePage) page).gotoTopIntercepted();
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/password?form"));
-        webDriverOperations.saveScreenCapture();
 
 		page = ((PasswordChangePage) page).changePasswordSuccess("demo",
 				"Foo1", "Foo1");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/password?complete"));
-        webDriverOperations.saveScreenCapture();
 
 		// it's enable to access to top page
 		page = ((PasswordChangeSuccessPage) page).gotoTop();
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				contextName + "/"));
-        webDriverOperations.saveScreenCapture();
 
 		page = ((TopPage) page).logout();
 	}
@@ -124,7 +122,6 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 				.changePasswordFailure("Bar2", "Bar1", "Bar1");
 		assertThat(((PasswordChangePage) page).getNewPasswordError(),
 				is("Password matches one of 2 previous passwords."));
-        webDriverOperations.saveScreenCapture();
 
 		page = ((PasswordChangePage) page).gotoTop().logout();
 	}
@@ -151,13 +148,11 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		page = ((LoginPage) page).loginSuccess("demo", "Foo1");
 		assertThat(((TopPage) page).getExpiredMessage(),
 				is("Your password has expired. Please change."));
-        webDriverOperations.saveScreenCapture();
 
 		// the message disappears because of changing the password
 		page = ((TopPage) page).goToAccountInfoPage().goToPasswordChangePage()
 				.changePasswordSuccess("Foo1", "Bar1", "Bar1").gotoTop();
 		assertTrue(!((TopPage) page).isExpiredMessageShown());
-        webDriverOperations.saveScreenCapture();
 
 		page = ((TopPage) page).logout();
 	}
@@ -181,7 +176,6 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		// confirm that the last login time of the user is shown
 		assertTrue(((TopPage) page).getLastLogin().matches(
 				"Last login date is [0-9]{4}-[0-9]{2}-[0-9]{2}.*"));
-        webDriverOperations.saveScreenCapture();
 
 		page = ((TopPage) page).logout();
 	}
@@ -208,7 +202,6 @@ public class PasswordLeakageMeasuresTest extends FunctionTestSupport {
 		page = ((LoginPage) page).loginSuccessIntercepted("admin", "Bar1");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/password?form"));
-        webDriverOperations.saveScreenCapture();
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("Bar1", "Foo1", "Foo1").gotoTop()
 				.logout();

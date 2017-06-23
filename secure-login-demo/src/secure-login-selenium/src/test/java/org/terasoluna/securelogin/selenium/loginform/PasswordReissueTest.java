@@ -26,13 +26,14 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptException;
-import org.terasoluna.securelogin.selenium.FunctionTestSupport;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.terasoluna.securelogin.selenium.DBLogFunctionTestSupport;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 import org.terasoluna.securelogin.selenium.loginform.page.login.LoginPage;
 import org.terasoluna.securelogin.selenium.loginform.page.mail.ReceivedMailPage;
@@ -47,8 +48,9 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PasswordReissueTest extends FunctionTestSupport {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
+public class PasswordReissueTest extends DBLogFunctionTestSupport {
 
 	@Value("${security.tokenValidityThreshold}")
 	int tokenValidityThreshold;
@@ -85,34 +87,29 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
 				"demo");
 		assertTrue(!((CreateReissueInfoSuccessPage) page).getSecret().isEmpty());
-        webDriverOperations.saveScreenCapture();
 		String secret = ((CreateReissueInfoSuccessPage) page).getSecret();
 
 		// confirm that the URL for reissue password has sent by E-mail
 		page = new ReceivedMailPage(webDriverOperations, applicationContextUrl).open();
 		String mailText = ((ReceivedMailPage)page).getLatestMailText();
 		assertTrue(mailText.indexOf("http") >= 0);
-        webDriverOperations.saveScreenCapture();
 		String url = mailText.substring(mailText.indexOf("http"));
 
 		// access "password reissue" page
 		page = new PasswordReissuePage(webDriverOperations,
 				applicationContextUrl, url).open();
-        webDriverOperations.saveScreenCapture();
 
 		// reissue password
 		page = ((PasswordReissuePage) page).reissueSuccess(secret, "Hoge1",
 				"Hoge1");
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				"/resetpassword?complete"));
-        webDriverOperations.saveScreenCapture();
 
 		// after reissue password, the URL has been invalidated
 		page = new PasswordReissuePage(webDriverOperations,
 				applicationContextUrl, url).open();
 		assertThat(webDriverOperations.getTitle(),
 				is("Resource Not Found Error!"));
-        webDriverOperations.saveScreenCapture();
 
 		// confirm that new password has been set
 		page = ((LoginPage) new LoginPage(webDriverOperations,
@@ -120,7 +117,6 @@ public class PasswordReissueTest extends FunctionTestSupport {
 				.gotoTop();
 		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
 				contextName + "/"));
-        webDriverOperations.saveScreenCapture();
 
 		page = ((TopPage) page).logout();
 	}
@@ -146,10 +142,8 @@ public class PasswordReissueTest extends FunctionTestSupport {
 					applicationContextUrl)
 					.openWithDescription("secret phrase and URL is generated at random"))
 					.goToCreateReissueInfoPage().makeReissueInfo("demo");
-	        webDriverOperations.saveScreenCapture();
 			String secret = ((CreateReissueInfoSuccessPage) page).getSecret();
 			page = new ReceivedMailPage(webDriverOperations, applicationContextUrl).open();
-	        webDriverOperations.saveScreenCapture();
 			String mailText = ((ReceivedMailPage)page).getLatestMailText();
 			String url = mailText.substring(mailText.indexOf("http"));
 			// confirm that the URL is different from any other one
@@ -176,7 +170,6 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
 				"demo");
 		page = new ReceivedMailPage(webDriverOperations, applicationContextUrl).open();
-        webDriverOperations.saveScreenCapture();
 		String mailText = ((ReceivedMailPage)page).getLatestMailText();
 		String url = mailText.substring(mailText.indexOf("http"));
 
@@ -190,7 +183,6 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		}
 		assertThat(webDriverOperations.getTitle(),
 				is("Business Error!"));
-        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -207,7 +199,6 @@ public class PasswordReissueTest extends FunctionTestSupport {
 		page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
 				"demo");
 		page = new ReceivedMailPage(webDriverOperations, applicationContextUrl).open();
-        webDriverOperations.saveScreenCapture();
 		String mailText = ((ReceivedMailPage)page).getLatestMailText();
 		String url = mailText.substring(mailText.indexOf("http"));
 
@@ -218,6 +209,5 @@ public class PasswordReissueTest extends FunctionTestSupport {
 				applicationContextUrl, url).open();
 		assertThat(webDriverOperations.getTitle(),
 				anyOf(is("Resource Not Found Error!"), is("Business Error!")));
-        webDriverOperations.saveScreenCapture();
 	}
 }

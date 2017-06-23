@@ -23,13 +23,14 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptException;
-import org.terasoluna.securelogin.selenium.FunctionTestSupport;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.terasoluna.securelogin.selenium.DBLogFunctionTestSupport;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 import org.terasoluna.securelogin.selenium.loginform.page.login.LoginPage;
 import org.terasoluna.securelogin.selenium.loginform.page.passwordchange.PasswordChangePage;
@@ -37,8 +38,9 @@ import org.terasoluna.securelogin.selenium.loginform.page.passwordchange.Passwor
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PasswordStrengthTest extends FunctionTestSupport {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
+public class PasswordStrengthTest extends DBLogFunctionTestSupport {
 
 	@Value("${security.passwordMinimumLength}")
 	int passwordMinimumLength;
@@ -72,7 +74,6 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		assertThat(((PasswordChangePage) page).getNewPasswordError(),
 				containsString("Password must be at least "
 						+ passwordMinimumLength + " characters in length."));
-        webDriverOperations.saveScreenCapture();
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
@@ -98,7 +99,6 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 		assertThat(
 				((PasswordChangePage) page).getNewPasswordError(),
 				containsString("Password matches 2 of 4 character rules, but 3 are required."));
-        webDriverOperations.saveScreenCapture();
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
@@ -121,7 +121,6 @@ public class PasswordStrengthTest extends FunctionTestSupport {
 				.changePasswordFailure("demo", "demoFoo1", "demoFoo1");
 		assertThat(((PasswordChangePage) page).getNewPasswordError(),
 				containsString("Password contains the user id demo."));
-        webDriverOperations.saveScreenCapture();
 
 		page = ((PasswordChangePage) page)
 				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()

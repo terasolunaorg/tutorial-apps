@@ -156,7 +156,7 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
                 defaultTimeoutSecForImplicitlyWait, TimeUnit.SECONDS);
         driver.get(getPackageRootUrl());
         
-        this.webDriverOperations = new WebDriverOperations(driver);
+        this.webDriverOperations = new WebDriverOperations(driver, inputFieldAccessor, screenCapture);
         this.webDriverOperations
                 .setDefaultTimeoutForImplicitlyWait(defaultTimeoutSecForImplicitlyWait);
     }

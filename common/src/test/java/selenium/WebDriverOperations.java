@@ -15,11 +15,13 @@
  */
 package todo.selenium;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 /**
  * Class that provides a (logic for WebDriver) browser operation.
@@ -28,10 +30,18 @@ public class WebDriverOperations {
 
     protected final WebDriver webDriver;
 
+    protected final WebDriverInputFieldAccessor webDriverInputFieldAccessor;
+
+    protected final ScreenCapture screenCapture;
+
     protected long defaultTimeoutSecForImplicitlyWait = 5;
 
-    public WebDriverOperations(WebDriver webDriver) {
+    public WebDriverOperations(WebDriver webDriver,
+            WebDriverInputFieldAccessor webDriverInputFieldAccessor,
+            ScreenCapture screenCapture) {
         this.webDriver = webDriver;
+        this.webDriverInputFieldAccessor = webDriverInputFieldAccessor;
+        this.screenCapture = screenCapture;
     }
 
     /**
@@ -76,4 +86,52 @@ public class WebDriverOperations {
     public void setTimeoutForImplicitlyWait(long timeout, TimeUnit timeUnit) {
         webDriver.manage().timeouts().implicitlyWait(timeout, timeUnit);
     }
+
+    public void displayPage(String url) {
+        webDriver.get(url);
+    }
+
+    public void click(By by) {
+        webDriver.findElement(by).click();
+    }
+
+    public void overrideText(By by, String value) {
+        webDriverInputFieldAccessor.overrideValue(by, value, webDriver);
+    }
+
+    public void referUploadFile(By by, File file) {
+        WebElement element = webDriver.findElement(by);
+        element.sendKeys(file.getAbsolutePath());
+    }
+
+    public String getText(By by) {
+        return webDriver.findElement(by).getText();
+    }
+
+    public void waitForDisplayed(By by) {
+        webDriver.findElement(by);
+    }
+
+    public void suspend(long waitTime, TimeUnit timeUnit) {
+        try {
+            timeUnit.sleep(waitTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getTitle() {
+        waitForDisplayed(By.tagName("title"));
+        return webDriver.getTitle();
+    }
+
+    public String getCurrentUrl() {
+        waitForDisplayed(By.tagName("body"));
+        return webDriver.getCurrentUrl();
+    }
+
+    public void saveScreenCapture() {
+        screenCapture.save(webDriver);
+    }
+
 }

@@ -21,6 +21,7 @@ cp -p -r ../src/secure-login-env/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-env
 cp -p -r ../src/secure-login-initdb/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-initdb
 # selenium project
 cp -p -r ../src/secure-login-selenium/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium
+cp -p -r ../../common/src/test/java/selenium ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/java/org/terasoluna/securelogin
 cp -p -r ../../common/src/test/resources/logback.xml ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/resources
 
 popd

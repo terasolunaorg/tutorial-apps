@@ -47,7 +47,7 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
             		is("demo"));
             assertThat(inputFieldAccessor.getValue(By.id("password"),driver),
             		is("demo"));
-    		screenCapture.save(driver);
+
         }
 
     }
@@ -75,7 +75,6 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
             assertThat(
             		driver.findElement(By.xpath("//a[@href='/"
                             + contextName + "/account']")).getText(), is("view account"));
-    		screenCapture.save(driver);
         }
 
     }
@@ -102,7 +101,6 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
             		is("demo"));
             assertThat(inputFieldAccessor.getValue(By.id("password"),driver),
             		is("demo"));
-    		screenCapture.save(driver);
         }
 
     }
@@ -135,7 +133,6 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
             assertThat(cheese.get(0).getText(), is("demo"));
             assertThat(cheese.get(1).getText(), is("Taro"));
             assertThat(cheese.get(2).getText(), is("Yamada"));
-    		screenCapture.save(driver);
         }
 
     }
@@ -164,7 +161,6 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
             		is("demo"));
             assertThat(inputFieldAccessor.getValue(By.id("password"),driver),
             		is("demo"));
-    		screenCapture.save(driver);
         }
     }
 }

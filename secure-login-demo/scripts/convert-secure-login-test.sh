@@ -152,6 +152,8 @@ sed -i -e 's|xsi:schemaLocation|\
 sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd|' "$SELENIUM_CONTEXT"
 
+find ./ -name "*.java" -o -name "*.xml"| xargs sed -i -e 's|todo.selenium|org.terasoluna.securelogin.selenium|'
+
 if test -n $TARGET_DIR; then
   popd
 fi

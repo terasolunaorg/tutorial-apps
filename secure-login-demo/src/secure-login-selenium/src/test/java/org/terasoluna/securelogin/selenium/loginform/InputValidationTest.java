@@ -23,13 +23,14 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
+import org.junit.runner.RunWith;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptException;
-import org.terasoluna.securelogin.selenium.FunctionTestSupport;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.terasoluna.securelogin.selenium.DBLogFunctionTestSupport;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 import org.terasoluna.securelogin.selenium.loginform.page.account.AccountCreatePage;
 import org.terasoluna.securelogin.selenium.loginform.page.login.LoginPage;
@@ -38,8 +39,9 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class InputValidationTest extends FunctionTestSupport {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
+public class InputValidationTest extends DBLogFunctionTestSupport {
 
 	@Inject
 	ResourceLoader resourceLoader;
@@ -76,7 +78,6 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.png", "test user");
 		assertThat(webDriverOperations.getTitle(),
 				is("Invalid Character Error!"));
-        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -99,7 +100,6 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo;.png", "test user");
 		assertThat(webDriverOperations.getTitle(),
 				is("Invalid Character Error!"));
-        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -120,7 +120,6 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.png", "test user");
 		assertThat(((AccountCreatePage) page).getUsernameError(),
 				containsString("Control characters are not allowed."));
-        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -141,7 +140,6 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.txt", "test user");
 		assertThat(((AccountCreatePage) page).getImageError(),
 				containsString("The file extension is not allowed."));
-        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -163,7 +161,6 @@ public class InputValidationTest extends FunctionTestSupport {
 						"test user");
 		assertThat(((AccountCreatePage) page).getImageError(),
 				containsString("The file name is not allowed."));
-        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -184,7 +181,6 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.png", "test user");
 		assertThat(((AccountCreatePage) page).getUrlError(),
 				containsString("This domain is not allowed."));
-        webDriverOperations.saveScreenCapture();
 	}
 
 	/**
@@ -205,6 +201,5 @@ public class InputValidationTest extends FunctionTestSupport {
 						"classpath:database/testdata/demo.png", "test user");
 		assertThat(((AccountCreatePage) page).getEmailError(),
 				containsString("This domain is not allowed."));
-        webDriverOperations.saveScreenCapture();
 	}
 }
