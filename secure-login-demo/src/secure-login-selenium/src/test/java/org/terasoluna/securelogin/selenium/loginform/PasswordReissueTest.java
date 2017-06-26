@@ -27,12 +27,9 @@ import javax.sql.DataSource;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.terasoluna.securelogin.selenium.DBLogFunctionTestSupport;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 import org.terasoluna.securelogin.selenium.loginform.page.login.LoginPage;
@@ -48,8 +45,6 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
 public class PasswordReissueTest extends DBLogFunctionTestSupport {
 
 	@Value("${security.tokenValidityThreshold}")

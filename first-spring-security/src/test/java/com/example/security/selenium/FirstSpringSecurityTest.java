@@ -21,16 +21,11 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.example.security.selenium.FunctionTestSupport;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
 public class FirstSpringSecurityTest extends FunctionTestSupport {
 
     /**
