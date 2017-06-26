@@ -25,7 +25,7 @@ The following table describe Shell scripts functionality.
 | common/scripts/convert-*.sh | Convert files (i.e. append/replace/delete lines) on blank project (or based files). (In tutorial, you need to do manually.) Called by ``create-app.sh`` in some tutorials. |
 | common/scripts/mvn-singleproject-build.sh | Execute build and test, using ``cargo-maven2-plugin``. For single-project structure. |
 | common/scripts/mvn-multiproject-build.sh | Execute build and test, using ``cargo-maven2-plugin``. For multi-project structure. |
-| common/scripts/change-maven-settings.sh | Copy maven settings.xml from ``~/.m2`` directory and configure archetype repository setting. |
+| common/scripts/change-maven-settings.sh | Copy maven settings.xml from ``~/.m2`` directory and configure archetype repository. |
 
 ## How to execute
 You can execute ``create-app.sh`` with no parameters to genarate tutorial applications.  
