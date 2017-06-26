@@ -23,13 +23,11 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptException;
-import org.terasoluna.securelogin.selenium.FunctionTestSupport;
+import org.terasoluna.securelogin.selenium.DBLogFunctionTestSupport;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 import org.terasoluna.securelogin.selenium.loginform.page.account.AccountCreatePage;
 import org.terasoluna.securelogin.selenium.loginform.page.login.LoginPage;
@@ -38,8 +36,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class InputValidationTest extends FunctionTestSupport {
+public class InputValidationTest extends DBLogFunctionTestSupport {
 
 	@Inject
 	ResourceLoader resourceLoader;

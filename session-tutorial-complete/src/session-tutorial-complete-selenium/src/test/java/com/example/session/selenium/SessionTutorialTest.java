@@ -20,17 +20,12 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.After;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.example.session.selenium.FunctionTestSupport;
- 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
+
 public class SessionTutorialTest extends FunctionTestSupport {
 
  

@@ -28,12 +28,17 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:META-INF/spring/seleniumContext.xml" })
 public class FunctionTestSupport extends ApplicationObjectSupport {
 
     private static final Logger classLogger = LoggerFactory
@@ -156,7 +161,7 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
                 defaultTimeoutSecForImplicitlyWait, TimeUnit.SECONDS);
         driver.get(getPackageRootUrl());
         
-        this.webDriverOperations = new WebDriverOperations(driver);
+        this.webDriverOperations = new WebDriverOperations(driver, inputFieldAccessor, screenCapture);
         this.webDriverOperations
                 .setDefaultTimeoutForImplicitlyWait(defaultTimeoutSecForImplicitlyWait);
     }

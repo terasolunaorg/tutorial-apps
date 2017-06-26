@@ -24,13 +24,11 @@ import javax.inject.Named;
 import javax.sql.DataSource;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptException;
-import org.terasoluna.securelogin.selenium.FunctionTestSupport;
+import org.terasoluna.securelogin.selenium.DBLogFunctionTestSupport;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 import org.terasoluna.securelogin.selenium.loginform.page.login.LoginPage;
 import org.terasoluna.securelogin.selenium.loginform.page.passwordchange.PasswordChangePage;
@@ -40,8 +38,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AccountLockTest extends FunctionTestSupport {
+public class AccountLockTest extends DBLogFunctionTestSupport {
 
 	@Value("${security.lockingThreshold}")
 	int lockingThreshold;
