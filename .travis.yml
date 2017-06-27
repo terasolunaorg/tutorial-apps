@@ -36,6 +36,7 @@ env:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
+  - bash ./common/scripts/change-maven-settings.sh
   - mvn dependency:copy -Dartifact=org.codehaus.cargo:cargo-daemon-webapp:${CARGO_DAEMON_WEBAPP_VERSION}:war -DoutputDirectory=./
   - java -jar ./cargo-daemon-webapp-${CARGO_DAEMON_WEBAPP_VERSION}.war &
 
