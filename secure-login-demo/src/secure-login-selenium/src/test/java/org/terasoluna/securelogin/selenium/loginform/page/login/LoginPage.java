@@ -16,7 +16,7 @@
 package org.terasoluna.securelogin.selenium.loginform.page.login;
 
 import org.springframework.core.io.ResourceLoader;
-import org.terasoluna.securelogin.selenium.WebDriverOperations;
+import org.terasoluna.gfw.tutorial.selenium.WebDriverOperations;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 import org.terasoluna.securelogin.selenium.loginform.page.account.AccountCreatePage;
 import org.terasoluna.securelogin.selenium.loginform.page.passwordchange.PasswordChangePage;

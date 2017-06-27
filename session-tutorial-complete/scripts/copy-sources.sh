@@ -20,7 +20,6 @@ cp -p -r ../../session-tutorial-init/src/session-tutorial-init-env/* ./${ARTIFAC
 cp -p -r ../src/session-tutorial-complete-web/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-web
 # selenium project
 cp -p -r ../src/session-tutorial-complete-selenium/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium
-cp -p -r ../../common/src/test/java/selenium ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/java/com/example/session
-cp -p -r ../../common/src/test/resources ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test
+cp -p -r ../../common/src/test ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src
 
 popd

@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.example.security.selenium.FunctionTestSupport;
+import org.terasoluna.gfw.tutorial.selenium.FunctionTestSupport;
 
 public class FirstSpringSecurityTest extends FunctionTestSupport {
 

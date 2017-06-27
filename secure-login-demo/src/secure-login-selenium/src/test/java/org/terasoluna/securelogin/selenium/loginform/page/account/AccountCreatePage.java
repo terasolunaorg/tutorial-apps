@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.terasoluna.securelogin.selenium.WebDriverOperations;
+import org.terasoluna.gfw.tutorial.selenium.WebDriverOperations;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 
 import static org.openqa.selenium.By.id;

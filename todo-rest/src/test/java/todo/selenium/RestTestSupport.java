@@ -29,6 +29,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.terasoluna.gfw.tutorial.selenium.FunctionTestSupport;
 
 import com.jayway.restassured.RestAssured;
 

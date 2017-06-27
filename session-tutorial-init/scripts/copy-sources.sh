@@ -15,7 +15,6 @@ cp -p -r ../src/session-tutorial-init-domain/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-d
 cp -p -r ../src/session-tutorial-init-env/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-env
 # selenium project
 cp -p -r ../src/session-tutorial-init-selenium/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium
-cp -p -r ../../common/src/test/java/selenium ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/java/com/example/session
-cp -p -r ../../common/src/test/resources ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test
+cp -p -r ../../common/src/test ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src
 
 popd

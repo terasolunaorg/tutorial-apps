@@ -16,8 +16,7 @@ if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
   cp -p -r ../src/main/java/todo/domain ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/java/todo
   # selenium project
   cp -p -r ../src/test ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src
-  cp -p -r ../../common/src/test/java/selenium ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/java/todo
-  cp -p -r ../../common/src/test/resources ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test
+  cp -p -r ../../common/src/test ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src
   
   case "${ARCHETYPE_ARTIFACT_ID}" in
     *mybatis3* )
@@ -34,8 +33,7 @@ if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
 else
   # single project
   cp -p -r ../src/* ./${ARTIFACT_ID}/src
-  cp -p -r ../../common/src/test/java/selenium ./${ARTIFACT_ID}/src/test/java/todo
-  cp -p -r ../../common/src/test/resources ./${ARTIFACT_ID}/src/test
+  cp -p -r ../../common/src/test ./${ARTIFACT_ID}/src
   
   case "${ARCHETYPE_ARTIFACT_ID}" in
     *mybatis3* )
