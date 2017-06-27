@@ -13,16 +13,16 @@
     <tx:annotation-driven/>
 
     <bean id="screenCapture"
-        class="org.terasoluna.selenium.ScreenCapture" />
+        class="org.terasoluna.gfw.tutorial.selenium.ScreenCapture" />
 
     <bean id="pageSource"
-        class="org.terasoluna.selenium.PageSource" />
+        class="org.terasoluna.gfw.tutorial.selenium.PageSource" />
     
-    <bean class="org.terasoluna.selenium.WebDriverCreator" />
+    <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />
 
     <!-- Settings for WebDrivers -->
     <beans profile="firefox default">
-        <bean id="webDriver" class="org.terasoluna.selenium.FirefoxDriverFactoryBean"
+        <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"
             scope="prototype" />
     </beans>
     <beans profile="chrome">

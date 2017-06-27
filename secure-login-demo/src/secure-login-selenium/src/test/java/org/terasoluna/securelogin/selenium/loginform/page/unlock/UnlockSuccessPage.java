@@ -15,7 +15,7 @@
  */
 package org.terasoluna.securelogin.selenium.loginform.page.unlock;
 
-import org.terasoluna.selenium.WebDriverOperations;
+import org.terasoluna.gfw.tutorial.selenium.WebDriverOperations;
 import org.terasoluna.securelogin.selenium.loginform.page.AuthenticationRequiredPage;
 
 public class UnlockSuccessPage extends AuthenticationRequiredPage {

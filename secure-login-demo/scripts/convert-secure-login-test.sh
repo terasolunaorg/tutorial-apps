@@ -119,7 +119,7 @@ sed -i -e 's|</beans>|\
         </property>\
     </bean>\
 \
-    <bean id="dbLogAssertOperations" class="org.terasoluna.selenium.DBLogAssertOperations">\
+    <bean id="dbLogAssertOperations" class="org.terasoluna.gfw.tutorial.selenium.DBLogAssertOperations">\
         <constructor-arg index="0">\
             <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">\
                 <property name="dataSource" ref="dataSourceForLogging" />\
@@ -129,20 +129,20 @@ sed -i -e 's|</beans>|\
     </bean>\
 \
     <bean id="screenCapture"\
-        class="org.terasoluna.selenium.ScreenCapture" />\
+        class="org.terasoluna.gfw.tutorial.selenium.ScreenCapture" />\
 \
-    <bean id="dbLog" class="org.terasoluna.selenium.DBLog">\
+    <bean id="dbLog" class="org.terasoluna.gfw.tutorial.selenium.DBLog">\
         <property name="dataSource" ref="dataSourceForLogging" />\
     </bean>\
 \
     <bean id="pageSource"\
-        class="org.terasoluna.selenium.PageSource" />\
+        class="org.terasoluna.gfw.tutorial.selenium.PageSource" />\
 \
-    <bean id="dbLogCleaner" class="org.terasoluna.selenium.DBLogCleaner">\
+    <bean id="dbLogCleaner" class="org.terasoluna.gfw.tutorial.selenium.DBLogCleaner">\
         <property name="dataSource" ref="dataSourceForLogging" />\
     </bean>\
 \
-    <bean class="org.terasoluna.selenium.WebDriverCreator" />\
+    <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />\
 </beans>|' "$SELENIUM_CONTEXT"
 
 sed -i -e 's|xsi:schemaLocation|\

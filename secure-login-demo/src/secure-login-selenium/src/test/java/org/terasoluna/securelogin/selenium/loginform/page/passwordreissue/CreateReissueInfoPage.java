@@ -15,7 +15,7 @@
  */
 package org.terasoluna.securelogin.selenium.loginform.page.passwordreissue;
 
-import org.terasoluna.selenium.WebDriverOperations;
+import org.terasoluna.gfw.tutorial.selenium.WebDriverOperations;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 
 import static org.openqa.selenium.By.id;

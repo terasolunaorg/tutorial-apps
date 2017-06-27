@@ -17,7 +17,7 @@ package org.terasoluna.securelogin.selenium.loginform.page.mail;
 
 import java.io.IOException;
 
-import org.terasoluna.selenium.WebDriverOperations;
+import org.terasoluna.gfw.tutorial.selenium.WebDriverOperations;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 
 import com.fasterxml.jackson.core.JsonParseException;

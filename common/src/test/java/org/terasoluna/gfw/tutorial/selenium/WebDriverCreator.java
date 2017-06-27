@@ -13,7 +13,7 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.terasoluna.selenium;
+package org.terasoluna.gfw.tutorial.selenium;
 
 import java.util.concurrent.TimeUnit;
 
