@@ -13,8 +13,6 @@ fi
 # selenium.properties
 find ./ -type f -name 'selenium.properties' | xargs sed -i -e "s|selenium.contextName=|selenium.contextName=${ARTIFACT_ID}-web|"
 
-find ./ -name "*.java" -o -name "*.xml"| xargs sed -i -e 's|todo.selenium|com.example.session.selenium|'
-
 if test -n $TARGET_DIR; then
   popd
 fi

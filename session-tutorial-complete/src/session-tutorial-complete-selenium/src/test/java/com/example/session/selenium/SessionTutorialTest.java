@@ -24,7 +24,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Value;
 
-import com.example.session.selenium.FunctionTestSupport;
+import org.terasoluna.selenium.FunctionTestSupport;
 
 public class SessionTutorialTest extends FunctionTestSupport {
 

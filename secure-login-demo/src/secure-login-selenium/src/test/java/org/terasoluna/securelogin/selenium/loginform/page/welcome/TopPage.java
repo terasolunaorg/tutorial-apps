@@ -16,7 +16,7 @@
 package org.terasoluna.securelogin.selenium.loginform.page.welcome;
 
 import org.springframework.util.StringUtils;
-import org.terasoluna.securelogin.selenium.WebDriverOperations;
+import org.terasoluna.selenium.WebDriverOperations;
 import org.terasoluna.securelogin.selenium.loginform.page.AuthenticationRequiredPage;
 import org.terasoluna.securelogin.selenium.loginform.page.account.AccountInfoPage;
 import org.terasoluna.securelogin.selenium.loginform.page.login.LoginPage;

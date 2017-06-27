@@ -26,7 +26,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Value;
 
-import todo.selenium.FunctionTestSupport;
+import org.terasoluna.selenium.FunctionTestSupport;
 
 public class TodoTest extends FunctionTestSupport {
 

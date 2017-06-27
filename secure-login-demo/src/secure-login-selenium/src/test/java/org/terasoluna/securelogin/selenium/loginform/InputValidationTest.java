@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.jdbc.datasource.init.ScriptException;
-import org.terasoluna.securelogin.selenium.DBLogFunctionTestSupport;
+import org.terasoluna.selenium.DBLogFunctionTestSupport;
 import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 import org.terasoluna.securelogin.selenium.loginform.page.account.AccountCreatePage;
 import org.terasoluna.securelogin.selenium.loginform.page.login.LoginPage;

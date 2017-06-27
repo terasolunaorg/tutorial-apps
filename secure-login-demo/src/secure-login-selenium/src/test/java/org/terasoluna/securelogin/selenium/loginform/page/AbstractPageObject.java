@@ -17,7 +17,7 @@ package org.terasoluna.securelogin.selenium.loginform.page;
 
 import java.util.concurrent.TimeUnit;
 
-import org.terasoluna.securelogin.selenium.WebDriverOperations;
+import org.terasoluna.selenium.WebDriverOperations;
 
 public abstract class AbstractPageObject {
 
