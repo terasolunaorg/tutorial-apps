@@ -18,7 +18,7 @@ if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
   # selenium.properties
   find ./ -type f -name 'selenium.properties' | xargs sed -i -e "s|selenium.contextName=|selenium.contextName=${ARTIFACT_ID}-web|"
 else
-  # selenium/pom.xml
+  # pom.xml
   find ./${ARTIFACT_ID}/pom.xml | xargs sed -i -e 's|<dependencies>|<dependencies>\n        <dependency>\n            <groupId>com.jayway.restassured</groupId>\n            <artifactId>rest-assured</artifactId>\n            <version>${com.jayway.restassured.version}</version>\n            <scope>test</scope>\n        </dependency>|'
   find ./${ARTIFACT_ID}/pom.xml | xargs sed -i -e 's|</properties>|    <com.jayway.restassured.version>2.7.0</com.jayway.restassured.version>\n    </properties>|'
   # selenium.properties
