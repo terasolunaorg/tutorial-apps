@@ -3,7 +3,7 @@
 # Required variables:
 #   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
 
-if test `echo ${ARCHETYPE_VERSION} | tail -c8 ` = "SNAPSHOT"; then
+if test `echo -n ${ARCHETYPE_VERSION} | tail -c8 ` = "SNAPSHOT"; then
   SCRIPT_DIR=`dirname "$0"`
   pushd "${SCRIPT_DIR}"
   cp ~/.m2/settings.xml ./
