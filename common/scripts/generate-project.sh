@@ -7,7 +7,7 @@
 #   ${ARTIFACT_ID}=Artifact ID of tutorial project.
 #   ${VERSION}=Version of tutorial project.
 
-if test `echo ${ARCHETYPE_VERSION} | tail -c8 ` != "SNAPSHOT"; then
+if test `echo -n ${ARCHETYPE_VERSION} | tail -c8 ` != "SNAPSHOT"; then
   mvn archetype:generate -B \
    -DarchetypeGroupId=org.terasoluna.gfw.blank \
    -DarchetypeArtifactId=${ARCHETYPE_ARTIFACT_ID} \
