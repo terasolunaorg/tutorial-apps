@@ -24,6 +24,22 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>net.revelc.code.formatter</groupId>
+                <artifactId>formatter-maven-plugin</artifactId>
+                <version>${formatter-maven-plugin.version}</version>
+                <configuration>
+                    <configFile>${project.basedir}/eclipse/formatter.xml
+                    </configFile>
+                    <lineEnding>CRLF</lineEnding>
+                    <directories>
+                        <directory>${project.basedir}</directory>
+                    </directories>
+                    <includes>
+                        <include>**/src/test/java/**/*.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.google.code.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
                 <version>${com.google.code.maven-license-plugin.version}</version>
@@ -44,7 +60,9 @@
         </plugins>
     </build>
     <properties>
+        <formatter-maven-plugin.version>2.0.1</formatter-maven-plugin.version>
         <com.google.code.maven-license-plugin.version>1.4.0</com.google.code.maven-license-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <encoding>UTF-8</encoding>
     </properties>
 </project>
