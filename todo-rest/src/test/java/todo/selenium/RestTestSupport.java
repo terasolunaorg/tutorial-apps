@@ -35,23 +35,24 @@ import com.jayway.restassured.RestAssured;
 
 public abstract class RestTestSupport extends FunctionTestSupport {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(RestTestSupport.class);
-  
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            RestTestSupport.class);
+
     @Inject
     private RestLog restLog;
 
     protected StringWriter writer;
+
     protected PrintStream captor;
 
     protected RestTestSupport() {
-    	super();
-    	disableSetupDefaultWebDriver();
+        super();
+        disableSetupDefaultWebDriver();
     }
 
     @Before
     public final void setUpRestEvidence() {
-    	
+
         String testCaseName = testName.getMethodName().replaceAll("^test", "");
 
         String simplePackageName = this.getClass().getPackage().getName()
@@ -59,41 +60,42 @@ public abstract class RestTestSupport extends FunctionTestSupport {
         File evidenceSavingDirectory = new File(String.format("%s/%s/%s",
                 evidenceBaseDirectory, simplePackageName, testCaseName));
         restLog.setUp(evidenceSavingDirectory);
-	}
+    }
 
-	@Before
-	public final void setUpConfig() {
-		
-		// Initialization of applicationContextUrl
-		RestAssured.baseURI = applicationContextUrl + "/api/v1/todos";
-		RestAssured.config = config().logConfig(logConfig().enablePrettyPrinting(false));
-		writer = new StringWriter(); 
-		captor = new PrintStream(new WriterOutputStream(writer), true);
-	}
+    @Before
+    public final void setUpConfig() {
 
-	@Override
-	protected void onSucceeded() {
+        // Initialization of applicationContextUrl
+        RestAssured.baseURI = applicationContextUrl + "/api/v1/todos";
+        RestAssured.config = config().logConfig(logConfig()
+                .enablePrettyPrinting(false));
+        writer = new StringWriter();
+        captor = new PrintStream(new WriterOutputStream(writer), true);
+    }
+
+    @Override
+    protected void onSucceeded() {
         String subTitle = "succeeded";
         try {
-        	restLog.save(writer, subTitle);
+            restLog.save(writer, subTitle);
         } catch (Throwable t) {
             LOGGER.error("failed restLog capture.", t);
         }
     }
 
-	@Override
+    @Override
     protected void onFailed(Throwable e) {
-    	String subTitle = "failed";
+        String subTitle = "failed";
         try {
-        	restLog.saveForced(writer, subTitle);
+            restLog.saveForced(writer, subTitle);
         } catch (Throwable t) {
             LOGGER.error("failed restLog capture.", t);
         }
     }
-	
-	 @AfterClass
-	 public static void tearDownConfig() {
-		 RestAssured.reset();
-	 }
-    
+
+    @AfterClass
+    public static void tearDownConfig() {
+        RestAssured.reset();
+    }
+
 }

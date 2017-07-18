@@ -90,7 +90,8 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("browser.download.dir", downloadTempDirectory);
         profile.setPreference("browser.download.folderList", 2);
-        profile.setPreference("browser.download.lastDir", downloadTempDirectory);
+        profile.setPreference("browser.download.lastDir",
+                downloadTempDirectory);
         profile.setPreference("browser.helperApps.alwaysAsk.force", false);
         profile.setPreference("browser.download.manager.showWhenStarting",
                 false);
