@@ -49,12 +49,10 @@
             <formatFileSet>
               <directory>${basedir}</directory>
               <includes>
-                <include>pom.xml</include>
                 <include>**/src/test/**/*.xml</include>
               </includes>
             </formatFileSet>
           </formatFileSets>
-          <useDefaultFormatFileSet>false</useDefaultFormatFileSet>
         </configuration>
       </plugin>
       <plugin>
