@@ -41,8 +41,11 @@ before_script:
   - java -jar ./cargo-daemon-webapp-${CARGO_DAEMON_WEBAPP_VERSION}.war &
 
 script: 
-  - mvn xml:check-format
-  - mvn formatter:validate
+  - echo "==================== Validate code format ===================="
+  - |
+    mvn xml:check-format
+    mvn formatter:validate
+    
   - echo "==================== Generate Tutorial App ===================="
   - |
     bash ./${TARGET_TUTORIAL}/scripts/create-app.sh
