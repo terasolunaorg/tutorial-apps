@@ -62,7 +62,8 @@
         <configuration>
           <header>${project.basedir}/license/header.txt</header>
           <includes>
-            <include>**/*.java</include>
+            <include>**/src*/main/java/**/*.java</include>
+            <include>**/src*/test/java/**/*.java</include>
           </includes>
           <excludes>
             <exclude>**/BlobInputStreamTypeHandler.java</exclude>
