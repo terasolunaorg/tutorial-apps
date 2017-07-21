@@ -43,6 +43,7 @@ before_script:
 script: 
   - echo "==================== Validate code format ===================="
   - |
+    mvn xml:check-format
     mvn formatter:validate
     
   - echo "==================== Generate Tutorial App ===================="
