@@ -40,82 +40,79 @@ import static org.junit.Assert.assertThat;
 
 public class AccountLockTest extends DBLogFunctionTestSupport {
 
-	@Value("${security.lockingThreshold}")
-	int lockingThreshold;
+    @Value("${security.lockingThreshold}")
+    int lockingThreshold;
 
-	@Value("${security.lockingDurationSeconds}")
-	int lockingDurationSeconds;
+    @Value("${security.lockingDurationSeconds}")
+    int lockingDurationSeconds;
 
-	@Inject
-	@Named("dataSource")
-	DataSource dataSource;
+    @Inject
+    @Named("dataSource")
+    DataSource dataSource;
 
-	@Inject
-	ResourceDatabasePopulator populator;
+    @Inject
+    ResourceDatabasePopulator populator;
 
-	@Before
-	public void setup() throws ScriptException, SQLException {
-		populator.populate(dataSource.getConnection());
-	}
+    @Before
+    public void setup() throws ScriptException, SQLException {
+        populator.populate(dataSource.getConnection());
+    }
 
-	/**
-	 * <ul>
-	 * <li>test : an account is locked by series of incorrect password attempts
-	 * <li>test : account is unlocked when the certain time passes</li>
-	 * </ul>
-	 */
-	@Test
-	public void testAccountLock001() throws IOException, InterruptedException {
-		AbstractPageObject page = new LoginPage(webDriverOperations,
-				applicationContextUrl)
-				.openWithDescription("an account is locked by series of incorrect password attempts"
-						+ " and unlocked when the certain time passes");
-		for (int i = 0; i < lockingThreshold + 1; i++) {
-			page = ((LoginPage) page).loginFailure("demo", "hoge");
-		}
-		assertThat(((LoginPage) page).getLoginError(),
-				is("User account is locked"));
+    /**
+     * <ul>
+     * <li>test : an account is locked by series of incorrect password attempts
+     * <li>test : account is unlocked when the certain time passes</li>
+     * </ul>
+     */
+    @Test
+    public void testAccountLock001() throws IOException, InterruptedException {
+        AbstractPageObject page = new LoginPage(webDriverOperations, applicationContextUrl)
+                .openWithDescription(
+                        "an account is locked by series of incorrect password attempts"
+                                + " and unlocked when the certain time passes");
+        for (int i = 0; i < lockingThreshold + 1; i++) {
+            page = ((LoginPage) page).loginFailure("demo", "hoge");
+        }
+        assertThat(((LoginPage) page).getLoginError(), is(
+                "User account is locked"));
 
-		webDriverOperations.suspend(lockingDurationSeconds, TimeUnit.SECONDS);
-		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo");
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				"/password?form"));
+        webDriverOperations.suspend(lockingDurationSeconds, TimeUnit.SECONDS);
+        page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo");
+        assertTrue(webDriverOperations.getCurrentUrl().endsWith(
+                "/password?form"));
 
-		page = ((PasswordChangePage) page)
-				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
-				.logout();
-	}
+        page = ((PasswordChangePage) page).changePasswordSuccess("demo", "Foo1",
+                "Foo1").gotoTop().logout();
+    }
 
-	/**
-	 * <ul>
-	 * <li>test : administrator can unlock accounts</li>
-	 * </ul>
-	 */
-	@Test
-	public void testAccountLock002() throws IOException, InterruptedException {
-		AbstractPageObject page = new LoginPage(webDriverOperations,
-				applicationContextUrl)
-				.openWithDescription("administrator can unlock accounts");
+    /**
+     * <ul>
+     * <li>test : administrator can unlock accounts</li>
+     * </ul>
+     */
+    @Test
+    public void testAccountLock002() throws IOException, InterruptedException {
+        AbstractPageObject page = new LoginPage(webDriverOperations, applicationContextUrl)
+                .openWithDescription("administrator can unlock accounts");
 
-		for (int i = 0; i < lockingThreshold + 1; i++) {
-			page = ((LoginPage) page).loginFailure("demo", "hoge");
-		}
+        for (int i = 0; i < lockingThreshold + 1; i++) {
+            page = ((LoginPage) page).loginFailure("demo", "hoge");
+        }
 
-		// unlock
-		page = ((LoginPage) page).loginSuccessIntercepted("admin", "demo")
-				.changePasswordSuccess("demo", "Bar1", "Bar1").gotoTop()
-				.goToUnlockPage().unlockSuccess("demo");
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				"unlock?complete"));
+        // unlock
+        page = ((LoginPage) page).loginSuccessIntercepted("admin", "demo")
+                .changePasswordSuccess("demo", "Bar1", "Bar1").gotoTop()
+                .goToUnlockPage().unlockSuccess("demo");
+        assertTrue(webDriverOperations.getCurrentUrl().endsWith(
+                "unlock?complete"));
 
-		// confirm the account is successfully unlocked
-		page = ((UnlockSuccessPage) page).gotoTop().logout()
-				.loginSuccessIntercepted("demo", "demo");
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				"/password?form"));
-		page = ((PasswordChangePage) page)
-				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
-				.logout();
-	}
+        // confirm the account is successfully unlocked
+        page = ((UnlockSuccessPage) page).gotoTop().logout()
+                .loginSuccessIntercepted("demo", "demo");
+        assertTrue(webDriverOperations.getCurrentUrl().endsWith(
+                "/password?form"));
+        page = ((PasswordChangePage) page).changePasswordSuccess("demo", "Foo1",
+                "Foo1").gotoTop().logout();
+    }
 
 }

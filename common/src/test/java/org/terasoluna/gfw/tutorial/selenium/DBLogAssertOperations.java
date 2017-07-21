@@ -31,7 +31,7 @@ import org.springframework.util.StringUtils;
 public class DBLogAssertOperations {
     @Value("${selenium.waitForLogAssertion.offsetSeconds:0}")
     int offsetSecondsOfWaitForLogAssertion;
-    
+
     private final NamedParameterJdbcOperations jdbcOperations;
 
     public DBLogAssertOperations(JdbcOperations jdbcOperations) {
@@ -111,8 +111,8 @@ public class DBLogAssertOperations {
      */
     public void waitForAssertion() {
         try {
-            long adjustedWaitTime = (50 + TimeUnit.SECONDS
-                    .toMillis(offsetSecondsOfWaitForLogAssertion));
+            long adjustedWaitTime = (50 + TimeUnit.SECONDS.toMillis(
+                    offsetSecondsOfWaitForLogAssertion));
             TimeUnit.MILLISECONDS.sleep(adjustedWaitTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -128,9 +128,8 @@ public class DBLogAssertOperations {
      */
     public void waitForAssertion(long waitTime) {
         try {
-            long adjustedWaitTime = waitTime
-                    + TimeUnit.SECONDS
-                            .toMillis(offsetSecondsOfWaitForLogAssertion);
+            long adjustedWaitTime = waitTime + TimeUnit.SECONDS.toMillis(
+                    offsetSecondsOfWaitForLogAssertion);
             TimeUnit.MILLISECONDS.sleep(adjustedWaitTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -160,7 +159,8 @@ public class DBLogAssertOperations {
      */
     public void assertContainsByMessage(String xTrack, String loggerName,
             String message) {
-        long count = getCountInLogContainsByMessage(xTrack, loggerName, message);
+        long count = getCountInLogContainsByMessage(xTrack, loggerName,
+                message);
         assertThat(count, is(1L));
     }
 
@@ -212,12 +212,16 @@ public class DBLogAssertOperations {
         sql.append("SELECT COUNT(e.*) FROM logging_event e");
         where.append(" WHERE e.formatted_message REGEXP :message");
 
-        sql.append(" JOIN logging_event_exception ee ON ee.event_id = e.event_id");
-        where.append(" AND ee.I = '0' AND ee.TRACE_LINE REGEXP :exceptionMessage");
+        sql.append(
+                " JOIN logging_event_exception ee ON ee.event_id = e.event_id");
+        where.append(
+                " AND ee.I = '0' AND ee.TRACE_LINE REGEXP :exceptionMessage");
 
         if (StringUtils.hasText(xTrack)) {
-            sql.append(" JOIN logging_event_property ep ON ep.event_id = e.event_id");
-            where.append(" AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
+            sql.append(
+                    " JOIN logging_event_property ep ON ep.event_id = e.event_id");
+            where.append(
+                    " AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
         }
         if (StringUtils.hasText(loggerNamePattern)) {
             where.append(" AND e.logger_name REGEXP :loggerName");
@@ -276,7 +280,8 @@ public class DBLogAssertOperations {
      */
     public void assertNotContainsByMessage(String xTrack, String loggerName,
             String message) {
-        long count = getCountInLogContainsByMessage(xTrack, loggerName, message);
+        long count = getCountInLogContainsByMessage(xTrack, loggerName,
+                message);
         assertThat(count, is(0L));
     }
 
@@ -327,8 +332,10 @@ public class DBLogAssertOperations {
         sql.append("SELECT e.formatted_message FROM logging_event e");
         where.append(" WHERE e.formatted_message REGEXP :message");
         if (StringUtils.hasText(xTrack)) {
-            sql.append(" JOIN logging_event_property ep ON ep.event_id = e.event_id");
-            where.append(" AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
+            sql.append(
+                    " JOIN logging_event_property ep ON ep.event_id = e.event_id");
+            where.append(
+                    " AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
         }
         if (StringUtils.hasText(loggerNamePattern)) {
             where.append(" AND e.logger_name REGEXP :loggerName");
@@ -342,8 +349,8 @@ public class DBLogAssertOperations {
         params.addValue("loggerName", loggerNamePattern);
         params.addValue("message", messagePattern);
 
-        return jdbcOperations
-                .queryForList(sql.toString(), params, String.class);
+        return jdbcOperations.queryForList(sql.toString(), params,
+                String.class);
     }
 
     protected void assertNotContainsLevels(String xTrack, String... levels) {
@@ -360,8 +367,10 @@ public class DBLogAssertOperations {
         }
         where.append(")");
         if (StringUtils.hasText(xTrack)) {
-            sql.append(" JOIN logging_event_property ep ON ep.event_id = e.event_id");
-            where.append(" AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
+            sql.append(
+                    " JOIN logging_event_property ep ON ep.event_id = e.event_id");
+            where.append(
+                    " AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
         }
         sql.append(where);
 
@@ -383,8 +392,10 @@ public class DBLogAssertOperations {
         sql.append("SELECT COUNT(e.*) FROM logging_event e");
         where.append(" WHERE e.formatted_message REGEXP :message");
         if (StringUtils.hasText(xTrack)) {
-            sql.append(" JOIN logging_event_property ep ON ep.event_id = e.event_id");
-            where.append(" AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
+            sql.append(
+                    " JOIN logging_event_property ep ON ep.event_id = e.event_id");
+            where.append(
+                    " AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
         }
         if (StringUtils.hasText(loggerNamePattern)) {
             where.append(" AND e.logger_name REGEXP :loggerName");
@@ -396,8 +407,8 @@ public class DBLogAssertOperations {
         params.addValue("loggerName", loggerNamePattern);
         params.addValue("message", messagePattern);
 
-        return jdbcOperations
-                .queryForObject(sql.toString(), params, Long.class);
+        return jdbcOperations.queryForObject(sql.toString(), params,
+                Long.class);
 
     }
 
@@ -408,8 +419,10 @@ public class DBLogAssertOperations {
         sql.append("SELECT COUNT(*) FROM logging_event e");
         where.append(" WHERE e.formatted_message = :message");
         if (StringUtils.hasText(xTrack)) {
-            sql.append("JOIN logging_event_property ep ON ep.event_id = e.event_id AND ep.mapped");
-            where.append(" AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
+            sql.append(
+                    "JOIN logging_event_property ep ON ep.event_id = e.event_id AND ep.mapped");
+            where.append(
+                    " AND ep.mapped_key = 'X-Track' AND ep.mapped_value = :xTrack");
         }
         if (StringUtils.hasText(loggerName)) {
             where.append(" AND e.logger_name = :loggerName");
@@ -420,7 +433,7 @@ public class DBLogAssertOperations {
         params.addValue("xTrack", xTrack);
         params.addValue("loggerName", loggerName);
         params.addValue("message", message);
-        return jdbcOperations
-                .queryForObject(sql.toString(), params, Long.class);
+        return jdbcOperations.queryForObject(sql.toString(), params,
+                Long.class);
     }
 }

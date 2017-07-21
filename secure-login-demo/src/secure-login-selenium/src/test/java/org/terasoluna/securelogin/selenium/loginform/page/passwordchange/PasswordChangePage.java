@@ -22,46 +22,44 @@ import static org.openqa.selenium.By.id;
 
 public class PasswordChangePage extends AuthenticationRequiredPage {
 
-	{
-		url = "/password?form";
-	}
-	
-	public PasswordChangePage(WebDriverOperations webDriverOperations,
-			String applicationContextURL) {
-		super(webDriverOperations, applicationContextURL);
-	}
+    {
+        url = "/password?form";
+    }
 
-	private void changePassword(String oldPassword, String newPassword,
-			String confirmNewPassword) {
-		webDriverOperations.overrideText(id("oldPassword"), oldPassword);
-		webDriverOperations.overrideText(id("newPassword"), newPassword);
-		webDriverOperations.overrideText(id("confirmNewPassword"),
-				confirmNewPassword);
-		webDriverOperations.click(id("submit"));
-		waitDefaultInterval();
-	}
+    public PasswordChangePage(WebDriverOperations webDriverOperations,
+            String applicationContextURL) {
+        super(webDriverOperations, applicationContextURL);
+    }
 
-	public PasswordChangePage changePasswordFailure(String oldPassword,
-			String newPassword, String confirmNewPassword) {
-		changePassword(oldPassword, newPassword, confirmNewPassword);
-		return this;
-	}
+    private void changePassword(String oldPassword, String newPassword,
+            String confirmNewPassword) {
+        webDriverOperations.overrideText(id("oldPassword"), oldPassword);
+        webDriverOperations.overrideText(id("newPassword"), newPassword);
+        webDriverOperations.overrideText(id("confirmNewPassword"),
+                confirmNewPassword);
+        webDriverOperations.click(id("submit"));
+        waitDefaultInterval();
+    }
 
-	public PasswordChangeSuccessPage changePasswordSuccess(String oldPassword,
-			String newPassword, String confirmNewPassword) {
-		changePassword(oldPassword, newPassword, confirmNewPassword);
-		return new PasswordChangeSuccessPage(webDriverOperations,
-				applicationContextUrl);
-	}
+    public PasswordChangePage changePasswordFailure(String oldPassword,
+            String newPassword, String confirmNewPassword) {
+        changePassword(oldPassword, newPassword, confirmNewPassword);
+        return this;
+    }
 
-	public PasswordChangePage gotoTopIntercepted() {
-		gotoTop();
-		return new PasswordChangePage(webDriverOperations,
-				applicationContextUrl);
-	}
+    public PasswordChangeSuccessPage changePasswordSuccess(String oldPassword,
+            String newPassword, String confirmNewPassword) {
+        changePassword(oldPassword, newPassword, confirmNewPassword);
+        return new PasswordChangeSuccessPage(webDriverOperations, applicationContextUrl);
+    }
 
-	public String getNewPasswordError() {
-		return webDriverOperations.getText(id("newPassword.errors"));
-	}
+    public PasswordChangePage gotoTopIntercepted() {
+        gotoTop();
+        return new PasswordChangePage(webDriverOperations, applicationContextUrl);
+    }
+
+    public String getNewPasswordError() {
+        return webDriverOperations.getText(id("newPassword.errors"));
+    }
 
 }

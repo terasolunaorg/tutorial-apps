@@ -26,42 +26,42 @@ import static org.openqa.selenium.By.id;
 
 public class TopPage extends AuthenticationRequiredPage {
 
-	{
-		url = "/";
-	}
-	
-	public TopPage(WebDriverOperations webDriverOperations,
-			String applicationContextURL) {
-		super(webDriverOperations, applicationContextURL);
-	}
+    {
+        url = "/";
+    }
 
-	public AccountInfoPage goToAccountInfoPage() {
-		webDriverOperations.click(id("info"));
-		waitDefaultInterval();
-		return new AccountInfoPage(webDriverOperations, applicationContextUrl);
-	}
-	
-	public String getExpiredMessage() {
-		return webDriverOperations.getText(id("expiredMessage"));
-	}
-	
-	public String getLastLogin() {
-		return webDriverOperations.getText(id("lastLogin"));
-	}
-	
-	public boolean isExpiredMessageShown(){
-		return StringUtils.hasText(getExpiredMessage());
-	}
+    public TopPage(WebDriverOperations webDriverOperations,
+            String applicationContextURL) {
+        super(webDriverOperations, applicationContextURL);
+    }
 
-	public UnlockPage goToUnlockPage() {
-		webDriverOperations.click(id("unlock"));
-		waitDefaultInterval();
-		return new UnlockPage(webDriverOperations, applicationContextUrl);
-	}
-	
-	public LoginPage logout(){
-		webDriverOperations.click(id("logout"));
-		waitDefaultInterval();
-		return new LoginPage(webDriverOperations, applicationContextUrl);
-	}
+    public AccountInfoPage goToAccountInfoPage() {
+        webDriverOperations.click(id("info"));
+        waitDefaultInterval();
+        return new AccountInfoPage(webDriverOperations, applicationContextUrl);
+    }
+
+    public String getExpiredMessage() {
+        return webDriverOperations.getText(id("expiredMessage"));
+    }
+
+    public String getLastLogin() {
+        return webDriverOperations.getText(id("lastLogin"));
+    }
+
+    public boolean isExpiredMessageShown() {
+        return StringUtils.hasText(getExpiredMessage());
+    }
+
+    public UnlockPage goToUnlockPage() {
+        webDriverOperations.click(id("unlock"));
+        waitDefaultInterval();
+        return new UnlockPage(webDriverOperations, applicationContextUrl);
+    }
+
+    public LoginPage logout() {
+        webDriverOperations.click(id("logout"));
+        waitDefaultInterval();
+        return new LoginPage(webDriverOperations, applicationContextUrl);
+    }
 }

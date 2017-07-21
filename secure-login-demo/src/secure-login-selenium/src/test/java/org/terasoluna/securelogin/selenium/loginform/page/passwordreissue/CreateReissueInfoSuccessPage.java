@@ -22,17 +22,16 @@ import static org.openqa.selenium.By.id;
 
 public class CreateReissueInfoSuccessPage extends AbstractPageObject {
 
-	{
-		url = "/reissue/create?complete";
-	}
-	
-	public CreateReissueInfoSuccessPage(
-			WebDriverOperations webDriverOperations,
-			String applicationContextURL) {
-		super(webDriverOperations, applicationContextURL);
- 	}
+    {
+        url = "/reissue/create?complete";
+    }
 
-	public String getSecret(){
-		return webDriverOperations.getText(id("secret"));
-	}
+    public CreateReissueInfoSuccessPage(WebDriverOperations webDriverOperations,
+            String applicationContextURL) {
+        super(webDriverOperations, applicationContextURL);
+    }
+
+    public String getSecret() {
+        return webDriverOperations.getText(id("secret"));
+    }
 }
