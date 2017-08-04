@@ -28,8 +28,7 @@ import org.springframework.util.StringUtils;
 
 public class RestLog {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(RestLog.class);
+    private static final Logger logger = LoggerFactory.getLogger(RestLog.class);
 
     @Value("${selenium.enableCapture}")
     protected boolean enableCapture;
@@ -68,12 +67,12 @@ public class RestLog {
         File pageSourceFile = new File(evidenceSavingDirectory, evidenceFile);
 
         try {
-        	FileUtils.writeStringToFile(pageSourceFile, writer.toString());
+            FileUtils.writeStringToFile(pageSourceFile, writer.toString());
 
         } catch (IOException e) {
             logger.error(e.toString());
         }
 
     }
-    
+
 }

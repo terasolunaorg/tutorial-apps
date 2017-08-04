@@ -27,55 +27,53 @@ import static org.openqa.selenium.By.id;
 
 public class LoginPage extends AbstractPageObject {
 
-	{
-		url = "/login";
-	}
-	
-	public LoginPage(WebDriverOperations webDriverOperations,
-			String applicationContextURL) {
-		super(webDriverOperations, applicationContextURL);
-	}
+    {
+        url = "/login";
+    }
 
-	private void login(String username, String password) {
-		webDriverOperations.overrideText(id("username"), username);
-		webDriverOperations.overrideText(id("password"), password);
-		webDriverOperations.click(id("login"));
-		waitDefaultInterval();
-	}
+    public LoginPage(WebDriverOperations webDriverOperations,
+            String applicationContextURL) {
+        super(webDriverOperations, applicationContextURL);
+    }
 
-	public PasswordChangePage loginSuccessIntercepted(String username,
-			String password) {
-		login(username, password);
-		return new PasswordChangePage(webDriverOperations,
-				applicationContextUrl);
-	}
+    private void login(String username, String password) {
+        webDriverOperations.overrideText(id("username"), username);
+        webDriverOperations.overrideText(id("password"), password);
+        webDriverOperations.click(id("login"));
+        waitDefaultInterval();
+    }
 
-	public LoginPage loginFailure(String username, String password) {
-		login(username, password);
-		return this;
-	}
+    public PasswordChangePage loginSuccessIntercepted(String username,
+            String password) {
+        login(username, password);
+        return new PasswordChangePage(webDriverOperations, applicationContextUrl);
+    }
 
-	public TopPage loginSuccess(String username, String password) {
-		login(username, password);
-		return new TopPage(webDriverOperations, applicationContextUrl);
-	}
+    public LoginPage loginFailure(String username, String password) {
+        login(username, password);
+        return this;
+    }
 
-	public String getLoginError() {
-		return webDriverOperations.getText(id("loginError"));
-	}
+    public TopPage loginSuccess(String username, String password) {
+        login(username, password);
+        return new TopPage(webDriverOperations, applicationContextUrl);
+    }
 
-	public AccountCreatePage goToAccountCreatePage(ResourceLoader resourceLoader) {
-		webDriverOperations.click(id("create"));
-		waitDefaultInterval();
-		return new AccountCreatePage(webDriverOperations,
-				applicationContextUrl, resourceLoader);
-	}
+    public String getLoginError() {
+        return webDriverOperations.getText(id("loginError"));
+    }
 
-	public CreateReissueInfoPage goToCreateReissueInfoPage() {
-		webDriverOperations.click(id("forgotten"));
-		waitDefaultInterval();
-		return new CreateReissueInfoPage(webDriverOperations,
-				applicationContextUrl);
-	}
+    public AccountCreatePage goToAccountCreatePage(
+            ResourceLoader resourceLoader) {
+        webDriverOperations.click(id("create"));
+        waitDefaultInterval();
+        return new AccountCreatePage(webDriverOperations, applicationContextUrl, resourceLoader);
+    }
+
+    public CreateReissueInfoPage goToCreateReissueInfoPage() {
+        webDriverOperations.click(id("forgotten"));
+        waitDefaultInterval();
+        return new CreateReissueInfoPage(webDriverOperations, applicationContextUrl);
+    }
 
 }
