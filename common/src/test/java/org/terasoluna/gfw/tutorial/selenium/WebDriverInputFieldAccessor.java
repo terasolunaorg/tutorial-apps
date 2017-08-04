@@ -82,8 +82,8 @@ public enum WebDriverInputFieldAccessor {
 
         private void setValue(By by, String value, WebDriver webDriver) {
             String scriptCode = "arguments[0].value = '" + js(value) + "';";
-            ((JavascriptExecutor) webDriver).executeScript(scriptCode,
-                    webDriver.findElement(by));
+            ((JavascriptExecutor) webDriver).executeScript(scriptCode, webDriver
+                    .findElement(by));
         }
 
     };
@@ -98,7 +98,8 @@ public enum WebDriverInputFieldAccessor {
      * Overwrite the value of the specified element (text item).
      * @param by : An identifier for searching for an element (text item)
      */
-    public abstract void overrideValue(By by, String value, WebDriver webDriver);
+    public abstract void overrideValue(By by, String value,
+            WebDriver webDriver);
 
     /**
      * Get the value set in the specified input field.

@@ -38,10 +38,10 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // check initial value
         {
-        	assertThat(inputFieldAccessor.getValue(By.id("username"),driver),
-            		is("demo"));
-            assertThat(inputFieldAccessor.getValue(By.id("password"),driver),
-            		is("demo"));
+            assertThat(inputFieldAccessor.getValue(By.id("username"), driver),
+                    is("demo"));
+            assertThat(inputFieldAccessor.getValue(By.id("password"), driver),
+                    is("demo"));
 
         }
 
@@ -62,14 +62,13 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // check home screen
         {
-            assertThat(driver.findElement(By.tagName("h1")).getText(),
-                    is("Hello world!"));
+            assertThat(driver.findElement(By.tagName("h1")).getText(), is(
+                    "Hello world!"));
 
             List<WebElement> cheese = driver.findElements(By.tagName("p"));
             assertThat(cheese.get(1).getText(), is("Welcome Taro Yamada !!"));
-            assertThat(
-            		driver.findElement(By.xpath("//a[@href='/"
-                            + contextName + "/account']")).getText(), is("view account"));
+            assertThat(driver.findElement(By.xpath("//a[@href='/" + contextName
+                    + "/account']")).getText(), is("view account"));
         }
 
     }
@@ -87,15 +86,15 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // click logout button
         {
-        	driver.findElement(By.tagName("button")).click();
+            driver.findElement(By.tagName("button")).click();
         }
 
         // check login screen
         {
-        	assertThat(inputFieldAccessor.getValue(By.id("username"),driver),
-            		is("demo"));
-            assertThat(inputFieldAccessor.getValue(By.id("password"),driver),
-            		is("demo"));
+            assertThat(inputFieldAccessor.getValue(By.id("username"), driver),
+                    is("demo"));
+            assertThat(inputFieldAccessor.getValue(By.id("password"), driver),
+                    is("demo"));
         }
 
     }
@@ -115,15 +114,16 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // click "view account" button.
         {
-        	driver.findElement(By.xpath("//a[@href='/" + contextName
-                    + "/account']")).click();;
+            driver.findElement(By.xpath("//a[@href='/" + contextName
+                    + "/account']")).click();
+            ;
         }
 
         // check account information
         {
             // get table
-            List<WebElement> cheese = driver.findElements(By
-                    .xpath("//table/tbody/tr/td"));
+            List<WebElement> cheese = driver.findElements(By.xpath(
+                    "//table/tbody/tr/td"));
 
             assertThat(cheese.get(0).getText(), is("demo"));
             assertThat(cheese.get(1).getText(), is("Taro"));
@@ -149,13 +149,13 @@ public class FirstSpringSecurityTest extends FunctionTestSupport {
 
         // check error message and check login screen
         {
-            assertThat(driver.findElement(By.tagName("li")).getText(),
-                    is("Bad credentials"));
+            assertThat(driver.findElement(By.tagName("li")).getText(), is(
+                    "Bad credentials"));
 
-            assertThat(inputFieldAccessor.getValue(By.id("username"),driver),
-            		is("demo"));
-            assertThat(inputFieldAccessor.getValue(By.id("password"),driver),
-            		is("demo"));
+            assertThat(inputFieldAccessor.getValue(By.id("username"), driver),
+                    is("demo"));
+            assertThat(inputFieldAccessor.getValue(By.id("password"), driver),
+                    is("demo"));
         }
     }
 }

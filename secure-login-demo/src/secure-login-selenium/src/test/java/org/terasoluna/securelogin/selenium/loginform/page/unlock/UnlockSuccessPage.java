@@ -20,13 +20,13 @@ import org.terasoluna.securelogin.selenium.loginform.page.AuthenticationRequired
 
 public class UnlockSuccessPage extends AuthenticationRequiredPage {
 
-	{
-		url = "/unlock?complete";
-	}
-	
-	public UnlockSuccessPage(WebDriverOperations webDriverOperations,
-			String applicationContextURL) {
-		super(webDriverOperations, applicationContextURL);
-	}
+    {
+        url = "/unlock?complete";
+    }
+
+    public UnlockSuccessPage(WebDriverOperations webDriverOperations,
+            String applicationContextURL) {
+        super(webDriverOperations, applicationContextURL);
+    }
 
 }

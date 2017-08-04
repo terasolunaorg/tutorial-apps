@@ -41,165 +41,157 @@ import static org.junit.Assert.assertThat;
 
 public class PasswordLeakageMeasuresTest extends DBLogFunctionTestSupport {
 
-	@Value("${security.passwordLifeTimeSeconds}")
-	int passwordLifeTimeSeconds;
+    @Value("${security.passwordLifeTimeSeconds}")
+    int passwordLifeTimeSeconds;
 
-	@Inject
-	@Named("dataSource")
-	DataSource dataSource;
+    @Inject
+    @Named("dataSource")
+    DataSource dataSource;
 
-	@Inject
-	ResourceDatabasePopulator populator;
+    @Inject
+    ResourceDatabasePopulator populator;
 
-	@Before
-	public void setup() throws ScriptException, SQLException {
-		populator.populate(dataSource.getConnection());
-	}
+    @Before
+    public void setup() throws ScriptException, SQLException {
+        populator.populate(dataSource.getConnection());
+    }
 
-	/**
-	 * <ul>
-	 * <li>test : force user to change password when first login</li>
-	 * </ul>
-	 */
-	@Test
-	public void testPasswordLeakageMeasures001() throws IOException,
-			InterruptedException {
-		AbstractPageObject page = new LoginPage(webDriverOperations,
-				applicationContextUrl)
-				.openWithDescription("force user to change password when first login");
+    /**
+     * <ul>
+     * <li>test : force user to change password when first login</li>
+     * </ul>
+     */
+    @Test
+    public void testPasswordLeakageMeasures001() throws IOException, InterruptedException {
+        AbstractPageObject page = new LoginPage(webDriverOperations, applicationContextUrl)
+                .openWithDescription(
+                        "force user to change password when first login");
 
-		// confirm that it's redirected to "Change Password" page when first
-		// login
-		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo");
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				"/password?form"));
+        // confirm that it's redirected to "Change Password" page when first
+        // login
+        page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo");
+        assertTrue(webDriverOperations.getCurrentUrl().endsWith(
+                "/password?form"));
 
-		// it cannot access other pages until change password
-		page = ((PasswordChangePage) page).gotoTopIntercepted();
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				"/password?form"));
+        // it cannot access other pages until change password
+        page = ((PasswordChangePage) page).gotoTopIntercepted();
+        assertTrue(webDriverOperations.getCurrentUrl().endsWith(
+                "/password?form"));
 
-		page = ((PasswordChangePage) page).changePasswordSuccess("demo",
-				"Foo1", "Foo1");
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				"/password?complete"));
+        page = ((PasswordChangePage) page).changePasswordSuccess("demo", "Foo1",
+                "Foo1");
+        assertTrue(webDriverOperations.getCurrentUrl().endsWith(
+                "/password?complete"));
 
-		// it's enable to access to top page
-		page = ((PasswordChangeSuccessPage) page).gotoTop();
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				contextName + "/"));
+        // it's enable to access to top page
+        page = ((PasswordChangeSuccessPage) page).gotoTop();
+        assertTrue(webDriverOperations.getCurrentUrl().endsWith(contextName
+                + "/"));
 
-		page = ((TopPage) page).logout();
-	}
+        page = ((TopPage) page).logout();
+    }
 
-	/**
-	 * <ul>
-	 * <li>test : administrator must not reuse password in a short period
-	 * </ul>
-	 */
-	@Test
-	public void testPasswordLeakageMeasures002() throws IOException,
-			InterruptedException {
-		AbstractPageObject page = new LoginPage(webDriverOperations,
-				applicationContextUrl)
-				.openWithDescription("administrator must not reuse password in a short period");
+    /**
+     * <ul>
+     * <li>test : administrator must not reuse password in a short period
+     * </ul>
+     */
+    @Test
+    public void testPasswordLeakageMeasures002() throws IOException, InterruptedException {
+        AbstractPageObject page = new LoginPage(webDriverOperations, applicationContextUrl)
+                .openWithDescription(
+                        "administrator must not reuse password in a short period");
 
-		// login as administrator
-		page = ((LoginPage) page)
-				.loginSuccessIntercepted("admin", "demo")
-				// set valid password var1
-				.changePasswordSuccess("demo", "Bar1", "Bar1")
-				// set valid password var2
-				.gotoTop().goToAccountInfoPage().goToPasswordChangePage()
-				.changePasswordSuccess("Bar1", "Bar2", "Bar2")
-				// try to set valid password var1, again
-				.gotoTop().goToAccountInfoPage().goToPasswordChangePage()
-				.changePasswordFailure("Bar2", "Bar1", "Bar1");
-		assertThat(((PasswordChangePage) page).getNewPasswordError(),
-				is("Password matches one of 2 previous passwords."));
+        // login as administrator
+        page = ((LoginPage) page).loginSuccessIntercepted("admin", "demo")
+                // set valid password var1
+                .changePasswordSuccess("demo", "Bar1", "Bar1")
+                // set valid password var2
+                .gotoTop().goToAccountInfoPage().goToPasswordChangePage()
+                .changePasswordSuccess("Bar1", "Bar2", "Bar2")
+                // try to set valid password var1, again
+                .gotoTop().goToAccountInfoPage().goToPasswordChangePage()
+                .changePasswordFailure("Bar2", "Bar1", "Bar1");
+        assertThat(((PasswordChangePage) page).getNewPasswordError(), is(
+                "Password matches one of 2 previous passwords."));
 
-		page = ((PasswordChangePage) page).gotoTop().logout();
-	}
+        page = ((PasswordChangePage) page).gotoTop().logout();
+    }
 
-	/**
-	 * <ul>
-	 * <li>test : show a message to urge users to change their passwords</li>
-	 * </ul>
-	 */
-	@Test
-	public void testPasswordLeakageMeasures003() throws IOException,
-			InterruptedException {
-		AbstractPageObject page = new LoginPage(webDriverOperations,
-				applicationContextUrl)
-				.openWithDescription("show a message to urge users to change their passwords");
+    /**
+     * <ul>
+     * <li>test : show a message to urge users to change their passwords</li>
+     * </ul>
+     */
+    @Test
+    public void testPasswordLeakageMeasures003() throws IOException, InterruptedException {
+        AbstractPageObject page = new LoginPage(webDriverOperations, applicationContextUrl)
+                .openWithDescription(
+                        "show a message to urge users to change their passwords");
 
-		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
-				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
-				.logout();
+        page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
+                .changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
+                .logout();
 
-		// confirm that the message to urge the user to change his password is
-		// shown
-		webDriverOperations.suspend(passwordLifeTimeSeconds, TimeUnit.SECONDS);
-		page = ((LoginPage) page).loginSuccess("demo", "Foo1");
-		assertThat(((TopPage) page).getExpiredMessage(),
-				is("Your password has expired. Please change."));
+        // confirm that the message to urge the user to change his password is
+        // shown
+        webDriverOperations.suspend(passwordLifeTimeSeconds, TimeUnit.SECONDS);
+        page = ((LoginPage) page).loginSuccess("demo", "Foo1");
+        assertThat(((TopPage) page).getExpiredMessage(), is(
+                "Your password has expired. Please change."));
 
-		// the message disappears because of changing the password
-		page = ((TopPage) page).goToAccountInfoPage().goToPasswordChangePage()
-				.changePasswordSuccess("Foo1", "Bar1", "Bar1").gotoTop();
-		assertTrue(!((TopPage) page).isExpiredMessageShown());
+        // the message disappears because of changing the password
+        page = ((TopPage) page).goToAccountInfoPage().goToPasswordChangePage()
+                .changePasswordSuccess("Foo1", "Bar1", "Bar1").gotoTop();
+        assertTrue(!((TopPage) page).isExpiredMessageShown());
 
-		page = ((TopPage) page).logout();
-	}
+        page = ((TopPage) page).logout();
+    }
 
-	/**
-	 * <ul>
-	 * <li>test : show the last login time of the user</li>
-	 * </ul>
-	 */
-	@Test
-	public void testPasswordLeakageMeasures004() throws IOException,
-			InterruptedException {
-		AbstractPageObject page = new LoginPage(webDriverOperations,
-				applicationContextUrl)
-				.openWithDescription("show the last login time of the user");
+    /**
+     * <ul>
+     * <li>test : show the last login time of the user</li>
+     * </ul>
+     */
+    @Test
+    public void testPasswordLeakageMeasures004() throws IOException, InterruptedException {
+        AbstractPageObject page = new LoginPage(webDriverOperations, applicationContextUrl)
+                .openWithDescription("show the last login time of the user");
 
-		page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
-				.changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
-				.logout().loginSuccess("demo", "Foo1");
+        page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
+                .changePasswordSuccess("demo", "Foo1", "Foo1").gotoTop()
+                .logout().loginSuccess("demo", "Foo1");
 
-		// confirm that the last login time of the user is shown
-		assertTrue(((TopPage) page).getLastLogin().matches(
-				"Last login date is [0-9]{4}-[0-9]{2}-[0-9]{2}.*"));
+        // confirm that the last login time of the user is shown
+        assertTrue(((TopPage) page).getLastLogin().matches(
+                "Last login date is [0-9]{4}-[0-9]{2}-[0-9]{2}.*"));
 
-		page = ((TopPage) page).logout();
-	}
+        page = ((TopPage) page).logout();
+    }
 
-	/**
-	 * <ul>
-	 * <li>test : force administrator to change password if it has been expired</li>
-	 * </ul>
-	 */
-	@Test
-	public void testPasswordLeakageMeasures005() throws IOException,
-			InterruptedException {
-		AbstractPageObject page = new LoginPage(webDriverOperations,
-				applicationContextUrl)
-				.openWithDescription("force administrator to change password if it has been expired");
+    /**
+     * <ul>
+     * <li>test : force administrator to change password if it has been expired</li>
+     * </ul>
+     */
+    @Test
+    public void testPasswordLeakageMeasures005() throws IOException, InterruptedException {
+        AbstractPageObject page = new LoginPage(webDriverOperations, applicationContextUrl)
+                .openWithDescription(
+                        "force administrator to change password if it has been expired");
 
-		page = ((LoginPage) page).loginSuccessIntercepted("admin", "demo")
-				.changePasswordSuccess("demo", "Bar1", "Bar1").gotoTop()
-				.logout();
+        page = ((LoginPage) page).loginSuccessIntercepted("admin", "demo")
+                .changePasswordSuccess("demo", "Bar1", "Bar1").gotoTop()
+                .logout();
 
-		// it's redirected to "Change Password" page because of expiration of
-		// the password
-		webDriverOperations.suspend(passwordLifeTimeSeconds, TimeUnit.SECONDS);
-		page = ((LoginPage) page).loginSuccessIntercepted("admin", "Bar1");
-		assertTrue(webDriverOperations.getCurrentUrl().endsWith(
-				"/password?form"));
-		page = ((PasswordChangePage) page)
-				.changePasswordSuccess("Bar1", "Foo1", "Foo1").gotoTop()
-				.logout();
-	}
+        // it's redirected to "Change Password" page because of expiration of
+        // the password
+        webDriverOperations.suspend(passwordLifeTimeSeconds, TimeUnit.SECONDS);
+        page = ((LoginPage) page).loginSuccessIntercepted("admin", "Bar1");
+        assertTrue(webDriverOperations.getCurrentUrl().endsWith(
+                "/password?form"));
+        page = ((PasswordChangePage) page).changePasswordSuccess("Bar1", "Foo1",
+                "Foo1").gotoTop().logout();
+    }
 
 }

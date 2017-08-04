@@ -20,13 +20,13 @@ import org.terasoluna.securelogin.selenium.loginform.page.AbstractPageObject;
 
 public class PasswordReissueSuccessPage extends AbstractPageObject {
 
-	{
-		url = "/reissue/resetpassword?complete";
-	}
-	
-	public PasswordReissueSuccessPage(WebDriverOperations webDriverOperations,
-			String applicationContextURL) {
-		super(webDriverOperations, applicationContextURL);
-	}
+    {
+        url = "/reissue/resetpassword?complete";
+    }
+
+    public PasswordReissueSuccessPage(WebDriverOperations webDriverOperations,
+            String applicationContextURL) {
+        super(webDriverOperations, applicationContextURL);
+    }
 
 }
