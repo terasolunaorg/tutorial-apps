@@ -2,6 +2,8 @@ sudo: false
 language: java
 jdk:
   - oraclejdk8
+addons:
+  firefox: "38.8.0esr"
 cache:
   directories:
     - $HOME/.m2
