@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>Password was successfully changed</title>
+<title>Account was successfully unlocked</title>
 <link rel="stylesheet"
 	href="${f:h(pageContext.request.contextPath)}/resources/app/css/styles.css" />
 </head>
