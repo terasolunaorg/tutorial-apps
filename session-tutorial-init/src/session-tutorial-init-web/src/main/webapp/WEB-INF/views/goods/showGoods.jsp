@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <title>Item List Page</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/app/css/styles.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/vendor/bootstrap-3.0.0/css/bootstrap.css"
-	type="text/css" media="screen, projection">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/app/css/styles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap-3.0.0/css/bootstrap.css"
+    media="screen, projection">
 </head>
 <body>
  

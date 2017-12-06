@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Business Error!</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/app/css/styles.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/app/css/styles.css">
 </head>
 <body>
 	<div id="wrapper">
