@@ -183,7 +183,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
             assertThat(driver.findElement(By.id("name")).getText(), is(
                     "Kokoro"));
             assertThat(driver.findElement(By.id("price")).getText(), is(
-                    "¥900"));
+                    "¥ 900"));
             assertThat(driver.findElement(By.id("description")).getText(), is(
                     "Souseki Natsume wrote this book"));
         }
@@ -220,7 +220,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
             assertThat(driver.findElement(By.id("name")).getText(), is(
                     "Swan Lake"));
             assertThat(driver.findElement(By.id("price")).getText(), is(
-                    "¥900"));
+                    "¥ 900"));
             assertThat(driver.findElement(By.id("description")).getText(), is(
                     "Tchaikovsky composed this music"));
         }
@@ -444,11 +444,11 @@ public class SessionTutorialTest extends FunctionTestSupport {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), is(
-                    "¥900"));
+                    "¥ 900"));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("totalPrice")).getText(), is(
-                    "¥1,800"));
+                    "¥ 1,800"));
         }
 
         // click the addCart button
@@ -462,17 +462,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), is(
-                    "¥900"));
+                    "¥ 900"));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("itemName1")).getText(), is(
                     "〔Ame ni mo Makezu〕"));
             assertThat(driver.findElement(By.id("itemPrice1")).getText(), is(
-                    "¥800"));
+                    "¥ 800"));
             assertThat(driver.findElement(By.id("itemQuantity1")).getText(), is(
                     "1"));
             assertThat(driver.findElement(By.id("totalPrice")).getText(), is(
-                    "¥2,600"));
+                    "¥ 2,600"));
         }
 
         // click the Account Update button
@@ -490,17 +490,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), is(
-                    "¥900"));
+                    "¥ 900"));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("itemName1")).getText(), is(
                     "〔Ame ni mo Makezu〕"));
             assertThat(driver.findElement(By.id("itemPrice1")).getText(), is(
-                    "¥800"));
+                    "¥ 800"));
             assertThat(driver.findElement(By.id("itemQuantity1")).getText(), is(
                     "1"));
             assertThat(driver.findElement(By.id("totalPrice")).getText(), is(
-                    "¥2,600"));
+                    "¥ 2,600"));
         }
     }
 
@@ -538,11 +538,11 @@ public class SessionTutorialTest extends FunctionTestSupport {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), is(
-                    "¥900"));
+                    "¥ 900"));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("totalPrice")).getText(), is(
-                    "¥1,800"));
+                    "¥ 1,800"));
         }
 
         // Click the remove button without checking deletion
@@ -590,17 +590,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), is(
-                    "¥900"));
+                    "¥ 900"));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("itemName1")).getText(), is(
                     "〔Ame ni mo Makezu〕"));
             assertThat(driver.findElement(By.id("itemPrice1")).getText(), is(
-                    "¥800"));
+                    "¥ 800"));
             assertThat(driver.findElement(By.id("itemQuantity1")).getText(), is(
                     "1"));
             assertThat(driver.findElement(By.id("totalPrice")).getText(), is(
-                    "¥2,600"));
+                    "¥ 2,600"));
 
             assertThat(driver.findElement(By.id("email")).getText(), is(
                     "a@b.com"));
@@ -620,17 +620,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), is(
-                    "¥900"));
+                    "¥ 900"));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("itemName1")).getText(), is(
                     "〔Ame ni mo Makezu〕"));
             assertThat(driver.findElement(By.id("itemPrice1")).getText(), is(
-                    "¥800"));
+                    "¥ 800"));
             assertThat(driver.findElement(By.id("itemQuantity1")).getText(), is(
                     "1"));
             assertThat(driver.findElement(By.id("totalPrice")).getText(), is(
-                    "¥2,600"));
+                    "¥ 2,600"));
         }
 
     }

@@ -30,6 +30,10 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -167,9 +171,29 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
     }
 
     private WebDriver newWebDriver() {
-        WebDriver webDriver = getApplicationContext().getBean(WebDriver.class);
-        webDrivers.add(webDriver);
-        return webDriver;
+        WebDriver driver = null;
+        for (String activeProfile : getApplicationContext().getEnvironment()
+                .getActiveProfiles()) {
+            if ("chrome".equals(activeProfile)) {
+                driver = new ChromeDriver();
+                break;
+            } else if ("firefox".equals(activeProfile)) {
+                break;
+            } else if ("ie".equals(activeProfile)) {
+                driver = new InternetExplorerDriver();
+                break;
+            }
+        }
+
+        if (driver == null) {
+            FirefoxProfile profile = new FirefoxProfile();
+            profile.setPreference("brouser.startup.homepage_override.mstone",
+                    "ignore");
+            profile.setPreference("network.proxy.type", 0);
+            driver = new FirefoxDriver(profile);
+        }
+
+        return driver;
     }
 
     protected void quitDefaultWebDriver() {
