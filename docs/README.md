@@ -4,6 +4,7 @@ The following table summarizes directory contents.
 | Directory | Contents Summary |
 |:------------- |:----------------- |
 | docs | Documents of repository. |
+| eclipse | Settings for ``formatter-maven-plugin``. |
 | license | Settings for ``maven-license-plugin``. |
 | common | Common scripts and tutorial sources. |
 | todo | Scripts and sources to genarate completed Todo Application tutorial. |
