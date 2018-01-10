@@ -1,7 +1,7 @@
 ## Tutorial Applications
 These are completed tutorial applications that help you to learn TERASOLUNA Server Framework for Java (5.x) ([http://terasoluna.org](http://terasoluna.org "http://terasoluna.org")).
 
-[![Build Status](https://travis-ci.org/terasolunaorg/tutorial-apps.svg?branch=master)](https://travis-ci.org/terasolunaorg/tutorial-apps)
+[![Build Status](https://travis-ci.org/terasolunaorg/tutorial-apps.svg?branch=5.4.x)](https://travis-ci.org/terasolunaorg/tutorial-apps)
 
 ## Getting started
 * If you would like to try tutorials,  
