@@ -17,6 +17,6 @@
 	</bean>
 
 	<!-- scan for Mappers -->
-	<mybatis:scan base-package="org.terasoluna.securelogin.domain.repository" />
+	<mybatis:scan base-package="com.example.securelogin.domain.repository" />
 
 </beans>
