@@ -14,17 +14,17 @@ env:
     - CARGO_DAEMON_WEBAPP_VERSION=1.4.17
   matrix:
     # todo
-    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-archetype GROUP_ID=todo ARTIFACT_ID=todo
-    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-mybatis3-archetype GROUP_ID=todo ARTIFACT_ID=todo-mybatis3
-    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-mybatis3-archetype GROUP_ID=todo ARTIFACT_ID=todo-mybatis3-multi
-    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-jpa-archetype GROUP_ID=todo ARTIFACT_ID=todo-jpa
-    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-jpa-archetype GROUP_ID=todo ARTIFACT_ID=todo-jpa-multi
+    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo
+    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-mybatis3-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo-mybatis3
+    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-mybatis3-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo-mybatis3-multi
+    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-jpa-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo-jpa
+    - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-jpa-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo-jpa-multi
     # todo-rest
-    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-archetype GROUP_ID=todo ARTIFACT_ID=todo-api
-    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-mybatis3-archetype GROUP_ID=todo ARTIFACT_ID=todo-api-mybatis3
-    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-mybatis3-archetype GROUP_ID=todo ARTIFACT_ID=todo-api-mybatis3-multi
-    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-jpa-archetype GROUP_ID=todo ARTIFACT_ID=todo-api-jpa
-    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-jpa-archetype GROUP_ID=todo ARTIFACT_ID=todo-api-jpa-multi
+    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo-api
+    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-mybatis3-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo-api-mybatis3
+    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-mybatis3-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo-api-mybatis3-multi
+    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-jpa-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo-api-jpa
+    - TARGET_TUTORIAL=todo-rest ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-jpa-archetype GROUP_ID=com.example.todo ARTIFACT_ID=todo-api-jpa-multi
     # first-spring-security
     - TARGET_TUTORIAL=first-spring-security ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-mybatis3-archetype GROUP_ID=com.example.security ARTIFACT_ID=first-spring-security-mybatis3
     - TARGET_TUTORIAL=first-spring-security ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-mybatis3-archetype GROUP_ID=com.example.security ARTIFACT_ID=first-spring-security-mybatis3-multi
@@ -33,7 +33,7 @@ env:
     # session-tutorial-complete
     - TARGET_TUTORIAL=session-tutorial-complete ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-mybatis3-archetype GROUP_ID=com.example.session ARTIFACT_ID=session-tutorial-complete
     # secure-login-demo
-    - TARGET_TUTORIAL=secure-login-demo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-mybatis3-archetype GROUP_ID=org.terasoluna.securelogin ARTIFACT_ID=secure-login
+    - TARGET_TUTORIAL=secure-login-demo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-multi-web-blank-mybatis3-archetype GROUP_ID=com.example.securelogin ARTIFACT_ID=secure-login
   
 before_script:
   - export DISPLAY=:99.0

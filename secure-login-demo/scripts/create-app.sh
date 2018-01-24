@@ -3,7 +3,7 @@
 # Required variables:
 #   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
 #   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
-#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'org.terasoluna.securelogin'.
+#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'com.example.securelogin'.
 #   ${ARTIFACT_ID}=Artifact ID of tutorial project. This project's ARTIFACT_ID must be set 'secure-login'.
 #   ${VERSION}=Version of tutorial project.
 #   ${HOST_IP}=IP address for access to this web application. Defaults to 'localhost'.
