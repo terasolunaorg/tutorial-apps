@@ -183,6 +183,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("name")).getText(), is(
                     "Kokoro"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("price")).getText(), anyOf(is(
                     "¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("description")).getText(), is(
@@ -220,6 +221,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("name")).getText(), is(
                     "Swan Lake"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("price")).getText(), anyOf(is(
                     "¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("description")).getText(), is(
@@ -444,10 +446,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), anyOf(
                     is("¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("totalPrice")).getText(), anyOf(
                     is("¥ 1,800"), is("¥1,800")));
         }
@@ -462,16 +466,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), anyOf(
                     is("¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("itemName1")).getText(), is(
                     "〔Ame ni mo Makezu〕"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice1")).getText(), anyOf(
                     is("¥ 800"), is("¥800")));
             assertThat(driver.findElement(By.id("itemQuantity1")).getText(), is(
                     "1"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("totalPrice")).getText(), anyOf(
                     is("¥ 2,600"), is("¥2,600")));
         }
@@ -490,16 +497,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), anyOf(
                     is("¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("itemName1")).getText(), is(
                     "〔Ame ni mo Makezu〕"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice1")).getText(), anyOf(
                     is("¥ 800"), is("¥800")));
             assertThat(driver.findElement(By.id("itemQuantity1")).getText(), is(
                     "1"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("totalPrice")).getText(), anyOf(
                     is("¥ 2,600"), is("¥2,600")));
         }
@@ -538,10 +548,12 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), anyOf(
                     is("¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("totalPrice")).getText(), anyOf(
                     is("¥ 1,800"), is("¥1,800")));
         }
@@ -590,16 +602,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), anyOf(
                     is("¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("itemName1")).getText(), is(
                     "〔Ame ni mo Makezu〕"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice1")).getText(), anyOf(
                     is("¥ 800"), is("¥800")));
             assertThat(driver.findElement(By.id("itemQuantity1")).getText(), is(
                     "1"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("totalPrice")).getText(), anyOf(
                     is("¥ 2,600"), is("¥2,600")));
 
@@ -620,16 +635,19 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
             assertThat(driver.findElement(By.id("itemName0")).getText(), is(
                     "Kokoro"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice0")).getText(), anyOf(
                     is("¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("itemQuantity0")).getText(), is(
                     "2"));
             assertThat(driver.findElement(By.id("itemName1")).getText(), is(
                     "〔Ame ni mo Makezu〕"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("itemPrice1")).getText(), anyOf(
                     is("¥ 800"), is("¥800")));
             assertThat(driver.findElement(By.id("itemQuantity1")).getText(), is(
                     "1"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("totalPrice")).getText(), anyOf(
                     is("¥ 2,600"), is("¥2,600")));
         }
