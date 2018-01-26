@@ -15,6 +15,7 @@
  */
 package com.example.session.selenium.session;
 
+import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -186,8 +187,8 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("name")).getText(), is(
                     "Kokoro"));
-            assertThat(driver.findElement(By.id("price")).getText(), is(
-                    "¥ 900"));
+            assertThat(driver.findElement(By.id("price")).getText(), anyOf(is(
+                    "¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("description")).getText(), is(
                     "Souseki Natsume wrote this book"));
         }
@@ -224,8 +225,8 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("name")).getText(), is(
                     "Swan Lake"));
-            assertThat(driver.findElement(By.id("price")).getText(), is(
-                    "¥ 900"));
+            assertThat(driver.findElement(By.id("price")).getText(), anyOf(is(
+                    "¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("description")).getText(), is(
                     "Tchaikovsky composed this music"));
         }
