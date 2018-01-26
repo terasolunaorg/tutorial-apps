@@ -187,6 +187,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("name")).getText(), is(
                     "Kokoro"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("price")).getText(), anyOf(is(
                     "¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("description")).getText(), is(
@@ -225,6 +226,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("name")).getText(), is(
                     "Swan Lake"));
+            // differs depending on browser locale.
             assertThat(driver.findElement(By.id("price")).getText(), anyOf(is(
                     "¥ 900"), is("¥900")));
             assertThat(driver.findElement(By.id("description")).getText(), is(
