@@ -8,9 +8,9 @@ pushd "${SCRIPT_DIR}/../target-project"
 
 # multi project
 # remove files
-rm ./${ARTIFACT_ID}/${ARTIFACT_ID}-web/src/main/java/org/terasoluna/securelogin/app/welcome/HelloController.java
-rm -r ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/resources/org/terasoluna/securelogin/domain/repository/sample
-rm -r ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/java/org/terasoluna/securelogin/selenium/welcome
+rm ./${ARTIFACT_ID}/${ARTIFACT_ID}-web/src/main/java/com/example/securelogin/app/welcome/HelloController.java
+rm -r ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/resources/com/example/securelogin/domain/repository/sample
+rm -r ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/java/com/example/securelogin/selenium/welcome
 # web project
 cp -p -r ../src/secure-login-web/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-web
 # domain project

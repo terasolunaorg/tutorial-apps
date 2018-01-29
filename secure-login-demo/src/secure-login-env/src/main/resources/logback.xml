@@ -58,11 +58,11 @@
     </appender>
 
 	<!-- Application Loggers -->
-	<logger name="org.terasoluna.securelogin">
+	<logger name="com.example.securelogin">
 		<level value="info" />
 	</logger>
 	<logger 
-		name="org.terasoluna.securelogin.domain.common.interceptor.ServiceCallLoggingInterceptor"
+		name="com.example.securelogin.domain.common.interceptor.ServiceCallLoggingInterceptor"
 		additivity="false">
 		<level value="info" />
 		<appender-ref ref="AUDIT_LOG_FILE" />
