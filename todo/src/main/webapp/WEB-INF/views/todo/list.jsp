@@ -34,7 +34,7 @@
                                 action="${pageContext.request.contextPath}/todo/finish"
                                 method="post"
                                 modelAttribute="todoForm"
-                                cssStyle="display: inline-block;">
+                                cssClass="inline">
                                 <form:hidden path="todoId"
                                     value="${f:h(todo.todoId)}" />
                                 <form:button>Finish</form:button>
@@ -44,7 +44,7 @@
                     <form:form
                         action="${pageContext.request.contextPath}/todo/delete"
                         method="post" modelAttribute="todoForm"
-                        cssStyle="display: inline-block;">
+                        cssClass="inline">
                         <form:hidden path="todoId"
                             value="${f:h(todo.todoId)}" />
                         <form:button>Delete</form:button>
