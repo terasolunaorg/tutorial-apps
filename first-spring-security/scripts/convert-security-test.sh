@@ -18,7 +18,7 @@ else
   find ./ -type f -name 'selenium.properties' | xargs sed -i -e "s|selenium.contextName=|selenium.contextName=${ARTIFACT_ID}|"
 fi
 
-find ./ -type f -name 'FunctionTestSupport.java' | xargs sed -i -e 's|return applicationContextUrl + "/" + simplePackageName + "/";|return applicationContextUrl + "/login.jsp";|'
+find ./ -type f -name 'FunctionTestSupport.java' | xargs sed -i -e 's|return applicationContextUrl + "/" + simplePackageName + "/";|return applicationContextUrl + "/login/loginForm";|'
 find ./ -name "*.java" -o -name "*.xml" | xargs sed -i -e 's|todo.selenium|com.example.security.selenium|'
 
 if test -n $TARGET_DIR; then
