@@ -53,8 +53,8 @@ find ./ -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-
         </mvc:message-converters>|'
 
 # spring-mvc-rest.xml
-find ./ -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|<context:component-scan base-package="todo.app" />|\
-    <context:component-scan base-package="todo.api" />|'
+find ./ -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|<context:component-scan base-package="com.example.todo.app" />|\
+    <context:component-scan base-package="com.example.todo.api" />|'
 
 # spring-security,xml
 find ./ -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:http pattern="/resources/\*\*" security="none"/>|\

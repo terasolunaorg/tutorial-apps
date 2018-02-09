@@ -2,6 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-  <bean id="restLog" class="todo.selenium.RestLog" />
+  <bean id="restLog" class="com.example.todo.selenium.RestLog" />
 
 </beans>
