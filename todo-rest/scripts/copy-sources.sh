@@ -13,6 +13,7 @@ if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
   cp -p -r ../../todo/src/main/java/com/example/todo/app ./${ARTIFACT_ID}/${ARTIFACT_ID}-web/src/main/java/com/example/todo
   cp -p -r ../../todo/src/main/webapp ./${ARTIFACT_ID}/${ARTIFACT_ID}-web/src/main
   cp -p -r ../src/main/java/com/example/todo/api ./${ARTIFACT_ID}/${ARTIFACT_ID}-web/src/main/java/com/example/todo
+  cp -p -r ../src/main/resources ./${ARTIFACT_ID}/${ARTIFACT_ID}-web/src/main
   # domain project
   cp -p -r ../src/main/java/com/example/todo/domain ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/java/com/example/todo
   # selenium project

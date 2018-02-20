@@ -30,32 +30,6 @@ find ./ -type f -name 'web.xml' | xargs sed -i -e 's|<servlet>|\
 \
     <servlet>|'
 
-# spring-mvc-rest.xml
-find ./ -type f -name "spring-mvc.xml" -print0 | while read -r -d '' file; do cp -i "$file" "${file%%spring-mvc.xml}spring-mvc-rest.xml"; done
-
-# spring-mvc-rest.xml
-find ./ -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|</mvc:argument-resolvers>|\
-        </mvc:argument-resolvers>\
-        <mvc:message-converters register-defaults="false">\
-            <!-- (1) -->\
-            <bean\n\
-                class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">\
-                <!-- (2) -->\
-                <property name="objectMapper">\n\
-                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">\
-                        <property name="dateFormat">\
-                            <!-- (3) -->\
-                            <bean class="com.fasterxml.jackson.databind.util.StdDateFormat" />\
-                        </property>\
-                    </bean>\
-                </property>\
-            </bean>\
-        </mvc:message-converters>|'
-
-# spring-mvc-rest.xml
-find ./ -type f -name 'spring-mvc-rest.xml' | xargs sed -i -e 's|<context:component-scan base-package="com.example.todo.app" />|\
-    <context:component-scan base-package="com.example.todo.api" />|'
-
 # spring-security,xml
 find ./ -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:http pattern="/resources/\*\*" security="none"/>|\
     <sec:http pattern="/resources/**" security="none" />\
