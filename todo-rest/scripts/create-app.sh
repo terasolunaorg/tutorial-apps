@@ -3,7 +3,7 @@
 # Required variables:
 #   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
 #   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
-#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'todo'.
+#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'com.example.todo'.
 #   ${ARTIFACT_ID}=Artifact ID of tutorial project.
 #   ${VERSION}=Version of tutorial project.
 
