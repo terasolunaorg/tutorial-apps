@@ -23,10 +23,8 @@ bash ../scripts/copy-sources.sh
 bash ../scripts/convert-rest-test.sh `pwd`
 
 if [ "$ARCHETYPE_ARTIFACT_ID" != "terasoluna-gfw-web-blank-archetype" ]; then
-    bash ../../common/scripts/convert-common-infra.sh `pwd`
+    bash ../../todo/scripts/convert-todo-infra.sh `pwd`
 fi
-
-bash ../../common/scripts/convert-common-css.sh `pwd`
 
 bash ../../todo/scripts/convert-todo-css.sh `pwd`
 
