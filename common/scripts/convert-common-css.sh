@@ -14,6 +14,10 @@ for i in ` find ./ -type f -name 'styles.css' `; do echo -e '
     text-decoration: line-through;
 }
 
+.inline {
+    display: inline-block;
+}
+
 .alert {
     border: 1px solid;
     margin-bottom: 5px;
