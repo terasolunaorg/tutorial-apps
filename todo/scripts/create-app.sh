@@ -3,7 +3,7 @@
 # Required variables:
 #   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
 #   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
-#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'todo'.
+#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'com.example.todo'.
 #   ${ARTIFACT_ID}=Artifact ID of tutorial project.
 #   ${VERSION}=Version of tutorial project.
 
@@ -22,9 +22,10 @@ bash ../scripts/copy-sources.sh
 
 bash ../scripts/convert-todo-test.sh `pwd`
 
-bash ../../common/scripts/convert-common-infra.sh `pwd`
-
-bash ../../common/scripts/convert-common-css.sh `pwd`
+case "$ARCHETYPE_ARTIFACT_ID" in
+    *mybatis3* | *jpa* ) bash ../scripts/convert-todo-infra.sh `pwd` ;;
+    * ) ;;
+esac
 
 bash ../scripts/convert-todo-css.sh `pwd`
 
