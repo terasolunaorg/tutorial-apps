@@ -146,7 +146,7 @@ public class AccountController {
 		redirectAttributes.addFlashAttribute("firstName", form.getFirstName());
 		redirectAttributes.addFlashAttribute("lastName", form.getLastName());
 		redirectAttributes.addFlashAttribute("password", password);
-		return "redirect:/account/create?complete";
+		return "redirect:/accounts/create?complete";
 	}
 
 	@RequestMapping(value = "/create", params = "complete")
