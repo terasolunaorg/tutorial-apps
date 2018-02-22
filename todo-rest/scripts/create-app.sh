@@ -28,6 +28,8 @@ bash ../../common/scripts/convert-common-css.sh `pwd`
 
 bash ../../todo/scripts/convert-todo-css.sh `pwd`
 
+bash ../scripts/convert-rest-java.sh `pwd`
+
 bash ../scripts/convert-rest-msg.sh `pwd`
 
 bash ../scripts/convert-rest-xml.sh `pwd`
