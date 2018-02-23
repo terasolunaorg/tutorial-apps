@@ -3,28 +3,29 @@
 # Required variables:
 #   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
 #   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
+#   ${ARTIFACT_ID}=Artifact ID of tutorial project. If not specified, the default value is substituted.
 #   ${VERSION}=Version of tutorial project.
 
 case "$ARCHETYPE_ARTIFACT_ID" in
     terasoluna-gfw-web-blank-archetype )
         export GROUP_ID=com.example.todo
-        export ARTIFACT_ID=todo-api
+        export ARTIFACT_ID=${ARTIFACT_ID:=todo-api}
         ;;
     terasoluna-gfw-web-blank-mybatis3-archetype )
         export GROUP_ID=com.example.todo
-        export ARTIFACT_ID=todo-api-mybatis3
+        export ARTIFACT_ID=${ARTIFACT_ID:=todo-api-mybatis3}
         ;;
     terasoluna-gfw-multi-web-blank-mybatis3-archetype )
         export GROUP_ID=com.example.todo
-        export ARTIFACT_ID=todo-api-mybatis3-multi
+        export ARTIFACT_ID=${ARTIFACT_ID:=todo-api-mybatis3-multi}
         ;;
     terasoluna-gfw-web-blank-jpa-archetype )
         export GROUP_ID=com.example.todo
-        export ARTIFACT_ID=todo-api-jpa
+        export ARTIFACT_ID=${ARTIFACT_ID:=todo-api-jpa}
         ;;
     terasoluna-gfw-multi-web-blank-jpa-archetype )
         export GROUP_ID=com.example.todo
-        export ARTIFACT_ID=todo-api-jpa-multi
+        export ARTIFACT_ID=${ARTIFACT_ID:=todo-api-jpa-multi}
         ;;
     * )
         echo "You can not select the specified ARCHETYPE_ARTIFACT_ID."

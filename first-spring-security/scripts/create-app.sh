@@ -3,16 +3,17 @@
 # Required variables:
 #   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
 #   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
+#   ${ARTIFACT_ID}=Artifact ID of tutorial project. If not specified, the default value is substituted.
 #   ${VERSION}=Version of tutorial project.
 
 case "$ARCHETYPE_ARTIFACT_ID" in
     terasoluna-gfw-web-blank-mybatis3-archetype )
         export GROUP_ID=com.example.security
-        export ARTIFACT_ID=first-spring-security-mybatis3
+        export ARTIFACT_ID=${ARTIFACT_ID:=first-spring-security-mybatis3}
         ;;
     terasoluna-gfw-multi-web-blank-mybatis3-archetype )
         export GROUP_ID=com.example.security
-        export ARTIFACT_ID=first-spring-security-mybatis3-multi
+        export ARTIFACT_ID=${ARTIFACT_ID:=first-spring-security-mybatis3-multi}
         ;;
     * )
         echo "You can not select the specified ARCHETYPE_ARTIFACT_ID."
