@@ -3,10 +3,25 @@
 # Required variables:
 #   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
 #   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
-#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'com.example.security'.
-#   ${ARTIFACT_ID}=Artifact ID of tutorial project.
 #   ${VERSION}=Version of tutorial project.
 
+case "$ARCHETYPE_ARTIFACT_ID" in
+    terasoluna-gfw-web-blank-mybatis3-archetype )
+        export GROUP_ID=com.example.security
+        export ARTIFACT_ID=first-spring-security-mybatis3
+        ;;
+    terasoluna-gfw-multi-web-blank-mybatis3-archetype )
+        export GROUP_ID=com.example.security
+        export ARTIFACT_ID=first-spring-security-mybatis3-multi
+        ;;
+    * )
+        echo "You can not select the specified ARCHETYPE_ARTIFACT_ID."
+        exit 1
+        ;;
+esac
+
+echo "create groupId is ${GROUP_ID}."
+echo "create artifactId is ${ARTIFACT_ID}."
 echo "create version is ${VERSION}."
 
 SCRIPT_DIR=`dirname "$0"`

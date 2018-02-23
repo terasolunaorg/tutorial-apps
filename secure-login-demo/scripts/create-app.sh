@@ -3,13 +3,24 @@
 # Required variables:
 #   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
 #   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
-#   ${GROUP_ID}=Group ID of tutorial project. This project's GROUP_ID must be set 'com.example.securelogin'.
-#   ${ARTIFACT_ID}=Artifact ID of tutorial project. This project's ARTIFACT_ID must be set 'secure-login'.
 #   ${VERSION}=Version of tutorial project.
 #   ${HOST_IP}=IP address for access to this web application. Defaults to 'localhost'.
 #   ${APSRV_WEB_PORT}=Port number for access to this web application. Defaults to '8080'.
 #   ${APSRV_H2DB_PORT}=Port number for access to H2DB. Defaults to '9212'.
 
+case "$ARCHETYPE_ARTIFACT_ID" in
+    terasoluna-gfw-multi-web-blank-mybatis3-archetype )
+        export GROUP_ID=com.example.securelogin
+        export ARTIFACT_ID=secure-login
+        ;;
+    * )
+        echo "You can not select the specified ARCHETYPE_ARTIFACT_ID."
+        exit 1
+        ;;
+esac
+
+echo "create groupId is ${GROUP_ID}."
+echo "create artifactId is ${ARTIFACT_ID}."
 echo "create version is ${VERSION}."
 
 SCRIPT_DIR=`dirname "$0"`
