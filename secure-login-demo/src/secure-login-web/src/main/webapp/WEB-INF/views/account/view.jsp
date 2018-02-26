@@ -36,10 +36,8 @@
 			</tr>
 		</table>
 
-		<form:form
-			action="${f:h(pageContext.request.contextPath)}/password?form">
-			<button id="changePassword">Change Password</button>
-		</form:form>
+		<a id="changePassword" href="${f:h(pageContext.request.contextPath)}/password?form">Change Password</a>
+        <br>
 		<a href="${f:h(pageContext.request.contextPath)}/">Back to Top</a>
 	</div>
 </body>
