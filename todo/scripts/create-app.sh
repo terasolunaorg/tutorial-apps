@@ -28,7 +28,7 @@ case "$ARCHETYPE_ARTIFACT_ID" in
         export ARTIFACT_ID=${ARTIFACT_ID:=todo-jpa-multi}
         ;;
     * )
-        echo "You can not select the specified ARCHETYPE_ARTIFACT_ID."
+        echo "[ERROR] You can not set ${ARCHETYPE_ARTIFACT_ID} for ARCHETYPE_ARTIFACT_ID."
         exit 1
         ;;
 esac
