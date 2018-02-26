@@ -2,9 +2,9 @@
 # Create Spring Security tutorial completed app.
 # Required variables:
 #   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
-#   ${ARCHETYPE_VERSION}=Version of blank project's archetype.
-#   ${ARTIFACT_ID}=Artifact ID of tutorial project. If not specified, the default value is substituted.
-#   ${VERSION}=Version of tutorial project.
+#   ${ARCHETYPE_VERSION}=Version of blank project's archetype. If not specified, the default value is set.
+#   ${ARTIFACT_ID}=Artifact ID of tutorial project. If not specified, the default value is set.
+#   ${VERSION}=Version of tutorial project. If not specified, the default value is set.
 
 case "$ARCHETYPE_ARTIFACT_ID" in
     terasoluna-gfw-web-blank-mybatis3-archetype )
@@ -20,6 +20,9 @@ case "$ARCHETYPE_ARTIFACT_ID" in
         exit 1
         ;;
 esac
+
+export ARCHETYPE_VERSION=${ARCHETYPE_VERSION:=5.5.0-SNAPSHOT}
+export VERSION=${VERSION:=1.0.0-SNAPSHOT}
 
 echo "create groupId is ${GROUP_ID}."
 echo "create artifactId is ${ARTIFACT_ID}."
