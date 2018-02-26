@@ -106,6 +106,10 @@ sed -i -e 's|xsi:schemaLocation|\
 sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
         http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd|' "$SECURE_LOGIN_ENV"
 
+# context.xml
+CONTEXT_XML=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-env/configs -type f -name 'context.xml'`
+sed -i -e "s|projectName|${ARTIFACT_ID}|g" "$CONTEXT_XML"
+
 # logback.xml
 LOGBACK_XML=`find ./${ARTIFACT_ID}-env/src/main/resources -type f -name 'logback.xml'`
 sed -i -e 's|<!-- Application Loggers -->|<appender name="AUDIT_LOG_FILE"\
@@ -364,7 +368,7 @@ sed -i -e 's|</load-on-startup>|</load-on-startup>\
 
 sed -i -e '/<?xml version="1.0" encoding="UTF-8"?>/,/<listener>/s|<listener>|<context-param>\
         <param-name>db.url</param-name>\
-        <param-value>jdbc:h2:mem:secure-login;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '"'"'classpath:logback-ddl.sql'"'"'</param-value>\
+        <param-value>jdbc:h2:mem:'"${ARTIFACT_ID}"';DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '"'"'classpath:logback-ddl.sql'"'"'</param-value>\
     </context-param>\
 \
     <context-param>\
