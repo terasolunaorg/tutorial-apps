@@ -41,7 +41,7 @@ public class TodoServiceImpl implements TodoService {
     TodoRepository todoRepository;
 
     // (4)
-    public Todo findOne(String todoId) {
+    private Todo findOne(String todoId) {
         Todo todo = todoRepository.findOne(todoId);
         if (todo == null) {
             // (5)

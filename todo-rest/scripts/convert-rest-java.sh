@@ -19,7 +19,8 @@ find ./ -type f -name 'TodoService.java' | xargs sed -i -e 's|Collection<Todo> f
 ######### TodoServiceImpl.java #########
 
 # TodoServiceImpl.java
-find ./ -type f -name 'TodoServiceImpl.java' | xargs sed -i -e 's|public Todo findOne(String todoId) {|@Transactional(readOnly = true)\
+find ./ -type f -name 'TodoServiceImpl.java' | xargs sed -i -e 's|private Todo findOne(String todoId) {|@Override\
+    @Transactional(readOnly = true)\
     public Todo findOne(String todoId) {|'
 
 # TodoServiceImpl.java
