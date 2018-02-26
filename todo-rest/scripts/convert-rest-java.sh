@@ -13,7 +13,7 @@ fi
 # TodoService.java
 find ./ -type f -name 'TodoService.java' | xargs sed -i -e 's|Collection<Todo> findAll();|Collection<Todo> findAll();\
 \
-Todo findOne(String todoId);|'
+    Todo findOne(String todoId);|'
 
 
 ######### TodoServiceImpl.java #########
