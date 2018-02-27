@@ -14,9 +14,16 @@ fi
 
 # env/-infra.properties
 ENV_INFRA_PROPERTIES=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-env -type f -name "${ARTIFACT_ID}-infra.properties"`
-sed -i -e "s|app\.host = localhost|app.host = ${HOST_IP}|" "$ENV_INFRA_PROPERTIES"
-sed -i -e "s|app\.port = 8080|app.port = ${APSRV_WEB_PORT}|" "$ENV_INFRA_PROPERTIES"
-sed -i -e "s|app\.contextPath = /secure-login-web|app.contextPath = /${ARTIFACT_ID}-web|" "$ENV_INFRA_PROPERTIES"
+for i in ${ENV_INFRA_PROPERTIES} ; do echo -e " 
+mail.host=localhost
+mail.port=3025
+mail.from=info@example.com
+mail.subject=Password Reissue URL
+
+app.host = ${HOST_IP}
+app.port = ${APSRV_WEB_PORT}
+app.contextPath = /${ARTIFACT_ID}-web
+app.passwordReissueProtocol = http" >>$i ; done
 
 if test -n $TARGET_DIR; then
   popd
