@@ -58,10 +58,35 @@ sed -i -e 's|</project>|\
     </properties>\
 </project>|' "$SELENIUM_POM"
 
-# selenium/-infra.properties
-SELENIUM_INFRA_PROPERTIES=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium -type f -name 'secure-login-infra.properties'`
-sed -i -e "s|jdbc:h2:tcp://localhost:9212|jdbc:h2:tcp://${HOST_IP}:${APSRV_H2DB_PORT}|" "$SELENIUM_INFRA_PROPERTIES"
+# selenium.properties
+SELENIUM_PROPERTIES="./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/resources/META-INF/spring/selenium.properties"
+for i in ${SELENIUM_PROPERTIES}; do echo -e 'selenium.enableCapture=false
+selenium.enablePageSource=false
+selenium.enableDbLog=false
+selenium.evidenceBaseDirectory=./evidence
+selenium.logDbHost=localhost
+selenium.logDbPort=9212
 
+# Allowable value is STANDARD or JAVASCRIPT(Default). See the JavaDoc of org.terasoluna.gfw.tutorial.selenium.WebDriverInputFieldAccessor.
+# STANDARD   : for release.
+# JAVASCRIPT : for development and iteration testing.
+selenium.webDriverInputFieldAccessor=JAVASCRIPT
+
+# ----------------
+# Timeout & wait time settings
+# ----------------
+selenium.waitForLogAssertion.offsetSeconds=0
+selenium.timeoutForImplicitlyWait.offsetSeconds=0
+
+# Time unit is milliseconds.
+# If specified value is -1, use default value of URLConnection(system'"'"'s default timeout).
+selenium.restOperations.connectTimeout=-1
+
+# Time unit is milliseconds.
+# If specified value is -1, use default value of URLConnection(system'"'"'s default timeout).
+selenium.restOperations.readTimeout=-1
+
+selenium.dbResetScript=database/H2-datareload.sql' >> $i ;done
 
 # seleniumContext.xml
 SELENIUM_CONTEXT=`find ./ -type f -name 'seleniumContext.xml'`
