@@ -132,16 +132,16 @@ sed -i -e 's|<!-- Application Loggers -->|<appender name="AUDIT_LOG_FILE"\
         </connectionSource>\
     </appender>\
 \
-    <!-- Application Loggers -->\
+    <!-- Application Loggers -->|' "$LOGBACK_XML"
+
+sed -i -e '/<logger name="com.example.securelogin">/,/<\/logger>/s|<level value="debug" />|<level value="info" />\
+    </logger>\
     <logger\
         name="com.example.securelogin.domain.common.interceptor.ServiceCallLoggingInterceptor"\
         additivity="false">\
         <level value="info" />\
         <appender-ref ref="AUDIT_LOG_FILE" />\
-        <appender-ref ref="DB" />\
-    </logger>|' "$LOGBACK_XML"
-
-sed -i -e '/<logger name="com.example.securelogin">/,/<\/logger>/s/<level value="debug" \/>/<level value="info" \/>/' "$LOGBACK_XML"
+        <appender-ref ref="DB" />|' "$LOGBACK_XML"
 
 sed -i -e '/<logger name="org.terasoluna.gfw.web.logging.TraceLoggingInterceptor">/,/<\/logger>/s/<level value="trace" \/>/<level value="info" \/>/' "$LOGBACK_XML"
 
