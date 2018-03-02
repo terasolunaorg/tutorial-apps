@@ -9,7 +9,7 @@ if test -n $TARGET_DIR; then
 fi
 
 # styles.css
-for i in ` find ./ -type f -name 'styles.css' `; do echo -e ' 
+for i in ` find ./ -type f -name 'styles.css' `; do echo -e '
 .test-description{
     background-color: #d4e4e5;
 }
