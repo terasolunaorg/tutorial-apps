@@ -58,6 +58,12 @@ sed -i -e 's|</project>|\
     </properties>\
 </project>|' "$SELENIUM_POM"
 
+
+# selenium/-infra.properties
+SELENIUM_INFRA_PROPERTIES=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium -type f -name 'secure-login-infra.properties'`
+sed -i -e "s|jdbc:h2:tcp://localhost:9212|jdbc:h2:tcp://${HOST_IP}:${APSRV_H2DB_PORT}|" "$SELENIUM_INFRA_PROPERTIES"
+
+
 # selenium.properties
 SELENIUM_PROPERTIES="./${ARTIFACT_ID}-selenium/src/test/resources/META-INF/spring/selenium.properties"
 for i in ${SELENIUM_PROPERTIES}; do echo -e 'selenium.enableCapture=false
