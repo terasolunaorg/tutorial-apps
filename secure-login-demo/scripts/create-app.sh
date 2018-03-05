@@ -11,7 +11,6 @@
 
 case "$ARCHETYPE_ARTIFACT_ID" in
     terasoluna-gfw-multi-web-blank-mybatis3-archetype )
-        export GROUP_ID=com.example.securelogin
         export ARTIFACT_ID=${ARTIFACT_ID:=secure-login}
         ;;
     * )
@@ -21,6 +20,7 @@ case "$ARCHETYPE_ARTIFACT_ID" in
 esac
 
 export ARCHETYPE_VERSION=${ARCHETYPE_VERSION:=5.5.0-SNAPSHOT}
+export GROUP_ID=com.example.securelogin
 export VERSION=${VERSION:=1.0.0-SNAPSHOT}
 export HOST_IP=${HOST_IP:=localhost}
 export APSRV_WEB_PORT=${APSRV_WEB_PORT:=8080}

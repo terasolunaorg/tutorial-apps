@@ -8,23 +8,18 @@
 
 case "$ARCHETYPE_ARTIFACT_ID" in
     terasoluna-gfw-web-blank-archetype )
-        export GROUP_ID=com.example.todo
         export ARTIFACT_ID=${ARTIFACT_ID:=todo-api}
         ;;
     terasoluna-gfw-web-blank-mybatis3-archetype )
-        export GROUP_ID=com.example.todo
         export ARTIFACT_ID=${ARTIFACT_ID:=todo-api-mybatis3}
         ;;
     terasoluna-gfw-multi-web-blank-mybatis3-archetype )
-        export GROUP_ID=com.example.todo
         export ARTIFACT_ID=${ARTIFACT_ID:=todo-api-mybatis3-multi}
         ;;
     terasoluna-gfw-web-blank-jpa-archetype )
-        export GROUP_ID=com.example.todo
         export ARTIFACT_ID=${ARTIFACT_ID:=todo-api-jpa}
         ;;
     terasoluna-gfw-multi-web-blank-jpa-archetype )
-        export GROUP_ID=com.example.todo
         export ARTIFACT_ID=${ARTIFACT_ID:=todo-api-jpa-multi}
         ;;
     * )
@@ -34,6 +29,7 @@ case "$ARCHETYPE_ARTIFACT_ID" in
 esac
 
 export ARCHETYPE_VERSION=${ARCHETYPE_VERSION:=5.5.0-SNAPSHOT}
+export GROUP_ID=com.example.todo
 export VERSION=${VERSION:=1.0.0-SNAPSHOT}
 
 echo "create groupId is ${GROUP_ID}."
