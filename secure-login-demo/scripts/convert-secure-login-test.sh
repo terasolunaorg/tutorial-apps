@@ -59,11 +59,6 @@ sed -i -e 's|</project>|\
 </project>|' "$SELENIUM_POM"
 
 
-# selenium/-infra.properties
-SELENIUM_INFRA_PROPERTIES=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium -type f -name 'secure-login-infra.properties'`
-sed -i -e "s|jdbc:h2:tcp://localhost:9212|jdbc:h2:tcp://${HOST_IP}:${APSRV_H2DB_PORT}|" "$SELENIUM_INFRA_PROPERTIES"
-
-
 # selenium.properties
 SELENIUM_PROPERTIES="./${ARTIFACT_ID}-selenium/src/test/resources/META-INF/spring/selenium.properties"
 for i in ${SELENIUM_PROPERTIES}; do echo -e 'selenium.enableCapture=false
@@ -92,6 +87,19 @@ selenium.restOperations.connectTimeout=-1
 # If specified value is -1, use default value of URLConnection(system'"'"'s default timeout).
 selenium.restOperations.readTimeout=-1
 
+# target application database setting
+selenium.target.application.database=H2
+selenium.target.application.database.url=jdbc:h2:tcp://'"${HOST_IP}"':'"${APSRV_H2DB_PORT}"'/mem:secure-login
+selenium.target.application.database.username=sa
+selenium.target.application.database.password=
+selenium.target.application.database.driverClassName=org.h2.Driver
+# connection pool
+selenium.cp.maxActive=96
+selenium.cp.maxIdle=16
+selenium.cp.minIdle=0
+selenium.cp.maxWait=60000
+
+# reset application database
 selenium.dbResetScript=database/H2-datareload.sql' >> $i ;done
 
 # seleniumContext.xml
@@ -99,15 +107,15 @@ SELENIUM_CONTEXT=`find ./ -type f -name 'seleniumContext.xml'`
 sed -i -e 's|</beans>|\
     <bean id="realDataSource" class="org.apache.commons.dbcp2.BasicDataSource"\
         destroy-method="close">\
-        <property name="driverClassName" value="${database.driverClassName}" />\
-        <property name="url" value="${database.url}" />\
-        <property name="username" value="${database.username}" />\
-        <property name="password" value="${database.password}" />\
+        <property name="driverClassName" value="${selenium.target.application.database.driverClassName}" />\
+        <property name="url" value="${selenium.target.application.database.url}" />\
+        <property name="username" value="${selenium.target.application.database.username}" />\
+        <property name="password" value="${selenium.target.application.database.password}" />\
         <property name="defaultAutoCommit" value="false" />\
-        <property name="maxTotal" value="${cp.maxActive}" />\
-        <property name="maxIdle" value="${cp.maxIdle}" />\
-        <property name="minIdle" value="${cp.minIdle}" />\
-        <property name="maxWaitMillis" value="${cp.maxWait}" />\
+        <property name="maxTotal" value="${selenium.cp.maxActive}" />\
+        <property name="maxIdle" value="${selenium.cp.maxIdle}" />\
+        <property name="minIdle" value="${selenium.cp.minIdle}" />\
+        <property name="maxWaitMillis" value="${selenium.cp.maxWait}" />\
     </bean>\
 \
     <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">\
