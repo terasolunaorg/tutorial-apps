@@ -56,7 +56,7 @@ find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|GoodsService g
 
 
 # GoodsController.java
-find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|return "/goods/showGoodsDetail";|return "/goods/showGoodsDetail";\
+find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|return "goods/showGoodsDetail";|return "goods/showGoodsDetail";\
     }\
 \
     @RequestMapping(value = "/addToCart", method = RequestMethod.POST)\
