@@ -13,7 +13,7 @@ SCRIPT_DIR=`dirname "$0"`
 TARGET_DIR=${SCRIPT_DIR}/../target-project
 
 # create dir for work
-rm -rf "$TARGET_DIR"
+rm -rf "${TARGET_DIR}/${ARTIFACT_ID}"
 mkdir "$TARGET_DIR"
 pushd "$TARGET_DIR"
 
@@ -23,10 +23,14 @@ bash ../scripts/copy-sources.sh
 
 bash ../../common/scripts/convert-common-test.sh `pwd`
 
-bash ../scripts/convert-security-jsp.sh `pwd`
+pushd "$ARTIFACT_ID"
 
-bash ../scripts/convert-security-xml.sh `pwd`
+bash ../../scripts/convert-security-jsp.sh `pwd`
 
-bash ../scripts/convert-security-test.sh `pwd`
+bash ../../scripts/convert-security-xml.sh `pwd`
+
+bash ../../scripts/convert-security-test.sh `pwd`
+
+popd
 
 popd

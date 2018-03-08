@@ -3,9 +3,9 @@
 # Parameters:
 #   $1 : (Optional) Target project path to convert.
 
-TARGET_DIR=$1
-if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+APPLICATION_DIR=$1
+if test -n $APPLICATION_DIR; then
+  pushd "$APPLICATION_DIR"
 fi
 
 ######### TodoService.java #########
@@ -39,6 +39,6 @@ find ./ -type f -name 'TodoServiceImpl.java' | xargs sed -i -e '/public Todo fin
             messages.add("E002", todoId);/'
 
 
-if test -n $TARGET_DIR; then
+if test -n $APPLICATION_DIR; then
   popd
 fi
