@@ -20,6 +20,8 @@ bash ../../common/scripts/generate-project.sh
 
 bash ../scripts/copy-sources.sh
 
+bash ../../common/scripts/convert-common-test.sh `pwd`
+
 bash ../scripts/convert-session-complete-css.sh `pwd`
 
 bash ../scripts/convert-session-complete-jsp.sh `pwd`
