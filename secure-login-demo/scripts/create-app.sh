@@ -35,6 +35,8 @@ bash ../../common/scripts/generate-project.sh
 
 bash ../scripts/copy-sources.sh
 
+bash ../../common/scripts/convert-common-test.sh `pwd`
+
 bash ../scripts/convert-secure-login-xml.sh `pwd`
 
 bash ../scripts/convert-secure-login-jsp.sh `pwd`
