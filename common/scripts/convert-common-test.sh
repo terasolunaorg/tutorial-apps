@@ -6,14 +6,14 @@
 
 TARGET_DIR=$1
 if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+  pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
 # selenium version
 if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
   # multi project
   # pom.xml
-  find ./${ARTIFACT_ID}/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\
+  find ./pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\
                 <groupId>org.seleniumhq.selenium</groupId>\
                 <artifactId>selenium-java</artifactId>\
                 <version>${selenium.version}</version>\
@@ -58,7 +58,7 @@ if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
 else
   # single project
   # pom.xml
-  find ./${ARTIFACT_ID}/pom.xml | xargs sed -i -e 's|<artifactId>selenium-java</artifactId>|<artifactId>selenium-java</artifactId>\
+  find ./pom.xml | xargs sed -i -e 's|<artifactId>selenium-java</artifactId>|<artifactId>selenium-java</artifactId>\
             <version>${selenium.version}</version>\
             <scope>test</scope>\
         </dependency>\
@@ -105,7 +105,7 @@ else
 fi
 
 # pom.xml
-find ./${ARTIFACT_ID}/pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\
+find ./pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\
     </properties>|'
 
 popd

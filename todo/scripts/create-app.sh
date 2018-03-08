@@ -23,17 +23,13 @@ bash ../scripts/copy-sources.sh
 
 bash ../../common/scripts/convert-common-test.sh `pwd`
 
-pushd "$ARTIFACT_ID"
-
-bash ../../scripts/convert-todo-test.sh `pwd`
+bash ../scripts/convert-todo-test.sh `pwd`
 
 case "$ARCHETYPE_ARTIFACT_ID" in
-    *mybatis3* | *jpa* ) bash ../../scripts/convert-todo-infra.sh `pwd` ;;
+    *mybatis3* | *jpa* ) bash ../scripts/convert-todo-infra.sh `pwd` ;;
     * ) ;;
 esac
 
-bash ../../scripts/convert-todo-css.sh `pwd`
-
-popd
+bash ../scripts/convert-todo-css.sh `pwd`
 
 popd

@@ -23,14 +23,10 @@ bash ../scripts/copy-sources.sh
 
 bash ../../common/scripts/convert-common-test.sh `pwd`
 
-pushd "$ARTIFACT_ID"
+bash ../scripts/convert-security-jsp.sh `pwd`
 
-bash ../../scripts/convert-security-jsp.sh `pwd`
+bash ../scripts/convert-security-xml.sh `pwd`
 
-bash ../../scripts/convert-security-xml.sh `pwd`
-
-bash ../../scripts/convert-security-test.sh `pwd`
-
-popd
+bash ../scripts/convert-security-test.sh `pwd`
 
 popd

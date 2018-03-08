@@ -3,9 +3,9 @@
 # Parameters:
 #   $1 : (Optional) Target project path to convert.
 
-APPLICATION_DIR=$1
-if test -n $APPLICATION_DIR; then
-  pushd "$APPLICATION_DIR"
+TARGET_DIR=$1
+if test -n $TARGET_DIR; then
+  pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
 # web.xml
@@ -38,6 +38,6 @@ find ./ -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:http patte
     <sec:http pattern="/api/v1/**" security="none" />\
 |'
 
-if test -n $APPLICATION_DIR; then
+if test -n $TARGET_DIR; then
   popd
 fi
