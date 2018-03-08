@@ -4,9 +4,9 @@
 # Parameters:
 #   $1 : (Optional) Target project path to convert.
 
-APPLICATION_DIR=$1
-if test -n $APPLICATION_DIR; then
-  pushd "$APPLICATION_DIR"
+TARGET_DIR=$1
+if test -n $TARGET_DIR; then
+  pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
 # domain/pom.xml
@@ -431,6 +431,6 @@ sed -i -e "${END_ERRORPAGE_LINE}i\
         <exception-type>com.example.securelogin.app.common.filter.exception.InvalidCharacterException</exception-type>\
         <location>/WEB-INF/views/common/error/invalidCharacterError.jsp</location>" "$WEB_XML"
 
-if test -n $APPLICATION_DIR; then
+if test -n $TARGET_DIR; then
   popd
 fi

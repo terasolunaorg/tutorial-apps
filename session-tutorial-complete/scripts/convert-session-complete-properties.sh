@@ -3,9 +3,9 @@
 # Parameters:
 #   $1 : (Optional) Target project path to convert.
 
-APPLICATION_DIR=$1
-if test -n $APPLICATION_DIR; then
-  pushd "$APPLICATION_DIR"
+TARGET_DIR=$1
+if test -n $TARGET_DIR; then
+  pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
 # application-messages.properties
@@ -46,6 +46,6 @@ for i in ` find ./ -type f -name 'ValidationMessages.properties' `; do echo -e '
 session.app.validation.Confirm.message= password must be same
 ' >>$i ; done
 
-if test -n $APPLICATION_DIR; then
+if test -n $TARGET_DIR; then
   popd
 fi

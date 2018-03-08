@@ -7,9 +7,9 @@
 # Parameters:
 #   $1 : (Optional) Target project path to convert.
 
-APPLICATION_DIR=$1
-if test -n $APPLICATION_DIR; then
-  pushd "$APPLICATION_DIR"
+TARGET_DIR=$1
+if test -n $TARGET_DIR; then
+  pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
 # selenium/pom.xml
@@ -177,6 +177,6 @@ sed -i -e 's|xsi:schemaLocation|\
 sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd|' "$SELENIUM_CONTEXT"
 
-if test -n $APPLICATION_DIR; then
+if test -n $TARGET_DIR; then
   popd
 fi

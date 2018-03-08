@@ -23,18 +23,14 @@ bash ../scripts/copy-sources.sh
 
 bash ../../common/scripts/convert-common-test.sh `pwd`
 
-pushd "$ARTIFACT_ID"
+bash ../scripts/convert-session-init-css.sh `pwd`
 
-bash ../../scripts/convert-session-init-css.sh `pwd`
+bash ../scripts/convert-session-init-jsp.sh `pwd`
 
-bash ../../scripts/convert-session-init-jsp.sh `pwd`
+bash ../scripts/convert-session-init-properties.sh `pwd`
 
-bash ../../scripts/convert-session-init-properties.sh `pwd`
+bash ../scripts/convert-session-init-xml.sh `pwd`
 
-bash ../../scripts/convert-session-init-xml.sh `pwd`
-
-bash ../../scripts/convert-session-init-test.sh `pwd`
-
-popd
+bash ../scripts/convert-session-init-test.sh `pwd`
 
 popd
