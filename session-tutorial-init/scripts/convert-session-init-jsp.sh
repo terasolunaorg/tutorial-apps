@@ -3,9 +3,9 @@
 # Parameters:
 #   $1 : (Optional) Target project path to convert.
 
-TARGET_DIR=$1
-if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+APPLICATION_DIR=$1
+if test -n $APPLICATION_DIR; then
+  pushd "$APPLICATION_DIR"
 fi
 
 # include.jsp
@@ -16,6 +16,6 @@ find ./ -type f -name 'template.jsp' | xargs sed -i -e 's|href="${pageContext.re
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap-3.0.0/css/bootstrap.css"\
     media="screen, projection">|'
     
-if test -n $TARGET_DIR; then
+if test -n $APPLICATION_DIR; then
   popd
 fi

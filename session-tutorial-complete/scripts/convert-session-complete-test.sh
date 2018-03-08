@@ -5,14 +5,14 @@
 # Parameters:
 #   $1 : (Optional) Target project path to convert.
 
-TARGET_DIR=$1
-if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+APPLICATION_DIR=$1
+if test -n $APPLICATION_DIR; then
+  pushd "$APPLICATION_DIR"
 fi
 
 # selenium.properties
 find ./ -type f -name 'selenium.properties' | xargs sed -i -e "s|selenium.contextName=|selenium.contextName=${ARTIFACT_ID}-web|"
 
-if test -n $TARGET_DIR; then
+if test -n $APPLICATION_DIR; then
   popd
 fi

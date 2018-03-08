@@ -7,13 +7,13 @@
 # Parameters:
 #   $1 : (Optional) Target project path to convert.
 
-TARGET_DIR=$1
-if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+APPLICATION_DIR=$1
+if test -n $APPLICATION_DIR; then
+  pushd "$APPLICATION_DIR"
 fi
 
 # selenium/pom.xml
-SELENIUM_POM=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium -type f -name 'pom.xml'`
+SELENIUM_POM=`find ./${ARTIFACT_ID}-selenium -type f -name 'pom.xml'`
 sed -i -e 's|</configuration>|\
                     <argLine>-Dhttps.proxyHost=${http.proxyHost} -Dhttps.proxyPort=${http.proxyPort}</argLine>\
                 </configuration>|' "$SELENIUM_POM"
@@ -59,7 +59,7 @@ sed -i -e 's|</project>|\
 </project>|' "$SELENIUM_POM"
 
 # selenium.properties
-SELENIUM_PROPERTIES="./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/resources/META-INF/spring/selenium.properties"
+SELENIUM_PROPERTIES="./${ARTIFACT_ID}-selenium/src/test/resources/META-INF/spring/selenium.properties"
 for i in ${SELENIUM_PROPERTIES}; do echo -e 'selenium.enableCapture=false
 selenium.enablePageSource=false
 selenium.enableDbLog=false
@@ -177,6 +177,6 @@ sed -i -e 's|xsi:schemaLocation|\
 sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd|' "$SELENIUM_CONTEXT"
 
-if test -n $TARGET_DIR; then
+if test -n $APPLICATION_DIR; then
   popd
 fi

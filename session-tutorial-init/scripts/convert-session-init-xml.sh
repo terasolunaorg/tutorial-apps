@@ -5,9 +5,9 @@
 # Parameters:
 #   $1 : (Optional) Target project path to convert.
 
-TARGET_DIR=$1
-if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+APPLICATION_DIR=$1
+if test -n $APPLICATION_DIR; then
+  pushd "$APPLICATION_DIR"
 fi
 
 # -codelist.xml
@@ -60,6 +60,6 @@ find ./ -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:authentica
         </sec:authentication-provider>\
     </sec:authentication-manager>|'
 
-if test -n $TARGET_DIR; then
+if test -n $APPLICATION_DIR; then
   popd
 fi
