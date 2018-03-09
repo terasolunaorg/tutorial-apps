@@ -125,7 +125,7 @@ sed -i -e 's|<!-- Application Loggers -->|<appender name="AUDIT_LOG_FILE"\
         <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">\
             <dataSource class="org.apache.commons.dbcp2.BasicDataSource">\
                 <driverClassName>org.h2.Driver</driverClassName>\
-                <url>jdbc:h2:mem:'"${ARTIFACT_ID}"'-test;DB_CLOSE_DELAY=-1;</url>\
+                <url>jdbc:h2:mem:'"${ARTIFACT_ID}"';DB_CLOSE_DELAY=-1;</url>\
                 <username>sa</username>\
                 <password></password>\
             </dataSource>\
@@ -364,7 +364,7 @@ sed -i -e 's|</load-on-startup>|</load-on-startup>\
 
 sed -i -e '/<?xml version="1.0" encoding="UTF-8"?>/,/<listener>/s|<listener>|<context-param>\
         <param-name>db.url</param-name>\
-        <param-value>jdbc:h2:mem:secure-login-test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '"'"'classpath:logback-ddl.sql'"'"'</param-value>\
+        <param-value>jdbc:h2:mem:secure-login;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '"'"'classpath:logback-ddl.sql'"'"'</param-value>\
     </context-param>\
 \
     <context-param>\
