@@ -4,8 +4,8 @@
 #   $1 : (Optional) Target project path to convert.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
+  pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
 # spring-security.xml
@@ -33,6 +33,6 @@ find ./ -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:authentica
         </sec:authentication-provider>\
     </sec:authentication-manager>|'
 
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi

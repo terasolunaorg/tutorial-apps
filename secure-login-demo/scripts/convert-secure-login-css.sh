@@ -4,8 +4,8 @@
 #   $1 : (Optional) Target project path to convert.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
+  pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
 # styles.css
@@ -62,6 +62,6 @@ for i in ` find ./ -type f -name 'styles.css' `; do echo -e '
   border-color: rgba(226, 131, 39, 0.3);
 }' >> $i ;done
 
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi

@@ -5,12 +5,12 @@
 #   $1 : (Optional) Target project path to convert.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
+  pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
 # domain/pom.xml
-DOMAIN_POM=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain -type f -name 'pom.xml'`
+DOMAIN_POM=`find ./${ARTIFACT_ID}-domain -type f -name 'pom.xml'`
 sed -i -e 's|</dependencies>|\
         <dependency>\
             <groupId>org.springframework</groupId>\
@@ -107,7 +107,7 @@ sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
         http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd|' "$SECURE_LOGIN_ENV"
 
 # logback.xml
-LOGBACK_XML=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-env/src/main/resources -type f -name 'logback.xml'`
+LOGBACK_XML=`find ./${ARTIFACT_ID}-env/src/main/resources -type f -name 'logback.xml'`
 sed -i -e 's|<!-- Application Loggers -->|<appender name="AUDIT_LOG_FILE"\
         class="ch.qos.logback.core.rolling.RollingFileAppender">\
         <file>${app.log.dir:-log}/security-audit.log</file>\
@@ -154,7 +154,7 @@ sed -i -e 's|<appender-ref ref="APPLICATION_LOG_FILE" />|<appender-ref ref="APPL
 sed -i -e '/<!-- only for development -->/,/<\/logger>/d' "$LOGBACK_XML"
 
 # web/pom.xml
-WEB_POM=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-web -type f -name 'pom.xml'`
+WEB_POM=`find ./${ARTIFACT_ID}-web -type f -name 'pom.xml'`
 sed -i -e 's|</dependencies>|\
         <dependency>\
             <groupId>org.terasoluna.gfw</groupId>\
@@ -431,6 +431,6 @@ sed -i -e "${END_ERRORPAGE_LINE}i\
         <exception-type>com.example.securelogin.app.common.filter.exception.InvalidCharacterException</exception-type>\
         <location>/WEB-INF/views/common/error/invalidCharacterError.jsp</location>" "$WEB_XML"
 
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi

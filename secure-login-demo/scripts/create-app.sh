@@ -16,6 +16,7 @@ SCRIPT_DIR=`dirname "$0"`
 TARGET_DIR=${SCRIPT_DIR}/../target-project
 
 # create dir for work
+rm -rf "${TARGET_DIR}/${ARTIFACT_ID}"
 mkdir "$TARGET_DIR"
 pushd "$TARGET_DIR"
 
