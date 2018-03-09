@@ -7,7 +7,7 @@
 #   $1 : (Optional) Target project path to convert.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
@@ -21,6 +21,6 @@ fi
 find ./ -type f -name 'FunctionTestSupport.java' | xargs sed -i -e 's|return applicationContextUrl + "/" + simplePackageName + "/";|return applicationContextUrl + "/login/loginForm";|'
 find ./ -name "*.java" -o -name "*.xml" | xargs sed -i -e 's|todo.selenium|com.example.security.selenium|'
 
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi

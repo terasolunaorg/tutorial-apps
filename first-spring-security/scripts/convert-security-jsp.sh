@@ -4,7 +4,7 @@
 #   $1 : (Optional) Target project path to convert.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
@@ -32,6 +32,6 @@ find ./ -type f -name 'home.jsp' | xargs sed -i -e 's|<p>The time on the server 
         <li><a href="${pageContext.request.contextPath}/account">view account</a></li>\
     </ul>|'
 
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi

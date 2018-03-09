@@ -5,7 +5,7 @@
 #   ${ARTIFACT_ID}=Artifact ID of tutorial project.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
