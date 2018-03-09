@@ -119,7 +119,7 @@ sed -i -e 's|</beans>|\
     <bean id="realDataSourceForLogging" class="org.apache.commons.dbcp2.BasicDataSource"\
         destroy-method="close">\
         <property name="driverClassName" value="org.h2.Driver" />\
-        <property name="url" value="jdbc:h2:tcp://${selenium.logDbHost}:${selenium.logDbPort}/mem:secure-login-test" />\
+        <property name="url" value="jdbc:h2:tcp://${selenium.logDbHost}:${selenium.logDbPort}/mem:secure-login" />\
         <property name="username" value="sa" />\
         <property name="password" value="" />\
         <property name="defaultAutoCommit" value="false" />\
