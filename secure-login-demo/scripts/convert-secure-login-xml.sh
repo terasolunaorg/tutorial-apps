@@ -106,6 +106,53 @@ sed -i -e 's|xsi:schemaLocation|\
 sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
         http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd|' "$SECURE_LOGIN_ENV"
 
+# logback.xml
+LOGBACK_XML=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-env/src/main/resources -type f -name 'logback.xml'`
+sed -i -e 's|<!-- Application Loggers -->|<appender name="AUDIT_LOG_FILE"\
+        class="ch.qos.logback.core.rolling.RollingFileAppender">\
+        <file>${app.log.dir:-log}/security-audit.log</file>\
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">\
+            <fileNamePattern>${app.log.dir:-log}/security-audit-%d{yyyyMMdd}.log</fileNamePattern>\
+            <maxHistory>7</maxHistory>\
+        </rollingPolicy>\
+        <encoder>\
+            <charset>UTF-8</charset>\
+            <pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\\tthread:%thread\\tUSER:%X{USER}\\tX-Track:%X{X-Track}\\tlevel:%-5level\\tlogger:%-48logger{48}\\tmessage:%msg%n]]></pattern>\
+        </encoder>\
+    </appender>\
+\
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">\
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">\
+            <dataSource class="org.apache.commons.dbcp2.BasicDataSource">\
+                <driverClassName>org.h2.Driver</driverClassName>\
+                <url>jdbc:h2:mem:'"${ARTIFACT_ID}"'-test;DB_CLOSE_DELAY=-1;</url>\
+                <username>sa</username>\
+                <password></password>\
+            </dataSource>\
+        </connectionSource>\
+    </appender>\
+\
+    <!-- Application Loggers -->|' "$LOGBACK_XML"
+
+sed -i -e '/<logger name="com.example.securelogin">/,/<\/logger>/s|<level value="debug" />|<level value="info" />\
+    </logger>\
+    <logger\
+        name="com.example.securelogin.domain.common.interceptor.ServiceCallLoggingInterceptor"\
+        additivity="false">\
+        <level value="info" />\
+        <appender-ref ref="AUDIT_LOG_FILE" />\
+        <appender-ref ref="DB" />|' "$LOGBACK_XML"
+
+sed -i -e '/<logger name="org.terasoluna.gfw.web.logging.TraceLoggingInterceptor">/,/<\/logger>/s/<level value="trace" \/>/<level value="info" \/>/' "$LOGBACK_XML"
+
+sed -i -e 's|<appender-ref ref="MONITORING_LOG_FILE" />|<appender-ref ref="MONITORING_LOG_FILE" />\
+        <appender-ref ref="DB" />|' "$LOGBACK_XML"
+
+sed -i -e 's|<appender-ref ref="APPLICATION_LOG_FILE" />|<appender-ref ref="APPLICATION_LOG_FILE" />\
+        <appender-ref ref="DB" />|' "$LOGBACK_XML"
+
+sed -i -e '/<!-- only for development -->/,/<\/logger>/d' "$LOGBACK_XML"
+
 # web/pom.xml
 WEB_POM=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-web -type f -name 'pom.xml'`
 sed -i -e 's|</dependencies>|\
