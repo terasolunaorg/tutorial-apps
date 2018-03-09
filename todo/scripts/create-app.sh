@@ -20,6 +20,8 @@ bash ../../common/scripts/generate-project.sh
 
 bash ../scripts/copy-sources.sh
 
+bash ../../common/scripts/convert-common-test.sh `pwd`
+
 bash ../scripts/convert-todo-test.sh `pwd`
 
 case "$ARCHETYPE_ARTIFACT_ID" in
