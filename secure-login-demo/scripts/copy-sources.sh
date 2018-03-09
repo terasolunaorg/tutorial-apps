@@ -17,8 +17,6 @@ cp -p -r ../src/secure-login-web/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-web
 cp -p -r ../src/secure-login-domain/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain
 # env project
 cp -p -r ../src/secure-login-env/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-env
-# initdb project
-cp -p -r ../src/secure-login-initdb/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-initdb
 # selenium project
 cp -p -r ../src/secure-login-selenium/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium
 cp -p -r ../../common/src/test/java ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test
