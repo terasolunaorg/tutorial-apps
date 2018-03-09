@@ -8,7 +8,7 @@
 #   $1 : (Optional) Target project path to convert.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
@@ -25,6 +25,6 @@ app.port = ${APSRV_WEB_PORT}
 app.contextPath = /${ARTIFACT_ID}-web
 app.passwordReissueProtocol = http" >>$i ; done
 
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi

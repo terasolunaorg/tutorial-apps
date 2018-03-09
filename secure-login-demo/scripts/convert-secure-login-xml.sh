@@ -5,7 +5,7 @@
 #   $1 : (Optional) Target project path to convert.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
@@ -431,6 +431,6 @@ sed -i -e "${END_ERRORPAGE_LINE}i\
         <exception-type>com.example.securelogin.app.common.filter.exception.InvalidCharacterException</exception-type>\
         <location>/WEB-INF/views/common/error/invalidCharacterError.jsp</location>" "$WEB_XML"
 
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi

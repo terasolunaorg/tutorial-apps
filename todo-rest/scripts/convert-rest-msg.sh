@@ -4,7 +4,7 @@
 #   $1 : (Optional) Target project path to convert.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
@@ -25,6 +25,6 @@ javax.validation.constraints.NotNull.message = {0} may not be null.
 javax.validation.constraints.Size.message    = {0} size must be between {min} and {max}.
 ' >> $i ;done
 
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi
