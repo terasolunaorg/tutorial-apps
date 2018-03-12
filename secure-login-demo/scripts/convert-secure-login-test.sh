@@ -30,12 +30,6 @@ sed -i -e 's|</dependencies>|\
             <artifactId>h2</artifactId>\
             <scope>test</scope>\
         </dependency>\
-\
-        <dependency>\
-            <groupId>com.example.securelogin</groupId>\
-            <artifactId>secure-login-env</artifactId>\
-            <scope>test</scope>\
-        </dependency>\
     </dependencies>|' "$SELENIUM_POM"
 
 sed -i -e 's|</project>|\
@@ -71,8 +65,13 @@ for i in ${SELENIUM_PROPERTIES}; do echo -e 'selenium.enableCapture=false
 selenium.enablePageSource=false
 selenium.enableDbLog=false
 selenium.evidenceBaseDirectory=./evidence
-selenium.logDbHost=localhost
-selenium.logDbPort=9212
+# connection pool
+selenium.cp.maxActive=96
+selenium.cp.maxIdle=16
+selenium.cp.minIdle=0
+selenium.cp.maxWait=60000
+selenium.dbHost='"${HOST_IP}"'
+selenium.dbPort='"${APSRV_H2DB_PORT}"'
 
 # Allowable value is STANDARD or JAVASCRIPT(Default). See the JavaDoc of org.terasoluna.gfw.tutorial.selenium.WebDriverInputFieldAccessor.
 # STANDARD   : for release.
@@ -101,36 +100,23 @@ SELENIUM_CONTEXT=`find ./ -type f -name 'seleniumContext.xml'`
 sed -i -e 's|</beans>|\
     <bean id="realDataSource" class="org.apache.commons.dbcp2.BasicDataSource"\
         destroy-method="close">\
-        <property name="driverClassName" value="${database.driverClassName}" />\
-        <property name="url" value="jdbc:h2:tcp://${database.host}:${database.port}/mem:secure-login" />\
-        <property name="username" value="${database.username}" />\
-        <property name="password" value="${database.password}" />\
+        <property name="driverClassName" value="org.h2.Driver" />\
+        <property name="url" value="jdbc:h2:tcp://${selenium.dbHost}:${selenium.dbPort}/mem:secure-login" />\
+        <property name="username" value="sa" />\
+        <property name="password" value="" />\
         <property name="defaultAutoCommit" value="false" />\
-        <property name="maxTotal" value="${cp.maxActive}" />\
-        <property name="maxIdle" value="${cp.maxIdle}" />\
-        <property name="minIdle" value="${cp.minIdle}" />\
-        <property name="maxWaitMillis" value="${cp.maxWait}" />\
+        <property name="maxTotal" value="${selenium.cp.maxActive}" />\
+        <property name="maxIdle" value="${selenium.cp.maxIdle}" />\
+        <property name="minIdle" value="${selenium.cp.minIdle}" />\
+        <property name="maxWaitMillis" value="${selenium.cp.maxWait}" />\
     </bean>\
 \
     <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">\
         <constructor-arg index="0" ref="realDataSource" />\
     </bean>\
 \
-    <bean id="realDataSourceForLogging" class="org.apache.commons.dbcp2.BasicDataSource"\
-        destroy-method="close">\
-        <property name="driverClassName" value="org.h2.Driver" />\
-        <property name="url" value="jdbc:h2:tcp://${selenium.logDbHost}:${selenium.logDbPort}/mem:secure-login" />\
-        <property name="username" value="sa" />\
-        <property name="password" value="" />\
-        <property name="defaultAutoCommit" value="false" />\
-    </bean>\
-\
-    <bean id="dataSourceForLogging" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">\
-        <constructor-arg index="0" ref="realDataSourceForLogging" />\
-    </bean>\
-\
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">\
-        <property name="dataSource" ref="dataSourceForLogging" />\
+        <property name="dataSource" ref="dataSource" />\
     </bean>\
 \
     <tx:annotation-driven/>\
@@ -155,7 +141,7 @@ sed -i -e 's|</beans>|\
     <bean id="dbLogAssertOperations" class="org.terasoluna.gfw.tutorial.selenium.DBLogAssertOperations">\
         <constructor-arg index="0">\
             <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">\
-                <property name="dataSource" ref="dataSourceForLogging" />\
+                <property name="dataSource" ref="dataSource" />\
                 <property name="fetchSize" value="100" />\
             </bean>\
         </constructor-arg>\
@@ -165,14 +151,14 @@ sed -i -e 's|</beans>|\
         class="org.terasoluna.gfw.tutorial.selenium.ScreenCapture" />\
 \
     <bean id="dbLog" class="org.terasoluna.gfw.tutorial.selenium.DBLog">\
-        <property name="dataSource" ref="dataSourceForLogging" />\
+        <property name="dataSource" ref="dataSource" />\
     </bean>\
 \
     <bean id="pageSource"\
         class="org.terasoluna.gfw.tutorial.selenium.PageSource" />\
 \
     <bean id="dbLogCleaner" class="org.terasoluna.gfw.tutorial.selenium.DBLogCleaner">\
-        <property name="dataSource" ref="dataSourceForLogging" />\
+        <property name="dataSource" ref="dataSource" />\
     </bean>\
 \
     <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />\
