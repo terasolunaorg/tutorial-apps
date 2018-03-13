@@ -48,14 +48,8 @@ public class SecureLoggingTest extends DBLogFunctionTestSupport {
 
     @Before
     public void setup() throws ScriptException, SQLException {
-        Connection connection = null;
-        try {
-            connection = dataSource.getConnection();
+        try (Connection connection = dataSource.getConnection()) {
             populator.populate(connection);
-        } finally {
-            if (connection != null) {
-                connection.close();
-            }
         }
     }
 
