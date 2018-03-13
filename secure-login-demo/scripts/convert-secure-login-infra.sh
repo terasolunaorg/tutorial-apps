@@ -14,7 +14,7 @@ fi
 
 # env/-infra.properties
 ENV_INFRA_PROPERTIES=`find ./${ARTIFACT_ID}-env -type f -name "${ARTIFACT_ID}-infra.properties"`
-for i in ${ENV_INFRA_PROPERTIES} ; do echo -e " 
+for i in ${ENV_INFRA_PROPERTIES} ; do echo -e "
 mail.host=localhost
 mail.port=3025
 mail.from=info@example.com

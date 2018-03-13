@@ -125,7 +125,7 @@ sed -i -e 's|<!-- Application Loggers -->|<appender name="AUDIT_LOG_FILE"\
         <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">\
             <dataSource class="org.apache.commons.dbcp2.BasicDataSource">\
                 <driverClassName>org.h2.Driver</driverClassName>\
-                <url>jdbc:h2:mem:'"${ARTIFACT_ID}"'-test;DB_CLOSE_DELAY=-1;</url>\
+                <url>jdbc:h2:mem:'"${ARTIFACT_ID}"';DB_CLOSE_DELAY=-1;</url>\
                 <username>sa</username>\
                 <password></password>\
             </dataSource>\
@@ -362,11 +362,9 @@ sed -i -e 's|</load-on-startup>|</load-on-startup>\
             <file-size-threshold>0</file-size-threshold>\
         </multipart-config>|' "$WEB_XML"
 
-LISTENER_LINE=`sed -n '/<listener>/=' "$WEB_XML" | head -n 1`
-sed -i -e "${LISTENER_LINE}i\
-    <context-param>\
+sed -i -e '/<?xml version="1.0" encoding="UTF-8"?>/,/<listener>/s|<listener>|<context-param>\
         <param-name>db.url</param-name>\
-        <param-value>jdbc:h2:mem:secure-login-test;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:logback-ddl.sql'</param-value>\
+        <param-value>jdbc:h2:mem:secure-login;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM '"'"'classpath:logback-ddl.sql'"'"'</param-value>\
     </context-param>\
 \
     <context-param>\
@@ -401,10 +399,10 @@ sed -i -e "${LISTENER_LINE}i\
     <servlet-mapping>\
         <servlet-name>H2Console</servlet-name>\
         <url-pattern>/admin/h2/*</url-pattern>\
-    </servlet-mapping>" "$WEB_XML"
+    </servlet-mapping>\
+    <listener>|' "$WEB_XML"
 
-FILTERCHAIN_LINE=`sed -n '/<filter-name>springSecurityFilterChain/=' "$WEB_XML" | head -n 1`
-sed -i -e "${FILTERCHAIN_LINE}i\
+sed -i -e '/<filter-class>org.springframework.web.filter.CharacterEncodingFilter<\/filter-class>/,/<filter>/s|<filter>|<filter>\
         <filter-name>MultipartFilter</filter-name>\
         <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>\
     </filter>\
@@ -422,14 +420,14 @@ sed -i -e "${FILTERCHAIN_LINE}i\
         <url-pattern>/*</url-pattern>\
     </filter-mapping>\
 \
-    <filter>" "$WEB_XML"
+    <filter>|' "$WEB_XML"
 
-END_ERRORPAGE_LINE=`sed -n '/<\/error-page>/=' "$WEB_XML" | tail -n 1`
-sed -i -e "${END_ERRORPAGE_LINE}i\
-    </error-page>\
+sed -i -e '/<location>\/WEB-INF\/views\/common\/error\/unhandledSystemError.html<\/location>/,/<\/error-page>/s|</error-page>|</error-page>\
+\
     <error-page>\
         <exception-type>com.example.securelogin.app.common.filter.exception.InvalidCharacterException</exception-type>\
-        <location>/WEB-INF/views/common/error/invalidCharacterError.jsp</location>" "$WEB_XML"
+        <location>/WEB-INF/views/common/error/invalidCharacterError.jsp</location>\
+    </error-page>|' "$WEB_XML"
 
 if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
