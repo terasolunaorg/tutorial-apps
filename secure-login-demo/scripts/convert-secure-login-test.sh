@@ -65,11 +65,6 @@ for i in ${SELENIUM_PROPERTIES}; do echo -e 'selenium.enableCapture=false
 selenium.enablePageSource=false
 selenium.enableDbLog=false
 selenium.evidenceBaseDirectory=./evidence
-# connection pool
-selenium.cp.maxActive=96
-selenium.cp.maxIdle=16
-selenium.cp.minIdle=0
-selenium.cp.maxWait=60000
 selenium.dbHost='"${HOST_IP}"'
 selenium.dbPort='"${APSRV_H2DB_PORT}"'
 
@@ -105,10 +100,6 @@ sed -i -e 's|</beans>|\
         <property name="username" value="sa" />\
         <property name="password" value="" />\
         <property name="defaultAutoCommit" value="false" />\
-        <property name="maxTotal" value="${selenium.cp.maxActive}" />\
-        <property name="maxIdle" value="${selenium.cp.maxIdle}" />\
-        <property name="minIdle" value="${selenium.cp.minIdle}" />\
-        <property name="maxWaitMillis" value="${selenium.cp.maxWait}" />\
     </bean>\
 \
     <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">\

@@ -16,6 +16,7 @@
 package com.example.securelogin.selenium.loginform;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
@@ -55,7 +56,15 @@ public class AccountLockTest extends DBLogFunctionTestSupport {
 
     @Before
     public void setup() throws ScriptException, SQLException {
-        populator.populate(dataSource.getConnection());
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+            populator.populate(connection);
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
     }
 
     /**
