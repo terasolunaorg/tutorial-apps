@@ -56,6 +56,6 @@ public class GoodsController {
 		Goods goods = goodsService.findOne(goodsId);
 		model.addAttribute(goods);
  
-		return "/goods/showGoodsDetail";
+		return "goods/showGoodsDetail";
 	}
 }
