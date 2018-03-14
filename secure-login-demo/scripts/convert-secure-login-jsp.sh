@@ -24,7 +24,7 @@ find ./ -type f -name 'header.jsp' | xargs sed -i -e 's|<h1>|<c:if test="${!empt
 <h1 class="test-description">|g'
 
 # header.jsp
-find ./ -type f -name 'header.jsp' | xargs sed -i -e 's|    <a href="${pageContext.request.contextPath}/">secure-login</a>|Test : ${f:h(param.testdescription)}|g'
+find ./ -type f -name 'header.jsp' | xargs sed -i -e 's|    <a href="${pageContext.request.contextPath}/">'"${ARTIFACT_ID}"'</a>|Test : ${f:h(param.testdescription)}|g'
 
 # header.jsp
 find ./ -type f -name 'header.jsp' | xargs sed -i -e 's|</h1>|</h1>\
