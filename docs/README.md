@@ -36,7 +36,7 @@ First of all, you set following environment variables.
 | Environment Variable | Description | Required or Optional | Note |
 |:------------- |:----------------- |:----------------- |:----------------- |
 | ARCHETYPE_ARTIFACT_ID | Artifact ID of blank project's archetype. | Required | You can choose archetypes from tutorial instructions explained in Development Guideline. |
-| ARCHETYPE_VERSION | Version of blank project's archetype. | Optional | Defaults to specified version in tutorial-apps pom.xml. (e.g. ``5.4.0.RELEASE``) |
+| ARCHETYPE_VERSION | Version of blank project's archetype. | Optional | Defaults to specified version in tutorial-apps pom.xml. (e.g. ``5.3.0.RELEASE``) |
 | ARTIFACT_ID | Artifact ID of tutorial project. | Optional | Defaults to value as tutorial instructions explained in Development Guideline. (e.g. ``todo``) |
 | VERSION | Version of tutorial project. | Optional | Defaults to ``1.0.0-SNAPSHOT``.|
 | HOST_IP | IP address for access to tutorial application. (i.e. Web/AP Server address) | Optional | Defaults to ``localhost``.<br> (Only use in ``secure-login-demo``.) |
