@@ -14,7 +14,7 @@ case "$ARCHETYPE_ARTIFACT_ID" in
         export ARTIFACT_ID=${ARTIFACT_ID:=first-spring-security-mybatis3-multi}
         ;;
     * )
-        echo "[ERROR] You can not set ${ARCHETYPE_ARTIFACT_ID} for ARCHETYPE_ARTIFACT_ID."
+        echo "[ERROR] ARCHETYPE_ARTIFACT_ID [${ARCHETYPE_ARTIFACT_ID}] is not available in this tutorial."
         exit 1
         ;;
 esac
