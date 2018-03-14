@@ -107,7 +107,7 @@ sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
         http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd|' "$SECURE_LOGIN_ENV"
 
 # context.xml
-CONTEXT_XML=`find ./${ARTIFACT_ID}/${ARTIFACT_ID}-env/configs -type f -name 'context.xml'`
+CONTEXT_XML=`find ./${ARTIFACT_ID}-env/configs -type f -name 'context.xml'`
 sed -i -e "s|projectName|${ARTIFACT_ID}|g" "$CONTEXT_XML"
 
 # logback.xml
