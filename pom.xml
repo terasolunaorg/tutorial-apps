@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.terasoluna.gfw.tutorial</groupId>
   <artifactId>tutorial-apps</artifactId>
-  <version>5.3.2-SNAPSHOT</version>
+  <version>5.3.2.RELEASE</version>
   <packaging>pom</packaging>
   <name>TERASOLUNA Server Framework for Java (5.x) - Tutorial Applications</name>
   <description>Tutorial Applications using TERASOLUNA Server Framework for Java (5.x)</description>
