@@ -15,4 +15,4 @@ These are completed tutorial applications that help you to learn TERASOLUNA Serv
     1. Download zip or tar.gz files which version you want.
 * Fork or checkout  
     Refer release branches such as ``release/x.x.x.RELEASE``.
-    The ``master`` branch is used for maintenance purpose and the structure of ``master`` branch is different from other release branches, therefore it's not advisable for end users.
+

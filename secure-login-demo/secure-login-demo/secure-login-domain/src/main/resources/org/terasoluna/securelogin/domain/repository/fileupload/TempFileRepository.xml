@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="org.terasoluna.securelogin.domain.repository.fileupload.TempFileRepository">
+
+	<resultMap id="TempFileResultMap" type="TempFile">
+		<id property="id" column="id" />
+		<id property="originalName" column="original_name" />
+		<id property="body" column="body" />
+		<id property="uploadedDate" column="uploaded_date" />
+	</resultMap>
+
+	<select id="findOne" resultMap="TempFileResultMap">
+    <![CDATA[
+        SELECT
+        	id,
+        	original_name,
+            body,
+            uploaded_date
+        FROM
+            temp_file
+        WHERE
+            id = #{id}
+    ]]>
+	</select>
+
+	<insert id="create" parameterType="TempFile">
+    <![CDATA[
+        INSERT INTO temp_file (
+            id,
+            original_name,
+            body,
+            uploaded_date
+        ) VALUES (
+	        #{id},
+	        #{originalName},
+	        #{body},
+            #{uploadedDate}
+        )
+    ]]>
+	</insert>
+
+	<delete id="delete">
+    <![CDATA[
+    	DELETE FROM
+    		temp_file
+    	WHERE
+    		id = #{id}
+    ]]>
+	</delete>
+
+	<delete id="deleteByToDate">
+    <![CDATA[
+    	DELETE FROM
+    		temp_file
+    	WHERE
+    		uploaded_date < #{date}
+    ]]>
+	</delete>
+</mapper>
