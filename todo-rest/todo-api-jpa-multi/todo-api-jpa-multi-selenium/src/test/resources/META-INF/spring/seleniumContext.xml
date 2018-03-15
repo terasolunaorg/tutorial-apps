@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+  <context:property-placeholder location="classpath*:META-INF/spring/*.properties" />
+
+  <tx:annotation-driven />
+
+  <bean id="screenCapture" class="org.terasoluna.gfw.tutorial.selenium.ScreenCapture" />
+
+  <bean id="pageSource" class="org.terasoluna.gfw.tutorial.selenium.PageSource" />
+
+  <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />
+
+  <!-- Settings for WebDrivers -->
+  <beans profile="firefox default">
+    <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"
+      scope="prototype" />
+  </beans>
+  <beans profile="chrome">
+    <bean id="webDriver" class="org.openqa.selenium.chrome.ChromeDriver" scope="prototype" />
+  </beans>
+  <beans profile="ie">
+    <bean id="webDriver" class="org.openqa.selenium.ie.InternetExplorerDriver" scope="prototype" />
+  </beans>
+
+</beans>
