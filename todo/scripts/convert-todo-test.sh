@@ -7,8 +7,8 @@
 #   $1 : (Optional) Target project path to convert.
 
 TARGET_DIR=$1
-if test -n $TARGET_DIR; then
-  pushd "$TARGET_DIR"
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
+  pushd "${TARGET_DIR}/${ARTIFACT_ID}"
 fi
 
 # selenium.properties
@@ -18,6 +18,6 @@ else
   find ./ -type f -name 'selenium.properties' | xargs sed -i -e "s|selenium.contextName=|selenium.contextName=${ARTIFACT_ID}|"
 fi
 
-if test -n $TARGET_DIR; then
+if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi
