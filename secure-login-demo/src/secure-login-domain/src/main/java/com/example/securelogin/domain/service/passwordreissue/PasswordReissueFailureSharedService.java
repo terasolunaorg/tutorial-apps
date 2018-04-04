@@ -17,6 +17,6 @@ package com.example.securelogin.domain.service.passwordreissue;
 
 public interface PasswordReissueFailureSharedService {
 
-	void resetFailure(String username, String token);
+    void resetFailure(String username, String token);
 
 }

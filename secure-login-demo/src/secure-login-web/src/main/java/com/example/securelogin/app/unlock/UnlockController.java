@@ -32,35 +32,35 @@ import com.example.securelogin.domain.service.unlock.UnlockService;
 @RequestMapping("/unlock")
 public class UnlockController {
 
-	@Inject
-	UnlockService unlockService;
+    @Inject
+    UnlockService unlockService;
 
-	@RequestMapping(params = "form")
-	public String showForm(UnlockForm form) {
-		return "unlock/unlockForm";
-	}
+    @RequestMapping(params = "form")
+    public String showForm(UnlockForm form) {
+        return "unlock/unlockForm";
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	public String unlock(@Validated UnlockForm form,
-			BindingResult bindingResult, Model model,
-			RedirectAttributes attributes) {
-		if (bindingResult.hasErrors()) {
-			return showForm(form);
-		}
+    @RequestMapping(method = RequestMethod.POST)
+    public String unlock(@Validated UnlockForm form,
+            BindingResult bindingResult, Model model,
+            RedirectAttributes attributes) {
+        if (bindingResult.hasErrors()) {
+            return showForm(form);
+        }
 
-		try {
-			unlockService.unlock(form.getUsername());
-			attributes.addFlashAttribute("username", form.getUsername());
-			return "redirect:/unlock?complete";
-		} catch (BusinessException e) {
-			model.addAttribute(e.getResultMessages());
-			return showForm(form);
-		}
-	}
+        try {
+            unlockService.unlock(form.getUsername());
+            attributes.addFlashAttribute("username", form.getUsername());
+            return "redirect:/unlock?complete";
+        } catch (BusinessException e) {
+            model.addAttribute(e.getResultMessages());
+            return showForm(form);
+        }
+    }
 
-	@RequestMapping(method = RequestMethod.GET, params = "complete")
-	public String unlockComplete() {
-		return "unlock/unlockComplete";
-	}
+    @RequestMapping(method = RequestMethod.GET, params = "complete")
+    public String unlockComplete() {
+        return "unlock/unlockComplete";
+    }
 
 }

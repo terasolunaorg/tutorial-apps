@@ -28,25 +28,25 @@ import com.example.securelogin.domain.repository.passwordreissue.PasswordReissue
 @Service
 @Transactional
 public class PasswordReissueFailureSharedServiceImpl implements
-		PasswordReissueFailureSharedService {
+        PasswordReissueFailureSharedService {
 
-	@Inject
-	ClassicDateFactory dateFactory;
+    @Inject
+    ClassicDateFactory dateFactory;
 
-	@Inject
-	FailedPasswordReissueRepository failedPasswordReissueRepository;
+    @Inject
+    FailedPasswordReissueRepository failedPasswordReissueRepository;
 
-	@Inject
-	PasswordReissueInfoRepository passwordReissueInfoRepository;
+    @Inject
+    PasswordReissueInfoRepository passwordReissueInfoRepository;
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	@Override
-	public void resetFailure(String username, String token) {
-		FailedPasswordReissue event = new FailedPasswordReissue();
-		event.setToken(token);
-		event.setAttemptDate(dateFactory.newTimestamp().toLocalDateTime());
-		failedPasswordReissueRepository.create(event);
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void resetFailure(String username, String token) {
+        FailedPasswordReissue event = new FailedPasswordReissue();
+        event.setToken(token);
+        event.setAttemptDate(dateFactory.newTimestamp().toLocalDateTime());
+        failedPasswordReissueRepository.create(event);
 
-	}
+    }
 
 }

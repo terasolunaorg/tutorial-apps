@@ -3,27 +3,27 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper
-	namespace="com.example.securelogin.domain.repository.authenticationevent.SuccessfulAuthenticationRepository">
+    namespace="com.example.securelogin.domain.repository.authenticationevent.SuccessfulAuthenticationRepository">
 
-	<resultMap id="successfulAuthenticationResultMap"
-		type="SuccessfulAuthentication">
-		<id property="username" column="username" />
-		<id property="authenticationTimestamp" column="authentication_timestamp" />
-	</resultMap>
+    <resultMap id="successfulAuthenticationResultMap"
+        type="SuccessfulAuthentication">
+        <id property="username" column="username" />
+        <id property="authenticationTimestamp" column="authentication_timestamp" />
+    </resultMap>
 
-	<insert id="create" parameterType="SuccessfulAuthentication">
+    <insert id="create" parameterType="SuccessfulAuthentication">
     <![CDATA[
         INSERT INTO successful_authentication (
             username,
             authentication_timestamp
         ) VALUES (
-	        #{username},
+            #{username},
             #{authenticationTimestamp}
         )
     ]]>
-	</insert>
+    </insert>
 
-	<select id="findLatest" resultMap="successfulAuthenticationResultMap">
+    <select id="findLatest" resultMap="successfulAuthenticationResultMap">
     <![CDATA[
         SELECT
             username,
@@ -35,5 +35,5 @@
         ORDER BY authentication_timestamp DESC
         LIMIT #{count}
     ]]>
-	</select>
+    </select>
 </mapper>

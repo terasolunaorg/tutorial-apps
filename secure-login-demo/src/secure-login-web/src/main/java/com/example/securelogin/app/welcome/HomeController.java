@@ -36,36 +36,36 @@ import com.example.securelogin.domain.service.userdetails.LoggedInUser;
 @Controller
 public class HomeController {
 
-	@Inject
-	AccountSharedService accountSharedService;
+    @Inject
+    AccountSharedService accountSharedService;
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = { RequestMethod.GET,
-			RequestMethod.POST })
-	public String home(@AuthenticationPrincipal LoggedInUser userDetails,
-			Model model) {
+    /**
+     * Simply selects the home view to render by returning its name.
+     */
+    @RequestMapping(value = "/", method = { RequestMethod.GET,
+            RequestMethod.POST })
+    public String home(@AuthenticationPrincipal LoggedInUser userDetails,
+            Model model) {
 
-		Account account = userDetails.getAccount();
+        Account account = userDetails.getAccount();
 
-		model.addAttribute("account", account);
+        model.addAttribute("account", account);
 
-		if (accountSharedService
-				.isCurrentPasswordExpired(account.getUsername())) {
-			ResultMessages messages = ResultMessages.warning().add(
-					"w.sl.pe.0001");
-			model.addAttribute(messages);
-		}
+        if (accountSharedService
+                .isCurrentPasswordExpired(account.getUsername())) {
+            ResultMessages messages = ResultMessages.warning().add(
+                    "w.sl.pe.0001");
+            model.addAttribute(messages);
+        }
 
-		LocalDateTime lastLoginDate = userDetails.getLastLoginDate();
-		if (lastLoginDate != null) {
-			model.addAttribute("lastLoginDate", lastLoginDate
-					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-		}
+        LocalDateTime lastLoginDate = userDetails.getLastLoginDate();
+        if (lastLoginDate != null) {
+            model.addAttribute("lastLoginDate", lastLoginDate
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        }
 
-		return "welcome/home";
+        return "welcome/home";
 
-	}
+    }
 
 }

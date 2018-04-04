@@ -22,10 +22,10 @@ import lombok.Data;
 
 @Data
 public class SuccessfulAuthentication implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private String username;
+    private String username;
 
-	private LocalDateTime authenticationTimestamp;
+    private LocalDateTime authenticationTimestamp;
 
 }

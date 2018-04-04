@@ -29,20 +29,20 @@ import javax.validation.Payload;
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileExtension {
-	String message() default "{com.example.securelogin.app.common.validation.FileExtension.message}";
+    String message() default "{com.example.securelogin.app.common.validation.FileExtension.message}";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-	String[] extensions();
+    String[] extensions();
 
-	boolean ignoreCase() default true;
+    boolean ignoreCase() default true;
 
-	@Target({ ElementType.FIELD })
-	@Retention(RetentionPolicy.RUNTIME)
-	@Documented
-	public @interface List {
-		FileExtension[] value();
-	}
+    @Target({ ElementType.FIELD })
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    public @interface List {
+        FileExtension[] value();
+    }
 }

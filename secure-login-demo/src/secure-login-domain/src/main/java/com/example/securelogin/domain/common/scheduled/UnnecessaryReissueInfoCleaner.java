@@ -22,15 +22,15 @@ import com.example.securelogin.domain.service.passwordreissue.PasswordReissueSer
 
 public class UnnecessaryReissueInfoCleaner {
 
-	@Inject
-	ClassicDateFactory dateFactory;
+    @Inject
+    ClassicDateFactory dateFactory;
 
-	@Inject
-	PasswordReissueService passwordReissueService;
+    @Inject
+    PasswordReissueService passwordReissueService;
 
-	public void cleanup() {
-		passwordReissueService.removeExpired(dateFactory.newTimestamp()
-				.toLocalDateTime());
-	}
+    public void cleanup() {
+        passwordReissueService.removeExpired(dateFactory.newTimestamp()
+                .toLocalDateTime());
+    }
 
 }

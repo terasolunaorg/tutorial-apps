@@ -23,9 +23,9 @@ import lombok.Data;
 
 @Data
 public class CreateReissueInfoForm implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
-	@NotEmpty
-	private String username;
+    
+    private static final long serialVersionUID = 1L;
+    
+    @NotEmpty
+    private String username;
 }

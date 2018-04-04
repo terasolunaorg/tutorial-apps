@@ -22,8 +22,8 @@ import lombok.Data;
 @Data
 public class FailedPasswordReissue {
 
-	private String token;
+    private String token;
 
-	private LocalDateTime attemptDate;
+    private LocalDateTime attemptDate;
 
 }

@@ -17,10 +17,10 @@ package com.example.securelogin.app.common.filter.exception;
 
 public class InvalidCharacterException extends RuntimeException{
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public InvalidCharacterException(String message){
-		super(message);
-	}
-	
+    public InvalidCharacterException(String message){
+        super(message);
+    }
+    
 }

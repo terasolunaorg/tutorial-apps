@@ -27,37 +27,37 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.util.StringUtils;
 
 public class DomainRestrictedURLValidator implements
-		ConstraintValidator<DomainRestrictedURL, CharSequence> {
+        ConstraintValidator<DomainRestrictedURL, CharSequence> {
 
-	private static final Pattern URL_REGEX = Pattern
-			.compile("(?i)^(?:[a-z](?:[-a-z0-9\\+\\.])*)" + // protocol
-					":(?:\\/\\/([^\\/:]+)" + // auth+host/ip
-					"(?::([0-9]*))?" + // port
-					"(?:\\/.*)*)$");
+    private static final Pattern URL_REGEX = Pattern
+            .compile("(?i)^(?:[a-z](?:[-a-z0-9\\+\\.])*)" + // protocol
+                    ":(?:\\/\\/([^\\/:]+)" + // auth+host/ip
+                    "(?::([0-9]*))?" + // port
+                    "(?:\\/.*)*)$");
 
-	private Set<String> allowedDomains;
+    private Set<String> allowedDomains;
 
-	@Override
-	public void initialize(DomainRestrictedURL constraintAnnotation) {
-		allowedDomains = new HashSet<String>(Arrays.asList(constraintAnnotation
-				.allowedDomains()));
-	}
+    @Override
+    public void initialize(DomainRestrictedURL constraintAnnotation) {
+        allowedDomains = new HashSet<String>(Arrays.asList(constraintAnnotation
+                .allowedDomains()));
+    }
 
-	@Override
-	public boolean isValid(CharSequence value,
-			ConstraintValidatorContext context) {
-		Matcher urlMatcher = URL_REGEX.matcher(value);
-		if (urlMatcher.matches()) {
-			String host = urlMatcher.group(1);
-			for (String domain : allowedDomains) {
-				if (StringUtils.hasLength(host) && host.endsWith("." + domain)) {
-					return true;
-				}
-			}
-			return false;
-		} else {
-			return true;
-		}
-	}
+    @Override
+    public boolean isValid(CharSequence value,
+            ConstraintValidatorContext context) {
+        Matcher urlMatcher = URL_REGEX.matcher(value);
+        if (urlMatcher.matches()) {
+            String host = urlMatcher.group(1);
+            for (String domain : allowedDomains) {
+                if (StringUtils.hasLength(host) && host.endsWith("." + domain)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 }

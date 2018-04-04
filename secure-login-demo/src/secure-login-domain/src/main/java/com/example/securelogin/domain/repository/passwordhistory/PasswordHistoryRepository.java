@@ -22,11 +22,11 @@ import org.apache.ibatis.annotations.Param;
 import com.example.securelogin.domain.model.PasswordHistory;
 
 public interface PasswordHistoryRepository {
-	int create(PasswordHistory history);
+    int create(PasswordHistory history);
 
-	List<PasswordHistory> findByUseFrom(@Param("username") String username,
-			@Param("useFrom") LocalDateTime useFrom);
+    List<PasswordHistory> findByUseFrom(@Param("username") String username,
+            @Param("useFrom") LocalDateTime useFrom);
 
-	List<PasswordHistory> findLatest(@Param("username") String username,
-			@Param("limit") int limit);
+    List<PasswordHistory> findLatest(@Param("username") String username,
+            @Param("limit") int limit);
 }
