@@ -3,27 +3,27 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper
-	namespace="com.example.securelogin.domain.repository.authenticationevent.FailedAuthenticationRepository">
+    namespace="com.example.securelogin.domain.repository.authenticationevent.FailedAuthenticationRepository">
 
-	<resultMap id="failedAuthenticationResultMap"
-		type="FailedAuthentication">
-		<id property="username" column="username" />
-		<id property="authenticationTimestamp" column="authentication_timestamp" />
-	</resultMap>
+    <resultMap id="failedAuthenticationResultMap"
+        type="FailedAuthentication">
+        <id property="username" column="username" />
+        <id property="authenticationTimestamp" column="authentication_timestamp" />
+    </resultMap>
 
-	<insert id="create" parameterType="FailedAuthentication">
+    <insert id="create" parameterType="FailedAuthentication">
     <![CDATA[
         INSERT INTO failed_authentication (
             username,
             authentication_timestamp
         ) VALUES (
-	        #{username},
+            #{username},
             #{authenticationTimestamp}
         )
     ]]>
-	</insert>
+    </insert>
 
-	<select id="findLatest" resultMap="failedAuthenticationResultMap">
+    <select id="findLatest" resultMap="failedAuthenticationResultMap">
     <![CDATA[
         SELECT
             username,
@@ -35,14 +35,14 @@
         ORDER BY authentication_timestamp DESC
         LIMIT #{count}
     ]]>
-	</select>
+    </select>
 
-	<delete id="deleteByUsername">
-	<![CDATA[
-		DELETE FROM
-			failed_authentication
-		WHERE
-			username = #{username}
-	]]>
-	</delete>
+    <delete id="deleteByUsername">
+    <![CDATA[
+        DELETE FROM
+            failed_authentication
+        WHERE
+            username = #{username}
+    ]]>
+    </delete>
 </mapper>

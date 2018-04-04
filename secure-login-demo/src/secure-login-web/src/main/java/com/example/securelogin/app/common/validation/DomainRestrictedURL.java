@@ -34,19 +34,19 @@ import org.hibernate.validator.constraints.URL;
 @URL
 public @interface DomainRestrictedURL {
 
-	String message() default "{com.example.securelogin.app.common.validation.DomainRestrictedURL.message}";
+    String message() default "{com.example.securelogin.app.common.validation.DomainRestrictedURL.message}";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	String[] allowedDomains() default {};
+    String[] allowedDomains() default {};
 
-	@Target({ FIELD })
-	@Retention(RUNTIME)
-	@Documented
-	public @interface List {
-		DomainRestrictedURL[] value();
-	}
+    @Target({ FIELD })
+    @Retention(RUNTIME)
+    @Documented
+    public @interface List {
+        DomainRestrictedURL[] value();
+    }
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
 }

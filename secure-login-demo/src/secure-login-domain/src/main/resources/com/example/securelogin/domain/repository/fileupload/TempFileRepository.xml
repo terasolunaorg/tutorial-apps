@@ -3,20 +3,20 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper
-	namespace="com.example.securelogin.domain.repository.fileupload.TempFileRepository">
+    namespace="com.example.securelogin.domain.repository.fileupload.TempFileRepository">
 
-	<resultMap id="TempFileResultMap" type="TempFile">
-		<id property="id" column="id" />
-		<id property="originalName" column="original_name" />
-		<id property="body" column="body" />
-		<id property="uploadedDate" column="uploaded_date" />
-	</resultMap>
+    <resultMap id="TempFileResultMap" type="TempFile">
+        <id property="id" column="id" />
+        <id property="originalName" column="original_name" />
+        <id property="body" column="body" />
+        <id property="uploadedDate" column="uploaded_date" />
+    </resultMap>
 
-	<select id="findOne" resultMap="TempFileResultMap">
+    <select id="findOne" resultMap="TempFileResultMap">
     <![CDATA[
         SELECT
-        	id,
-        	original_name,
+            id,
+            original_name,
             body,
             uploaded_date
         FROM
@@ -24,9 +24,9 @@
         WHERE
             id = #{id}
     ]]>
-	</select>
+    </select>
 
-	<insert id="create" parameterType="TempFile">
+    <insert id="create" parameterType="TempFile">
     <![CDATA[
         INSERT INTO temp_file (
             id,
@@ -34,29 +34,29 @@
             body,
             uploaded_date
         ) VALUES (
-	        #{id},
-	        #{originalName},
-	        #{body},
+            #{id},
+            #{originalName},
+            #{body},
             #{uploadedDate}
         )
     ]]>
-	</insert>
+    </insert>
 
-	<delete id="delete">
+    <delete id="delete">
     <![CDATA[
-    	DELETE FROM
-    		temp_file
-    	WHERE
-    		id = #{id}
+        DELETE FROM
+            temp_file
+        WHERE
+            id = #{id}
     ]]>
-	</delete>
+    </delete>
 
-	<delete id="deleteByToDate">
+    <delete id="deleteByToDate">
     <![CDATA[
-    	DELETE FROM
-    		temp_file
-    	WHERE
-    		uploaded_date < #{date}
+        DELETE FROM
+            temp_file
+        WHERE
+            uploaded_date < #{date}
     ]]>
-	</delete>
+    </delete>
 </mapper>

@@ -24,24 +24,24 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileNamePatternValidator implements
-		ConstraintValidator<FileNamePattern, MultipartFile> {
+        ConstraintValidator<FileNamePattern, MultipartFile> {
 
-	private Pattern pattern;
+    private Pattern pattern;
 
-	@Override
-	public void initialize(FileNamePattern constraintAnnotation) {
-		this.pattern = Pattern.compile(constraintAnnotation.pattern());
-	}
+    @Override
+    public void initialize(FileNamePattern constraintAnnotation) {
+        this.pattern = Pattern.compile(constraintAnnotation.pattern());
+    }
 
-	@Override
-	public boolean isValid(MultipartFile value,
-			ConstraintValidatorContext context) {
-		if (value == null) {
-			return true;
-		}
+    @Override
+    public boolean isValid(MultipartFile value,
+            ConstraintValidatorContext context) {
+        if (value == null) {
+            return true;
+        }
 
-		String filename = new File(value.getOriginalFilename()).getName();
-		return pattern.matcher(filename).matches();
-	}
+        String filename = new File(value.getOriginalFilename()).getName();
+        return pattern.matcher(filename).matches();
+    }
 
 }

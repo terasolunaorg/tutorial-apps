@@ -21,9 +21,9 @@ import lombok.Data;
 
 @Data
 public class PasswordHistory {
-	private String username;
+    private String username;
 
-	private String password;
+    private String password;
 
-	private LocalDateTime useFrom;
+    private LocalDateTime useFrom;
 }

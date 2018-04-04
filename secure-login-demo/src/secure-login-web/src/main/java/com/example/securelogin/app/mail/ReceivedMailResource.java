@@ -19,8 +19,8 @@ import lombok.Data;
 
 @Data
 public class ReceivedMailResource {
-	private String from;
-	private String to;
-	private String subject;
-	private String text;
+    private String from;
+    private String to;
+    private String subject;
+    private String text;
 }

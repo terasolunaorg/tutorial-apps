@@ -39,109 +39,109 @@ import com.example.securelogin.domain.service.account.AccountSharedService;
 import com.example.securelogin.domain.service.passwordhistory.PasswordHistorySharedService;
 
 public class NotReusedPasswordValidator implements
-		ConstraintValidator<NotReusedPassword, Object> {
+        ConstraintValidator<NotReusedPassword, Object> {
 
-	@Inject
-	ClassicDateFactory dateFactory;
+    @Inject
+    ClassicDateFactory dateFactory;
 
-	@Inject
-	AccountSharedService accountSharedService;
+    @Inject
+    AccountSharedService accountSharedService;
 
-	@Inject
-	PasswordHistorySharedService passwordHistorySharedService;
+    @Inject
+    PasswordHistorySharedService passwordHistorySharedService;
 
-	@Inject
-	PasswordEncoder passwordEncoder;
+    @Inject
+    PasswordEncoder passwordEncoder;
 
-	@Inject
-	@Named("encodedPasswordHistoryValidator")
-	PasswordValidator encodedPasswordHistoryValidator;
+    @Inject
+    @Named("encodedPasswordHistoryValidator")
+    PasswordValidator encodedPasswordHistoryValidator;
 
-	@Value("${security.passwordHistoricalCheckingCount}")
-	int passwordHistoricalCheckingCount;
+    @Value("${security.passwordHistoricalCheckingCount}")
+    int passwordHistoricalCheckingCount;
 
-	@Value("${security.passwordHistoricalCheckingPeriod}")
-	int passwordHistoricalCheckingPeriod;
+    @Value("${security.passwordHistoricalCheckingPeriod}")
+    int passwordHistoricalCheckingPeriod;
 
-	private String usernamePropertyName;
+    private String usernamePropertyName;
 
-	private String newPasswordPropertyName;
+    private String newPasswordPropertyName;
 
-	private String message;
+    private String message;
 
-	@Override
-	public void initialize(NotReusedPassword constraintAnnotation) {
-		usernamePropertyName = constraintAnnotation.usernamePropertyName();
-		newPasswordPropertyName = constraintAnnotation
-				.newPasswordPropertyName();
-		message = constraintAnnotation.message();
-	}
+    @Override
+    public void initialize(NotReusedPassword constraintAnnotation) {
+        usernamePropertyName = constraintAnnotation.usernamePropertyName();
+        newPasswordPropertyName = constraintAnnotation
+                .newPasswordPropertyName();
+        message = constraintAnnotation.message();
+    }
 
-	@Override
-	public boolean isValid(Object value, ConstraintValidatorContext context) {
-		BeanWrapper beanWrapper = new BeanWrapperImpl(value);
-		String username = (String) beanWrapper
-				.getPropertyValue(usernamePropertyName);
-		String newPassword = (String) beanWrapper
-				.getPropertyValue(newPasswordPropertyName);
+    @Override
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
+        BeanWrapper beanWrapper = new BeanWrapperImpl(value);
+        String username = (String) beanWrapper
+                .getPropertyValue(usernamePropertyName);
+        String newPassword = (String) beanWrapper
+                .getPropertyValue(newPasswordPropertyName);
 
-		Account account = accountSharedService.findOne(username);
-		String currentPassword = account.getPassword();
+        Account account = accountSharedService.findOne(username);
+        String currentPassword = account.getPassword();
 
-		boolean result = checkNewPasswordDifferentFromCurrentPassword(
-				newPassword, currentPassword, context);
-		if (result && account.getRoles().contains(Role.ADMIN)) {
-			result = checkHistoricalPassword(username, newPassword, context);
-		}
+        boolean result = checkNewPasswordDifferentFromCurrentPassword(
+                newPassword, currentPassword, context);
+        if (result && account.getRoles().contains(Role.ADMIN)) {
+            result = checkHistoricalPassword(username, newPassword, context);
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	private boolean checkNewPasswordDifferentFromCurrentPassword(
-			String newPassword, String currentPassword,
-			ConstraintValidatorContext context) {
-		if (!passwordEncoder.matches(newPassword, currentPassword)) {
-			return true;
-		} else {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(message)
-					.addPropertyNode(newPasswordPropertyName)
-					.addConstraintViolation();
-			return false;
-		}
-	}
+    private boolean checkNewPasswordDifferentFromCurrentPassword(
+            String newPassword, String currentPassword,
+            ConstraintValidatorContext context) {
+        if (!passwordEncoder.matches(newPassword, currentPassword)) {
+            return true;
+        } else {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate(message)
+                    .addPropertyNode(newPasswordPropertyName)
+                    .addConstraintViolation();
+            return false;
+        }
+    }
 
-	private boolean checkHistoricalPassword(String username,
-			String newPassword, ConstraintValidatorContext context) {
-		LocalDateTime useFrom = dateFactory.newTimestamp().toLocalDateTime()
-				.minusMinutes(passwordHistoricalCheckingPeriod);
-		List<PasswordHistory> historyByTime = passwordHistorySharedService
-				.findHistoriesByUseFrom(username, useFrom);
-		List<PasswordHistory> historyByCount = passwordHistorySharedService
-				.findLatest(username, passwordHistoricalCheckingCount);
-		List<PasswordHistory> history = historyByCount.size() > historyByTime
-				.size() ? historyByCount : historyByTime;
+    private boolean checkHistoricalPassword(String username,
+            String newPassword, ConstraintValidatorContext context) {
+        LocalDateTime useFrom = dateFactory.newTimestamp().toLocalDateTime()
+                .minusMinutes(passwordHistoricalCheckingPeriod);
+        List<PasswordHistory> historyByTime = passwordHistorySharedService
+                .findHistoriesByUseFrom(username, useFrom);
+        List<PasswordHistory> historyByCount = passwordHistorySharedService
+                .findLatest(username, passwordHistoricalCheckingCount);
+        List<PasswordHistory> history = historyByCount.size() > historyByTime
+                .size() ? historyByCount : historyByTime;
 
-		List<PasswordData.Reference> historyData = new ArrayList<>();
-		for (PasswordHistory h : history) {
-			historyData.add(new PasswordData.HistoricalReference(h
-					.getPassword()));
-		}
+        List<PasswordData.Reference> historyData = new ArrayList<>();
+        for (PasswordHistory h : history) {
+            historyData.add(new PasswordData.HistoricalReference(h
+                    .getPassword()));
+        }
 
-		PasswordData passwordData = PasswordData.newInstance(newPassword,
-				username, historyData);
-		RuleResult result = encodedPasswordHistoryValidator
-				.validate(passwordData);
+        PasswordData passwordData = PasswordData.newInstance(newPassword,
+                username, historyData);
+        RuleResult result = encodedPasswordHistoryValidator
+                .validate(passwordData);
 
-		if (result.isValid()) {
-			return true;
-		} else {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(
-					encodedPasswordHistoryValidator.getMessages(result).get(0))
-					.addPropertyNode(newPasswordPropertyName)
-					.addConstraintViolation();
-			return false;
-		}
-	}
+        if (result.isValid()) {
+            return true;
+        } else {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate(
+                    encodedPasswordHistoryValidator.getMessages(result).get(0))
+                    .addPropertyNode(newPasswordPropertyName)
+                    .addConstraintViolation();
+            return false;
+        }
+    }
 }

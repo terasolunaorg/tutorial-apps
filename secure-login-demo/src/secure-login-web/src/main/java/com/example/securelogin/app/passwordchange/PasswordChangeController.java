@@ -34,44 +34,44 @@ import com.example.securelogin.domain.service.userdetails.LoggedInUser;
 @RequestMapping("password")
 public class PasswordChangeController {
 
-	@Inject
-	PasswordChangeService passwordService;
+    @Inject
+    PasswordChangeService passwordService;
 
-	@RequestMapping(params = "form")
-	public String showForm(PasswordChangeForm form,
-			@AuthenticationPrincipal LoggedInUser userDetails, Model model) {
+    @RequestMapping(params = "form")
+    public String showForm(PasswordChangeForm form,
+            @AuthenticationPrincipal LoggedInUser userDetails, Model model) {
 
-		Account account = userDetails.getAccount();
-		model.addAttribute(account);
-		return "passwordchange/changeForm";
-	}
+        Account account = userDetails.getAccount();
+        model.addAttribute(account);
+        return "passwordchange/changeForm";
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	public String change(@AuthenticationPrincipal LoggedInUser userDetails,
-			@Validated PasswordChangeForm form, BindingResult bindingResult,
-			Model model) {
+    @RequestMapping(method = RequestMethod.POST)
+    public String change(@AuthenticationPrincipal LoggedInUser userDetails,
+            @Validated PasswordChangeForm form, BindingResult bindingResult,
+            Model model) {
 
-		Account account = userDetails.getAccount();
-		if (bindingResult.hasErrors()
-				|| !account.getUsername().equals(form.getUsername())) {
-			model.addAttribute(account);
-			return "passwordchange/changeForm";
-		}
+        Account account = userDetails.getAccount();
+        if (bindingResult.hasErrors()
+                || !account.getUsername().equals(form.getUsername())) {
+            model.addAttribute(account);
+            return "passwordchange/changeForm";
+        }
 
-		passwordService.updatePassword(form.getUsername(),
-				form.getNewPassword());
+        passwordService.updatePassword(form.getUsername(),
+                form.getNewPassword());
 
-		return "redirect:/password?complete";
+        return "redirect:/password?complete";
 
-	}
+    }
 
-	@RequestMapping(method = RequestMethod.GET, params = "complete")
-	public String changeComplete() {
-		return "passwordchange/changeComplete";
-	}
+    @RequestMapping(method = RequestMethod.GET, params = "complete")
+    public String changeComplete() {
+        return "passwordchange/changeComplete";
+    }
 
-	@ModelAttribute("passwordChangeForm")
-	public PasswordChangeForm setUpPasswordChangeForm() {
-		return new PasswordChangeForm();
-	}
+    @ModelAttribute("passwordChangeForm")
+    public PasswordChangeForm setUpPasswordChangeForm() {
+        return new PasswordChangeForm();
+    }
 }

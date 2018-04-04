@@ -23,11 +23,11 @@ import lombok.Data;
 @Data
 public class AccountImage implements Serializable{
 
-	private static final long serialVersionUID = 1L;
-	
-	private String username;
-	
-	private InputStream body;
-	
-	private String extension;
+    private static final long serialVersionUID = 1L;
+    
+    private String username;
+    
+    private InputStream body;
+    
+    private String extension;
 }

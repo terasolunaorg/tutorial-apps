@@ -29,24 +29,24 @@ import com.example.securelogin.domain.service.account.AccountSharedService;
 import com.example.securelogin.domain.service.userdetails.LoggedInUser;
 
 public class CacheClearLogoutSuccessHandler extends
-		SimpleUrlLogoutSuccessHandler {
+        SimpleUrlLogoutSuccessHandler {
 
-	@Inject
-	AccountSharedService accountSharedService;
+    @Inject
+    AccountSharedService accountSharedService;
 
-	public CacheClearLogoutSuccessHandler(String defaultTargetURL) {
-		this.setDefaultTargetUrl(defaultTargetURL);
-	}
+    public CacheClearLogoutSuccessHandler(String defaultTargetURL) {
+        this.setDefaultTargetUrl(defaultTargetURL);
+    }
 
-	@Override
-	public void onLogoutSuccess(HttpServletRequest request,
-			HttpServletResponse response, Authentication authentication)
-			throws IOException, ServletException {
-		if (authentication.getPrincipal() instanceof LoggedInUser) {
-			LoggedInUser details = (LoggedInUser) authentication.getPrincipal();
-			accountSharedService.clearPasswordValidationCache(details
-					.getUsername());
-		}
-		super.onLogoutSuccess(request, response, authentication);
-	}
+    @Override
+    public void onLogoutSuccess(HttpServletRequest request,
+            HttpServletResponse response, Authentication authentication)
+            throws IOException, ServletException {
+        if (authentication.getPrincipal() instanceof LoggedInUser) {
+            LoggedInUser details = (LoggedInUser) authentication.getPrincipal();
+            accountSharedService.clearPasswordValidationCache(details
+                    .getUsername());
+        }
+        super.onLogoutSuccess(request, response, authentication);
+    }
 }

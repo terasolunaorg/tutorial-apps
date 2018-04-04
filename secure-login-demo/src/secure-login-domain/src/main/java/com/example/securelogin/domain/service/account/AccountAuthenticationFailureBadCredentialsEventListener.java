@@ -25,15 +25,15 @@ import com.example.securelogin.domain.service.authenticationevent.Authentication
 @Component
 public class AccountAuthenticationFailureBadCredentialsEventListener {
 
-	@Inject
-	AuthenticationEventSharedService authenticationEventSharedService;
+    @Inject
+    AuthenticationEventSharedService authenticationEventSharedService;
 
-	@EventListener
-	public void onApplicationEvent(
-			AuthenticationFailureBadCredentialsEvent event) {
-		String username = (String) event.getAuthentication().getPrincipal();
+    @EventListener
+    public void onApplicationEvent(
+            AuthenticationFailureBadCredentialsEvent event) {
+        String username = (String) event.getAuthentication().getPrincipal();
 
-		authenticationEventSharedService.authenticationFailure(username);
-	}
+        authenticationEventSharedService.authenticationFailure(username);
+    }
 
 }

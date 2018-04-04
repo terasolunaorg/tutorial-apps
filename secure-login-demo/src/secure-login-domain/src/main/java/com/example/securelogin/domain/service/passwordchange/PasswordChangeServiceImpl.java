@@ -26,12 +26,12 @@ import com.example.securelogin.domain.service.account.AccountSharedService;
 @Transactional
 public class PasswordChangeServiceImpl implements PasswordChangeService {
 
-	@Inject
-	AccountSharedService accountSharedService;
+    @Inject
+    AccountSharedService accountSharedService;
 
-	@Override
-	public boolean updatePassword(String username, String rawPassword) {
-		return accountSharedService.updatePassword(username, rawPassword);
-	}
+    @Override
+    public boolean updatePassword(String username, String rawPassword) {
+        return accountSharedService.updatePassword(username, rawPassword);
+    }
 
 }
