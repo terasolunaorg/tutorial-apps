@@ -23,10 +23,10 @@ import com.example.securelogin.domain.model.FailedAuthentication;
 
 public interface FailedAuthenticationRepository {
 
-	int create(FailedAuthentication event);
+    int create(FailedAuthentication event);
 
-	List<FailedAuthentication> findLatest(@Param("username") String username,
-			@Param("count") long count);
+    List<FailedAuthentication> findLatest(@Param("username") String username,
+            @Param("count") long count);
 
-	int deleteByUsername(@Param("username") String username);
+    int deleteByUsername(@Param("username") String username);
 }

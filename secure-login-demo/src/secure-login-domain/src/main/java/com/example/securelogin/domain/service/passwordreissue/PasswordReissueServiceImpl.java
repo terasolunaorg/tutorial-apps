@@ -45,134 +45,134 @@ import com.example.securelogin.domain.service.mail.PasswordReissueMailSharedServ
 @Transactional
 public class PasswordReissueServiceImpl implements PasswordReissueService {
 
-	@Inject
-	ClassicDateFactory dateFactory;
+    @Inject
+    ClassicDateFactory dateFactory;
 
-	@Inject
-	PasswordReissueFailureSharedService passwordReissueFailureSharedService;
+    @Inject
+    PasswordReissueFailureSharedService passwordReissueFailureSharedService;
 
-	@Inject
-	PasswordReissueMailSharedService mailSharedService;
+    @Inject
+    PasswordReissueMailSharedService mailSharedService;
 
-	@Inject
-	PasswordReissueInfoRepository passwordReissueInfoRepository;
+    @Inject
+    PasswordReissueInfoRepository passwordReissueInfoRepository;
 
-	@Inject
-	FailedPasswordReissueRepository failedPasswordReissueRepository;
+    @Inject
+    FailedPasswordReissueRepository failedPasswordReissueRepository;
 
-	@Inject
-	AccountSharedService accountSharedService;
+    @Inject
+    AccountSharedService accountSharedService;
 
-	@Inject
-	PasswordEncoder passwordEncoder;
+    @Inject
+    PasswordEncoder passwordEncoder;
 
-	@Inject
-	PasswordGenerator passwordGenerator;
+    @Inject
+    PasswordGenerator passwordGenerator;
 
-	@Resource(name = "passwordGenerationRules")
-	List<CharacterRule> passwordGenerationRules;
+    @Resource(name = "passwordGenerationRules")
+    List<CharacterRule> passwordGenerationRules;
 
-	@Value("${security.tokenLifeTimeSeconds}")
-	int tokenLifeTimeSeconds;
+    @Value("${security.tokenLifeTimeSeconds}")
+    int tokenLifeTimeSeconds;
 
-	@Value("${app.host}")
-	String host;
+    @Value("${app.host}")
+    String host;
 
-	@Value("${app.port}")
-	String port;
+    @Value("${app.port}")
+    String port;
 
-	@Value("${app.contextPath}")
-	String contextPath;
+    @Value("${app.contextPath}")
+    String contextPath;
 
-	@Value("${app.passwordReissueProtocol}")
-	String protocol;
+    @Value("${app.passwordReissueProtocol}")
+    String protocol;
 
-	@Value("${security.tokenValidityThreshold}")
-	int tokenValidityThreshold;
+    @Value("${security.tokenValidityThreshold}")
+    int tokenValidityThreshold;
 
-	@Override
-	public String createAndSendReissueInfo(String username) {
+    @Override
+    public String createAndSendReissueInfo(String username) {
 
-		String rowSecret = passwordGenerator.generatePassword(10,
-				passwordGenerationRules);
+        String rowSecret = passwordGenerator.generatePassword(10,
+                passwordGenerationRules);
 
-		if (!accountSharedService.exists(username)) {
-			return rowSecret;
-		}
+        if (!accountSharedService.exists(username)) {
+            return rowSecret;
+        }
 
-		Account account = accountSharedService.findOne(username);
+        Account account = accountSharedService.findOne(username);
 
-		String token = UUID.randomUUID().toString();
+        String token = UUID.randomUUID().toString();
 
-		LocalDateTime expiryDate = dateFactory.newTimestamp().toLocalDateTime()
-				.plusSeconds(tokenLifeTimeSeconds);
+        LocalDateTime expiryDate = dateFactory.newTimestamp().toLocalDateTime()
+                .plusSeconds(tokenLifeTimeSeconds);
 
-		PasswordReissueInfo info = new PasswordReissueInfo();
-		info.setUsername(username);
-		info.setToken(token);
-		info.setSecret(passwordEncoder.encode(rowSecret));
-		info.setExpiryDate(expiryDate);
+        PasswordReissueInfo info = new PasswordReissueInfo();
+        info.setUsername(username);
+        info.setToken(token);
+        info.setSecret(passwordEncoder.encode(rowSecret));
+        info.setExpiryDate(expiryDate);
 
-		passwordReissueInfoRepository.create(info);
+        passwordReissueInfoRepository.create(info);
 
-		UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance();
-		uriBuilder.scheme(protocol).host(host).port(port).path(contextPath)
-				.pathSegment("reissue").pathSegment("resetpassword")
-				.queryParam("form").queryParam("token", info.getToken());
-		String passwordResetUrl = uriBuilder.build().toString();
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance();
+        uriBuilder.scheme(protocol).host(host).port(port).path(contextPath)
+                .pathSegment("reissue").pathSegment("resetpassword")
+                .queryParam("form").queryParam("token", info.getToken());
+        String passwordResetUrl = uriBuilder.build().toString();
 
-		mailSharedService.send(account.getEmail(), passwordResetUrl);
+        mailSharedService.send(account.getEmail(), passwordResetUrl);
 
-		return rowSecret;
+        return rowSecret;
 
-	}
+    }
 
-	@Override
-	@Transactional(readOnly = true)
-	public PasswordReissueInfo findOne(String token) {
-		PasswordReissueInfo info = passwordReissueInfoRepository.findOne(token);
+    @Override
+    @Transactional(readOnly = true)
+    public PasswordReissueInfo findOne(String token) {
+        PasswordReissueInfo info = passwordReissueInfoRepository.findOne(token);
 
-		if (info == null) {
-			throw new ResourceNotFoundException(ResultMessages.error().add(
-					MessageKeys.E_SL_PR_5002, token));
-		}
+        if (info == null) {
+            throw new ResourceNotFoundException(ResultMessages.error().add(
+                    MessageKeys.E_SL_PR_5002, token));
+        }
 
-		if (dateFactory.newTimestamp().toLocalDateTime()
-				.isAfter(info.getExpiryDate())) {
-			throw new BusinessException(ResultMessages.error().add(
-					MessageKeys.E_SL_PR_2001));
-		}
+        if (dateFactory.newTimestamp().toLocalDateTime()
+                .isAfter(info.getExpiryDate())) {
+            throw new BusinessException(ResultMessages.error().add(
+                    MessageKeys.E_SL_PR_2001));
+        }
 
-		int count = failedPasswordReissueRepository.countByToken(token);
-		if (count >= tokenValidityThreshold) {
-			throw new BusinessException(ResultMessages.error().add(
-					MessageKeys.E_SL_PR_5004));
-		}
+        int count = failedPasswordReissueRepository.countByToken(token);
+        if (count >= tokenValidityThreshold) {
+            throw new BusinessException(ResultMessages.error().add(
+                    MessageKeys.E_SL_PR_5004));
+        }
 
-		return info;
-	}
+        return info;
+    }
 
-	@Override
-	public boolean resetPassword(String username, String token, String secret,
-			String rawPassword) {
-		PasswordReissueInfo info = this.findOne(token);
-		if (!passwordEncoder.matches(secret, info.getSecret())) {
-			passwordReissueFailureSharedService.resetFailure(username, token);
-			throw new BusinessException(ResultMessages.error().add(
-					MessageKeys.E_SL_PR_5003));
-		}
-		failedPasswordReissueRepository.deleteByToken(token);
-		passwordReissueInfoRepository.delete(token);
+    @Override
+    public boolean resetPassword(String username, String token, String secret,
+            String rawPassword) {
+        PasswordReissueInfo info = this.findOne(token);
+        if (!passwordEncoder.matches(secret, info.getSecret())) {
+            passwordReissueFailureSharedService.resetFailure(username, token);
+            throw new BusinessException(ResultMessages.error().add(
+                    MessageKeys.E_SL_PR_5003));
+        }
+        failedPasswordReissueRepository.deleteByToken(token);
+        passwordReissueInfoRepository.delete(token);
 
-		return accountSharedService.updatePassword(username, rawPassword);
+        return accountSharedService.updatePassword(username, rawPassword);
 
-	}
+    }
 
-	@Override
-	public boolean removeExpired(LocalDateTime date) {
-		failedPasswordReissueRepository.deleteExpired(date);
-		passwordReissueInfoRepository.deleteExpired(date);
-		return true;
-	}
+    @Override
+    public boolean removeExpired(LocalDateTime date) {
+        failedPasswordReissueRepository.deleteExpired(date);
+        passwordReissueInfoRepository.deleteExpired(date);
+        return true;
+    }
 
 }

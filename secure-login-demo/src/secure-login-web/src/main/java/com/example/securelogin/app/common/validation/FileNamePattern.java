@@ -30,19 +30,19 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileNamePattern {
 
-	String message() default "{com.example.securelogin.app.common.validation.FileNamePattern.message}";
+    String message() default "{com.example.securelogin.app.common.validation.FileNamePattern.message}";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
-	String pattern() default "";
+    String pattern() default "";
 
-	@Target({ ElementType.FIELD })
-	@Retention(RetentionPolicy.RUNTIME)
-	@Documented
-	public @interface List {
-		FileExtension[] value();
-	}
+    @Target({ ElementType.FIELD })
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    public @interface List {
+        FileExtension[] value();
+    }
 
 }

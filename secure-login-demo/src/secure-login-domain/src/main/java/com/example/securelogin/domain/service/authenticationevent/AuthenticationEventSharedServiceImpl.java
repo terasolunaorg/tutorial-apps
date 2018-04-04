@@ -32,61 +32,61 @@ import com.example.securelogin.domain.service.account.AccountSharedService;
 @Service
 @Transactional
 public class AuthenticationEventSharedServiceImpl implements
-		AuthenticationEventSharedService {
+        AuthenticationEventSharedService {
 
-	@Inject
-	ClassicDateFactory dateFactory;
+    @Inject
+    ClassicDateFactory dateFactory;
 
-	@Inject
-	FailedAuthenticationRepository failedAuthenticationRepository;
+    @Inject
+    FailedAuthenticationRepository failedAuthenticationRepository;
 
-	@Inject
-	SuccessfulAuthenticationRepository successAuthenticationRepository;
+    @Inject
+    SuccessfulAuthenticationRepository successAuthenticationRepository;
 
-	@Inject
-	AccountSharedService accountSharedService;
+    @Inject
+    AccountSharedService accountSharedService;
 
-	@Transactional(readOnly = true)
-	@Override
-	public List<SuccessfulAuthentication> findLatestSuccessEvents(
-			String username, int count) {
-		return successAuthenticationRepository.findLatest(username, count);
-	}
+    @Transactional(readOnly = true)
+    @Override
+    public List<SuccessfulAuthentication> findLatestSuccessEvents(
+            String username, int count) {
+        return successAuthenticationRepository.findLatest(username, count);
+    }
 
-	@Transactional(readOnly = true)
-	@Override
-	public List<FailedAuthentication> findLatestFailureEvents(String username,
-			int count) {
-		return failedAuthenticationRepository.findLatest(username, count);
-	}
+    @Transactional(readOnly = true)
+    @Override
+    public List<FailedAuthentication> findLatestFailureEvents(String username,
+            int count) {
+        return failedAuthenticationRepository.findLatest(username, count);
+    }
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	@Override
-	public void authenticationSuccess(String username) {
-		SuccessfulAuthentication successEvent = new SuccessfulAuthentication();
-		successEvent.setUsername(username);
-		successEvent.setAuthenticationTimestamp(dateFactory.newTimestamp()
-				.toLocalDateTime());
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void authenticationSuccess(String username) {
+        SuccessfulAuthentication successEvent = new SuccessfulAuthentication();
+        successEvent.setUsername(username);
+        successEvent.setAuthenticationTimestamp(dateFactory.newTimestamp()
+                .toLocalDateTime());
 
-		successAuthenticationRepository.create(successEvent);
-		deleteFailureEventByUsername(username);
-	}
+        successAuthenticationRepository.create(successEvent);
+        deleteFailureEventByUsername(username);
+    }
 
-	@Override
-	public void authenticationFailure(String username) {
-		if (accountSharedService.exists(username)) {
-			FailedAuthentication failureEvents = new FailedAuthentication();
-			failureEvents.setUsername(username);
-			failureEvents.setAuthenticationTimestamp(dateFactory.newTimestamp()
-					.toLocalDateTime());
+    @Override
+    public void authenticationFailure(String username) {
+        if (accountSharedService.exists(username)) {
+            FailedAuthentication failureEvents = new FailedAuthentication();
+            failureEvents.setUsername(username);
+            failureEvents.setAuthenticationTimestamp(dateFactory.newTimestamp()
+                    .toLocalDateTime());
 
-			failedAuthenticationRepository.create(failureEvents);
-		}
-	}
+            failedAuthenticationRepository.create(failureEvents);
+        }
+    }
 
-	@Override
-	public int deleteFailureEventByUsername(String username) {
-		return failedAuthenticationRepository.deleteByUsername(username);
-	}
+    @Override
+    public int deleteFailureEventByUsername(String username) {
+        return failedAuthenticationRepository.deleteByUsername(username);
+    }
 
 }

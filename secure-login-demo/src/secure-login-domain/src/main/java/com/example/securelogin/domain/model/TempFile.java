@@ -24,14 +24,14 @@ import lombok.Data;
 @Data
 public class TempFile implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private String id;
-	
-	private String originalName;
-	
-	private InputStream body;
-	
-	private LocalDateTime uploadedDate;
-	
+    private String id;
+    
+    private String originalName;
+    
+    private InputStream body;
+    
+    private LocalDateTime uploadedDate;
+    
 }

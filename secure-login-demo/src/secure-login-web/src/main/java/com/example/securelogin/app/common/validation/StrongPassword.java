@@ -31,20 +31,20 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ TYPE, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 public @interface StrongPassword {
-	String message() default "{com.example.securelogin.app.common.validation.StrongPassword.message}";
+    String message() default "{com.example.securelogin.app.common.validation.StrongPassword.message}";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	String usernamePropertyName();
+    String usernamePropertyName();
 
-	String newPasswordPropertyName();
+    String newPasswordPropertyName();
 
-	@Target({ TYPE, ANNOTATION_TYPE })
-	@Retention(RUNTIME)
-	@Documented
-	public @interface List {
-		StrongPassword[] value();
-	}
+    @Target({ TYPE, ANNOTATION_TYPE })
+    @Retention(RUNTIME)
+    @Documented
+    public @interface List {
+        StrongPassword[] value();
+    }
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }

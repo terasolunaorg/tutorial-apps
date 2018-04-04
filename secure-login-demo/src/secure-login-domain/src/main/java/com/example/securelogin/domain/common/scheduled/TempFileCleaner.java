@@ -23,16 +23,16 @@ import com.example.securelogin.domain.service.fileupload.FileUploadSharedService
 
 public class TempFileCleaner {
 
-	@Inject
-	ClassicDateFactory dateFactory;
-	
-	@Inject
-	FileUploadSharedService fileUploadSharedService;
-	
-	@Value("${security.tempFileCleanupSeconds}")
-	int cleanupInterval;
-	
-	public void cleanup() {
-		fileUploadSharedService.cleanUp(dateFactory.newTimestamp().toLocalDateTime().minusSeconds(cleanupInterval));
-	}
+    @Inject
+    ClassicDateFactory dateFactory;
+    
+    @Inject
+    FileUploadSharedService fileUploadSharedService;
+    
+    @Value("${security.tempFileCleanupSeconds}")
+    int cleanupInterval;
+    
+    public void cleanup() {
+        fileUploadSharedService.cleanUp(dateFactory.newTimestamp().toLocalDateTime().minusSeconds(cleanupInterval));
+    }
 }

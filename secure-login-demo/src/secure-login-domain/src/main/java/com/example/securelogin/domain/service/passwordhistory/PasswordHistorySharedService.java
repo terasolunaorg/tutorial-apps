@@ -22,11 +22,11 @@ import com.example.securelogin.domain.model.PasswordHistory;
 
 public interface PasswordHistorySharedService {
 
-	int insert(PasswordHistory history);
+    int insert(PasswordHistory history);
 
-	List<PasswordHistory> findHistoriesByUseFrom(String username,
-			LocalDateTime useFrom);
+    List<PasswordHistory> findHistoriesByUseFrom(String username,
+            LocalDateTime useFrom);
 
-	List<PasswordHistory> findLatest(String username, int limit);
+    List<PasswordHistory> findLatest(String username, int limit);
 
 }

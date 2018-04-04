@@ -33,20 +33,20 @@ import org.hibernate.validator.constraints.Email;
 @Retention(RUNTIME)
 @Email
 public @interface DomainRestrictedEmail {
-	String message() default "{com.example.securelogin.app.common.validation.DomainRestrictedEmail.message}";
+    String message() default "{com.example.securelogin.app.common.validation.DomainRestrictedEmail.message}";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	String[] allowedDomains() default {};
+    String[] allowedDomains() default {};
 
-	boolean allowSubDomain() default false;
+    boolean allowSubDomain() default false;
 
-	@Target({ FIELD })
-	@Retention(RUNTIME)
-	@Documented
-	public @interface List {
-		DomainRestrictedEmail[] value();
-	}
+    @Target({ FIELD })
+    @Retention(RUNTIME)
+    @Documented
+    public @interface List {
+        DomainRestrictedEmail[] value();
+    }
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }

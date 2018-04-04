@@ -21,23 +21,23 @@ import com.example.securelogin.domain.model.Account;
 import com.example.securelogin.domain.model.AccountImage;
 
 public interface AccountSharedService {
-	Account findOne(String username);
+    Account findOne(String username);
 
-	LocalDateTime getLastLoginDate(String username);
-	
-	String create(Account account, String imageId);
+    LocalDateTime getLastLoginDate(String username);
+    
+    String create(Account account, String imageId);
 
-	boolean exists(String username);
-	
-	boolean isLocked(String username);
+    boolean exists(String username);
+    
+    boolean isLocked(String username);
 
-	boolean isInitialPassword(String username);
+    boolean isInitialPassword(String username);
 
-	boolean isCurrentPasswordExpired(String username);
+    boolean isCurrentPasswordExpired(String username);
 
-	boolean updatePassword(String username, String rawPassword);
+    boolean updatePassword(String username, String rawPassword);
 
-	void clearPasswordValidationCache(String username);
+    void clearPasswordValidationCache(String username);
 
-	AccountImage getImage(String username);
+    AccountImage getImage(String username);
 }

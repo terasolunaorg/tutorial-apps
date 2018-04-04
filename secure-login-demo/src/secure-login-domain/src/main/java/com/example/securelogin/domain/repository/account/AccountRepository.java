@@ -20,16 +20,16 @@ import com.example.securelogin.domain.model.Account;
 import com.example.securelogin.domain.model.AccountImage;
 
 public interface AccountRepository {
-	Account findOne(String username);
+    Account findOne(String username);
 
-	boolean updatePassword(@Param("username") String username,
-			@Param("password") String password);
+    boolean updatePassword(@Param("username") String username,
+            @Param("password") String password);
 
-	boolean create(Account account);
-	
-	boolean createRoles(Account account);
-	
-	AccountImage findImage(String username);
-	
-	boolean createImage(AccountImage accountImage);
+    boolean create(Account account);
+    
+    boolean createRoles(Account account);
+    
+    AccountImage findImage(String username);
+    
+    boolean createImage(AccountImage accountImage);
 }
