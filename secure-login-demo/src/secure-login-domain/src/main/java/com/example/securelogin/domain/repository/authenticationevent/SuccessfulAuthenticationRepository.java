@@ -23,8 +23,8 @@ import com.example.securelogin.domain.model.SuccessfulAuthentication;
 
 public interface SuccessfulAuthenticationRepository {
 
-	int create(SuccessfulAuthentication event);
+    int create(SuccessfulAuthentication event);
 
-	List<SuccessfulAuthentication> findLatest(
-			@Param("username") String username, @Param("count") long count);
+    List<SuccessfulAuthentication> findLatest(
+            @Param("username") String username, @Param("count") long count);
 }

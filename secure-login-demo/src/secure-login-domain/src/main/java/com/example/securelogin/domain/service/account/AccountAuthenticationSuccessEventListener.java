@@ -26,16 +26,16 @@ import com.example.securelogin.domain.service.userdetails.LoggedInUser;
 @Component
 public class AccountAuthenticationSuccessEventListener {
 
-	@Inject
-	AuthenticationEventSharedService authenticationEventSharedService;
+    @Inject
+    AuthenticationEventSharedService authenticationEventSharedService;
 
-	@EventListener
-	public void onApplicationEvent(AuthenticationSuccessEvent event) {
-		LoggedInUser details = (LoggedInUser) event.getAuthentication()
-				.getPrincipal();
+    @EventListener
+    public void onApplicationEvent(AuthenticationSuccessEvent event) {
+        LoggedInUser details = (LoggedInUser) event.getAuthentication()
+                .getPrincipal();
 
-		authenticationEventSharedService.authenticationSuccess(details
-				.getUsername());
-	}
+        authenticationEventSharedService.authenticationSuccess(details
+                .getUsername());
+    }
 
 }

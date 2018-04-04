@@ -20,7 +20,7 @@ import java.util.List;
 import com.example.securelogin.domain.model.ReceivedMail;
 
 public interface PasswordReissueMailSharedService {
-	void send(String to, String text);
-	
-	List<ReceivedMail> getReceivedMessages();
+    void send(String to, String text);
+    
+    List<ReceivedMail> getReceivedMessages();
 }

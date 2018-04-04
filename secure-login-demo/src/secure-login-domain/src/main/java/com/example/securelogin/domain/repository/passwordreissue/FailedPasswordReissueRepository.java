@@ -22,11 +22,11 @@ import com.example.securelogin.domain.model.FailedPasswordReissue;
 
 public interface FailedPasswordReissueRepository {
 
-	int countByToken(@Param("token") String token);
+    int countByToken(@Param("token") String token);
 
-	int create(FailedPasswordReissue event);
+    int create(FailedPasswordReissue event);
 
-	int deleteByToken(@Param("token") String token);
+    int deleteByToken(@Param("token") String token);
 
-	int deleteExpired(@Param("date") LocalDateTime date);
+    int deleteExpired(@Param("date") LocalDateTime date);
 }

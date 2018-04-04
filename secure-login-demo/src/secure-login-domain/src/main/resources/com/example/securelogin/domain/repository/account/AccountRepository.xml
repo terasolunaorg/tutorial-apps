@@ -3,53 +3,53 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper
-	namespace="com.example.securelogin.domain.repository.account.AccountRepository">
+    namespace="com.example.securelogin.domain.repository.account.AccountRepository">
 
-	<resultMap id="accountResultMap" type="Account">
-		<id property="username" column="username" />
-		<result property="password" column="password" />
-		<result property="firstName" column="first_name" />
-		<result property="lastName" column="last_name" />
-		<result property="email" column="email" />
-		<result property="url" column="url" />
-		<result property="profile" column="profile" />
-		<collection property="roles" ofType="Role">
-			<result property="role" column="role" />
-		</collection>
-	</resultMap>
+    <resultMap id="accountResultMap" type="Account">
+        <id property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="firstName" column="first_name" />
+        <result property="lastName" column="last_name" />
+        <result property="email" column="email" />
+        <result property="url" column="url" />
+        <result property="profile" column="profile" />
+        <collection property="roles" ofType="Role">
+            <result property="role" column="role" />
+        </collection>
+    </resultMap>
 
-	<select id="findOne" parameterType="string" resultMap="accountResultMap">
-	<![CDATA[
-		SELECT
-			a.username,
-			a.password,
-			a.first_name,
-			a.last_name,
-			a.email,
-			a.url,
-			a.profile,
-			r.role
-		FROM
-			account a
-		INNER JOIN
-			role r ON a.username = r.username
-		WHERE
-			a.username = #{username}
-	]]>
-	</select>
+    <select id="findOne" parameterType="string" resultMap="accountResultMap">
+    <![CDATA[
+        SELECT
+            a.username,
+            a.password,
+            a.first_name,
+            a.last_name,
+            a.email,
+            a.url,
+            a.profile,
+            r.role
+        FROM
+            account a
+        INNER JOIN
+            role r ON a.username = r.username
+        WHERE
+            a.username = #{username}
+    ]]>
+    </select>
 
-	<update id="updatePassword">
-	<![CDATA[
-		UPDATE
-			account
-		SET
-			password = #{password}
-		WHERE
-			username = #{username}
-	]]>
-	</update>
+    <update id="updatePassword">
+    <![CDATA[
+        UPDATE
+            account
+        SET
+            password = #{password}
+        WHERE
+            username = #{username}
+    ]]>
+    </update>
 
-	<insert id="create" parameterType="Account">
+    <insert id="create" parameterType="Account">
     <![CDATA[
         INSERT INTO account (
             username,
@@ -60,40 +60,40 @@
             url,
             profile
         ) VALUES (
-	        #{username},
-	        #{password},
-	        #{firstName},
+            #{username},
+            #{password},
+            #{firstName},
             #{lastName},
             #{email},
             #{url},
             #{profile}
         )
     ]]>
-	</insert>
+    </insert>
 
-	<insert id="createRoles" parameterType="Account">
-    	INSERT INTO role (
-    		username,
-    		role
-    	) VALUES
-    	<foreach collection="roles" item="elem" separator=",">
-    	(
-    		#{username},
-    		#{elem.roleValue}
-    	)
-    	</foreach>
-	</insert>
+    <insert id="createRoles" parameterType="Account">
+        INSERT INTO role (
+            username,
+            role
+        ) VALUES
+        <foreach collection="roles" item="elem" separator=",">
+        (
+            #{username},
+            #{elem.roleValue}
+        )
+        </foreach>
+    </insert>
 
-	<resultMap id="AccountImageResultMap" type="AccountImage">
-		<id property="username" column="username" />
-		<id property="body" column="body" />
-		<id property="extension" column="extension" />
-	</resultMap>
+    <resultMap id="AccountImageResultMap" type="AccountImage">
+        <id property="username" column="username" />
+        <id property="body" column="body" />
+        <id property="extension" column="extension" />
+    </resultMap>
 
-	<select id="findImage" resultMap="AccountImageResultMap">
+    <select id="findImage" resultMap="AccountImageResultMap">
     <![CDATA[
         SELECT
-        	username,
+            username,
             body,
             extension
         FROM
@@ -101,20 +101,20 @@
         WHERE
             username = #{username}
     ]]>
-	</select>
+    </select>
 
-	<insert id="createImage" parameterType="AccountImage">
+    <insert id="createImage" parameterType="AccountImage">
     <![CDATA[
         INSERT INTO account_image (
             username,
             body,
             extension
         ) VALUES (
-	        #{username},
-	        #{body},
-	        #{extension}
+            #{username},
+            #{body},
+            #{extension}
         )
     ]]>
-	</insert>
+    </insert>
 
 </mapper>

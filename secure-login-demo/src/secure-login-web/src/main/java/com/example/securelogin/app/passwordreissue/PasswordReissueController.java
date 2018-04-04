@@ -34,74 +34,74 @@ import com.example.securelogin.domain.service.passwordreissue.PasswordReissueSer
 @RequestMapping("/reissue")
 public class PasswordReissueController {
 
-	@Inject
-	PasswordReissueService passwordReissueService;
+    @Inject
+    PasswordReissueService passwordReissueService;
 
-	@RequestMapping(value = "create", params = "form")
-	public String showCreateReissueInfoForm(CreateReissueInfoForm form) {
-		return "passwordreissue/createReissueInfoForm";
-	}
+    @RequestMapping(value = "create", params = "form")
+    public String showCreateReissueInfoForm(CreateReissueInfoForm form) {
+        return "passwordreissue/createReissueInfoForm";
+    }
 
-	@RequestMapping(value = "create", method = RequestMethod.POST)
-	public String createReissueInfo(@Validated CreateReissueInfoForm form,
-			BindingResult bindingResult, Model model,
-			RedirectAttributes attributes) {
-		if (bindingResult.hasErrors()) {
-			return showCreateReissueInfoForm(form);
-		}
+    @RequestMapping(value = "create", method = RequestMethod.POST)
+    public String createReissueInfo(@Validated CreateReissueInfoForm form,
+            BindingResult bindingResult, Model model,
+            RedirectAttributes attributes) {
+        if (bindingResult.hasErrors()) {
+            return showCreateReissueInfoForm(form);
+        }
 
-		String rawSecret = passwordReissueService.createAndSendReissueInfo(form
-				.getUsername());
-		attributes.addFlashAttribute("secret", rawSecret);
-		return "redirect:/reissue/create?complete";
-	}
+        String rawSecret = passwordReissueService.createAndSendReissueInfo(form
+                .getUsername());
+        attributes.addFlashAttribute("secret", rawSecret);
+        return "redirect:/reissue/create?complete";
+    }
 
-	@RequestMapping(value = "create", params = "complete", method = RequestMethod.GET)
-	public String createReissueInfoComplete() {
-		return "passwordreissue/createReissueInfoComplete";
-	}
+    @RequestMapping(value = "create", params = "complete", method = RequestMethod.GET)
+    public String createReissueInfoComplete() {
+        return "passwordreissue/createReissueInfoComplete";
+    }
 
-	@RequestMapping(value = "resetpassword", params = "form")
-	public String showPasswordResetForm(PasswordResetForm form, Model model,
-			@RequestParam("token") String token) {
+    @RequestMapping(value = "resetpassword", params = "form")
+    public String showPasswordResetForm(PasswordResetForm form, Model model,
+            @RequestParam("token") String token) {
 
-		PasswordReissueInfo info = passwordReissueService.findOne(token);
+        PasswordReissueInfo info = passwordReissueService.findOne(token);
 
-		form.setUsername(info.getUsername());
-		form.setToken(token);
-		model.addAttribute("passwordResetForm", form);
-		return "passwordreissue/passwordResetForm";
-	}
+        form.setUsername(info.getUsername());
+        form.setToken(token);
+        model.addAttribute("passwordResetForm", form);
+        return "passwordreissue/passwordResetForm";
+    }
 
-	@RequestMapping(value = "resetpassword", method = RequestMethod.POST)
-	public String resetPassword(@Validated PasswordResetForm form,
-			BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
-			return showPasswordResetForm(form, model, form.getToken());
-		}
+    @RequestMapping(value = "resetpassword", method = RequestMethod.POST)
+    public String resetPassword(@Validated PasswordResetForm form,
+            BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return showPasswordResetForm(form, model, form.getToken());
+        }
 
-		try {
-			passwordReissueService.resetPassword(form.getUsername(),
-					form.getToken(), form.getSecret(), form.getNewPassword());
-			return "redirect:/reissue/resetpassword?complete";
-		} catch (BusinessException e) {
-			model.addAttribute(e.getResultMessages());
-			return showPasswordResetForm(form, model, form.getToken());
-		}
-	}
+        try {
+            passwordReissueService.resetPassword(form.getUsername(),
+                    form.getToken(), form.getSecret(), form.getNewPassword());
+            return "redirect:/reissue/resetpassword?complete";
+        } catch (BusinessException e) {
+            model.addAttribute(e.getResultMessages());
+            return showPasswordResetForm(form, model, form.getToken());
+        }
+    }
 
-	@RequestMapping(value = "resetpassword", params = "complete", method = RequestMethod.GET)
-	public String resetPasswordComplete() {
-		return "passwordreissue/passwordResetComplete";
-	}
+    @RequestMapping(value = "resetpassword", params = "complete", method = RequestMethod.GET)
+    public String resetPasswordComplete() {
+        return "passwordreissue/passwordResetComplete";
+    }
 
-	@ModelAttribute("createReissueInfoForm")
-	public CreateReissueInfoForm setupReissueForm() {
-		return new CreateReissueInfoForm();
-	}
+    @ModelAttribute("createReissueInfoForm")
+    public CreateReissueInfoForm setupReissueForm() {
+        return new CreateReissueInfoForm();
+    }
 
-	@ModelAttribute("passwordResetForm")
-	public PasswordResetForm setupResetForm() {
-		return new PasswordResetForm();
-	}
+    @ModelAttribute("passwordResetForm")
+    public PasswordResetForm setupResetForm() {
+        return new PasswordResetForm();
+    }
 }

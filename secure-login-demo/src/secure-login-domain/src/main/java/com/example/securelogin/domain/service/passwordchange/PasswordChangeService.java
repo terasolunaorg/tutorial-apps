@@ -16,5 +16,5 @@
 package com.example.securelogin.domain.service.passwordchange;
 
 public interface PasswordChangeService {
-	boolean updatePassword(String username, String password);
+    boolean updatePassword(String username, String password);
 }

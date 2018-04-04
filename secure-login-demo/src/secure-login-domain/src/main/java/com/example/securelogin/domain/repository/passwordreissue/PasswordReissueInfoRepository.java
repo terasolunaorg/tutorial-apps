@@ -23,11 +23,11 @@ import com.example.securelogin.domain.model.PasswordReissueInfo;
 
 public interface PasswordReissueInfoRepository {
 
-	void create(PasswordReissueInfo info);
+    void create(PasswordReissueInfo info);
 
-	PasswordReissueInfo findOne(@Param("token") String token);
+    PasswordReissueInfo findOne(@Param("token") String token);
 
-	int delete(@Param("token") String token);
+    int delete(@Param("token") String token);
 
-	int deleteExpired(@Param("date") LocalDateTime date);
+    int deleteExpired(@Param("date") LocalDateTime date);
 }

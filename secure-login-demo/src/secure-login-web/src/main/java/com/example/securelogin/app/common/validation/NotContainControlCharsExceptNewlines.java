@@ -34,16 +34,16 @@ import javax.validation.constraints.Pattern;
 @ReportAsSingleViolation
 @Pattern(regexp = "^[\\r\\n\\P{Cntrl}]*$")
 public @interface NotContainControlCharsExceptNewlines {
-	String message() default "{com.example.securelogin.app.common.validation.NotContainControlCharsExceptNewlines.message}";
+    String message() default "{com.example.securelogin.app.common.validation.NotContainControlCharsExceptNewlines.message}";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	@Target({ FIELD })
-	@Retention(RUNTIME)
-	@Documented
-	public @interface List {
-		NotContainControlCharsExceptNewlines[] value();
-	}
+    @Target({ FIELD })
+    @Retention(RUNTIME)
+    @Documented
+    public @interface List {
+        NotContainControlCharsExceptNewlines[] value();
+    }
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }

@@ -21,12 +21,12 @@ import com.example.securelogin.domain.model.PasswordReissueInfo;
 
 public interface PasswordReissueService {
 
-	String createAndSendReissueInfo(String username);
+    String createAndSendReissueInfo(String username);
 
-	PasswordReissueInfo findOne(String token);
+    PasswordReissueInfo findOne(String token);
 
-	boolean resetPassword(String username, String token, String secret,
-			String rawPassword);
+    boolean resetPassword(String username, String token, String secret,
+            String rawPassword);
 
-	boolean removeExpired(LocalDateTime date);
+    boolean removeExpired(LocalDateTime date);
 }

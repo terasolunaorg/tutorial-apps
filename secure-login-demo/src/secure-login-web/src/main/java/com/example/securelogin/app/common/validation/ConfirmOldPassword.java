@@ -31,20 +31,20 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ TYPE, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 public @interface ConfirmOldPassword {
-	String message() default "{com.example.securelogin.app.common.validation.ConfirmOldPassword.message}";
+    String message() default "{com.example.securelogin.app.common.validation.ConfirmOldPassword.message}";
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	String usernamePropertyName();
+    String usernamePropertyName();
 
-	String oldPasswordPropertyName();
+    String oldPasswordPropertyName();
 
-	@Target({ TYPE, ANNOTATION_TYPE })
-	@Retention(RUNTIME)
-	@Documented
-	public @interface List {
-		ConfirmOldPassword[] value();
-	}
+    @Target({ TYPE, ANNOTATION_TYPE })
+    @Retention(RUNTIME)
+    @Documented
+    public @interface List {
+        ConfirmOldPassword[] value();
+    }
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }

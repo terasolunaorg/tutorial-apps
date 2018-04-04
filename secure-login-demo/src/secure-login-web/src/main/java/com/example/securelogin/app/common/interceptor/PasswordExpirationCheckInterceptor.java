@@ -30,32 +30,32 @@ import com.example.securelogin.domain.service.account.AccountSharedService;
 import com.example.securelogin.domain.service.userdetails.LoggedInUser;
 
 public class PasswordExpirationCheckInterceptor extends
-		HandlerInterceptorAdapter {
+        HandlerInterceptorAdapter {
 
-	@Inject
-	AccountSharedService accountSharedService;
+    @Inject
+    AccountSharedService accountSharedService;
 
-	@Override
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws IOException {
-		Authentication authentication = (Authentication) request
-				.getUserPrincipal();
+    @Override
+    public boolean preHandle(HttpServletRequest request,
+            HttpServletResponse response, Object handler) throws IOException {
+        Authentication authentication = (Authentication) request
+                .getUserPrincipal();
 
-		if (authentication != null) {
-			Object principal = authentication.getPrincipal();
-			if (principal instanceof UserDetails) {
-				LoggedInUser userDetails = (LoggedInUser) principal;
-				if ((userDetails.getAccount().getRoles().contains(Role.ADMIN) && accountSharedService
-						.isCurrentPasswordExpired(userDetails.getUsername()))
-						|| accountSharedService.isInitialPassword(userDetails
-								.getUsername())) {
-					response.sendRedirect(request.getContextPath()
-							+ "/password?form");
-					return false;
-				}
-			}
-		}
+        if (authentication != null) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetails) {
+                LoggedInUser userDetails = (LoggedInUser) principal;
+                if ((userDetails.getAccount().getRoles().contains(Role.ADMIN) && accountSharedService
+                        .isCurrentPasswordExpired(userDetails.getUsername()))
+                        || accountSharedService.isInitialPassword(userDetails
+                                .getUsername())) {
+                    response.sendRedirect(request.getContextPath()
+                            + "/password?form");
+                    return false;
+                }
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 }
