@@ -10,7 +10,7 @@ cache:
 env:
   global:
     - ARCHETYPE_VERSION=5.5.0.RC2-SNAPSHOT
-    - CARGO_DAEMON_WEBAPP_VERSION=1.4.17
+    - CARGO_DAEMON_WEBAPP_VERSION=1.6.2
   matrix:
     # todo
     - TARGET_TUTORIAL=todo ARCHETYPE_ARTIFACT_ID=terasoluna-gfw-web-blank-archetype ARTIFACT_ID=todo
