@@ -19,7 +19,7 @@ case "$ARCHETYPE_ARTIFACT_ID" in
         ;;
 esac
 
-export ARCHETYPE_VERSION=${ARCHETYPE_VERSION:=5.5.0-SNAPSHOT}
+export ARCHETYPE_VERSION=${ARCHETYPE_VERSION:=5.5.0.RC2-SNAPSHOT}
 export GROUP_ID=com.example.securelogin
 export VERSION=${VERSION:=1.0.0-SNAPSHOT}
 export HOST_IP=${HOST_IP:=localhost}
