@@ -42,7 +42,7 @@ public class TodoServiceImpl implements TodoService {
 
     // (4)
     private Todo findOne(String todoId) {
-        Todo todo = todoRepository.findOne(todoId);
+        Todo todo = todoRepository.findById(todoId).orElse(null);
         if (todo == null) {
             // (5)
             ResultMessages messages = ResultMessages.error();
