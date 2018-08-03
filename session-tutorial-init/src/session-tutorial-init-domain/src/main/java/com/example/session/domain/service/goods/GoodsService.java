@@ -48,7 +48,7 @@ public class GoodsService {
 
 		List<Goods> goodsList = Collections.emptyList();
 		if (total > 0) {
-			RowBounds rowBounds = new RowBounds(pageable.getOffset(),
+			RowBounds rowBounds = new RowBounds((int) pageable.getOffset(),
 					pageable.getPageSize());
 			goodsList = goodsRepository.findPageByCategoryId(categoryId,
 					rowBounds);
