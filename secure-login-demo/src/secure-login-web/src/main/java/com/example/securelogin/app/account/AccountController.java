@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import javax.validation.groups.Default;
 
 import org.apache.commons.io.IOUtils;
-import org.dozer.Mapper;
+import com.github.dozermapper.core.Mapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

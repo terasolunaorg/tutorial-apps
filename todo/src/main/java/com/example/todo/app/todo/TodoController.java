@@ -20,7 +20,7 @@ import java.util.Collection;
 import javax.inject.Inject;
 import javax.validation.groups.Default;
 
-import org.dozer.Mapper;
+import com.github.dozermapper.core.Mapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

@@ -21,7 +21,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import org.dozer.Mapper;
+import com.github.dozermapper.core.Mapper;
 import org.springframework.stereotype.Service;
 import org.terasoluna.gfw.common.message.ResultMessages;
 
