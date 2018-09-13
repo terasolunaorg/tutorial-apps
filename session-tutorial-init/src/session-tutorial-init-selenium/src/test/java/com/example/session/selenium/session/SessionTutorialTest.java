@@ -24,6 +24,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Value;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
 
 import org.terasoluna.gfw.tutorial.selenium.FunctionTestSupport;
 
@@ -46,10 +48,10 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("Kokoro")).getText(), is(
                     "Kokoro"));
-            assertThat(driver.findElement(By.id("〔Ame ni mo Makezu〕"))
+            assertThat(driver.findElement(By.xpath("//tbody/tr[3]/td[1]"))
                     .getText(), is("〔Ame ni mo Makezu〕"));
-            assertThat(driver.findElement(By.id("Run, Melos!")).getText(), is(
-                    "Run, Melos!"));
+            assertThat(driver.findElement(By.xpath("//tbody/tr[4]/td[1]"))
+                    .getText(), is("Run, Melos!"));
             assertThat(driver.findElement(By.id("userName")).getText(), is(
                     "xxx"));
 
@@ -162,10 +164,10 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("Kokoro")).getText(), is(
                     "Kokoro"));
-            assertThat(driver.findElement(By.id("〔Ame ni mo Makezu〕"))
+            assertThat(driver.findElement(By.xpath("//tbody/tr[3]/td[1]"))
                     .getText(), is("〔Ame ni mo Makezu〕"));
-            assertThat(driver.findElement(By.id("Run, Melos!")).getText(), is(
-                    "Run, Melos!"));
+            assertThat(driver.findElement(By.xpath("//tbody/tr[4]/td[1]"))
+                    .getText(), is("Run, Melos!"));
             assertThat(driver.findElement(By.id("userName")).getText(), is(
                     "test"));
 
@@ -208,18 +210,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
         // display
         {
-            assertThat(driver.findElement(By.id(
-                    "Symphony No. 5 in C minor (Fate)")).getText(), is(
-                            "Symphony No. 5 in C minor (Fate)"));
-            assertThat(driver.findElement(By.id("Eine kleine Nachtmusik"))
+            assertThat(driver.findElement(By.xpath("//tbody/tr[2]/td[1]"))
+                    .getText(), is("Symphony No. 5 in C minor (Fate)"));
+            assertThat(driver.findElement(By.xpath("//tbody/tr[3]/td[1]"))
                     .getText(), is("Eine kleine Nachtmusik"));
-            assertThat(driver.findElement(By.id("Swan Lake")).getText(), is(
-                    "Swan Lake"));
+            assertThat(driver.findElement(By.xpath("//tbody/tr[4]/td[1]"))
+                    .getText(), is("Swan Lake"));
         }
 
         // click the item name
         {
-            driver.findElement(By.id("Swan Lake")).click();
+            driver.findElement(By.linkText("Swan Lake")).click();
         }
 
         // check the display

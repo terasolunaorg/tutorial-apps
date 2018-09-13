@@ -16,23 +16,31 @@
 package org.terasoluna.gfw.tutorial.selenium;
 
 import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.events.WebDriverEventListener;
 import org.springframework.context.support.ApplicationObjectSupport;
 
 public class WebDriverCreator extends ApplicationObjectSupport {
+
+    @Inject
+    protected FirefoxDriverPrepare firefoxDriverPrepare;
 
     /**
      * Create a default WebDriver (WebDriver defined in the bean file).
      * @return Default WebDriver
      */
     public WebDriver createDefaultWebDriver() {
+        firefoxDriverPrepare.geckodriverSetup();
         WebDriver webDriver = getApplicationContext().getBean(WebDriver.class);
-        return webDriver;
+
+        return registerWebDriverEventListener(webDriver);
     }
 
     /**
@@ -68,7 +76,10 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         profile.setPreference("brouser.startup.homepage_override.mstone",
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
-        return new FirefoxDriver(profile);
+        firefoxDriverPrepare.geckodriverSetup();
+        WebDriver webDriver = new FirefoxDriver(profile);
+
+        return registerWebDriverEventListener(webDriver);
     }
 
     /**
@@ -105,9 +116,23 @@ public class WebDriverCreator extends ApplicationObjectSupport {
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
 
+        firefoxDriverPrepare.geckodriverSetup();
         WebDriver webDriver = new FirefoxDriver(profile);
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        return webDriver;
+
+        return registerWebDriverEventListener(webDriver);
     }
 
+    /**
+     * Register WebDriverEventListener in the execution webDriver
+     * @param The webDriver to be tested
+     * @return WebDriver with Listener processing
+     */
+    private EventFiringWebDriver registerWebDriverEventListener(
+            WebDriver webDriver) {
+        EventFiringWebDriver driver = new EventFiringWebDriver(webDriver);
+        driver.register(getApplicationContext().getBean(
+                WaitWebDriverEventListener.class));
+        return driver;
+    }
 }

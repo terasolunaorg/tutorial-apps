@@ -68,6 +68,18 @@ selenium.evidenceBaseDirectory=./evidence
 selenium.dbHost='"${HOST_IP}"'
 selenium.dbPort='"${APSRV_H2DB_PORT}"'
 
+# Proxy authentication setting.
+selenium.proxyUserName=
+selenium.proxyUserPassword=
+selenium.proxyHttpServer=
+
+# Webdriver version.
+selenium.geckodriverVersion=0.14.0
+
+# Webdriver wait time.
+selenium.webDriverWait=5
+selenium.webDriverSleepWait=100
+
 # Allowable value is STANDARD or JAVASCRIPT(Default). See the JavaDoc of org.terasoluna.gfw.tutorial.selenium.WebDriverInputFieldAccessor.
 # STANDARD   : for release.
 # JAVASCRIPT : for development and iteration testing.
@@ -153,6 +165,16 @@ sed -i -e 's|</beans>|\
     </bean>\
 \
     <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />\
+\
+    <bean id="waitWebDriverEventListener" class="org.terasoluna.gfw.tutorial.selenium.WaitWebDriverEventListener"  scope="prototype"/>\
+\
+    <bean id="firefoxDriverPrepare" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverPrepare" />\
+\
+    <beans profile="firefox default">\
+        <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"\
+        scope="prototype" />\
+    </beans>\
+\
 </beans>|' "$SELENIUM_CONTEXT"
 
 sed -i -e 's|xsi:schemaLocation|\
