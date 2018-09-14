@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS account;
 
 CREATE TABLE account(
     username VARCHAR(128),
-    password VARCHAR(60) NOT NULL,
+    password VARCHAR(88) NOT NULL,
     first_name VARCHAR(128) NOT NULL,
     last_name VARCHAR(128) NOT NULL,
     email VARCHAR(128) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE password_history(
 CREATE TABLE password_reissue_info(
     username VARCHAR(128) NOT NULL,
     token VARCHAR(128),
-    secret VARCHAR(60) NOT NULL,
+    secret VARCHAR(88) NOT NULL,
     expiry_date TIMESTAMP NOT NULL,
     CONSTRAINT pk_tbl_pri PRIMARY KEY (token),
     CONSTRAINT fk_tbl_pri FOREIGN KEY (username) REFERENCES account(username)

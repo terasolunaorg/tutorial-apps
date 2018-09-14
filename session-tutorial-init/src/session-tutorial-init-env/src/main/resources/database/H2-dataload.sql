@@ -1,5 +1,5 @@
 -- 初期アカウント
-INSERT into account values('gaggagargrgasg','a@b.com','$2a$10$oxSJl.keBwxmsMLkcT9lPeAIxfNTPNQxpeywMrF7A3kVszwUTqfTK','xxx','2015-08-01','1111111','Tokyo','1111111111111111','2015-08-01','111');
+INSERT into account values('gaggagargrgasg','a@b.com','{pbkdf2}1dd84f42a7a9a173f8f806d736d34939bed6a36e2948e8bfe88801ee5e6e61b815efc389d03165a4','xxx','2015-08-01','1111111','Tokyo','1111111111111111','2015-08-01','111');
 
 --　カテゴリ
 INSERT INTO category (category_id, category_name) VALUES (1, 'book');
