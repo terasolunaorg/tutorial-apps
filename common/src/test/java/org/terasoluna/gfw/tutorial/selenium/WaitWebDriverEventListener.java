@@ -53,7 +53,7 @@ public class WaitWebDriverEventListener extends WebDriverEventListenerAdapter {
                             .executeScript("return document.readyState").equals(
                                     "complete"));
         } catch (TimeoutException e) {
-            logger.debug("loading is not done");
+            logger.warn("loading is not done");
         }
     }
 
