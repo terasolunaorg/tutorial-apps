@@ -42,10 +42,10 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("Kokoro")).getText(), is(
                     "Kokoro"));
-            assertThat(driver.findElement(By.id("〔Ame ni mo Makezu〕"))
+            assertThat(driver.findElement(By.xpath("//tbody/tr[3]/td[1]"))
                     .getText(), is("〔Ame ni mo Makezu〕"));
-            assertThat(driver.findElement(By.id("Run, Melos!")).getText(), is(
-                    "Run, Melos!"));
+            assertThat(driver.findElement(By.xpath("//tbody/tr[4]/td[1]"))
+                    .getText(), is("Run, Melos!"));
             assertThat(driver.findElement(By.id("userName")).getText(), is(
                     "xxx"));
 
@@ -158,10 +158,10 @@ public class SessionTutorialTest extends FunctionTestSupport {
         {
             assertThat(driver.findElement(By.id("Kokoro")).getText(), is(
                     "Kokoro"));
-            assertThat(driver.findElement(By.id("〔Ame ni mo Makezu〕"))
+            assertThat(driver.findElement(By.xpath("//tbody/tr[3]/td[1]"))
                     .getText(), is("〔Ame ni mo Makezu〕"));
-            assertThat(driver.findElement(By.id("Run, Melos!")).getText(), is(
-                    "Run, Melos!"));
+            assertThat(driver.findElement(By.xpath("//tbody/tr[4]/td[1]"))
+                    .getText(), is("Run, Melos!"));
             assertThat(driver.findElement(By.id("userName")).getText(), is(
                     "test"));
 
@@ -204,18 +204,17 @@ public class SessionTutorialTest extends FunctionTestSupport {
 
         // check the display page
         {
-            assertThat(driver.findElement(By.id(
-                    "Symphony No. 5 in C minor (Fate)")).getText(), is(
-                            "Symphony No. 5 in C minor (Fate)"));
-            assertThat(driver.findElement(By.id("Eine kleine Nachtmusik"))
+            assertThat(driver.findElement(By.xpath("//tbody/tr[2]/td[1]"))
+                    .getText(), is("Symphony No. 5 in C minor (Fate)"));
+            assertThat(driver.findElement(By.xpath("//tbody/tr[3]/td[1]"))
                     .getText(), is("Eine kleine Nachtmusik"));
-            assertThat(driver.findElement(By.id("Swan Lake")).getText(), is(
-                    "Swan Lake"));
+            assertThat(driver.findElement(By.xpath("//tbody/tr[4]/td[1]"))
+                    .getText(), is("Swan Lake"));
         }
 
         // click the item name
         {
-            driver.findElement(By.id("Swan Lake")).click();
+            driver.findElement(By.linkText("Swan Lake")).click();
         }
         // check page
         {
