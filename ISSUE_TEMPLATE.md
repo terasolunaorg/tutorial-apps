@@ -12,6 +12,8 @@
 (To be written later by project member)
 - [ ] 5.5.0 (master)
 - [ ] 5.4.2 (5.4.x)
+- [ ] 1.6.0 (m-j/master)
+- [ ] 1.6.0 (m-t/master)
 
 ## Issue Links
 - #XXX
