@@ -16,9 +16,10 @@
 package org.terasoluna.gfw.tutorial.selenium;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
-public class FirefoxDriverFactoryBean implements WebDriverManagerFactoryBean<FirefoxDriver> {
+public class FirefoxDriverFactoryBean extends WebDriverManagerFactoryBean<FirefoxDriver> {
 
     @Override
     public FirefoxDriver getObject() {

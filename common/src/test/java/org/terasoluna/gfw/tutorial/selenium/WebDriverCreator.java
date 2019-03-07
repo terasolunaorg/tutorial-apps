@@ -77,7 +77,8 @@ public class WebDriverCreator extends ApplicationObjectSupport {
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
         firefoxDriverPrepare.geckodriverSetup();
-        WebDriver webDriver = new FirefoxDriver(profile);
+        FirefoxOptions options = new FirefoxOptions().setProfile(profile);
+        WebDriver webDriver = new FirefoxDriver(options);
 
         return registerWebDriverEventListener(webDriver);
     }
@@ -117,10 +118,23 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         profile.setPreference("network.proxy.type", 0);
 
         firefoxDriverPrepare.geckodriverSetup();
-        WebDriver webDriver = new FirefoxDriver(profile);
+        FirefoxOptions options = new FirefoxOptions().setProfile(profile);
+        WebDriver webDriver = new FirefoxDriver(options);
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         return registerWebDriverEventListener(webDriver);
     }
 
+    /**
+     * Register WebDriverEventListener in the execution webDriver
+     * @param The webDriver to be tested
+     * @return WebDriver with Listener processing
+     */
+    private EventFiringWebDriver registerWebDriverEventListener(
+            WebDriver webDriver) {
+        EventFiringWebDriver driver = new EventFiringWebDriver(webDriver);
+        driver.register(getApplicationContext().getBean(
+                WaitWebDriverEventListener.class));
+        return driver;
+    }
 }
