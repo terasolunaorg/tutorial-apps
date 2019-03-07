@@ -153,6 +153,18 @@ sed -i -e 's|</beans>|\
     </bean>\
 \
     <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />\
+\
+  <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverManagerConfigurer">\
+    <property name="propertyFileLocation" value="wdm.properties" />\
+  </bean>\
+\
+  <beans profile="firefox default">\
+    <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"\
+      scope="prototype">\
+      <property name="propertyFileLocation" value="wdm.properties" />\
+    </bean>\
+  </beans>\
+\
 </beans>|' "$SELENIUM_CONTEXT"
 
 sed -i -e 's|xsi:schemaLocation|\
