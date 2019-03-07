@@ -121,7 +121,7 @@ else
 fi
 
 # pom.xml
-find ./pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>2.46.0</selenium.version>\
+find ./pom.xml | xargs sed -i -e 's|</properties>|    <selenium.version>3.14.0</selenium.version>\
     </properties>|'
 
 if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
