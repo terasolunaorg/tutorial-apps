@@ -187,6 +187,7 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
         }
 
         if (driver == null) {
+            webDriverManagerConfigurer.setUp();
             FirefoxProfile profile = new FirefoxProfile();
             profile.setPreference("brouser.startup.homepage_override.mstone",
                     "ignore");
