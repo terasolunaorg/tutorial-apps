@@ -19,10 +19,18 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 
-public class FirefoxDriverFactoryBean extends WebDriverManagerFactoryBean<FirefoxDriver> {
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class FirefoxDriverFactoryBean extends
+                                      WebDriverManagerFactoryBean<FirefoxDriver> {
 
     @Override
     public FirefoxDriver getObject() {
+
+        if (System.getenv("webdriver.gecko.driver") == null) {
+            WebDriverManager.firefoxdriver().setup();
+        }
+
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("brouser.startup.homepage_override.mstone",
                 "ignore");

@@ -24,24 +24,19 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.events.WebDriverEventListener;
 import org.springframework.context.support.ApplicationObjectSupport;
 
 public class WebDriverCreator extends ApplicationObjectSupport {
 
     @Inject
-    protected FirefoxDriverPrepare firefoxDriverPrepare;
+    private WebDriverManagerConfigurer webDriverManagerConfigurer;
 
     /**
      * Create a default WebDriver (WebDriver defined in the bean file).
      * @return Default WebDriver
      */
     public WebDriver createDefaultWebDriver() {
-        firefoxDriverPrepare.geckodriverSetup();
-        WebDriver webDriver = getApplicationContext().getBean(WebDriver.class);
-
-        return webDriver;
+    	return getApplicationContext().getBean(WebDriver.class);
     }
 
     /**
@@ -55,6 +50,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
      * @return WebDriver Operation target browser
      */
     public WebDriver createLocaleSpecifiedDriver(String localeStr) {
+        webDriverManagerConfigurer.setUp();
 
         for (String activeProfile : getApplicationContext().getEnvironment()
                 .getActiveProfiles()) {
@@ -62,7 +58,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--lang=" + localeStr);
                 return new ChromeDriver(options);
-            } else if ("firefox".equals(activeProfile)) {
+            } else if ("firefox".equals(activeProfile) || "default".equals(activeProfile)) {
                 break;
             } else if ("ie".equals(activeProfile)) {
                 throw new UnsupportedOperationException("It is not possible to start locale specified browser using InternetExplorer.");
@@ -77,11 +73,8 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         profile.setPreference("brouser.startup.homepage_override.mstone",
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
-        firefoxDriverPrepare.geckodriverSetup();
         FirefoxOptions options = new FirefoxOptions().setProfile(profile);
-        WebDriver webDriver = new FirefoxDriver(options);
-
-        return webDriver;
+        return new FirefoxDriver(options);
     }
 
     /**
@@ -93,6 +86,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
      * @return WebDriver instance with download function enabled
      */
     public WebDriver createDownloadableWebDriver(String downloadTempDirectory) {
+        webDriverManagerConfigurer.setUp();
         for (String activeProfile : getApplicationContext().getEnvironment()
                 .getActiveProfiles()) {
             if ("chrome".equals(activeProfile) || "ie".equals(activeProfile)
@@ -118,7 +112,6 @@ public class WebDriverCreator extends ApplicationObjectSupport {
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
 
-        firefoxDriverPrepare.geckodriverSetup();
         FirefoxOptions options = new FirefoxOptions().setProfile(profile);
         WebDriver webDriver = new FirefoxDriver(options);
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

@@ -16,9 +16,10 @@
 
   <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />
 
-  <bean id="firefoxDriverPrepare" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverPrepare" />
-
   <!-- Settings for WebDrivers -->
+  <bean class="jp.co.ntt.fw.spring.functionaltest.selenium.WebDriverManagerConfigurer">
+    <property name="propertyFileLocation" value="wdm.properties" />
+  </bean>
   <beans profile="firefox default">
     <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"
       scope="prototype">
