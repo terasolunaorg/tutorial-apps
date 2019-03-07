@@ -63,6 +63,10 @@ if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
                 <groupId>org.seleniumhq.selenium</groupId>\
                 <artifactId>selenium-support</artifactId>\
                 <version>${selenium.version}</version>\
+            </dependency>\
+\
+        </dependencies>|'
+
   # project-selenium/pom.xml
   find ./$ARTIFACT_ID-selenium/pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\
                 <groupId>io.github.bonigarcia</groupId>\
@@ -71,6 +75,7 @@ if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
             </dependency>\
 \
         </dependencies>|'
+
 else
   # single project
   # pom.xml
