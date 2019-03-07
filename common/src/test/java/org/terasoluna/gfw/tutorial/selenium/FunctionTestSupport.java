@@ -74,6 +74,9 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
     @Inject
     protected PageSource pageSource;
 
+    @Inject
+    private WebDriverManagerConfigurer webDriverManagerConfigurer;
+
     @Rule
     public TestName testName = new TestName();
 
