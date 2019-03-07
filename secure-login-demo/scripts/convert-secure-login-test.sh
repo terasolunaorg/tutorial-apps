@@ -74,7 +74,7 @@ selenium.proxyUserPassword=
 selenium.proxyHttpServer=
 
 # Webdriver version.
-selenium.geckodriverVersion=0.14.0
+selenium.geckodriverVersion=0.23.0
 
 # Webdriver wait time.
 selenium.webDriverWait=5
