@@ -166,13 +166,13 @@ sed -i -e 's|</beans>|\
 \
     <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />\
 \
-    <bean id="waitWebDriverEventListener" class="org.terasoluna.gfw.tutorial.selenium.WaitWebDriverEventListener"  scope="prototype"/>\
-\
     <bean id="firefoxDriverPrepare" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverPrepare" />\
 \
     <beans profile="firefox default">\
         <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"\
-        scope="prototype" />\
+          scope="prototype">\
+          <property name="propertyFileLocation" value="wdm.properties" />\
+        </bean>\
     </beans>\
 \
 </beans>|' "$SELENIUM_CONTEXT"

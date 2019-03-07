@@ -123,16 +123,4 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         return registerWebDriverEventListener(webDriver);
     }
 
-    /**
-     * Register WebDriverEventListener in the execution webDriver
-     * @param The webDriver to be tested
-     * @return WebDriver with Listener processing
-     */
-    private EventFiringWebDriver registerWebDriverEventListener(
-            WebDriver webDriver) {
-        EventFiringWebDriver driver = new EventFiringWebDriver(webDriver);
-        driver.register(getApplicationContext().getBean(
-                WaitWebDriverEventListener.class));
-        return driver;
-    }
 }

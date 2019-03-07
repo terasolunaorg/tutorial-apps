@@ -15,28 +15,14 @@
  */
 package org.terasoluna.gfw.tutorial.selenium;
 
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.springframework.beans.factory.annotation.Value;
 
 public class FirefoxDriverPrepare {
 
-    @Value("${selenium.geckodriverVersion}")
-    protected String geckodriverVersion;
-
-    @Value("${selenium.proxyHttpServer}")
-    protected String proxyHttpServer;
-
-    @Value("${selenium.proxyUserName}")
-    protected String userName;
-
-    @Value("${selenium.proxyUserPassword}")
-    protected String userPassword;
-
     public void geckodriverSetup() {
-        if (System.getProperty("webdriver.gecko.driver") == null) {
-            FirefoxDriverManager.getInstance().version(geckodriverVersion)
-                    .forceCache().proxy(proxyHttpServer).proxyUser(userName)
-                    .proxyPass(userPassword).useTaobaoMirror().setup();
+        if (System.getenv("webdriver.gecko.driver") == null) {
+            WebDriverManager.firefoxdriver().setup();
         }
     }
 

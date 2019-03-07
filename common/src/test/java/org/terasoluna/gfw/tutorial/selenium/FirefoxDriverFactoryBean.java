@@ -17,9 +17,8 @@ package org.terasoluna.gfw.tutorial.selenium;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.springframework.beans.factory.FactoryBean;
 
-public class FirefoxDriverFactoryBean implements FactoryBean<FirefoxDriver> {
+public class FirefoxDriverFactoryBean implements WebDriverManagerFactoryBean<FirefoxDriver> {
 
     @Override
     public FirefoxDriver getObject() {
@@ -28,7 +27,8 @@ public class FirefoxDriverFactoryBean implements FactoryBean<FirefoxDriver> {
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
         profile.setPreference("intl.accept_languages", "en-us,en");
-        return new FirefoxDriver(profile);
+        FirefoxOptions options = new FirefoxOptions().setProfile(profile);
+        return new FirefoxDriver(options);
     }
 
     @Override
