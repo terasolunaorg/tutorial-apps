@@ -74,9 +74,6 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
     @Inject
     protected PageSource pageSource;
 
-    @Inject
-    protected FirefoxDriverPrepare firefoxDriverPrepare;
-
     @Rule
     public TestName testName = new TestName();
 
@@ -190,7 +187,6 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
         }
 
         if (driver == null) {
-            firefoxDriverPrepare.geckodriverSetup();
             FirefoxProfile profile = new FirefoxProfile();
             profile.setPreference("brouser.startup.homepage_override.mstone",
                     "ignore");
