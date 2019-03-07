@@ -41,7 +41,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         firefoxDriverPrepare.geckodriverSetup();
         WebDriver webDriver = getApplicationContext().getBean(WebDriver.class);
 
-        return registerWebDriverEventListener(webDriver);
+        return webDriver;
     }
 
     /**
