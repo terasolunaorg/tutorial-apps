@@ -88,7 +88,7 @@ public class PasswordReissueTest extends DBLogFunctionTestSupport {
         String secret = ((CreateReissueInfoSuccessPage) page).getSecret();
 
         webDriverOperations.waitForDisplayed(ExpectedConditions
-                .visibilityOfElementLocated(By.id("pre"));
+                .visibilityOfElementLocated(By.id("pre")));
         // confirm that the URL for reissue password has sent by E-mail
         page = new ReceivedMailPage(webDriverOperations, applicationContextUrl)
                 .open();
@@ -145,7 +145,7 @@ public class PasswordReissueTest extends DBLogFunctionTestSupport {
                                     .makeReissueInfo("demo");
             String secret = ((CreateReissueInfoSuccessPage) page).getSecret();
             webDriverOperations.waitForDisplayed(ExpectedConditions
-                    .visibilityOfElementLocated(By.id("pre"));
+                    .visibilityOfElementLocated(By.id("pre")));
             page = new ReceivedMailPage(webDriverOperations, applicationContextUrl)
                     .open();
             String mailText = ((ReceivedMailPage) page).getLatestMailText();
@@ -174,7 +174,7 @@ public class PasswordReissueTest extends DBLogFunctionTestSupport {
         page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
                 "demo");
         webDriverOperations.waitForDisplayed(ExpectedConditions
-                .visibilityOfElementLocated(By.id("pre"));
+                .visibilityOfElementLocated(By.id("pre")));
         page = new ReceivedMailPage(webDriverOperations, applicationContextUrl)
                 .open();
         String mailText = ((ReceivedMailPage) page).getLatestMailText();
@@ -205,7 +205,7 @@ public class PasswordReissueTest extends DBLogFunctionTestSupport {
         page = ((LoginPage) page).goToCreateReissueInfoPage().makeReissueInfo(
                 "demo");
         webDriverOperations.waitForDisplayed(ExpectedConditions
-                .visibilityOfElementLocated(By.id("pre"));
+                .visibilityOfElementLocated(By.id("pre")));
         page = new ReceivedMailPage(webDriverOperations, applicationContextUrl)
                 .open();
         String mailText = ((ReceivedMailPage) page).getLatestMailText();
