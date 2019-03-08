@@ -195,6 +195,7 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
             profile.setPreference("brouser.startup.homepage_override.mstone",
                     "ignore");
             profile.setPreference("network.proxy.type", 0);
+            profile.setPreference("devtools.jsonview.enabled", false);
             FirefoxOptions options = new FirefoxOptions().setProfile(profile);
             driver = new FirefoxDriver(options);
         }
