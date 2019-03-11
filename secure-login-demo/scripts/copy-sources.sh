@@ -21,5 +21,6 @@ cp -p -r ../src/secure-login-env/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-env
 cp -p -r ../src/secure-login-selenium/* ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium
 cp -p -r ../../common/src/test/java ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test
 cp -p -r ../../common/src/test/resources/logback.xml ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/resources
+cp -p -r ../../common/src/test/resources/wdm.properties ./${ARTIFACT_ID}/${ARTIFACT_ID}-selenium/src/test/resources
 
 popd

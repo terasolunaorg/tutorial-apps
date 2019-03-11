@@ -16,15 +16,15 @@
 
   <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />
 
-  <bean id="firefoxDriverPrepare" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverPrepare" />
-
-  <bean id="waitWebDriverEventListener"
-    class="org.terasoluna.gfw.tutorial.selenium.WaitWebDriverEventListener" scope="prototype" />
-
   <!-- Settings for WebDrivers -->
+  <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverManagerConfigurer">
+    <property name="propertyFileLocation" value="wdm.properties" />
+  </bean>
   <beans profile="firefox default">
     <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"
-      scope="prototype" />
+      scope="prototype">
+      <property name="propertyFileLocation" value="wdm.properties" />
+    </bean>
   </beans>
   <beans profile="chrome">
     <bean id="webDriver" class="org.openqa.selenium.chrome.ChromeDriver" scope="prototype" />

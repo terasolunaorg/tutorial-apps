@@ -18,7 +18,7 @@ find ./pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\
 \
         </dependencies>|'
 
-find ./pom.xml | xargs sed -i -e 's|</properties>|    <webdrivermanager.version>1.6.2</webdrivermanager.version>\
+find ./pom.xml | xargs sed -i -e 's|</properties>|    <webdrivermanager.version>3.1.1</webdrivermanager.version>\
     </properties>|'
 
 if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
