@@ -70,7 +70,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         // The default browser is Firefox
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("intl.accept_languages", localeStr);
-        profile.setPreference("brouser.startup.homepage_override.mstone",
+        profile.setPreference("browser.startup.homepage_override.mstone",
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
         FirefoxOptions options = new FirefoxOptions().setProfile(profile);
@@ -108,7 +108,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         profile.setPreference("pdfjs.disabled", true);
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk",
                 "application/pdf, text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/plain");
-        profile.setPreference("brouser.startup.homepage_override.mstone",
+        profile.setPreference("browser.startup.homepage_override.mstone",
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
 
