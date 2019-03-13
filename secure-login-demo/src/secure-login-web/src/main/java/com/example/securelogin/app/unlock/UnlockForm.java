@@ -17,7 +17,7 @@ package com.example.securelogin.app.unlock;
 
 import java.io.Serializable;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 

@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import org.hibernate.validator.constraints.Email;
+import javax.validation.constraints.Email;
 
 @Documented
 @Constraint(validatedBy = { DomainRestrictedEmailValidator.class })

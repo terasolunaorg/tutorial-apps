@@ -28,7 +28,7 @@ buildResultCheck(){
 
 # build
 echo "build $POM"
-mvn -U -f "$POM" -am -pl ${ARTIFACT_ID}-web install
+mvn -U -f "$POM" -am -pl ${ARTIFACT_ID}-web install -P local
 buildResultCheck $?
 
 # run

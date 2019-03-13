@@ -74,6 +74,46 @@ find ./ -type f -name 'spring-mvc.xml' | xargs sed -i -e 's|</beans>|    <!-- Be
 # spring-security.xml
 find ./ -type f -name 'spring-mvc.xml' | xargs sed -i -e 's|<sec:session-management />|<sec:session-management  invalid-session-url="/loginForm"  />|'
 
+# ./pom.xml
+POM=`find ./pom.xml`
+sed -i -e 's|</dependencies>|    <dependency>\
+              <groupId>com.sun.xml.bind</groupId>\
+              <artifactId>jaxb-core</artifactId>\
+              <version>${jaxb-core.version}</version>\
+            </dependency>\
+            <dependency>\
+              <groupId>com.sun.xml.bind</groupId>\
+              <artifactId>jaxb-impl</artifactId>\
+              <version>${jaxb-impl.version}</version>\
+            </dependency>\
+\
+        </dependencies>|' "$POM"
+
+sed -i -e 's|</properties>|    <jaxb-core.version>2.3.0.1</jaxb-core.version>\
+    <jaxb-impl.version>2.3.2</jaxb-impl.version>\
+    </properties>|' "$POM"
+
+# web/pom.xml
+WEB_POM=`find ./${ARTIFACT_ID}-web -type f -name 'pom.xml'`
+sed -i -e 's|</profiles>|    <profile>\
+      <id>jdk11</id>\
+      <activation>\
+        <jdk>11</jdk>\
+      </activation>\
+      <dependencies>\
+        <dependency>\
+          <groupId>com.sun.xml.bind</groupId>\
+          <artifactId>jaxb-core</artifactId>\
+        </dependency>\
+        <dependency>\
+          <groupId>com.sun.xml.bind</groupId>\
+          <artifactId>jaxb-impl</artifactId>\
+        </dependency>\
+      </dependencies>\
+    </profile>\
+\
+        </profiles>|' "$WEB_POM"
+
 if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd
 fi

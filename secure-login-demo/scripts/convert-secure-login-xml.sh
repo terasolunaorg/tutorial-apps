@@ -47,6 +47,24 @@ sed -i -e 's|</dependencies>|\
         </dependency>\
     </dependencies>|' "$DOMAIN_POM"
 
+sed -i -e 's|</project>|\
+  <profiles>\
+    <profile>\
+      <id>jdk11</id>\
+      <activation>\
+        <jdk>11</jdk>\
+      </activation>\
+      <dependencies>\
+        <dependency>\
+          <groupId>javax.annotation</groupId>\
+          <artifactId>javax.annotation-api</artifactId>\
+        </dependency>\
+      </dependencies>\
+    </profile>\
+  </profiles>\
+\
+</project>|' "$DOMAIN_POM"
+
 # mybatis-config.xml
 MYBATIS_CONFIG=`find ./ -type f -name 'mybatis-config.xml'`
 sed -i -e 's|</typeAliases>|\

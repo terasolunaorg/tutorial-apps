@@ -17,7 +17,7 @@ package com.example.session.app.cart;
 
 import java.util.Set;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 public class CartForm {
 
