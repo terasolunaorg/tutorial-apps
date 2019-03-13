@@ -38,18 +38,20 @@ public class WebDriverManagerConfigurer extends ApplicationObjectSupport {
                 if (System.getenv("webdriver.chrome.driver") == null) {
                     WebDriverManager.chromedriver().setup();
                 }
-            } else if ("firefox".equals(activeProfile) || "default".equals(activeProfile)) {
-                if (System.getenv("webdriver.gecko.driver") == null) {
-                    WebDriverManager.firefoxdriver().setup();
-                }
+                return;
             } else if ("ie".equals(activeProfile)) {
                 if (System.getenv("webdriver.ie.driver") == null) {
                     WebDriverManager.iedriver().setup();
                 }
+                return;
             } else if ("phantomJs".equals(activeProfile)) {
-                break;
+            	return;
             }
         }
 
+        // デフォルトのブラウザはFirefoxとする
+        if (System.getenv("webdriver.gecko.driver") == null) {
+            WebDriverManager.firefoxdriver().setup();
+        }
     }
 }

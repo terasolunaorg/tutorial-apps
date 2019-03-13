@@ -58,8 +58,6 @@ public class WebDriverCreator extends ApplicationObjectSupport {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--lang=" + localeStr);
                 return new ChromeDriver(options);
-            } else if ("firefox".equals(activeProfile) || "default".equals(activeProfile)) {
-                break;
             } else if ("ie".equals(activeProfile)) {
                 throw new UnsupportedOperationException("It is not possible to start locale specified browser using InternetExplorer.");
             } else if ("phantomJs".equals(activeProfile)) {
