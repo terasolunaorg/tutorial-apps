@@ -49,7 +49,7 @@ public class WebDriverManagerConfigurer extends ApplicationObjectSupport {
             }
         }
 
-        // デフォルトのブラウザはFirefoxとする
+        // The default browser is Firefox
         if (System.getenv("webdriver.gecko.driver") == null) {
             WebDriverManager.firefoxdriver().setup();
         }
