@@ -33,7 +33,7 @@ public class AccountSharedServiceImpl implements AccountSharedService {
     @Override
     public Account findOne(String username) {
         // (1)
-        Account account = accountRepository.findOne(username);
+        Account account = accountRepository.findById(username).orElse(null);
         // (2)
         if (account == null) {
             throw new ResourceNotFoundException("The given account is not found! username="

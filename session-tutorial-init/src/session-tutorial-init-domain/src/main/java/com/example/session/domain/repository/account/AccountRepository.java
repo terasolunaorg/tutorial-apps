@@ -17,12 +17,14 @@ package com.example.session.domain.repository.account;
 
 import com.example.session.domain.model.Account;
 
+import java.util.Optional;
+
 public interface AccountRepository {
 
-	Account findOne(String email);
+	Optional<Account> findByEmail(String email);
 
 	void create(Account account);
 
-	boolean update(Account account);
+	boolean updateById(Account account);
 
 }

@@ -12,7 +12,7 @@
         <id property="uploadedDate" column="uploaded_date" />
     </resultMap>
 
-    <select id="findOne" resultMap="TempFileResultMap">
+    <select id="findById" resultMap="TempFileResultMap">
     <![CDATA[
         SELECT
             id,
@@ -42,7 +42,7 @@
     ]]>
     </insert>
 
-    <delete id="delete">
+    <delete id="deleteById">
     <![CDATA[
         DELETE FROM
             temp_file

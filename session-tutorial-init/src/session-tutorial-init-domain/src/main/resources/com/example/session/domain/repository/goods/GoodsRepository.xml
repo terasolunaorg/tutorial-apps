@@ -39,7 +39,7 @@
     </select>
     
 
-    <select id="findOne" parameterType="String" resultMap="goodsResultMap">
+    <select id="findById" parameterType="String" resultMap="goodsResultMap">
         <![CDATA[
         SELECT
         	goods_id,

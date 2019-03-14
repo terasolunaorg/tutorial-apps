@@ -14,7 +14,7 @@
     </resultMap>
 
     <!-- (3) -->
-    <select id="findOne" parameterType="String" resultMap="todoResultMap">
+    <select id="findById" parameterType="String" resultMap="todoResultMap">
     <![CDATA[
         SELECT
             todo_id,
@@ -62,7 +62,7 @@
     </insert>
 
     <!-- (6) -->
-    <update id="update" parameterType="Todo">
+    <update id="updateById" parameterType="Todo">
     <![CDATA[
         UPDATE todo
         SET
@@ -75,7 +75,7 @@
     </update>
 
     <!-- (7) -->
-    <delete id="delete" parameterType="Todo">
+    <delete id="deleteById" parameterType="Todo">
     <![CDATA[
         DELETE FROM
             todo

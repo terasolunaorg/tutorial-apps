@@ -130,7 +130,7 @@ public class PasswordReissueServiceImpl implements PasswordReissueService {
     @Override
     @Transactional(readOnly = true)
     public PasswordReissueInfo findOne(String token) {
-        PasswordReissueInfo info = passwordReissueInfoRepository.findOne(token);
+        PasswordReissueInfo info = passwordReissueInfoRepository.findById(token).orElse(null);
 
         if (info == null) {
             throw new ResourceNotFoundException(ResultMessages.error().add(
@@ -162,7 +162,7 @@ public class PasswordReissueServiceImpl implements PasswordReissueService {
                     MessageKeys.E_SL_PR_5003));
         }
         failedPasswordReissueRepository.deleteByToken(token);
-        passwordReissueInfoRepository.delete(token);
+        passwordReissueInfoRepository.deleteById(token);
 
         return accountSharedService.updatePassword(username, rawPassword);
 

@@ -10,7 +10,7 @@
         <result property="lastName" column="last_name" />
     </resultMap>
 
-    <select id="findOne" parameterType="String" resultMap="accountResultMap">
+    <select id="findById" parameterType="String" resultMap="accountResultMap">
         SELECT
             username,
             password,

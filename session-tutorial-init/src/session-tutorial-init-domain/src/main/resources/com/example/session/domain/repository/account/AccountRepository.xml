@@ -16,7 +16,7 @@
         <result property="cardSecurityCode" column="card_security_code" />
     </resultMap>
     
-    <select id="findOne" parameterType="String" resultMap="accountResultMap">
+    <select id="findByEmail" parameterType="String" resultMap="accountResultMap">
         SELECT
         	id,
             email,
@@ -60,7 +60,7 @@
         )
     </insert>
     
-    <update id="update" parameterType="Account">
+    <update id="updateById" parameterType="Account">
         UPDATE 
             account
         SET

@@ -46,12 +46,12 @@ public class FileUploadSharedServiceImpl implements FileUploadSharedService {
 
     @Override
     public TempFile findTempFile(String id) {
-        return tempFileRepository.findOne(id);
+        return tempFileRepository.findById(id).orElse(null);
     }
 
     @Override
     public void deleteTempFile(String id) {
-        tempFileRepository.delete(id);
+        tempFileRepository.deleteById(id);
     };
     
     @Override

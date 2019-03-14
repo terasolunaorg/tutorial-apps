@@ -18,7 +18,7 @@
         </collection>
     </resultMap>
 
-    <select id="findOne" parameterType="string" resultMap="accountResultMap">
+    <select id="findById" parameterType="string" resultMap="accountResultMap">
     <![CDATA[
         SELECT
             a.username,

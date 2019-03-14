@@ -19,8 +19,10 @@ import org.apache.ibatis.annotations.Param;
 import com.example.securelogin.domain.model.Account;
 import com.example.securelogin.domain.model.AccountImage;
 
+import java.util.Optional;
+
 public interface AccountRepository {
-    Account findOne(String username);
+    Optional<Account> findById(String username);
 
     boolean updatePassword(@Param("username") String username,
             @Param("password") String password);

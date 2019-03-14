@@ -34,7 +34,7 @@ public class AccountService {
 	PasswordEncoder passwordEncoder;
 
 	public Account findOne(String email) {
-		Account account = accountRespository.findOne(email);
+		Account account = accountRespository.findByEmail(email).orElse(null);
 
 		if (account == null) {
 			throw new ResourceNotFoundException("アカウントが存在しません");
@@ -44,7 +44,7 @@ public class AccountService {
 	}
 
 	public void update(Account account) {
-		accountRespository.update(account);
+		accountRespository.updateById(account);
 	}
 
 	public void create(Account account, String password) {

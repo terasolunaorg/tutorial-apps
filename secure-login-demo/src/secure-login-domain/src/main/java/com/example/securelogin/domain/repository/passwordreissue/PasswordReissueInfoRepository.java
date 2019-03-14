@@ -20,14 +20,15 @@ import java.time.LocalDateTime;
 import org.apache.ibatis.annotations.Param;
 import com.example.securelogin.domain.model.PasswordReissueInfo;
 
+import java.util.Optional;
 
 public interface PasswordReissueInfoRepository {
 
     void create(PasswordReissueInfo info);
 
-    PasswordReissueInfo findOne(@Param("token") String token);
+    Optional<PasswordReissueInfo> findById(@Param("token") String token);
 
-    int delete(@Param("token") String token);
+    int deleteById(@Param("token") String token);
 
     int deleteExpired(@Param("date") LocalDateTime date);
 }

@@ -17,7 +17,9 @@ package com.example.security.domain.repository.account;
 
 import com.example.security.domain.model.Account;
 
+import java.util.Optional;
+
 public interface AccountRepository {
-    Account findOne(String username);
+    Optional<Account> findById(String username);
 }
 

@@ -21,11 +21,13 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.example.session.domain.model.Goods;
 
+import java.util.Optional;
+
 public interface GoodsRepository {
 
 	List<Goods> findPageByCategoryId(int categoryId, RowBounds rowBounds);
 	
 	long countByCategoryId(int categoryId);
 
-	Goods findOne(String id);
+	Optional<Goods> findById(String id);
 }

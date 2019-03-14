@@ -58,7 +58,7 @@ public class GoodsService {
 	}
 
 	public Goods findOne(String goodsId) {
-		return goodsRepository.findOne(goodsId);
+		return goodsRepository.findById(goodsId).orElse(null);
 	}
 
 }

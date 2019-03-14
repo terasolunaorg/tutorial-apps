@@ -87,7 +87,7 @@ public class AccountSharedServiceImpl implements AccountSharedService {
     @Transactional(readOnly = true)
     @Override
     public Account findOne(String username) {
-        Account account = accountRepository.findOne(username);
+        Account account = accountRepository.findById(username).orElse(null);
 
         if (account == null) {
             throw new ResourceNotFoundException(ResultMessages.error().add(
@@ -99,7 +99,7 @@ public class AccountSharedServiceImpl implements AccountSharedService {
     @Transactional(readOnly = true)
     @Override
     public boolean exists(String username) {
-        Account account = accountRepository.findOne(username);
+        Account account = accountRepository.findById(username).orElse(null);
 
         if (account == null) {
             return false;
