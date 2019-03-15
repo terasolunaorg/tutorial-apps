@@ -24,10 +24,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,8 +41,8 @@ import com.example.session.domain.service.account.AccountService;
 import com.example.session.domain.service.userdetails.AccountDetails;
 
 @Controller
+@RequestMapping("account/update")
 @SessionAttributes(value = { "accountUpdateForm" }) // (1)
-@RequestMapping("account")
 public class AccountUpdateController {
 
     @Inject
@@ -60,7 +61,7 @@ public class AccountUpdateController {
         return new AccountUpdateForm();
     }
 
-    @RequestMapping(value = "update", params = "form1")
+    @GetMapping(params = "form1")
     public String showUpdateForm1(
             @AuthenticationPrincipal AccountDetails userDetails,
             AccountUpdateForm form) { // (3)
@@ -72,7 +73,7 @@ public class AccountUpdateController {
         return "account/updateForm1";
     }
 
-    @RequestMapping(value = "update", params = "form2")
+    @PostMapping(params = "form2")
     public String showUpdateForm2(
             @Validated(Wizard1.class) AccountUpdateForm form,
             BindingResult result) {
@@ -84,12 +85,12 @@ public class AccountUpdateController {
         return "account/updateForm2";
     }
 
-    @RequestMapping(value = "update", params = "redoForm1")
+    @PostMapping(params = "redoForm1")
     public String redoUpdateForm1() {
         return "account/updateForm1";
     }
 
-    @RequestMapping(value = "update", params = "confirm")
+    @PostMapping(params = "confirm")
     public String confirmUpdate(
             @Validated(Wizard2.class) AccountUpdateForm form,
             BindingResult result) {
@@ -101,12 +102,12 @@ public class AccountUpdateController {
         return "account/updateConfirm";
     }
 
-    @RequestMapping(value = "update", params = "redoForm2")
+    @PostMapping(params = "redoForm2")
     public String redoUpdateForm2() {
         return "account/updateForm2";
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @PostMapping
     public String update(
             @AuthenticationPrincipal AccountDetails userDetails,
             @Validated({ Wizard1.class, Wizard2.class }) AccountUpdateForm form,
@@ -127,12 +128,12 @@ public class AccountUpdateController {
         return "redirect:/account/update?finish";
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.GET, params = "finish")
+    @GetMapping(params = "finish")
     public String finishUpdate() {
         return "account/updateFinish";
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.GET, params = "home")
+    @GetMapping(params = "home")
     public String home(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
         return "redirect:/goods";

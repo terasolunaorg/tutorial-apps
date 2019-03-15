@@ -22,9 +22,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.securelogin.domain.model.Account;
 import com.example.securelogin.domain.service.passwordchange.PasswordChangeService;
@@ -37,7 +38,12 @@ public class PasswordChangeController {
     @Inject
     PasswordChangeService passwordService;
 
-    @RequestMapping(params = "form")
+    @ModelAttribute("passwordChangeForm")
+    public PasswordChangeForm setUpPasswordChangeForm() {
+        return new PasswordChangeForm();
+    }
+
+    @GetMapping(params = "form")
     public String showForm(PasswordChangeForm form,
             @AuthenticationPrincipal LoggedInUser userDetails, Model model) {
 
@@ -46,7 +52,7 @@ public class PasswordChangeController {
         return "passwordchange/changeForm";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public String change(@AuthenticationPrincipal LoggedInUser userDetails,
             @Validated PasswordChangeForm form, BindingResult bindingResult,
             Model model) {
@@ -65,13 +71,8 @@ public class PasswordChangeController {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "complete")
+    @GetMapping(params = "complete")
     public String changeComplete() {
         return "passwordchange/changeComplete";
-    }
-
-    @ModelAttribute("passwordChangeForm")
-    public PasswordChangeForm setUpPasswordChangeForm() {
-        return new PasswordChangeForm();
     }
 }

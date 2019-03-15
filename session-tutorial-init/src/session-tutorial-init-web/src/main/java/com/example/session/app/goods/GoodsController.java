@@ -21,10 +21,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
  
 import com.example.session.domain.model.Goods;
 import com.example.session.domain.service.goods.GoodsService;
@@ -41,7 +41,7 @@ public class GoodsController {
 		return new GoodViewForm();
 	}
  
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@GetMapping
 	String showGoods(GoodViewForm form, Pageable pageable, Model model) {
  
 		Page<Goods> page = goodsService.findByCategoryId(form.getCategoryId(),
@@ -50,7 +50,7 @@ public class GoodsController {
 		return "goods/showGoods";
 	}
  
-	@RequestMapping(value = "/{goodsId}", method = RequestMethod.GET)
+	@GetMapping("/{goodsId}")
 	public String showGoodsDetail(@PathVariable String goodsId, Model model) {
  
 		Goods goods = goodsService.findOne(goodsId);

@@ -33,7 +33,13 @@ import org.springframework.validation.annotation.Validated;|'
 
 
 # GoodsController.java
-find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|import org.springframework.web.bind.annotation.RequestMethod;|import org.springframework.web.bind.annotation.RequestMethod;\
+find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|import org.springframework.web.bind.annotation.PathVariable;|import org.springframework.web.bind.annotation.PathVariable;\
+import org.springframework.web.bind.annotation.PostMapping;|'
+
+
+
+# GoodsController.java
+find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|import org.springframework.web.bind.annotation.RequestMapping;|import org.springframework.web.bind.annotation.RequestMapping;\
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;\
 import org.terasoluna.gfw.common.message.ResultMessages;|'
 
@@ -59,7 +65,7 @@ find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|GoodsService g
 find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|return "goods/showGoodsDetail";|return "goods/showGoodsDetail";\
     }\
 \
-    @RequestMapping(value = "/addToCart", method = RequestMethod.POST)\
+    @PostMapping("/addToCart")\
     public String addToCart(@Validated GoodAddForm form, BindingResult result,\
             RedirectAttributes attributes) {\
 \
@@ -102,8 +108,8 @@ find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|Cart cart;|Car
 
 
 # GoodsController.java
-find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|@RequestMapping(value = "", method = RequestMethod.GET)|// (2)\
-    @RequestMapping(value = "", method = RequestMethod.GET)|'
+find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|@GetMapping$|// (2)\
+    @GetMapping|'
 
 
 
@@ -115,7 +121,7 @@ find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|String showGoo
     }\
 \
     // (3)\
-    @RequestMapping(value = "", method = RequestMethod.GET, params = "categoryId")\
+    @GetMapping(params = "categoryId")\
     String changeCategoryId(GoodViewForm form, Pageable pageable, Model model) {\
         criteria.setPage(pageable.getPageNumber());\
         criteria.setCategoryId(form.getCategoryId());\
@@ -123,7 +129,7 @@ find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|String showGoo
     }\
 \
     // (4)\
-    @RequestMapping(value = "", method = RequestMethod.GET, params = "page")\
+    @GetMapping(params = "page")\
     String changePage(GoodViewForm form, Pageable pageable, Model model) {\
         criteria.setPage(pageable.getPageNumber());\
         form.setCategoryId(criteria.getCategoryId());\

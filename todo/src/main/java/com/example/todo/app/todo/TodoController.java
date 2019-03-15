@@ -25,9 +25,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.exception.BusinessException;
 import org.terasoluna.gfw.common.message.ResultMessage;
@@ -42,6 +43,7 @@ import com.example.todo.domain.service.todo.TodoService;
 @Controller
 @RequestMapping("todo")
 public class TodoController {
+
     @Inject
     TodoService todoService;
 
@@ -54,14 +56,14 @@ public class TodoController {
         return form;
     }
 
-    @RequestMapping(value = "list")
+    @GetMapping("list")
     public String list(Model model) {
         Collection<Todo> todos = todoService.findAll();
         model.addAttribute("todos", todos);
         return "todo/list";
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @PostMapping("create")
     public String create(
             @Validated({ Default.class, TodoCreate.class }) TodoForm todoForm,
             BindingResult bindingResult, Model model,
@@ -85,7 +87,7 @@ public class TodoController {
         return "redirect:/todo/list";
     }
 
-    @RequestMapping(value = "finish", method = RequestMethod.POST)
+    @PostMapping("finish")
     public String finish(
             @Validated({ Default.class, TodoFinish.class }) TodoForm form,
             BindingResult bindingResult, Model model,
@@ -106,7 +108,7 @@ public class TodoController {
         return "redirect:/todo/list";
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.POST) // (1)
+    @PostMapping("delete") // (1)
     public String delete(
             @Validated({ Default.class, TodoDelete.class }) TodoForm form,
             BindingResult bindingResult, Model model,

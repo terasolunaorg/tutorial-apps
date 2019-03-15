@@ -21,13 +21,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.github.dozermapper.core.Mapper;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import com.example.securelogin.domain.model.ReceivedMail;
 import com.example.securelogin.domain.service.mail.PasswordReissueMailSharedService;
 
-@Controller
+@RestController
+@RequestMapping("api/receivedmail")
 public class MailController {
     
     @Inject
@@ -36,8 +37,7 @@ public class MailController {
     @Inject
     Mapper beanMapper;
     
-    @RequestMapping("api/receivedmail")
-    @ResponseBody
+    @GetMapping
     public List<ReceivedMailResource> receivedMessages(){
         List<ReceivedMailResource> resources = new ArrayList<>();
         List<ReceivedMail> mails = mailSharedService.getReceivedMessages(); 

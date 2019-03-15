@@ -22,8 +22,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,7 +54,7 @@ public class OrderController {
     @Inject
     GoodsSearchCriteria criteria;
 
-    @RequestMapping(method = RequestMethod.GET, params = "confirm")
+    @GetMapping(params = "confirm")
     String confirm(@AuthenticationPrincipal AccountDetails userDetails,
             Model model) {
         if (cart.isEmpty()) {
@@ -67,7 +68,7 @@ public class OrderController {
         return "order/confirm";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     String order(@AuthenticationPrincipal AccountDetails userDetails,
             @RequestParam String signature, RedirectAttributes attributes) {
         Order order = orderService.purchase(userDetails.getAccount(), cart,
@@ -77,7 +78,7 @@ public class OrderController {
         return "redirect:/order?finish";
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "finish")
+    @GetMapping(params = "finish")
     String finish() {
         return "order/finish";
     }
