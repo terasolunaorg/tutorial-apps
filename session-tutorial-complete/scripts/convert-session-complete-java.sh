@@ -11,11 +11,10 @@ fi
 ######### Cart.java #########
 
 # Cart.java
-find ./ -type f -name 'Cart.java' | xargs sed -i -e 's|import org.springframework.security.crypto.codec.Base64;|import org.springframework.context.annotation.Scope;\
+find ./ -type f -name 'Cart.java' | xargs sed -i -e 's|import org.springframework.util.SerializationUtils;|import org.springframework.context.annotation.Scope;\
 import org.springframework.context.annotation.ScopedProxyMode;\
-import org.springframework.security.crypto.codec.Base64;\
-import org.springframework.stereotype.Component;|'
-
+import org.springframework.stereotype.Component;\
+import org.springframework.util.SerializationUtils;|'
 
 # Cart.java
 find ./ -type f -name 'Cart.java' | xargs sed -i -e 's|public class Cart implements Serializable {|@Component // (1)\
@@ -115,7 +114,7 @@ find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|@GetMapping$|/
 
 # GoodsController.java
 find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|String showGoods(GoodViewForm form, Pageable pageable, Model model) {|String showGoods(GoodViewForm form, Model model) {\
-        Pageable pageable = new PageRequest(criteria.getPage(), 3);\
+        Pageable pageable = PageRequest.of(criteria.getPage(), 3);\
         form.setCategoryId(criteria.getCategoryId());\
         return showGoods(pageable, model);\
     }\

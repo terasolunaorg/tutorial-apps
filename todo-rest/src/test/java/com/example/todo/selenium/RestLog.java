@@ -18,6 +18,7 @@ package com.example.todo.selenium;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
@@ -67,7 +68,8 @@ public class RestLog {
         File pageSourceFile = new File(evidenceSavingDirectory, evidenceFile);
 
         try {
-            FileUtils.writeStringToFile(pageSourceFile, writer.toString());
+            FileUtils.writeStringToFile(pageSourceFile, writer.toString(),
+                    StandardCharsets.UTF_8);
 
         } catch (IOException e) {
             logger.error(e.toString());

@@ -24,8 +24,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Value;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import static org.openqa.selenium.support.ui.ExpectedConditions.textToBePresentInElementLocated;
 
 import org.terasoluna.gfw.tutorial.selenium.FunctionTestSupport;
 
