@@ -29,7 +29,7 @@ import javax.validation.constraints.Pattern;
 
 @Documented
 @Constraint(validatedBy = {})
-@Target({ FIELD })
+@Target(FIELD)
 @Retention(RUNTIME)
 @ReportAsSingleViolation
 @Pattern(regexp = "^[\\r\\n\\P{Cntrl}]*$")
@@ -38,7 +38,7 @@ public @interface NotContainControlCharsExceptNewlines {
 
     Class<?>[] groups() default {};
 
-    @Target({ FIELD })
+    @Target(FIELD)
     @Retention(RUNTIME)
     @Documented
     public @interface List {

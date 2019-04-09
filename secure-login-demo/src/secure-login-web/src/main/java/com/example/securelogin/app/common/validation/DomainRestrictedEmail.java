@@ -29,7 +29,7 @@ import org.hibernate.validator.constraints.Email;
 
 @Documented
 @Constraint(validatedBy = { DomainRestrictedEmailValidator.class })
-@Target({ FIELD })
+@Target(FIELD)
 @Retention(RUNTIME)
 @Email
 public @interface DomainRestrictedEmail {
@@ -41,7 +41,7 @@ public @interface DomainRestrictedEmail {
 
     boolean allowSubDomain() default false;
 
-    @Target({ FIELD })
+    @Target(FIELD)
     @Retention(RUNTIME)
     @Documented
     public @interface List {

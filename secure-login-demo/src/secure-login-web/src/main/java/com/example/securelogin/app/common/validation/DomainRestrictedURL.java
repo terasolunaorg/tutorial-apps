@@ -29,7 +29,7 @@ import org.hibernate.validator.constraints.URL;
 
 @Documented
 @Constraint(validatedBy = { DomainRestrictedURLValidator.class })
-@Target({ FIELD })
+@Target(FIELD)
 @Retention(RUNTIME)
 @URL
 public @interface DomainRestrictedURL {
@@ -40,7 +40,7 @@ public @interface DomainRestrictedURL {
 
     String[] allowedDomains() default {};
 
-    @Target({ FIELD })
+    @Target(FIELD)
     @Retention(RUNTIME)
     @Documented
     public @interface List {
