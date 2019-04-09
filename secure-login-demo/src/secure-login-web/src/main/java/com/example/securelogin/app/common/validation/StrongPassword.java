@@ -16,6 +16,7 @@
 package com.example.securelogin.app.common.validation;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -26,10 +27,13 @@ import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+import com.example.securelogin.app.common.validation.StrongPassword.List;
+
 @Documented
 @Constraint(validatedBy = { StrongPasswordValidator.class })
 @Target({ TYPE, ANNOTATION_TYPE })
 @Retention(RUNTIME)
+@Repeatable(List.class)
 public @interface StrongPassword {
     String message() default "{com.example.securelogin.app.common.validation.StrongPassword.message}";
 
