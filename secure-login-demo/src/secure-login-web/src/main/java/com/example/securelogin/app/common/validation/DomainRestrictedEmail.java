@@ -19,6 +19,7 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -27,10 +28,13 @@ import javax.validation.Payload;
 
 import javax.validation.constraints.Email;
 
+import com.example.securelogin.app.common.validation.DomainRestrictedEmail.List;
+
 @Documented
 @Constraint(validatedBy = { DomainRestrictedEmailValidator.class })
-@Target({ FIELD })
+@Target(FIELD)
 @Retention(RUNTIME)
+@Repeatable(List.class)
 @Email
 public @interface DomainRestrictedEmail {
     String message() default "{com.example.securelogin.app.common.validation.DomainRestrictedEmail.message}";
@@ -41,7 +45,7 @@ public @interface DomainRestrictedEmail {
 
     boolean allowSubDomain() default false;
 
-    @Target({ FIELD })
+    @Target(FIELD)
     @Retention(RUNTIME)
     @Documented
     public @interface List {

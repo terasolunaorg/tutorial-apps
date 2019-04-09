@@ -15,19 +15,24 @@
  */
 package com.example.securelogin.app.common.validation;
 
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+import com.example.securelogin.app.common.validation.FileNamePattern.List;
+
 @Documented
 @Constraint(validatedBy = { FileNamePatternValidator.class })
-@Target({ ElementType.FIELD })
-@Retention(RetentionPolicy.RUNTIME)
+@Target(FIELD)
+@Retention(RUNTIME)
+@Repeatable(List.class)
 public @interface FileNamePattern {
 
     String message() default "{com.example.securelogin.app.common.validation.FileNamePattern.message}";
@@ -38,11 +43,11 @@ public @interface FileNamePattern {
 
     String pattern() default "";
 
-    @Target({ ElementType.FIELD })
-    @Retention(RetentionPolicy.RUNTIME)
+    @Target(FIELD)
+    @Retention(RUNTIME)
     @Documented
     public @interface List {
-        FileExtension[] value();
+        FileNamePattern[] value();
     }
 
 }
