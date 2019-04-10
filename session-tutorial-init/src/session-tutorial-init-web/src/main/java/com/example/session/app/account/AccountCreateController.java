@@ -23,10 +23,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.terasoluna.gfw.common.message.ResultMessages;
@@ -35,8 +36,8 @@ import com.example.session.domain.model.Account;
 import com.example.session.domain.service.account.AccountService;
 
 @Controller
+@RequestMapping("account/create")
 @SessionAttributes(value = { "accountCreateForm" })
-@RequestMapping("account")
 public class AccountCreateController {
 
 	@Inject
@@ -55,12 +56,12 @@ public class AccountCreateController {
 		return new AccountCreateForm();
 	}
 
-	@RequestMapping(value = "create", params = "form")
+	@GetMapping(params = "form")
 	public String showCreateForm() {
 		return "account/createForm";
 	}
 
-	@RequestMapping(value = "create", params = "confirm")
+	@PostMapping(params = "confirm")
 	public String confirmCreate(@Validated AccountCreateForm form,
 			BindingResult result) {
 
@@ -71,12 +72,12 @@ public class AccountCreateController {
 		return "account/createConfirm";
 	}
 
-	@RequestMapping(value = "create", params = "redoForm")
+	@PostMapping(params = "redoForm")
 	public String redoCreateForm() {
 		return showCreateForm();
 	}
 
-	@RequestMapping(value = "create", method = RequestMethod.POST)
+	@PostMapping
 	public String update(@Validated AccountCreateForm form, BindingResult result) {
 
 		if (result.hasErrors()) {
@@ -91,12 +92,12 @@ public class AccountCreateController {
 		return "redirect:/account/create?finish";
 	}
 
-	@RequestMapping(value = "create", method = RequestMethod.GET, params = "finish")
+	@GetMapping(params = "finish")
 	public String finishCreate() {
 		return "account/createFinish";
 	}
 
-	@RequestMapping(value = "create", method = RequestMethod.GET, params = "home")
+	@GetMapping(params = "home")
 	public String home(SessionStatus sessionStatus) {
 		sessionStatus.setComplete();
 		return "redirect:/goods";

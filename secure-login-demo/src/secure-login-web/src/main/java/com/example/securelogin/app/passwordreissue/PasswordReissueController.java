@@ -21,9 +21,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.exception.BusinessException;
@@ -37,12 +38,22 @@ public class PasswordReissueController {
     @Inject
     PasswordReissueService passwordReissueService;
 
-    @RequestMapping(value = "create", params = "form")
+    @ModelAttribute("createReissueInfoForm")
+    public CreateReissueInfoForm setupReissueForm() {
+        return new CreateReissueInfoForm();
+    }
+
+    @ModelAttribute("passwordResetForm")
+    public PasswordResetForm setupResetForm() {
+        return new PasswordResetForm();
+    }
+
+    @GetMapping(value = "create", params = "form")
     public String showCreateReissueInfoForm(CreateReissueInfoForm form) {
         return "passwordreissue/createReissueInfoForm";
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
+    @PostMapping("create")
     public String createReissueInfo(@Validated CreateReissueInfoForm form,
             BindingResult bindingResult, Model model,
             RedirectAttributes attributes) {
@@ -56,12 +67,12 @@ public class PasswordReissueController {
         return "redirect:/reissue/create?complete";
     }
 
-    @RequestMapping(value = "create", params = "complete", method = RequestMethod.GET)
+    @GetMapping(value = "create", params = "complete")
     public String createReissueInfoComplete() {
         return "passwordreissue/createReissueInfoComplete";
     }
 
-    @RequestMapping(value = "resetpassword", params = "form")
+    @GetMapping(value = "resetpassword", params = "form")
     public String showPasswordResetForm(PasswordResetForm form, Model model,
             @RequestParam("token") String token) {
 
@@ -73,7 +84,7 @@ public class PasswordReissueController {
         return "passwordreissue/passwordResetForm";
     }
 
-    @RequestMapping(value = "resetpassword", method = RequestMethod.POST)
+    @PostMapping("resetpassword")
     public String resetPassword(@Validated PasswordResetForm form,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -90,18 +101,8 @@ public class PasswordReissueController {
         }
     }
 
-    @RequestMapping(value = "resetpassword", params = "complete", method = RequestMethod.GET)
+    @GetMapping(value = "resetpassword", params = "complete")
     public String resetPasswordComplete() {
         return "passwordreissue/passwordResetComplete";
-    }
-
-    @ModelAttribute("createReissueInfoForm")
-    public CreateReissueInfoForm setupReissueForm() {
-        return new CreateReissueInfoForm();
-    }
-
-    @ModelAttribute("passwordResetForm")
-    public PasswordResetForm setupResetForm() {
-        return new PasswordResetForm();
     }
 }

@@ -21,8 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.exception.BusinessException;
 
@@ -35,12 +36,12 @@ public class UnlockController {
     @Inject
     UnlockService unlockService;
 
-    @RequestMapping(params = "form")
+    @GetMapping(params = "form")
     public String showForm(UnlockForm form) {
         return "unlock/unlockForm";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
     public String unlock(@Validated UnlockForm form,
             BindingResult bindingResult, Model model,
             RedirectAttributes attributes) {
@@ -58,7 +59,7 @@ public class UnlockController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = "complete")
+    @GetMapping(params = "complete")
     public String unlockComplete() {
         return "unlock/unlockComplete";
     }

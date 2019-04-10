@@ -33,9 +33,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.terasoluna.gfw.common.message.ResultMessages;
@@ -68,7 +69,7 @@ public class AccountController {
         return new AccountCreateForm();
     }
 
-    @RequestMapping
+    @GetMapping
     public String view(@AuthenticationPrincipal LoggedInUser userDetails,
             Model model) {
         Account account = userDetails.getAccount();
@@ -76,7 +77,7 @@ public class AccountController {
         return "account/view";
     }
 
-    @RequestMapping(value = "/image")
+    @GetMapping("/image")
     @ResponseBody
     public ResponseEntity<byte[]> showImage(
             @AuthenticationPrincipal LoggedInUser userDetails)
@@ -95,17 +96,17 @@ public class AccountController {
                 HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/create", params = "form")
+    @GetMapping(value = "/create", params = "form")
     public String createForm() {
         return "account/accountCreateForm";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, params = "redo")
+    @PostMapping(value = "/create", params = "redo")
     public String redoCreateForm(AccountCreateForm form) {
         return "account/accountCreateForm";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, params = "confirm")
+    @PostMapping(value = "/create", params = "confirm")
     public String createConfirm(
             @Validated({ Confirm.class, Default.class }) AccountCreateForm form,
             BindingResult result, Model model,
@@ -131,7 +132,7 @@ public class AccountController {
         return "account/accountConfirm";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping("/create")
     public String create(
             @Validated({ CreateAccount.class, Default.class }) AccountCreateForm form,
             BindingResult result, RedirectAttributes redirectAttributes) {
@@ -149,7 +150,7 @@ public class AccountController {
         return "redirect:/accounts/create?complete";
     }
 
-    @RequestMapping(value = "/create", params = "complete")
+    @GetMapping(value = "/create", params = "complete")
     public String createComplete() {
         return "account/createComplete";
     }

@@ -1,6 +1,6 @@
 <div>
 
-    <form:form action="${pageContext.request.contextPath}/account/create" method="get" modelAttribute="accountCreateForm">
+    <form:form action="${pageContext.request.contextPath}/account/create" method="post" modelAttribute="accountCreateForm">
 
         <h2>Account Create Page</h2>
         <table>
