@@ -187,7 +187,7 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
 
         if (driver == null) {
             FirefoxProfile profile = new FirefoxProfile();
-            profile.setPreference("brouser.startup.homepage_override.mstone",
+            profile.setPreference("browser.startup.homepage_override.mstone",
                     "ignore");
             profile.setPreference("network.proxy.type", 0);
             driver = new FirefoxDriver(profile);

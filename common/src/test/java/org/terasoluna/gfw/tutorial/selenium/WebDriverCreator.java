@@ -31,8 +31,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
      * @return Default WebDriver
      */
     public WebDriver createDefaultWebDriver() {
-        WebDriver webDriver = getApplicationContext().getBean(WebDriver.class);
-        return webDriver;
+        return getApplicationContext().getBean(WebDriver.class);
     }
 
     /**
@@ -53,8 +52,6 @@ public class WebDriverCreator extends ApplicationObjectSupport {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--lang=" + localeStr);
                 return new ChromeDriver(options);
-            } else if ("firefox".equals(activeProfile)) {
-                break;
             } else if ("ie".equals(activeProfile)) {
                 throw new UnsupportedOperationException("It is not possible to start locale specified browser using InternetExplorer.");
             } else if ("phantomJs".equals(activeProfile)) {
@@ -65,7 +62,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         // The default browser is Firefox
         FirefoxProfile profile = new FirefoxProfile();
         profile.setPreference("intl.accept_languages", localeStr);
-        profile.setPreference("brouser.startup.homepage_override.mstone",
+        profile.setPreference("browser.startup.homepage_override.mstone",
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
         return new FirefoxDriver(profile);
@@ -101,7 +98,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
         profile.setPreference("pdfjs.disabled", true);
         profile.setPreference("browser.helperApps.neverAsk.saveToDisk",
                 "application/pdf, text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/plain");
-        profile.setPreference("brouser.startup.homepage_override.mstone",
+        profile.setPreference("browser.startup.homepage_override.mstone",
                 "ignore");
         profile.setPreference("network.proxy.type", 0);
 

@@ -153,6 +153,12 @@ sed -i -e 's|</beans>|\
     </bean>\
 \
     <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />\
+\
+    <beans profile="firefox default">\
+        <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"\
+          scope="prototype" />\
+    </beans>\
+\
 </beans>|' "$SELENIUM_CONTEXT"
 
 sed -i -e 's|xsi:schemaLocation|\
