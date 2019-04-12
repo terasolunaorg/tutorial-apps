@@ -154,12 +154,10 @@ sed -i -e 's|</beans>|\
 \
     <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />\
 \
-    <beans profile="firefox default">\
-        <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"\
-          scope="prototype" />\
-    </beans>\
-\
 </beans>|' "$SELENIUM_CONTEXT"
+
+sed -i -e 's|<bean id="webDriver" class="org.openqa.selenium.firefox.FirefoxDriver"|\
+<bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"|' "$SELENIUM_CONTEXT"
 
 sed -i -e 's|xsi:schemaLocation|\
     xmlns:tx="http://www.springframework.org/schema/tx"\
