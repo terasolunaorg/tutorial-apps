@@ -45,7 +45,7 @@ public class WebDriverManagerConfigurer extends ApplicationObjectSupport {
                 }
                 return;
             } else if ("phantomJs".equals(activeProfile)) {
-            	return;
+                return;
             }
         }
 
