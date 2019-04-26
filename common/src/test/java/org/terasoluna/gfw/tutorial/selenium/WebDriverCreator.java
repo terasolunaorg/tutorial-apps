@@ -36,7 +36,7 @@ public class WebDriverCreator extends ApplicationObjectSupport {
      * @return Default WebDriver
      */
     public WebDriver createDefaultWebDriver() {
-    	return getApplicationContext().getBean(WebDriver.class);
+        return getApplicationContext().getBean(WebDriver.class);
     }
 
     /**
