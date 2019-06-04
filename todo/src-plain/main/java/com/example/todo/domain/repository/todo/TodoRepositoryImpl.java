@@ -17,6 +17,7 @@ package com.example.todo.domain.repository.todo;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Repository;
@@ -28,8 +29,8 @@ public class TodoRepositoryImpl implements TodoRepository {
     private static final Map<String, Todo> TODO_MAP = new ConcurrentHashMap<String, Todo>();
 
     @Override
-    public Todo findOne(String todoId) {
-        return TODO_MAP.get(todoId);
+    public Optional<Todo> findById(String todoId) {
+        return Optional.of(TODO_MAP.get(todoId));
     }
 
     @Override
@@ -43,13 +44,13 @@ public class TodoRepositoryImpl implements TodoRepository {
     }
 
     @Override
-    public boolean update(Todo todo) {
+    public boolean updateById(Todo todo) {
         TODO_MAP.put(todo.getTodoId(), todo);
         return true;
     }
 
     @Override
-    public void delete(Todo todo) {
+    public void deleteById(Todo todo) {
         TODO_MAP.remove(todo.getTodoId());
     }
 
