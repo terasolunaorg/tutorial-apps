@@ -42,7 +42,7 @@ public class TodoServiceImpl implements TodoService {
 
     // (4)
     private Todo findOne(String todoId) {
-        Todo todo = todoRepository.findOne(todoId);
+        Todo todo = todoRepository.findById(todoId).orElse(null);
         if (todo == null) {
             // (5)
             ResultMessages messages = ResultMessages.error();
@@ -100,7 +100,7 @@ public class TodoServiceImpl implements TodoService {
             throw new BusinessException(messages);
         }
         todo.setFinished(true);
-        todoRepository.update(todo);
+        todoRepository.updateById(todo);
         /* REMOVE THIS LINE IF YOU USE JPA
             todoRepository.save(todo); // (11)
            REMOVE THIS LINE IF YOU USE JPA */
@@ -110,6 +110,6 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void delete(String todoId) {
         Todo todo = findOne(todoId);
-        todoRepository.delete(todo);
+        todoRepository.deleteById(todo);
     }
 }
