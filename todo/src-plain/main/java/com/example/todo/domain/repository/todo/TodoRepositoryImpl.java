@@ -30,7 +30,7 @@ public class TodoRepositoryImpl implements TodoRepository {
 
     @Override
     public Optional<Todo> findById(String todoId) {
-        return Optional.of(TODO_MAP.get(todoId));
+        return Optional.ofNullable(TODO_MAP.get(todoId));
     }
 
     @Override
