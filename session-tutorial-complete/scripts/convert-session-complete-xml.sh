@@ -30,7 +30,7 @@ find ./ -type f -name "${ARTIFACT_ID}-domain.xml" | xargs sed -i -e 's|<context:
 # spring-mvc.xml
 find ./ -type f -name 'spring-mvc.xml' | xargs sed -i -e 's|class="org.springframework.data.web.PageableHandlerMethodArgumentResolver" />|class="org.springframework.data.web.PageableHandlerMethodArgumentResolver" >\
                 <property name="fallbackPageable">\
-                    <bean class="org.springframework.data.domain.PageRequest">\
+                    <bean class="org.springframework.data.domain.PageRequest" factory-method="of">\
                         <constructor-arg index="0" value="0" />\
                         <constructor-arg index="1" value="3" />\
                     </bean>\
