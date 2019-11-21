@@ -172,7 +172,7 @@ sed -i -e 's|xsi:schemaLocation|\
     xsi:schemaLocation|' "$SELENIUM_CONTEXT"
 
 sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
-                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd|' "$SELENIUM_CONTEXT"
+                        http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd|' "$SELENIUM_CONTEXT"
 
 if test -n "${TARGET_DIR}/${ARTIFACT_ID}"; then
   popd

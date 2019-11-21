@@ -122,7 +122,7 @@ sed -i -e 's|xsi:schemaLocation|\
     xsi:schemaLocation|' "$SECURE_LOGIN_ENV"
 
 sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
-        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd|' "$SECURE_LOGIN_ENV"
+        http://www.springframework.org/schema/cache https://www.springframework.org/schema/cache/spring-cache.xsd|' "$SECURE_LOGIN_ENV"
 
 # context.xml
 CONTEXT_XML=`find ./${ARTIFACT_ID}-env/configs -type f -name 'context.xml'`
@@ -312,8 +312,8 @@ sed -i -e 's|xsi:schemaLocation|\
 xsi:schemaLocation|' "$APPLICATION_CONTEXT"
 
 sed -i -e 's|spring-beans\.xsd|spring-beans\.xsd\
-        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd\
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd|' "$APPLICATION_CONTEXT"
+        http://www.springframework.org/schema/task https://www.springframework.org/schema/task/spring-task.xsd\
+        http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd|' "$APPLICATION_CONTEXT"
 
 sed -i -e 's|<entry key="InvalidTransactionTokenException"|\
                 <entry key="MultipartException" value="e.sl.fw.6001" />\
