@@ -116,7 +116,7 @@ public class PasswordStrengthTest extends DBLogFunctionTestSupport {
         page = ((LoginPage) page).loginSuccessIntercepted("demo", "demo")
                 .changePasswordFailure("demo", "demoFoo1", "demoFoo1");
         assertThat(((PasswordChangePage) page).getNewPasswordError(),
-                containsString("Password contains the user id demo."));
+                containsString("Password contains the user id 'demo'."));
 
         page = ((PasswordChangePage) page).changePasswordSuccess("demo", "Foo1",
                 "Foo1").gotoTop().logout();
