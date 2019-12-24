@@ -93,17 +93,13 @@ selenium.dbResetScript=database/H2-datareload.sql' >> $i ;done
 # seleniumContext.xml
 SELENIUM_CONTEXT=`find ./ -type f -name 'seleniumContext.xml'`
 sed -i -e 's|</beans>|\
-    <bean id="realDataSource" class="org.apache.commons.dbcp2.BasicDataSource"\
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"\
         destroy-method="close">\
         <property name="driverClassName" value="org.h2.Driver" />\
         <property name="url" value="jdbc:h2:tcp://${selenium.dbHost}:${selenium.dbPort}/mem:'"${ARTIFACT_ID}"'" />\
         <property name="username" value="sa" />\
         <property name="password" value="" />\
         <property name="defaultAutoCommit" value="false" />\
-    </bean>\
-\
-    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">\
-        <constructor-arg index="0" ref="realDataSource" />\
     </bean>\
 \
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">\
