@@ -100,7 +100,7 @@ public class TodoServiceImpl implements TodoService {
             throw new BusinessException(messages);
         }
         todo.setFinished(true);
-        todoRepository.updateById(todo);
+        todoRepository.update(todo);
         /* REMOVE THIS LINE IF YOU USE JPA
             todoRepository.save(todo); // (11)
            REMOVE THIS LINE IF YOU USE JPA */

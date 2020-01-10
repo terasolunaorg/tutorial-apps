@@ -60,7 +60,7 @@
         )
     </insert>
     
-    <update id="updateById" parameterType="Account">
+    <update id="update" parameterType="Account">
         UPDATE 
             account
         SET

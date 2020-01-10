@@ -44,7 +44,7 @@ public class TodoRepositoryImpl implements TodoRepository {
     }
 
     @Override
-    public boolean updateById(Todo todo) {
+    public boolean update(Todo todo) {
         TODO_MAP.put(todo.getTodoId(), todo);
         return true;
     }

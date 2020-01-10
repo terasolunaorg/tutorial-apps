@@ -44,7 +44,7 @@ public class AccountService {
 	}
 
 	public void update(Account account) {
-		accountRespository.updateById(account);
+		accountRespository.update(account);
 	}
 
 	public void create(Account account, String password) {
