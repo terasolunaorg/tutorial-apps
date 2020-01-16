@@ -41,6 +41,11 @@ sed -i -e 's|</dependencies>|\
         </dependency>\
 \
         <dependency>\
+            <groupId>com.sun.activation</groupId>\
+            <artifactId>javax.activation</artifactId>\
+        </dependency>\
+\
+        <dependency>\
             <groupId>com.icegreen</groupId>\
             <artifactId>greenmail-spring</artifactId>\
             <version>1.4.1</version>\
