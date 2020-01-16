@@ -37,19 +37,13 @@ sed -i -e 's|</dependencies>|\
 \
         <dependency>\
             <groupId>com.sun.mail</groupId>\
-            <artifactId>jakarta.mail</artifactId>\
+            <artifactId>javax.mail</artifactId>\
         </dependency>\
 \
         <dependency>\
             <groupId>com.icegreen</groupId>\
             <artifactId>greenmail-spring</artifactId>\
             <version>1.4.1</version>\
-            <exclusions>\
-                <exclusion>\
-                    <groupId>com.sun.mail</groupId>\
-                    <artifactId>javax.mail</artifactId>\
-                </exclusion>\
-            </exclusions>\
         </dependency>\
     </dependencies>|' "$DOMAIN_POM"
 
