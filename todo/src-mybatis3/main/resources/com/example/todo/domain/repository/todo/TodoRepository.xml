@@ -75,7 +75,7 @@
     </update>
 
     <!-- (7) -->
-    <delete id="deleteById" parameterType="Todo">
+    <delete id="delete" parameterType="Todo">
     <![CDATA[
         DELETE FROM
             todo

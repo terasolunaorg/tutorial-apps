@@ -30,7 +30,7 @@ public interface TodoRepository {
 
     boolean update(Todo todo);
 
-    void deleteById(Todo todo);
+    void delete(Todo todo);
 
     long countByFinished(boolean finished);
 }

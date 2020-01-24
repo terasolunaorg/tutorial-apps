@@ -110,6 +110,6 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void delete(String todoId) {
         Todo todo = findOne(todoId);
-        todoRepository.deleteById(todo);
+        todoRepository.delete(todo);
     }
 }

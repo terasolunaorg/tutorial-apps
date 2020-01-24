@@ -50,7 +50,7 @@ public class TodoRepositoryImpl implements TodoRepository {
     }
 
     @Override
-    public void deleteById(Todo todo) {
+    public void delete(Todo todo) {
         TODO_MAP.remove(todo.getTodoId());
     }
 
