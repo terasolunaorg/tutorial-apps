@@ -43,6 +43,7 @@ sed -i -e 's|</dependencies>|\
         <dependency>\
             <groupId>com.sun.activation</groupId>\
             <artifactId>javax.activation</artifactId>\
+            <scope>runtime</scope>\
         </dependency>\
 \
         <dependency>\
