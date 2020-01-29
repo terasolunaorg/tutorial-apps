@@ -162,7 +162,7 @@ public class PasswordReissueServiceImpl implements PasswordReissueService {
                     MessageKeys.E_SL_PR_5003));
         }
         failedPasswordReissueRepository.deleteByToken(token);
-        passwordReissueInfoRepository.deleteById(token);
+        passwordReissueInfoRepository.deleteByToken(token);
 
         return accountSharedService.updatePassword(username, rawPassword);
 

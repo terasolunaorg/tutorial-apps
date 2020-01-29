@@ -28,7 +28,7 @@ public interface PasswordReissueInfoRepository {
 
     Optional<PasswordReissueInfo> findById(@Param("token") String token);
 
-    int deleteById(@Param("token") String token);
+    int deleteByToken(@Param("token") String token);
 
     int deleteExpired(@Param("date") LocalDateTime date);
 }
