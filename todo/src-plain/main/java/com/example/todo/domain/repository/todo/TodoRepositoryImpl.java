@@ -44,13 +44,13 @@ public class TodoRepositoryImpl implements TodoRepository {
     }
 
     @Override
-    public boolean updateById(Todo todo) {
+    public boolean update(Todo todo) {
         TODO_MAP.put(todo.getTodoId(), todo);
         return true;
     }
 
     @Override
-    public void deleteById(Todo todo) {
+    public void delete(Todo todo) {
         TODO_MAP.remove(todo.getTodoId());
     }
 

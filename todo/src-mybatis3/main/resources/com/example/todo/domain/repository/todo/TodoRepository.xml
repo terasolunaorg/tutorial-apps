@@ -62,7 +62,7 @@
     </insert>
 
     <!-- (6) -->
-    <update id="updateById" parameterType="Todo">
+    <update id="update" parameterType="Todo">
     <![CDATA[
         UPDATE todo
         SET
@@ -75,7 +75,7 @@
     </update>
 
     <!-- (7) -->
-    <delete id="deleteById" parameterType="Todo">
+    <delete id="delete" parameterType="Todo">
     <![CDATA[
         DELETE FROM
             todo

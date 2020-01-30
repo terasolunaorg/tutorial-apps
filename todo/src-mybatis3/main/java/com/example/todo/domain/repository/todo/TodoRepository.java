@@ -28,9 +28,9 @@ public interface TodoRepository {
 
     void create(Todo todo);
 
-    boolean updateById(Todo todo);
+    boolean update(Todo todo);
 
-    void deleteById(Todo todo);
+    void delete(Todo todo);
 
     long countByFinished(boolean finished);
 }

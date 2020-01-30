@@ -25,6 +25,6 @@ public interface AccountRepository {
 
 	void create(Account account);
 
-	boolean updateById(Account account);
+	boolean update(Account account);
 
 }
