@@ -20,12 +20,6 @@ sed -i -e 's|</configuration>|\
 
 sed -i -e 's|</dependencies>|\
         <dependency>\
-            <groupId>org.hamcrest</groupId>\
-            <artifactId>hamcrest-library</artifactId>\
-            <scope>test</scope>\
-        </dependency>\
-\
-        <dependency>\
             <groupId>com.h2database</groupId>\
             <artifactId>h2</artifactId>\
             <scope>test</scope>\
