@@ -29,7 +29,7 @@ public class AccountAuthenticationSuccessEventListener {
     @Inject
     AuthenticationEventSharedService authenticationEventSharedService;
 
-    @EventListener
+    @EventListener(AuthenticationSuccessEvent.class)
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
         LoggedInUser details = (LoggedInUser) event.getAuthentication()
                 .getPrincipal();

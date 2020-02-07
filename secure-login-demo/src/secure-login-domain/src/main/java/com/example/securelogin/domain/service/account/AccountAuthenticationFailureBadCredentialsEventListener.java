@@ -28,7 +28,7 @@ public class AccountAuthenticationFailureBadCredentialsEventListener {
     @Inject
     AuthenticationEventSharedService authenticationEventSharedService;
 
-    @EventListener
+    @EventListener(AuthenticationFailureBadCredentialsEvent.class)
     public void onApplicationEvent(
             AuthenticationFailureBadCredentialsEvent event) {
         String username = (String) event.getAuthentication().getPrincipal();
