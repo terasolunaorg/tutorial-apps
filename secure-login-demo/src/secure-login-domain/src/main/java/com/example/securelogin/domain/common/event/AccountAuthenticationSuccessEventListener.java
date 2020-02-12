@@ -13,27 +13,29 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package com.example.securelogin.domain.service.account;
+package com.example.securelogin.domain.common.event;
 
 import javax.inject.Inject;
 
 import org.springframework.context.event.EventListener;
-import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 import com.example.securelogin.domain.service.authenticationevent.AuthenticationEventSharedService;
+import com.example.securelogin.domain.service.userdetails.LoggedInUser;
 
 @Component
-public class AccountAuthenticationFailureBadCredentialsEventListener {
+public class AccountAuthenticationSuccessEventListener {
 
     @Inject
     AuthenticationEventSharedService authenticationEventSharedService;
 
-    @EventListener(AuthenticationFailureBadCredentialsEvent.class)
-    public void onApplicationEvent(
-            AuthenticationFailureBadCredentialsEvent event) {
-        String username = (String) event.getAuthentication().getPrincipal();
+    @EventListener(AuthenticationSuccessEvent.class)
+    public void onApplicationEvent(AuthenticationSuccessEvent event) {
+        LoggedInUser details = (LoggedInUser) event.getAuthentication()
+                .getPrincipal();
 
-        authenticationEventSharedService.authenticationFailure(username);
+        authenticationEventSharedService.authenticationSuccess(details
+                .getUsername());
     }
 
 }
