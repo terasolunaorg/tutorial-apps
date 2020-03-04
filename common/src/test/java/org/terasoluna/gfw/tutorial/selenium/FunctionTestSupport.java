@@ -47,7 +47,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:META-INF/spring/seleniumContext.xml" })
 public class FunctionTestSupport extends ApplicationObjectSupport {
 
-    private static final Logger classLogger = LoggerFactory.getLogger(
+    private static final Logger logger = LoggerFactory.getLogger(
             FunctionTestSupport.class);
 
     protected static WebDriver driver;
@@ -235,7 +235,7 @@ public class FunctionTestSupport extends ApplicationObjectSupport {
             try {
                 webDriver.quit();
             } catch (Throwable t) {
-                classLogger.error("failed quit.", t);
+                logger.error("failed quit.", t);
             }
         }
         webDrivers.clear();
