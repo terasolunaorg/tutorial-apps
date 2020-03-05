@@ -42,7 +42,7 @@ public class GoodsController {
 	}
  
 	@GetMapping
-	String showGoods(GoodViewForm form, Pageable pageable, Model model) {
+	public String showGoods(GoodViewForm form, Pageable pageable, Model model) {
  
 		Page<Goods> page = goodsService.findByCategoryId(form.getCategoryId(),
 				pageable);

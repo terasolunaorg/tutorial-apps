@@ -38,7 +38,9 @@ find ./ -type f -name 'spring-mvc.xml' | xargs sed -i -e 's|class="org.springfra
             </bean>|'
 
 find ./ -type f -name 'spring-mvc.xml' | xargs sed -i -e 's|<context:component-scan base-package="com.example.session.app" />|<!-- (1) -->\
-    <context:component-scan base-package="com.example.session.app" />|'
+    <context:component-scan base-package="com.example.session.app" />\
+\
+    <mvc:view-controller path="/loginForm" view-name="login/loginForm" />|'
 
 # spring-security.xml
 find ./ -type f -name 'spring-security.xml' | xargs sed -i -e 's|<sec:form-login/>|<sec:form-login login-page="/loginForm"\

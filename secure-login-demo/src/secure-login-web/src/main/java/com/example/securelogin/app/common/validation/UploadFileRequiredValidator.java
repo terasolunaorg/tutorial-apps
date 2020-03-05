@@ -23,11 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class UploadFileRequiredValidator implements ConstraintValidator<UploadFileRequired, MultipartFile> {
 
-
-    @Override
-    public void initialize(UploadFileRequired constraint) {
-    }
-
     @Override
     public boolean isValid(MultipartFile multipartFile,
         ConstraintValidatorContext context) {

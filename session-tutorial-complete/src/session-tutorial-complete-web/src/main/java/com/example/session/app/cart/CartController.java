@@ -43,12 +43,12 @@ public class CartController {
     }
 
     @GetMapping
-    String viewCart(Model model) {
+    public String viewCart(Model model) {
         return "cart/viewCart";
     }
 
     @PostMapping
-    String removeFromCart(@Validated CartForm cartForm,
+    public String removeFromCart(@Validated CartForm cartForm,
             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             ResultMessages messages = ResultMessages.error()

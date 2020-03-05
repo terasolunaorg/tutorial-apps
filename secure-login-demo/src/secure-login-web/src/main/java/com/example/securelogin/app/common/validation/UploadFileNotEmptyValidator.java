@@ -25,10 +25,6 @@ public class UploadFileNotEmptyValidator implements
     ConstraintValidator<UploadFileNotEmpty, MultipartFile> {
 
     @Override
-    public void initialize(UploadFileNotEmpty constraint) {
-    }
-
-    @Override
     public boolean isValid(MultipartFile multipartFile,
             ConstraintValidatorContext context) {
         if (multipartFile == null ||

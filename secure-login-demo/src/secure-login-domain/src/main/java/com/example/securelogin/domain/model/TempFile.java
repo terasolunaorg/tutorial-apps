@@ -30,7 +30,7 @@ public class TempFile implements Serializable{
     
     private String originalName;
     
-    private InputStream body;
+    private transient InputStream body;
     
     private LocalDateTime uploadedDate;
     

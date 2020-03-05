@@ -55,7 +55,7 @@ public class OrderController {
     GoodsSearchCriteria criteria;
 
     @GetMapping(params = "confirm")
-    String confirm(@AuthenticationPrincipal AccountDetails userDetails,
+    public String confirm(@AuthenticationPrincipal AccountDetails userDetails,
             Model model) {
         if (cart.isEmpty()) {
             ResultMessages messages = ResultMessages.error()
@@ -69,7 +69,7 @@ public class OrderController {
     }
 
     @PostMapping
-    String order(@AuthenticationPrincipal AccountDetails userDetails,
+    public String order(@AuthenticationPrincipal AccountDetails userDetails,
             @RequestParam String signature, RedirectAttributes attributes) {
         Order order = orderService.purchase(userDetails.getAccount(), cart,
                 signature); // (2)
@@ -79,7 +79,7 @@ public class OrderController {
     }
 
     @GetMapping(params = "finish")
-    String finish() {
+    public String finish() {
         return "order/finish";
     }
 

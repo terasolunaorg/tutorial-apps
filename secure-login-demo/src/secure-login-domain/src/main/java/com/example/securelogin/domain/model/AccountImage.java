@@ -27,7 +27,7 @@ public class AccountImage implements Serializable{
     
     private String username;
     
-    private InputStream body;
+    private transient InputStream body;
     
     private String extension;
 }

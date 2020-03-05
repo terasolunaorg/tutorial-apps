@@ -196,6 +196,7 @@ public class AccountSharedServiceImpl implements AccountSharedService {
     @Override
     @CacheEvict(value = { "isInitialPassword", "isCurrentPasswordExpired" }, key = "#username")
     public void clearPasswordValidationCache(String username) {
+        // evict caches
     }
 
     @Override

@@ -113,7 +113,7 @@ find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|@GetMapping$|/
 
 
 # GoodsController.java
-find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|String showGoods(GoodViewForm form, Pageable pageable, Model model) {|String showGoods(GoodViewForm form, Model model) {\
+find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|public String showGoods(GoodViewForm form, Pageable pageable, Model model) {|public String showGoods(GoodViewForm form, Model model) {\
         Pageable pageable = PageRequest.of(criteria.getPage(), 3);\
         form.setCategoryId(criteria.getCategoryId());\
         return showGoods(pageable, model);\
@@ -121,7 +121,7 @@ find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|String showGoo
 \
     // (3)\
     @GetMapping(params = "categoryId")\
-    String changeCategoryId(GoodViewForm form, Pageable pageable, Model model) {\
+    public String changeCategoryId(GoodViewForm form, Pageable pageable, Model model) {\
         criteria.setPage(pageable.getPageNumber());\
         criteria.setCategoryId(form.getCategoryId());\
         return showGoods(pageable, model);\
@@ -129,7 +129,7 @@ find ./ -type f -name 'GoodsController.java' | xargs sed -i -e 's|String showGoo
 \
     // (4)\
     @GetMapping(params = "page")\
-    String changePage(GoodViewForm form, Pageable pageable, Model model) {\
+    public String changePage(GoodViewForm form, Pageable pageable, Model model) {\
         criteria.setPage(pageable.getPageNumber());\
         form.setCategoryId(criteria.getCategoryId());\
         return showGoods(pageable, model);\

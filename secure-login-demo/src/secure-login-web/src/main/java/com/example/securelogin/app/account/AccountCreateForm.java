@@ -83,7 +83,7 @@ public class AccountCreateForm implements Serializable {
     @UploadFileMaxSize
     @FileExtension(extensions = { "jpg", "png", "gif" })
     @FileNamePattern(pattern = "[a-zA-Z0-9_-]+\\.[a-zA-Z]{3}")
-    private MultipartFile image;
+    private transient MultipartFile image;
 
     @NotNull(groups = CreateAccount.class)
     @Size(max = 40)
