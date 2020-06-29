@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+    ">
+
+    <context:property-placeholder
+        location="classpath*:META-INF/spring/*.properties" />
+
+    <bean id="webDriver" class="org.openqa.selenium.firefox.FirefoxDriver"
+        scope="prototype" />
+
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="org.h2.Driver" />
+        <property name="url" value="jdbc:h2:tcp://${selenium.dbHost}:${selenium.dbPort}/mem:secure-login" />
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+        <property name="defaultAutoCommit" value="false" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <tx:annotation-driven/>
+
+    <bean id="dbResetScript" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg index="0" value="${selenium.dbResetScript}" />
+    </bean>
+
+    <bean id="resourceDatabasePopulator" class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+        <constructor-arg index="0" ref="dbResetScript" />
+    </bean>
+
+    <bean id="restOperations" class="org.springframework.web.client.RestTemplate">
+        <property name="requestFactory">
+            <bean class="org.springframework.http.client.SimpleClientHttpRequestFactory">
+                <property name="connectTimeout" value="${selenium.restOperations.connectTimeout:-1}" />
+                <property name="readTimeout" value="${selenium.restOperations.readTimeout:-1}" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="dbLogAssertOperations" class="org.terasoluna.gfw.tutorial.selenium.DBLogAssertOperations">
+        <constructor-arg index="0">
+            <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+                <property name="dataSource" ref="dataSource" />
+                <property name="fetchSize" value="100" />
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <bean id="screenCapture"
+        class="org.terasoluna.gfw.tutorial.selenium.ScreenCapture" />
+
+    <bean id="dbLog" class="org.terasoluna.gfw.tutorial.selenium.DBLog">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="pageSource"
+        class="org.terasoluna.gfw.tutorial.selenium.PageSource" />
+
+    <bean id="dbLogCleaner" class="org.terasoluna.gfw.tutorial.selenium.DBLogCleaner">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverCreator" />
+
+  <bean class="org.terasoluna.gfw.tutorial.selenium.WebDriverManagerConfigurer">
+    <property name="propertyFileLocation" value="wdm.properties" />
+  </bean>
+
+  <beans profile="firefox default">
+    <bean id="webDriver" class="org.terasoluna.gfw.tutorial.selenium.FirefoxDriverFactoryBean"
+      scope="prototype">
+      <property name="propertyFileLocation" value="wdm.properties" />
+    </bean>
+  </beans>
+
+</beans>
