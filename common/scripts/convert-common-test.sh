@@ -14,6 +14,7 @@ find ./pom.xml | xargs sed -i -e 's|</dependencies>|    <dependency>\
                 <groupId>io.github.bonigarcia</groupId>\
                 <artifactId>webdrivermanager</artifactId>\
                 <version>${webdrivermanager.version}</version>\
+                <scope>test</scope>\
             </dependency>\
 \
         </dependencies>|'
