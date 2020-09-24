@@ -343,7 +343,7 @@ sed -i -e 's|</mvc:interceptors>|\
             <mvc:exclude-mapping path="/password/**" />\
             <mvc:exclude-mapping path="/reissue/**" />\
             <mvc:exclude-mapping path="/resources/**" />\
-            <mvc:exclude-mapping path="/**/*.html" />\
+            <mvc:exclude-mapping path="/*/*.html" />\
             <bean\
                 class="com.example.securelogin.app.common.interceptor.PasswordExpirationCheckInterceptor" />\
         </mvc:interceptor>\
