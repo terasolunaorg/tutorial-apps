@@ -565,7 +565,7 @@ public class SessionTutorialTest extends FunctionTestSupport {
         // check error message
         {
             assertThat(driver.findElement(By.id("removedItemsIds.errors"))
-                    .getText(), is("must not be empty"));
+                    .getText(), is("空要素は許可されていません"));
         }
     }
 
