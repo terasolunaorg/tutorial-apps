@@ -136,7 +136,7 @@ public class TodoTest extends FunctionTestSupport {
 
         assertThat(driver.findElement(By.xpath(
                 "//span[@id='todoTitle.errors']")).getText(), is(
-                        "size must be between 1 and 30"));
+                        "1 から 30 の間のサイズにしてください"));
     }
 
     /**
@@ -153,7 +153,7 @@ public class TodoTest extends FunctionTestSupport {
 
         assertThat(driver.findElement(By.xpath(
                 "//span[@id='todoTitle.errors']")).getText(), is(
-                        "size must be between 1 and 30"));
+                        "1 から 30 の間のサイズにしてください"));
     }
 
     /**
