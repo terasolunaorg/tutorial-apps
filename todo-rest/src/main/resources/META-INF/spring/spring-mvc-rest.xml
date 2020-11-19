@@ -16,21 +16,23 @@
     <context:property-placeholder
         location="classpath*:/META-INF/spring/*.properties" />
 
+    <!-- (2) -->
+    <bean id="jsonMessageConverter"
+        class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="objectMapper" ref="objectMapper" />
+    </bean>
+
+    <bean id="objectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+        <!-- (3) -->
+        <property name="dateFormat">
+            <bean class="com.fasterxml.jackson.databind.util.StdDateFormat" />
+        </property>
+    </bean>
+
+    <!-- (4) -->
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="false">
-            <!-- (2) -->
-            <bean
-                class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <!-- (3) -->
-                <property name="objectMapper">
-                    <bean class="com.fasterxml.jackson.databind.ObjectMapper">
-                        <property name="dateFormat">
-                            <!-- (4) -->
-                            <bean class="com.fasterxml.jackson.databind.util.StdDateFormat"/>
-                        </property>
-                    </bean>
-                </property>
-            </bean>
+            <ref bean="jsonMessageConverter" />
         </mvc:message-converters>
     </mvc:annotation-driven>
 
