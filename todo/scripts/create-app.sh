@@ -28,9 +28,9 @@ case "$ARCHETYPE_ARTIFACT_ID" in
         ;;
 esac
 
-export ARCHETYPE_VERSION=${ARCHETYPE_VERSION:=5.6.1-SNAPSHOT}
+export ARCHETYPE_VERSION=${ARCHETYPE_VERSION:=5.6.1.RELEASE}
 export GROUP_ID=com.example.todo
-export VERSION=${VERSION:=1.0.0-SNAPSHOT}
+export VERSION=${VERSION:=5.6.1.RELEASE}
 
 echo "create groupId is ${GROUP_ID}."
 echo "create artifactId is ${ARTIFACT_ID}."
