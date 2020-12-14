@@ -56,11 +56,7 @@ public class RestLog {
 
     public void saveForced(StringWriter writer, String subTitle) {
 
-        if (StringUtils.isEmpty(subTitle)) {
-            subTitle = "";
-        } else {
-            subTitle = "-" + subTitle;
-        }
+        subTitle = StringUtils.hasText(subTitle) ? "-" + subTitle : "";
 
         int sequenceNo = sequence.incrementAndGet();
         String evidenceFile = String.format("rest_communi_%03d%s.txt",
