@@ -1,5 +1,6 @@
 #!/bin/bash
 # Copy tutorial source files to blank project.
+# For TodoServiceImplImpl.java, prepare another file in todo-rest without using the sed command.
 # Required variables:
 #   ${ARCHETYPE_ARTIFACT_ID}=Artifact ID of blank project's archetype.
 #   ${ARTIFACT_ID}=Artifact ID of tutorial project.
@@ -24,12 +25,18 @@ if test `echo $ARCHETYPE_ARTIFACT_ID | grep multi`;then
     *mybatis3* )
       cp -p -r ../../todo/src-mybatis3/main/java/com/example/todo/domain ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/java/com/example/todo
       cp -p -r ../../todo/src-mybatis3/main/resources/com/example/todo ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/resources/com/example
+      # Replace TodoServiceImplImpl.java with already modified file in todo-rest without using the sed command.
+      cp -p -r ../src-mybatis3/main/java/com/example/todo/domain ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/java/com/example/todo
       ;;
     *jpa* )
       cp -p -r ../../todo/src-jpa/main/java/com/example/todo/domain ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/java/com/example/todo
+      # Replace TodoServiceImplImpl.java with already modified file in todo-rest without using the sed command.
+      cp -p -r ../src-jpa/main/java/com/example/todo/domain ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/java/com/example/todo
       ;;
     * )
       cp -p -r ../../todo/src-plain/main/java/com/example/todo/domain ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/java/com/example/todo
+      # Replace TodoServiceImplImpl.java with already modified file in todo-rest without using the sed command.
+      cp -p -r ../src-plain/main/java/com/example/todo/domain ./${ARTIFACT_ID}/${ARTIFACT_ID}-domain/src/main/java/com/example/todo
       ;;
   esac
 else
@@ -43,12 +50,18 @@ else
     *mybatis3* )
       cp -p -r ../../todo/src-mybatis3/main/java/com/example/todo/domain ./${ARTIFACT_ID}/src/main/java/com/example/todo
       cp -p -r ../../todo/src-mybatis3/main/resources/com/example/todo ./${ARTIFACT_ID}/src/main/resources/com/example
+      # Replace TodoServiceImplImpl.java with already modified file in todo-rest without using the sed command.
+      cp -p -r ../src-mybatis3/main/java/com/example/todo/domain ./${ARTIFACT_ID}/src/main/java/com/example/todo
       ;;
     *jpa* )
       cp -p -r ../../todo/src-jpa/main/java/com/example/todo/domain ./${ARTIFACT_ID}/src/main/java/com/example/todo
+      # Replace TodoServiceImplImpl.java with already modified file in todo-rest without using the sed command.
+      cp -p -r ../src-jpa/main/java/com/example/todo/domain ./${ARTIFACT_ID}/src/main/java/com/example/todo
       ;;
     * )
       cp -p -r ../../todo/src-plain/main/java/com/example/todo/domain ./${ARTIFACT_ID}/src/main/java/com/example/todo
+      # Replace TodoServiceImplImpl.java with already modified file in todo-rest without using the sed command.
+      cp -p -r ../src-plain/main/java/com/example/todo/domain ./${ARTIFACT_ID}/src/main/java/com/example/todo
       ;;
   esac
 fi
