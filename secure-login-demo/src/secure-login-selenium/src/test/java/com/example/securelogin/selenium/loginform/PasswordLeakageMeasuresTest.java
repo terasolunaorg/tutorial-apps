@@ -38,7 +38,7 @@ import com.example.securelogin.selenium.loginform.page.welcome.TopPage;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PasswordLeakageMeasuresTest extends DBLogFunctionTestSupport {
 

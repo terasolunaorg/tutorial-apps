@@ -34,7 +34,7 @@ import com.example.securelogin.selenium.loginform.page.account.AccountCreatePage
 import com.example.securelogin.selenium.loginform.page.login.LoginPage;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 
 public class InputValidationTest extends DBLogFunctionTestSupport {

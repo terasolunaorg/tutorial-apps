@@ -34,7 +34,7 @@ import com.example.securelogin.selenium.loginform.page.login.LoginPage;
 import com.example.securelogin.selenium.loginform.page.passwordchange.PasswordChangePage;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class PasswordStrengthTest extends DBLogFunctionTestSupport {
 
