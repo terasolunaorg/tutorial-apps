@@ -38,7 +38,7 @@ First of all, you set following environment variables.
 | ARCHETYPE_ARTIFACT_ID | Artifact ID of blank project's archetype. | Required | You can choose archetypes from tutorial instructions explained in Development Guideline. |
 | ARCHETYPE_VERSION | Version of blank project's archetype. | Optional | Defaults to specified version in tutorial-apps pom.xml. (e.g. ``5.3.0.RELEASE``) |
 | ARTIFACT_ID | Artifact ID of tutorial project. | Optional | Defaults to value as tutorial instructions explained in Development Guideline. (e.g. ``todo``) |
-| VERSION | Version of tutorial project. | Optional | Defaults to ``1.0.0-SNAPSHOT``.|
+| VERSION | Version of tutorial project. | Optional | Defaults to ``5.5.2.RELEASE``.|
 | HOST_IP | IP address for access to tutorial application. (i.e. Web/AP Server address) | Optional | Defaults to ``localhost``.<br> (Only use in ``secure-login-demo``.) |
 | APSRV_WEB_PORT | Port number for access to tutorial application. (i.e. Web/AP Server port number) | Optional | Defaults to ``8080``.<br> (Only use in ``secure-login-demo``.) |
 | APSRV_H2DB_PORT | Port number for access to H2DB on the AP Server. | Optional | Defaults to ``9212``. This is used for access from selenium test. On the AP Server, H2DB TCP Server starting up on fixed port ``9212``.<br> (Only use in ``secure-login-demo``.) |
