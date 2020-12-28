@@ -62,8 +62,8 @@ sed -i -e 's|</project>|\
       </activation>\
       <dependencies>\
         <dependency>\
-          <groupId>javax.annotation</groupId>\
-          <artifactId>javax.annotation-api</artifactId>\
+          <groupId>jakarta.annotation</groupId>\
+          <artifactId>jakarta.annotation-api</artifactId>\
         </dependency>\
       </dependencies>\
     </profile>\
