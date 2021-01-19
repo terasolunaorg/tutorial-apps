@@ -23,14 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.example.securelogin.domain.model.Role;
 import com.example.securelogin.domain.service.account.AccountSharedService;
 import com.example.securelogin.domain.service.userdetails.LoggedInUser;
 
-public class PasswordExpirationCheckInterceptor extends
-        HandlerInterceptorAdapter {
+public class PasswordExpirationCheckInterceptor implements HandlerInterceptor {
 
     @Inject
     AccountSharedService accountSharedService;
