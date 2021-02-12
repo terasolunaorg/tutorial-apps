@@ -74,7 +74,7 @@ CREATE TABLE temp_file(
     original_name VARCHAR(256),
     body BINARY NOT NULL,
     uploaded_date TIMESTAMP NOT NULL,
-    CONSTRAINT pk_tbl_tf PRIMARY KEY (id),
+    CONSTRAINT pk_tbl_tf PRIMARY KEY (id)
 );
 
 CREATE INDEX idx_tbl_tf ON temp_file (uploaded_date);
