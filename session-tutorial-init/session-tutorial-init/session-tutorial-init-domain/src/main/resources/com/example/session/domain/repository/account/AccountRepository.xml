@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.session.domain.repository.account.AccountRepository">
+
+    <resultMap id="accountResultMap" type="Account">
+        <id property="id" column="id" />
+        <result property="email" column="email" />
+        <result property="encodedPassword" column="encoded_password" />
+        <result property="name" column="name" />
+        <result property="birthday" column="birthday" />
+        <result property="zip" column="zip" />
+        <result property="address" column="address" />
+        <result property="cardNumber" column="card_number" />
+        <result property="cardExpirationDate" column="card_expiration_date" />
+        <result property="cardSecurityCode" column="card_security_code" />
+    </resultMap>
+    
+    <select id="findByEmail" parameterType="String" resultMap="accountResultMap">
+        SELECT
+        	id,
+            email,
+            encoded_password,
+            name,
+            birthday,
+            zip,
+            address,
+            card_number,
+            card_expiration_date,
+            card_security_code
+        FROM
+            account
+        WHERE
+            email = #{email}
+    </select>
+    <insert id="create" parameterType="Account">
+        <selectKey keyProperty="id" resultType="string" order="BEFORE">
+            SELECT RANDOM_UUID()
+        </selectKey>
+        INSERT INTO
+            account
+        (
+        	id,
+            email,
+            encoded_password,
+            name,
+            birthday,
+            zip,
+            address
+        )
+        VALUES
+        (
+            #{id}
+            ,#{email}
+            ,#{encodedPassword}
+            ,#{name}
+            ,#{birthday}
+            ,#{zip}
+            ,#{address}
+        )
+    </insert>
+    
+    <update id="update" parameterType="Account">
+        UPDATE 
+            account
+        SET
+            email = #{email},
+            name = #{name},
+            birthday = #{birthday},
+            zip = #{zip},
+            address = #{address},
+            card_number = #{cardNumber},
+            card_expiration_date = #{cardExpirationDate},
+            card_security_code = #{cardSecurityCode}
+        WHERE
+            id = #{id}
+    </update>
+</mapper>
