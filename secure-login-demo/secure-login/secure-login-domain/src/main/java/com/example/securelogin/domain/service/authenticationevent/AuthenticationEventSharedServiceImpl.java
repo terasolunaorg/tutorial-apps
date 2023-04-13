@@ -1,0 +1,94 @@
+/*
+ * Copyright(c) 2013 NTT DATA Corporation. Copyright(c) 2013 NTT Corporation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+package com.example.securelogin.domain.service.authenticationevent;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.terasoluna.gfw.common.time.ClockFactory;
+
+import com.example.securelogin.domain.model.FailedAuthentication;
+import com.example.securelogin.domain.model.SuccessfulAuthentication;
+import com.example.securelogin.domain.repository.authenticationevent.FailedAuthenticationRepository;
+import com.example.securelogin.domain.repository.authenticationevent.SuccessfulAuthenticationRepository;
+import com.example.securelogin.domain.service.account.AccountSharedService;
+
+import jakarta.inject.Inject;
+
+@Service
+@Transactional
+public class AuthenticationEventSharedServiceImpl implements
+                                                  AuthenticationEventSharedService {
+
+    @Inject
+    ClockFactory dateFactory;
+
+    @Inject
+    FailedAuthenticationRepository failedAuthenticationRepository;
+
+    @Inject
+    SuccessfulAuthenticationRepository successAuthenticationRepository;
+
+    @Inject
+    AccountSharedService accountSharedService;
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<SuccessfulAuthentication> findLatestSuccessEvents(
+            String username, int count) {
+        return successAuthenticationRepository.findLatest(username, count);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<FailedAuthentication> findLatestFailureEvents(String username,
+            int count) {
+        return failedAuthenticationRepository.findLatest(username, count);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void authenticationSuccess(String username) {
+        SuccessfulAuthentication successEvent = new SuccessfulAuthentication();
+        successEvent.setUsername(username);
+        successEvent.setAuthenticationTimestamp(LocalDateTime.now(dateFactory
+                .tick()));
+
+        successAuthenticationRepository.create(successEvent);
+        deleteFailureEventByUsername(username);
+    }
+
+    @Override
+    public void authenticationFailure(String username) {
+        if (accountSharedService.exists(username)) {
+            FailedAuthentication failureEvents = new FailedAuthentication();
+            failureEvents.setUsername(username);
+            failureEvents.setAuthenticationTimestamp(LocalDateTime.now(
+                    dateFactory.tick()));
+
+            failedAuthenticationRepository.create(failureEvents);
+        }
+    }
+
+    @Override
+    public int deleteFailureEventByUsername(String username) {
+        return failedAuthenticationRepository.deleteByUsername(username);
+    }
+
+}

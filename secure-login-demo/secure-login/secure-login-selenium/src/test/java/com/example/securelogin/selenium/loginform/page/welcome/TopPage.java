@@ -1,0 +1,74 @@
+/*
+ * Copyright(c) 2013 NTT DATA Corporation. Copyright(c) 2013 NTT Corporation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+package com.example.securelogin.selenium.loginform.page.welcome;
+
+import static org.openqa.selenium.By.id;
+
+import org.openqa.selenium.By;
+import org.springframework.util.StringUtils;
+import org.terasoluna.gfw.tutorial.selenium.WebDriverOperations;
+
+import com.example.securelogin.selenium.loginform.page.AuthenticationRequiredPage;
+import com.example.securelogin.selenium.loginform.page.account.AccountInfoPage;
+import com.example.securelogin.selenium.loginform.page.login.LoginPage;
+import com.example.securelogin.selenium.loginform.page.unlock.UnlockPage;
+
+public class TopPage extends AuthenticationRequiredPage {
+
+    {
+        url = "/";
+    }
+
+    public TopPage(WebDriverOperations webDriverOperations,
+            String applicationContextURL) {
+        super(webDriverOperations, applicationContextURL);
+    }
+
+    public AccountInfoPage goToAccountInfoPage() {
+        webDriverOperations.click(id("info"));
+        waitDefaultInterval();
+        return new AccountInfoPage(webDriverOperations, applicationContextUrl);
+    }
+
+    public String getExpiredMessage() {
+        return webDriverOperations.getText(id("expiredMessage"));
+    }
+
+    public boolean existsExpiredMessage() {
+        return webDriverOperations.exists(By.id("expiredMessage"));
+    }
+
+    public String getLastLogin() {
+        return webDriverOperations.getText(id("lastLogin"));
+    }
+
+    public boolean isExpiredMessageShown() {
+        return existsExpiredMessage() && StringUtils.hasText(
+                getExpiredMessage());
+    }
+
+    public UnlockPage goToUnlockPage() {
+        webDriverOperations.click(id("unlock"));
+        waitDefaultInterval();
+        return new UnlockPage(webDriverOperations, applicationContextUrl);
+    }
+
+    public LoginPage logout() {
+        webDriverOperations.click(id("logout"));
+        waitDefaultInterval();
+        return new LoginPage(webDriverOperations, applicationContextUrl);
+    }
+}
