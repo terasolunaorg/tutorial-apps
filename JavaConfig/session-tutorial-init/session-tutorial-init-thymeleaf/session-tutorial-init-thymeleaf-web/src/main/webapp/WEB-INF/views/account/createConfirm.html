@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>Account Create Page</title>
+</head>
+<body>
+    <div class="container">
+
+        <form th:action="@{/account/create}" method="post">
+
+            <h3>Your account will be created with below information. Please  push "create" button if it's OK.</h3>
+            <table th:object="${accountCreateForm}">
+                <tr>
+                    <td><label for="name">name</label></td>
+                    <td id="name" th:text="*{name}"></td>
+                </tr>
+                <tr>
+                    <td><label for="email">e-mail</label></td>
+                    <td id="email" th:text="*{email}"></td>
+                </tr>
+                <tr>
+                    <td><label for="password">password</label></td>
+                    <td id="password">****</td>
+                </tr>
+                <tr>
+                    <td><label for="birthday">birthday</label></td>
+                    <td id="birthday" th:text="*{#dates.format(birthday, 'yyyy-MM-dd')}"></td>
+                </tr>
+                <tr>
+                    <td><label for="zip">zip</label></td>
+                    <td id="zip" th:text="*{zip}"></td>
+                </tr>
+                <tr>
+                    <td><label for="address">address</label></td>
+                    <td id="address" th:text="*{address}"></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" name="redoForm" id="back" value="back" />
+                        <input type="submit" id="create" value="create" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <form method="get" th:action="@{/account/create}">
+            <input type="submit" id="home" name="home" value="Login page" />
+        </form>
+    </div>
+</body>
+</html>

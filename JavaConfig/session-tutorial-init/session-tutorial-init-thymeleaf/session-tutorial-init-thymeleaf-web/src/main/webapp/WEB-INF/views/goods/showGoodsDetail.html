@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>Item List Page</title>
+</head>
+<body>
+
+    <div style="display: inline-flex">
+        welcome&nbsp;&nbsp; <span id="userName" sec:authentication="principal.account.name"></span>
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" id="logout" value="logout" />
+        </form>
+        <form method="get" th:action="@{/account/update}">
+            <input type="submit" name="form1" id="updateAccount" value="Account Update" />
+        </form>
+    </div>
+    <br>
+    <br>
+
+    <div class="container">
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <td id="name" th:text="${goods.name}"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td id="price" th:text="|&yen;${#numbers.formatInteger(goods.price, 1, 'COMMA')}|"></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td id="description" th:text="${goods.description}"></td>
+            </tr>
+        </table>
+
+        <form method="get" th:action="@{/goods}">
+            <input type="submit" id="home" value="home" />
+        </form>
+    </div>
+</body>
+</html>

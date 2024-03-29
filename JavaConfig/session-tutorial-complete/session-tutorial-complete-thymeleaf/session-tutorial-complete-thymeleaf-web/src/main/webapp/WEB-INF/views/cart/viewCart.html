@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>View Cart Page</title>
+</head>
+<body>
+
+    <div style="display: inline-flex">
+        welcome&nbsp;&nbsp; <span id="userName" sec:authentication="principal.account.name"></span>
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" id="logout" value="logout" />
+        </form>
+        <form method="get" th:action="@{/account/update}">
+            <input type="submit" name="form1" id="updateAccount" value="Account Update" />
+        </form>
+    </div>
+    <br>
+    <br>
+
+    <div>
+        <form method="post" th:action="@{/cart}" th:object="${cartForm}">
+            <div th:if="${cartForm != null}">
+                <span id="removedItemsIds.errors" th:errors="*{removedItemsIds}" class="error-messages"></span>
+            </div>
+            <div th:if="${resultMessages != null}" th:class="|alert alert-${resultMessages.type}|">
+                <ul>
+                    <li th:each="message : ${resultMessages}" th:text="${#messages.msgWithParams(message.code, message.args)}"></li>
+                </ul>
+            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Remove</th>
+                </tr>
+                <tr th:each="cartItem, status : ${@cart.cartItems}" th:object="${cartItem}">
+                    <td th:id="|itemName${status.index}|" th:text="*{goods.name}"></td>
+                    <td th:id="|itemPrice${status.index}|" th:text="|&yen;*{#numbers.formatInteger(goods.price, 1, 'COMMA')}|"></td>
+                    <td th:id="|itemQuantity${status.index}|" th:text="*{quantity}"></td>
+
+                    <td><input type="checkbox" name="removedItemsIds" th:id="|removedItemsIds${status.index}|" th:value="*{goods.id}" /></td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td id="totalPrice" th:text="|&yen;${#numbers.formatInteger(@cart.totalAmount, 1, 'COMMA')}|"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <input type="submit" id="remove" value="remove" />
+        </form>
+    </div>
+
+    <div style="display: inline-flex">
+        <form method="get" th:action="@{/order}">
+            <input type="submit" name="confirm" id="confirm" value="confirm your order" />
+        </form>
+        <form method="get" th:action="@{/goods}">
+            <input type="submit" id="home" value="home" />
+        </form>
+    </div>
+</body>
+</html>

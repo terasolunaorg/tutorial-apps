@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>Account Update Page</title>
+</head>
+<body>
+    <div class="container">
+
+        <h3>Your account has updated.</h3>
+        <table th:object="${account}">
+            <tr>
+                <td><label for="name">name</label></td>
+                <td id="name" th:text="*{name}"></td>
+            </tr>
+            <tr>
+                <td><label for="email">e-mail</label></td>
+                <td id="email" th:text="*{email}"></td>
+            </tr>
+            <tr>
+                <td><label for="birthday">birthday</label></td>
+                <td id="birthday" th:text="*{#dates.format(birthday, 'yyyy-MM-dd')}"></td>
+            </tr>
+            <tr>
+                <td><label for="zip">zip</label></td>
+                <td id="zip" th:text="*{zip}"></td>
+            </tr>
+            <tr>
+                <td><label for="address">address</label></td>
+                <td id="address" th:text="*{address}"></td>
+            </tr>
+            <tr>
+                <td><label for="cardNumber">your card number</label></td>
+                <td id="cardNumber" th:text="|****-****-****-*{lastFourOfCardNumber}|"></td>
+            </tr>
+            <tr>
+                <td><label for="cardExpirationDate">expiration date of your card</label></td>
+                <td id="cardExpirationDate" th:text="*{#dates.format(cardExpirationDate, 'yyyy-MM')}"></td>
+            </tr>
+            <tr>
+                <td><label for="cardSecurityCode">security code of your card</label></td>
+                <td id="cardSecurityCode" th:text="*{cardSecurityCode}"></td>
+            </tr>
+        </table>
+
+        <form method="get" th:action="@{/account/update}">
+            <input type="submit" name="home" id="home" value="home" />
+        </form>
+
+    </div>
+</body>
+</html>

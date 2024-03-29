@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8" />
+<title>Account Information</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Account Information</h1>
+        <img th:src="@{/accounts/image}" width="100" height="100"/>
+        <table th:object="${account}" >
+            <tr>
+                <th>Username</th>
+                <td th:text="*{username}"></td>
+            </tr>
+            <tr>
+                <th>First name</th>
+                <td th:text="*{firstName}"></td>
+            </tr>
+            <tr>
+                <th>Last name</th>
+                <td th:text="*{lastName}"></td>
+            </tr>
+            <tr>
+                <th>E-Mail</th>
+                <td th:text="*{email}"></td>
+            </tr>
+            <tr>
+                <th>URL</th>
+                <td th:text="*{url}"></td>
+            </tr>
+            <tr>
+                <th>Profile</th>
+                <td th:text="*{profile}"></td>
+            </tr>
+        </table>
+        <a id="changePassword" th:href="@{/password?form}">Change Password</a>
+        <br>
+        <a th:href="@{/}">Back to Top</a>
+    </div>
+</body>
+</html>

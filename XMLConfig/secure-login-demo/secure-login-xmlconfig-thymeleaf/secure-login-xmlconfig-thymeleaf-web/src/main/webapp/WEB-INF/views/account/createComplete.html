@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8" />
+<title>Create Account</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <h1 th:text="|Welcome ${firstName} ${lastName}|"></h1>
+        <h3>Your initial password is <span id=password th:text="${password}"></span>. Please login and change it.</h3>
+        <a th:href="@{/login}">Back to login page</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>Login Page</title>
+</head>
+<body>
+    <div id="wrapper">
+        <h3>Login with Username and Password</h3>
+
+        <div th:if="${resultMessages != null}" class="alert"
+            th:classappend="|alert-${resultMessages.type}|">
+            <ul>
+              <li th:each="message : ${resultMessages}"
+                  th:text="${#messages.msgWithParams(message.code, message.args)}"></li>
+            </ul>
+        </div>
+
+        <form th:action="@{/authenticate}" method="post">
+            <table>
+                <tr>
+                    <td><label for="email">E-mail</label></td>
+                    <td><label for="password">Password</label></td>
+
+                </tr>
+                <tr>
+                    <td><input type="text" id="email" name="email"></td>
+                    <td><input type="password" id="password" name="password" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input name="submit" type="submit" id="login" value="Login" /></td>
+                </tr>
+            </table>
+        </form>
+        Account create page is <a id="createAccount" th:href="@{/account/create?form}">here</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>Order Page</title>
+</head>
+<body>
+
+    <div style="display: inline-flex">
+        welcome&nbsp;&nbsp; <span id="userName" sec:authentication="principal.account.name"></span>
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" id="logout" value="logout" />
+        </form>
+        <form method="get" th:action="@{/account/update}">
+            <input type="submit" name="form1" id="updateAccount" value="Account Update" />
+        </form>
+    </div>
+    <br>
+    <br>
+
+    <div>
+
+        <h3>Below items will be ordered. Please push "order" button if it's OK.</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            <tr th:each="cartItem, status : ${@cart.cartItems}" th:object="${cartItem}">
+                <td th:id="|itemName${status.index}|" th:text="*{goods.name}"></td>
+                <td th:id="|itemPrice${status.index}|" th:text="|&yen;*{#numbers.formatInteger(goods.price, 1, 'COMMA')}|"></td>
+                <td th:id="|itemQuantity${status.index}|" th:text="*{quantity}"></td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td id="totalPrice" th:text="|&yen;${#numbers.formatInteger(@cart.totalAmount, 1, 'COMMA')}|"></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <table th:object="${account}">
+            <tr>
+                <td><label for="name">name</label></td>
+                <td id="name" th:text="*{name}"></td>
+            </tr>
+            <tr>
+                <td><label for="email">e-mail</label></td>
+                <td id="email" th:text="*{email}"></td>
+            </tr>
+            <tr>
+                <td><label for="zip">zip</label></td>
+                <td id="zip" th:text="*{zip}"></td>
+            </tr>
+            <tr>
+                <td><label for="address">address</label></td>
+                <td id="address" th:text="*{address}"></td>
+            </tr>
+            <tr>
+
+                <td>payment</td>
+                <td th:switch="*{cardNumber}">
+                    <span id="payment" th:case="null">cash</span>
+                    <span id="payment" th:case="*" th:text="|card (card number : ****-****-****-*{lastFourOfCardNumber})|"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="display: inline-flex">
+        <form method="post" th:action="@{/order}">
+            <input type="hidden" name="signature" th:value="${signature}" />
+            <input type="submit" id="order" value="order" />
+        </form>
+        <form method="get" th:action="@{/cart}">
+            <input type="submit" id="back" value="back" />
+        </form>
+    </div>
+    <div>
+        <form method="get" th:action="@{/goods}">
+            <input type="submit" id="home" value="home" />
+        </form>
+    </div>
+</body>
+</html>

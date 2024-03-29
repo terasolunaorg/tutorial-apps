@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Todo List</title>
+<link rel="stylesheet"
+    href="../../../resources/app/css/styles.css" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <h1>Todo List</h1>
+    <div id="todoForm">
+        <div th:if="${resultMessages} != null" class="alert alert-success" th:class="|alert alert-${resultMessages.type}|">
+            <ul>
+                <li th:each="message : ${resultMessages}" th:text="${message.text}">Created successfully!</li>
+            </ul>
+        </div>
+        <form action="/todo/create" th:action="@{/todo/create}" method="post">
+            <input type="text" th:field="${todoForm.todoTitle}" />
+            <span id="todoTitle.errors" th:errors="${todoForm.todoTitle}" class="text-error">size must be between 1 and 30</span>
+            <button>Create Todo</button>
+        </form>
+    </div>
+    <hr />
+    <div id="todoList">
+        <ul th:remove="all-but-first">
+            <li th:each="todo : ${todos}">
+                <span th:class="${todo.finished} ? 'strike'" th:text="${todo.todoTitle}">Send a e-mail</span>
+                <form th:if="${!todo.finished}" action="/todo/finish" th:action="@{/todo/finish}"
+                    method="post" class="inline">
+                    <input type="hidden" name="todoId" th:value="${todo.todoId}" />
+                    <button>Finish</button>
+                </form>
+                <form action="/todo/delete" th:action="@{/todo/delete}"
+                    method="post" class="inline">
+                    <input type="hidden" name="todoId" th:value="${todo.todoId}" />
+                    <button>Delete</button>
+                </form>
+            </li>
+            <li>
+                <span>Have a lunch</span>
+                <form action="/todo/finish" method="post" class="inline">
+                    <button>Finish</button>
+                </form>
+                <form action="/todo/delete" method="post" class="inline">
+                    <button>Delete</button>
+                </form>
+            </li>
+            <li>
+                <span class="strike">Read a book</span>
+                <form action="/todo/delete" method="post" class="inline">
+                    <button>Delete</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

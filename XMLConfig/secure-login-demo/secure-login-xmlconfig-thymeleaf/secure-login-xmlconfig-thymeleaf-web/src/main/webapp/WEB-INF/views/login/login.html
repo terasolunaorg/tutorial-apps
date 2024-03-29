@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="utf-8">
+<title>Login Page</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <h3>Login with Username and Password</h3>
+        <div th:if="${param.keySet().contains('error')}" id="loginError"
+            th:with="exception=${SPRING_SECURITY_LAST_EXCEPTION} ?: ${session[SPRING_SECURITY_LAST_EXCEPTION]}">
+            <div th:if="${exception != null}" class="alert alert-error">
+            <span th:text="${exception.message}"></span>
+            </div>
+        </div>
+        <form th:action="@{/login}" method="POST">
+            <table>
+                <tr>
+                    <td><label for="username">User:</label></td>
+                    <td><input type="text" id="username" name="username" value='demo'>(demo)</td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td><input type="password" id="password" name="password" value='demo'>(demo)</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input id="login" name="submit" type="submit" value="login" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><a id="create" th:href="@{/accounts/create?form}">Create new account</a></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><a id="forgotten" th:href="@{/reissue/create?form}">I've forgotten my password</a></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

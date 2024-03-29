@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>Account Create Page</title>
+</head>
+<body>
+
+    <div class="container">
+        <form th:action="@{/account/create}" method="post" th:object="${accountCreateForm}">
+
+            <h2>Account Create Page</h2>
+            <table>
+                <tr>
+                    <td><label for="name" name="name" th:errorclass="error-label">name</label></td>
+                    <td><input type="text" th:field="*{name}" th:errorclass="error-input" />
+                        <span id="name-errors" th:errors="*{name}" class="error-messages"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="email" name="email" th:errorclass="error-label">e-mail</label></td>
+                    <td><input type="text" th:field="*{email}" th:errorclass="error-input" />
+                        <span id="email-errors" th:errors="*{email}" class="error-messages"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="password" name="password" th:errorclass="error-label">password</label></td>
+                    <td><input type="password" th:field="*{password}" th:errorclass="error-input" />
+                        <span id="password-errors" th:errors="*{password}" class="error-messages"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="confirmPassword" name="confirmPassword" th:errorclass="error-label">password (confirm)</label></td>
+                    <td><input type="password" th:field="*{confirmPassword}" th:errorclass="error-input" />
+                        <span id="confirmPassword-errors" th:errors="*{confirmPassword}" class="error-messages"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="birthday" name="birthday" th:errorclass="error-label">birthday</label></td>
+                    <td><input type="date" id="birthday" name="birthday" th:attr="value=*{#dates.format(birthday, 'yyyy-MM-dd')}">
+                        <span id="birthday-errors" th:errors="*{birthday}" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <td><label for="zip" name="zip" th:errorclass="error-label">zip</label></td>
+                    <td><input type="text" th:field="*{zip}" th:errorclass="error-input" />
+                        <span id="zip-errors" th:errors="*{zip}" class="error-messages"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="address" name="address" th:errorclass="error-label">address</label></td>
+                    <td><input type="text" th:field="*{address}" th:errorclass="error-input" />
+                        <span id="address-errors" th:errors="*{address}" class="error-messages"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" name="confirm" id="confirm" value="confirm" /></td>
+                </tr>
+            </table>
+        </form>
+
+        <form method="get" action="${pageContext.request.contextPath}/account/create">
+            <input type="submit" name="home" id="home" value="Login page" />
+        </form>
+    </div>
+</body>
+</html>

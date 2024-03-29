@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8" />
+<title>Password Reissue URL is generated</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Your Password Reissue URL was successfully generated.</h1>
+        The URL was sent to your registered E-mail address.<br /> Please
+        access the URL and enter the secret shown below.
+        <h3>Secret : <span id=secret th:text="${secret}"></span></h3>
+    </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8" />
+<title>Create Account</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}" >
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Create Account</h1>
+        <div th:if="${resultMessages} != null" id="expiredMessage"
+            th:class="|alert alert-${resultMessages.type}|">
+            <ul>
+                <li th:each="message : ${resultMessages}"
+                    th:text="${message.code} != null ? ${#messages.msgWithParams(message.code, message.args)} : ${message.text}"></li>
+            </ul>
+        </div>
+        <form th:action="@{/accounts/create}"
+            method="POST" th:object="${accountCreateForm}"
+            enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <td><input th:field="*{username}"/></td>
+                    <td><span th:errors="*{username}" id="username.errors" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <th>First name</th>
+                    <td><input th:field="*{firstName}"/></td>
+                    <td><span th:errors="*{firstName}" id="firstName.errors" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <th>Last name</th>
+                    <td><input th:field="*{lastName}" /></td>
+                    <td><span th:errors="*{lastName}" id="lastName.errors" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td><input th:field="*{email}" /></td>
+                    <td><span th:errors="*{email}" id="email.errors" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <th>E-mail(Confirmation)</th>
+                    <td><input th:field="*{confirmEmail}" /></td>
+                    <td><span th:errors="*{confirmEmail}" id="confirmEmail.errors" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <th>URL</th>
+                    <td><input th:field="*{url}" /></td>
+                    <td><span th:errors="*{url}" id="url.errors" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td><input type="file" th:field="*{image}" /></td>
+                    <td><span th:errors="*{image}" id="image.errors" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <th>Profile</th>
+                    <td><textarea th:field="*{profile}"></textarea></td>
+                    <td><span th:errors="*{profile}" id="profile.errors" class="error-messages"></span></td>
+                </tr>
+            </table>
+
+            <input type="submit" id="confirm" name="confirm"
+                value="Go to confirmation page" />
+        </form>
+        <a th:href="@{/login}">Back to login page</a>
+    </div>
+</body>
+</html>

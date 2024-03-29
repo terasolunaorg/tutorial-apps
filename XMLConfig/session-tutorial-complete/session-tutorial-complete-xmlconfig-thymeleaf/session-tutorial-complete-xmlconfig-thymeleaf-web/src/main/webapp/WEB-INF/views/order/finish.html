@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>Order Page</title>
+</head>
+<body>
+
+    <div style="display: inline-flex">
+        welcome&nbsp;&nbsp; <span id="userName" sec:authentication="principal.account.name"></span>
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" id="logout" value="logout" />
+        </form>
+        <form method="get" th:action="@{/account/update}">
+            <input type="submit" name="form1" id="updateAccount" value="Account Update" />
+        </form>
+    </div>
+    <br>
+    <br>
+
+    <div>
+
+        <h3>Your order has been accepted</h3>
+        <table>
+            <tr>
+                <td><label for="orderNumber">order number</label></td>
+                <td id="orderNumber" th:text="${order.id}"></td>
+            </tr>
+            <tr>
+                <td><label for="orderDate">order date</label></td>
+                <td id="orderDate" th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd　hh:mm:ss')}"></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            <tr th:each="orderLine, status : ${order.orderLines}" th:object="${orderLine}">
+                <td th:id="|itemName${status.index}|" th:text="*{goods.name}"></td>
+                <td th:id="|itemPrice${status.index}|" th:text="|&yen;*{#numbers.formatInteger(goods.price, 1, 'COMMA')}|"></td>
+                <td th:id="|itemQuantity${status.index}|" th:text="*{quantity}"></td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td id="totalPrice" th:text="|&yen;${#numbers.formatInteger(order.totalAmount, 1, 'COMMA')}|"></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <form method="get" th:action="@{/goods}">
+            <input type="submit" id="home" value="home" />
+        </form>
+    </div>
+</body>
+</html>

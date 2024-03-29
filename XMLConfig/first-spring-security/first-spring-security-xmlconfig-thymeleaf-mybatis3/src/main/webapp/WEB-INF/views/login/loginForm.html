@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login Page</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <h3>Login with Username and Password</h3>
+        
+        <!--/* (1) */-->
+        <div th:if="${param.containsKey('error')}"
+        th:with="exception = ${SPRING_SECURITY_LAST_EXCEPTION} ?: ${session[SPRING_SECURITY_LAST_EXCEPTION]}"> <!--/* (2) */-->
+            <ul th:if="${exception != null}" class="alert alert-error">
+                <li th:text="${exception.message}"></li>
+            </ul>
+        </div>
+        
+        <!--/* (3) */-->
+        <form th:action="@{/login}" method="post">
+            <table>
+                <tr>
+                    <td><label for="username">User:</label></td>
+                    <td><input type="text" id="username"
+                        name="username" value="demo">(demo)</td> <!--/* (4) */-->
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td><input type="password" id="password"
+                        name="password" value="demo">(demo)</td> <!--/* (5) */-->
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input name="submit" type="submit" value="Login"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

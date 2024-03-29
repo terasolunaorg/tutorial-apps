@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>Account Update Page</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <form th:action="@{/account/update}" method="post" th:object="${accountUpdateForm}">
+
+            <h2>Account Update Page 2/2</h2>
+            <table>
+                <tr>
+                    <td><label for="cardNumber" name="cardNumber" th:errorclass="error-label">your card number</label></td>
+                    <td><input type="text" th:field="*{cardNumber}" th:errorclass="error-input" />
+                        <span id="cardNumber-errors" th:errors="*{cardNumber}" class="error-messages"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="cardExpirationDate" name="cardExpirationDate"
+                            th:errorclass="error-label">expiration date of your card</label></td>
+                    <td><input type="month" name="cardExpirationDate" id="cardExpirationDate"
+                            th:value="${#dates.format(accountUpdateForm.cardExpirationDate, 'yyyy-MM')}">
+                        <span id="cardExpirationDate-errors" th:errors="*{cardExpirationDate}" class="error-messages"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="cardSecurityCode" name="cardSecurityCode"
+                            th:errorclass="error-label">security code of your card</label>
+                    </td>
+                    <td><input type="text" th:field="*{cardSecurityCode}" th:errorclass="error-input" />
+                        <span id="cardSecurityCode-errors" th:errors="*{cardSecurityCode}" class="error-messages"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" name="redoForm1" id="back" value="back" />
+                        <input type="submit" name="confirm" id="confirm" value="confirm" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <form method="get" th:action="@{/account/update}">
+            <input type="submit" name="home" id="home" value="home" />
+        </form>
+    </div>
+</body>
+</html>

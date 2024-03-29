@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>Item List Page</title>
+</head>
+<body>
+
+    <div style="display: inline-flex">
+        welcome&nbsp;&nbsp; <span id="userName" sec:authentication="principal.account.name"></span>
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" id="logout" value="logout" />
+        </form>
+        <form method="get" th:action="@{/account/update}">
+            <input type="submit" name="form1" id="updateAccount" value="Account Update" />
+        </form>
+    </div>
+    <br>
+    <br>
+
+    <div class="container">
+        <p>select a category</p>
+
+        <form method="get" th:action="@{/goods}" th:object="${goodViewForm}">
+            <select th:field="*{categoryId}">
+                <option th:each="category : ${CL_CATEGORIES}" th:value="${category.key}" th:text="${category.value}"></option>
+            </select>
+            <input type="submit" id="update" value="update" />
+        </form>
+        <br />
+        <div th:if="${resultMessages != null}" th:class="|alert alert-${resultMessages.type}|">
+            <ul>
+                <li th:each="message : ${resultMessages}" th:text="${#messages.msgWithParams(message.code, message.args)}"></li>
+            </ul>
+        </div>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            <tr th:each="goods, status : ${page.content}">
+                <td><a th:id="${goods.name}" th:href="@{/goods/{id}(id=${goods.id})}" th:text="${goods.name}"></a></td>
+                <td th:text="|&yen;${#numbers.formatInteger(goods.price, 1, 'COMMA')}|"></td>
+            </tr>
+        </table>
+        <div class="paginationPart" th:object="${page}">
+            <ul th:if="*{totalElements} != 0" class="pagination"
+                th:with="disabledHref = 'javascript:void(0)', currentUrl = ${requestURI}">
+                <li th:class="*{isFirst()} ? 'disabled'">
+                    <a th:href="*{isFirst()} ? ${disabledHref} : @{{currentUrl}(currentUrl=${currentUrl},page=0,size=*{size})}">&lt;&lt;</a>
+                </li>
+                <li th:class="*{isFirst()} ? 'disabled'">
+                    <a th:href="*{isFirst()} ? ${disabledHref} : @{{currentUrl}(currentUrl=${currentUrl},page=*{number - 1},size=*{size})}">&lt;</a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(1, page.totalPages)}"
+                    th:with="isActive=${i} == *{number + 1}" th:class="${isActive} ? 'active'">
+                    <a th:href="${isActive} ? ${disabledHref} : @{{currentUrl}(currentUrl=${currentUrl},page=${i - 1},size=*{size})}" th:text="${i}"></a>
+                </li>
+                <li th:class="*{isLast()} ? 'disabled'">
+                    <a th:href="*{isLast()} ? ${disabledHref} : @{{currentUrl}(currentUrl=${currentUrl},page=*{number + 1},size=*{size})}">&gt;</a>
+                </li>
+                <li th:class="*{isLast()} ? 'disabled'">
+                    <a th:href="*{isLast()} ? ${disabledHref} : @{{currentUrl}(currentUrl=${currentUrl},page=*{totalPages - 1},size=*{size})}">&gt;&gt;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <p>
+            [[${#numbers.formatInteger(page.totalElements, 1, 'COMMA')}]] results <br>
+            [[${page.number + 1}]] / [[${page.totalPages}]] Pages
+        </p>
+    </div>
+
+</body>
+</html>

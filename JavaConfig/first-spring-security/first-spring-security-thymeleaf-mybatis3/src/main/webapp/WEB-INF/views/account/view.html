@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Account Information</h1>
+        <table th:object="${account}">
+            <tr>
+                <th>Username</th>
+                <td th:text="*{username}"></td>
+            </tr>
+            <tr>
+                <th>First name</th>
+                <td th:text="*{firstName}"></td>
+            </tr>
+            <tr>
+                <th>Last name</th>
+                <td th:text="*{lastName}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8" />
+<title>Create Account</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Create Account</h1>
+        <form
+            th:action="@{/accounts/create}" method="POST"
+            th:object="${accountCreateForm}">
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <td th:text="*{username}"></td>
+                    <td><input type="hidden" th:field="*{username}"/></td>
+                </tr>
+                <tr>
+                    <th>First name</th>
+                    <td th:text="*{firstName}"></td>
+                    <td><input type="hidden" th:field="*{firstName}"/></td>
+                </tr>
+                <tr>
+                    <th>Last name</th>
+                    <td th:text="*{lastName}"></td>
+                    <td><input type="hidden" th:field="*{lastName}"/></td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td th:text="*{email}"></td>
+                    <td><input type="hidden" th:field="*{email}"/></td>
+                    <td><input type="hidden" th:field="*{confirmEmail}"/></td>
+                </tr>
+                <tr>
+                    <th>URL</th>
+                    <td th:text="*{url}"></td>
+                    <td><input type="hidden" th:field="*{url}"/></td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td th:text="*{image.originalFilename}"></td>
+                </tr>
+                <tr>
+                    <th>Profile</th>
+                    <td th:text="*{profile}"></td>
+                    <td><input type="hidden" th:field="*{profile}"/></td>
+                    <td><input type="hidden" th:field="*{imageId}"/></td>
+                </tr>
+            </table>
+            <input type="submit" id="redo" name="redo" value="Back" />
+            <input type="submit" id="create" value="Create new account"/>
+        </form>
+    </div>
+</body>
+</html>

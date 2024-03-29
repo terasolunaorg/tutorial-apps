@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8" />
+<title>Unlock Account</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Unlock Account</h1>
+        <div th:if="${resultMessages} != null" id="expiredMessage"
+            th:class="|alert alert-${resultMessages.type}|">
+            <ul>
+                <li th:each="message : ${resultMessages}"
+                    th:text="${message.code} != null ? ${#messages.msgWithParams(message.code, message.args)} : ${message.text}"></li>
+            </ul>
+        </div>
+        <form th:action="@{/unlock}"
+            method="POST" th:object="${unlockForm}">
+            <table>
+                <tr>
+                    <th><label for="username" name="username" th:errorclass="error-label">Username</label>
+                    </th>
+                    <td><input th:field="*{username}" th:errorclass="error-input"/></td>
+                    <td th:errors="*{username}" class="error-messages"></td>
+                </tr>
+            </table>
+            <input id="submit" type="submit" value="Unlock" />
+        </form>
+        <a th:href="@{/}">go to Top</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<title th:text="${#messages.msgOrNull('title.welcome.home')} ?: _">Home</title>
+<link rel="stylesheet"
+    href="../../../resources/app/css/styles.css" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <div th:if="${resultMessages} != null" id="expiredMessage"
+            th:class="|alert alert-${resultMessages.type}|">
+            <ul>
+                <li th:each="message : ${resultMessages}"
+                    th:text="${#messages.msgWithParams(message.code, message.args)}"></li>
+            </ul>
+        </div>
+        <h1 id="title">Hello world!</h1>
+
+        <p th:text="|Welcome ${account.firstName} ${account.lastName}|"></p>
+        
+        <p id="lastLogin" th:if="${lastLoginDate} !=null"
+            th:text="|Last login date is ${lastLoginDate}.|" ></p>
+
+        <div>
+            <a id="info" th:href="@{/accounts}">
+                Account Information
+            </a>
+        </div>
+
+        <div sec:authorize="hasRole('ADMIN')">
+            <a id="unlock" th:href="@{/unlock?form}">
+                Unlock Account
+            </a>
+        </div>
+
+        <form th:action="@{/logout}" method="POST">
+            <button id="logout">Logout</button>
+        </form>
+    </div>
+</body>
+</html>
