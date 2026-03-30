@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8" />
+<title>Change Password</title>
+<link rel="stylesheet" th:href="@{/resources/app/css/styles.css}">
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Change Password</h1>
+        <form th:action="@{/password}"
+            method="POST" th:object="${passwordChangeForm}">
+            <table>
+                <tr>
+                    <th><label for="username">Username</label></th>
+                    <td th:text="${account.username}">
+                    </td>
+                    <td><input type="hidden" id="username" name="username" th:value="${account.username}"/></td>
+                </tr>
+                <tr>
+                    <th><label for="oldPassword" name="oldPassword" th:errorclass="error-label">Old password</label>
+                    </th>
+                    <td><input type="password" th:field="*{oldPassword}"
+                            th:errorclass="error-input" /></td>
+                    <td><span th:errors="*{oldPassword}" id="oldPassword.errors" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <th><label for="newPassword" name="newPassword" th:errorclass="error-label">New password</label>
+                    </th>
+                    <td><input type="password" th:field="*{newPassword}"
+                            th:errorclass="error-input" /></td>
+                    <td><span th:errors="*{newPassword}" id="newPassword.errors" class="error-messages"></span></td>
+                </tr>
+                <tr>
+                    <th><label for="confirmNewPassword" name="confirmNewPassword"
+                            th:errorclass="error-label">New password(Confirm)</label></th>
+                    <td><input type="password"  th:field="*{confirmNewPassword}"
+                            th:errorclass="error-input"/></td>
+                    <td th:errors="*{confirmNewPassword}"
+                            class="error-messages" /></td>
+                </tr>
+            </table>
+            <input id="submit" type="submit" value="Change password" />
+        </form>
+    </div>
+</body>
+</html>
