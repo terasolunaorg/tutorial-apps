@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\tthread:%thread\tX-Track:%replace(%X{X-Track}){'[\p{IsControl}&&[^\t\r\n]]','<CTRL>'}\tlevel:%-5level\tlogger:%-48logger{48}\tmessage:%replace(%replace(%msg){'[\p{IsControl}&&[^\t\r\n]]','<CTRL>'}){'(\r\n|\r|\n)','$1  '}%n%replace(%replace(%replace(%xEx){'[\p{IsControl}&&[^\t\r\n]]','<CTRL>'}){'(\r\n|\r|\n)','$1  '}){'  $',''}%nopex]]></pattern>
+        </encoder>
+    </appender>
+
+    <appender name="APPLICATION_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${app.log.dir:-log}/session-tutorial-complete-xmlconfig-thymeleaf-application.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${app.log.dir:-log}/session-tutorial-complete-xmlconfig-thymeleaf-application-%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\tthread:%thread\tX-Track:%replace(%X{X-Track}){'[\p{IsControl}&&[^\t\r\n]]','<CTRL>'}\tlevel:%-5level\tlogger:%-48logger{48}\tmessage:%replace(%replace(%msg){'[\p{IsControl}&&[^\t\r\n]]','<CTRL>'}){'(\r\n|\r|\n)','$1  '}%n%replace(%replace(%replace(%xEx){'[\p{IsControl}&&[^\t\r\n]]','<CTRL>'}){'(\r\n|\r|\n)','$1  '}){'  $',''}%nopex]]></pattern>
+        </encoder>
+    </appender>
+
+    <appender name="MONITORING_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${app.log.dir:-log}/session-tutorial-complete-xmlconfig-thymeleaf-monitoring.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${app.log.dir:-log}/session-tutorial-complete-xmlconfig-thymeleaf-monitoring-%d{yyyyMMdd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\tX-Track:%replace(%X{X-Track}){'[\p{IsControl}&&[^\t\r\n]]','<CTRL>'}\tlevel:%-5level\tmessage:%replace(%replace(%msg){'[\p{IsControl}&&[^\t\r\n]]','<CTRL>'}){'(\r\n|\r|\n)','$1  '}%n%replace(%replace(%replace(%xEx){'[\p{IsControl}&&[^\t\r\n]]','<CTRL>'}){'(\r\n|\r|\n)','$1  '}){'  $',''}%nopex]]></pattern>
+        </encoder>
+    </appender>
+
+    <!-- Application Loggers -->
+    <logger name="com.example.session" level="debug" />
+
+    <logger name="com.example.session.domain.repository" level="trace" />
+
+    <!-- TERASOLUNA -->
+    <logger name="org.terasoluna.gfw" level="info" />
+    <logger name="org.terasoluna.gfw.web.logging.TraceLoggingInterceptor" level="trace" />
+    <logger name="org.terasoluna.gfw.common.exception.ExceptionLogger" level="info" />
+    <logger name="org.terasoluna.gfw.common.exception.ExceptionLogger.Monitoring" additivity="false" level="error">
+        <appender-ref ref="MONITORING_LOG_FILE" />
+    </logger>
+
+    <!-- 3rdparty Loggers -->
+    <logger name="org.springframework" level="warn" />
+
+    <logger name="org.springframework.web.servlet" level="info" />
+
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="trace" />
+
+    <logger name="org.springframework.jdbc.core.JdbcTemplate" level="trace" />
+
+    <!--  REMOVE THIS LINE IF YOU USE JPA
+    <logger name="org.hibernate.SQL" additivity="true" level="debug" />
+    <logger name="org.hibernate.orm.jdbc.bind" level="trace" />
+    <logger name="org.hibernate.engine.transaction" level="debug" />
+          REMOVE THIS LINE IF YOU USE JPA  -->
+    <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="debug" />
+
+    <root level="warn">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="APPLICATION_LOG_FILE" />
+    </root>
+
+</configuration>
