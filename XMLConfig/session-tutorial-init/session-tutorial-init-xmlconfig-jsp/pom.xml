@@ -176,7 +176,7 @@
   </dependencyManagement>
   <properties>
     <!-- == Dependency Versions == -->
-    <bootstrap.version>3.2.0</bootstrap.version>
+    <bootstrap.version>5.0.0</bootstrap.version>
     <postgresql.version>42.7.9</postgresql.version>
     <ojdbc.version>23.26.0.0.0</ojdbc.version>
     <!-- == Project Properties == -->
